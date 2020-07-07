@@ -453,7 +453,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
           page: newPage
         }
       })
-      this.searchAppointmentQueue()
+      this.searchDepartmentRevenueList()
     }
 
     handlePageChange = async newPage => {
@@ -911,7 +911,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                 departmentRevenueErrorMessage: departmentRevenueGeneratedErrorMessage,
                 totalRecords: departmentTotalRecords,
                 queryParams: departmentQueryParams,
-                handlePageChange: this.handleDoctorRevenuePageChange,
+                handlePageChange: this.handlePageChangeForDeparmentRevenue,
                 hospitalDepartmentId: departmentRevenue.hospitalDepartmentId,
                 handleDepartmentChange: this.handleDepartmentChange,
                 departmentDropdown: activeHospitalDepartmentForDropdown,

@@ -80,10 +80,13 @@ const serviceType = {
 }
 
 export const filterAppointmentServiceType = (appointmentSeviceType, type) => {
+ if(appointmentSeviceType.value){
   if (appointmentSeviceType.value === serviceType[type]) {
     return true
   }
   return false
+}
+return false
 }
 
 export const getPrimaryServiceType = () => {

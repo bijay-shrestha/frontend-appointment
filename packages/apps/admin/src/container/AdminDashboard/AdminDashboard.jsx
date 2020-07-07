@@ -12,6 +12,7 @@ import {checkDashboardRole} from '@frontend-appointment/helpers'
 import CheckDashboardRole from '../CommonComponents/CheckDashBoardRoleComponent'
 import AppointmentServiceDropdown from './AppointmentServiceDropdown'
 //import {CHybridSelectWithImage} from '@frontend-appointment/ui-elements'
+import DepartmentRevenueList from './DepartmentRevenueList'
 const AdminDashboard = props => {
   const AdminDash = AdminDashboardHoc(
     ({
@@ -30,7 +31,8 @@ const AdminDashboard = props => {
       //specializationListHospitalWise,
       appointmentServiceTypeList,
       appointmentServiceTypeCode,
-      handleAppointmentServiceTypeChange
+      handleAppointmentServiceTypeChange,
+      departmentRevenue
     }) => {
       const RevenuStats = (
         <CheckDashboardRole
@@ -117,7 +119,17 @@ const AdminDashboard = props => {
               <CheckDashboardRole
                 component={
                   <Col md={6} className="pr-0">
-                    <DoctorRevenueList doctorRevenue={doctorRevenue} />
+                    {appointmentServiceTypeCode.value === 'DOC' ? (
+                      <DoctorRevenueList
+                        doctorRevenue={doctorRevenue}
+                        code={doctorRevenue.code}
+                      />
+                    ) : (
+                      <DepartmentRevenueList
+                        departmentRevenue={departmentRevenue}
+                        code={departmentRevenue.code}
+                      />
+                    )}
                   </Col>
                 }
                 code={doctorRevenue.code}
@@ -131,6 +143,7 @@ const AdminDashboard = props => {
                     <AppointmentQueue
                       appointmentQueue={appointmentQueue}
                       hospitalId={hospitalId}
+                      appointmentServiceTypeCode={appointmentServiceTypeCode}
                     />
                   </Col>
                 }
