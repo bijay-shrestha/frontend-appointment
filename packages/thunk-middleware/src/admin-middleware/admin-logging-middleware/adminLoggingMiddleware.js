@@ -10,6 +10,7 @@ const LOG_BASE = EnvironmentVariableGetter.LOGGING_BASE || '';
 const BASE_DOMAIN =
   process.env.NODE_ENV==="development" ? LOGGING_DOMAIN + LOG_BASE
     : LOGGING_DOMAIN;
+console.log("BASE_DOMAIN :: ", BASE_DOMAIN);
 export const fetchAdminLog = (
   path,
   queryParams,
