@@ -27,24 +27,25 @@ const ConfirmationModal = props => {
         }
         footerChildren={
           <>
-            <CButton
-              variant="primary"
-              size="lg"
-              name={'Confirm'}
-              className="float-right"
-              isLoading={!boolFlagForCloneAndAdd && isAddLoading}
-              disabled={isAddLoading}
-              onClickHandler={onConfirmClick}
-            />
-            <CButton
-              variant="primary"
+           <CButton
+              variant="light"
               size="lg"
               name={'Clone And Add'}
-              className="float-right"
+              className="btn-action float-right"
               isLoading={boolFlagForCloneAndAdd && isAddLoading}
               disabled={isAddLoading}
               onClickHandler={isCloneAndAdd}
             />
+            <CButton
+              variant="primary"
+              size="lg"
+              name={'Confirm'}
+              className="btn-action float-right"
+              isLoading={!boolFlagForCloneAndAdd && isAddLoading}
+              disabled={isAddLoading}
+              onClickHandler={onConfirmClick}
+            />
+           
           </>
         }
         onHide={setShowConfirmModal}
