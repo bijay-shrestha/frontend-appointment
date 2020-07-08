@@ -868,7 +868,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                 })
             } finally {
                 await this.searchAppointment()
-                // this.setShowModal()
+                this.setShowModal()
             }
         }
 
