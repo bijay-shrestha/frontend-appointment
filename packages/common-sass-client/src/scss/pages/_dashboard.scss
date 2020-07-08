@@ -91,10 +91,10 @@
 
           
 
-            .css-1pahdxg-control{
+            .css-1pahdxg-control,.css-1fhf3k1-control{
                 border-color:transparent !important;
                 border-bottom:1px solid $gray-500 !important;
-                background-color:transparent;
+                background-color:transparent !important;
                 @include border-radius(0);
                 &:hover{
                     border-color:transparent !important;
