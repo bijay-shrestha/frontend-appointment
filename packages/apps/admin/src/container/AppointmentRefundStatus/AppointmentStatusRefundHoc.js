@@ -6,7 +6,8 @@ import {
   HmacMiddleware,
   HospitalSetupMiddleware,
   PatientDetailsMiddleware,
-  SpecializationSetupMiddleware
+  SpecializationSetupMiddleware,
+  AppointmentModeMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {
   AdminModuleAPIConstants,
@@ -37,6 +38,7 @@ const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
 const {
   fetchSpecializationHospitalWiseForDropdown
 } = SpecializationSetupMiddleware
+const {fetchActiveAppointmentModeForDropdown} = AppointmentModeMiddleware
 const {fetchPatientMetaDropdown} = PatientDetailsMiddleware
 const AppointRefundHOC = (ComposedComponent, props, type) => {
   const {
@@ -58,7 +60,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         patientMetaInfoId: '',
         doctorId: '',
         patientType: '',
-        specializationId: ''
+        specializationId: '',
+        appointmentModeId:'',
+        esewaId:''
       },
       remarks: '',
       queryParams: {
@@ -105,7 +109,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     }
 
     searchAppointmentModeForDropdown = async () => {
-      
+      this.props.fetchActiveAppointmentModeForDropdown(
+        AdminModuleAPIConstants.appointmentModeApiConstants.FETCH_APPOINTMENT_MODE_FOR_DROPDOWN
+      )
     }
 
     searchAppointment = async page => {
@@ -117,7 +123,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         patientMetaInfoId,
         patientType,
         specializationId,
-        doctorId
+        doctorId,
+        appointmentModeId,
+        esewaId
       } = this.state.searchParameters
       let searchData = {
         appointmentNumber,
@@ -127,7 +135,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         patientMetaInfoId: patientMetaInfoId.value || '',
         patientType: patientType.value || '',
         specializationId: specializationId.value || '',
-        doctorId: doctorId.value || ''
+        doctorId: doctorId.value || '',
+        appointmentModeId:appointmentModeId.value || '',
+        esewaId
       }
 
       let updatedPage =
@@ -204,7 +214,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           patientMetaInfoId: '',
           patientType: '',
           specializationId: '',
-          doctorId: ''
+          doctorId: '',
+          appointmentModeId:'',
+          esewaId:''
         }
       })
       this.searchAppointment()
@@ -566,6 +578,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     async componentDidMount () {
       await this.searchAppointment()
       await this.searchHospitalForDropDown()
+      await this.searchAppointmentModeForDropdown()
     }
 
     render () {
@@ -594,6 +607,11 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         refundRejectError
         // isRefundLoading
       } = this.props.AppointmentRefundRejectReducer
+
+      const {
+         activeAppointmentModeForDropdown
+      } = this.props.AppointmentModeDropdownReducer
+
       const {
         activeDoctorsByHospitalForDropdown,
         doctorDropdownErrorMessage
@@ -629,7 +647,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
               specializationDropdownErrorMessage: dropdownErrorMessage,
               searchParameters: searchParameters,
               patientListDropdown: patientList,
-              patientDropdownErrorMessage: patientDropdownErrorMessage
+              patientDropdownErrorMessage: patientDropdownErrorMessage,
+              activeAppointmentModeForDropdown
             }}
             paginationProps={{
               queryParams: queryParams,
@@ -697,7 +716,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       'DoctorDropdownReducer',
       'HospitalDropdownReducer',
       'PatientDropdownListReducer',
-      'AppointmentRefundDetailReducer'
+      'AppointmentRefundDetailReducer',
+      'AppointmentModeDropdownReducer'
     ],
     {
       clearAppointmentRefundPending,
@@ -713,7 +733,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       fetchAppointmentRefundDetailByAppointmentId,
       clearAppointmentRefundDetailMessage,
       thirdPartyApiCallRefund,
-      fetchHmacTokenByAppointmentId
+      fetchHmacTokenByAppointmentId,
+      fetchActiveAppointmentModeForDropdown
     }
   )
 }

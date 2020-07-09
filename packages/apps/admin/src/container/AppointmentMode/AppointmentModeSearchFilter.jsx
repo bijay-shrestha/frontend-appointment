@@ -118,7 +118,7 @@ class AppointmentModeSearchFilter extends PureComponent {
                         size="sm"
                         className=" btn-action mr-2"
                         name="Close"
-                        onClickHandler={t + his.toggleSearchForm}
+                        onClickHandler={this.toggleSearchForm}
                       />
                       <CButton
                         id="search-alias"

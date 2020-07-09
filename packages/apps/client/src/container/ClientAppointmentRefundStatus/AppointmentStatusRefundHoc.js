@@ -273,10 +273,6 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
 
     callApiForHospitalChange = async () => {
       // await this.handleHospitalChangeReset()
-      this.props.fetchActiveAppointmentModeForDropdown(
-        appointmentModeApiConstants.FETCH_APPOINTMENT_MODE_FOR_DROPDOWN
-      )
-
       this.props.fetchActiveDoctorsForDropdown(
         doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN
       )
