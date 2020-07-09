@@ -5,12 +5,12 @@ import {connect} from 'react-redux'
 //If we want to acess to redux-store then wrap any component with this method
 //let mapDispatchToProps,mapStateToProps;
 
-const hocConnector = (ComposedClass,statesToAccquire, dispatchToAccquire) => {
+const hocConnector = (ComposedClass,statesToAccquire, dispatchToAccquire,extraProps) => {
   
   
   class connectHOC extends React.PureComponent {
     render () {
-      return <ComposedClass {...this.props} history={this.props.history} />
+      return <ComposedClass {...this.props} {...extraProps}  />
     }
   }
   const mapStateToProps = state => {
