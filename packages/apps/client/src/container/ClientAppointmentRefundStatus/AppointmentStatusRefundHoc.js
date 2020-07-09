@@ -44,7 +44,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     specializationSetupAPIConstants,
     patientSetupApiConstant,
     hmacApiConstants,
-    appointmentModeApiConstants
+    // appointmentModeApiConstants
   } = AdminModuleAPIConstants
 
   class AppointmentRefundStatusDetails extends React.PureComponent {
@@ -373,7 +373,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID
         )
         requestDTO = {
-         
+
           status: null,
           //remarks: remarks,
           ...apiRequestBody,
@@ -510,7 +510,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         remarks,
         integrationChannelCode,
         featureCode
-        
+
       }
       console.log("==========requestData",requestData)
       try {
@@ -518,7 +518,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           appointmentSetupApiConstant.CHECK_APPOINTMENT_REFUND_STATUS,
           requestData
         )
-      
+
         // this.setShowModal();
         this.setState({
           isConfirming: false,

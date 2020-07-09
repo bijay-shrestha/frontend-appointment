@@ -16,11 +16,12 @@ const RevenueStatistics = props => {
         revenueGeneratedWeekErrorMessage,
         isRevenueGeneratedYearLoading,
         revenueGeneratedYearData,
-        revenueGeneratedYearErrorMessage
+        revenueGeneratedYearErrorMessage,
+        onRevenueTileClick
     } = props.generateRevenue
     return (
         <>
-            <div className="revenue-box">
+            <div className="revenue-box" onClick={()=>onRevenueTileClick("YEAR")}>
                 {!isRevenueGeneratedYearLoading &&
                 Object.keys(revenueGeneratedYearData) && !revenueGeneratedYearErrorMessage ? (
                     <>
