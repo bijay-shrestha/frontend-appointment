@@ -335,9 +335,22 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
             }
         }
 
+        getFromAndToDateFromUrl = async () => {
+            let params = props.location.search && (props.location.search.split('?')[1]).split('&');
+            if (params)
+                await this.setState({
+                    searchParameters: {
+                        ...this.state.searchParameters,
+                        fromDate: new Date(decodeURIComponent(params[0].split('=')[1])),
+                        toDate: new Date(decodeURIComponent(params[1].split('=')[1]))
+                    }
+                })
+        }
+
         async componentDidMount() {
+            await this.getFromAndToDateFromUrl();
             this.searchHospitalForDropDown()
-            this.searchAppointment()
+            await this.searchAppointment()
         }
 
         render() {

@@ -683,9 +683,32 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
         }
 
         handleRevenueTilesClick = (tileType) => {
-            let fromDate = new Date(),
-                toDate = DateTimeFormatterUtils.subtractDate(new Date(), 0)
-            history.push(`/reports/transactionLog?fromDate=`)
+            let fromDate,
+                toDate;
+            switch (tileType) {
+                case 'DAY':
+                    fromDate = DateTimeFormatterUtils.subtractDate(new Date(), 0)
+                    toDate = new Date()
+                    break;
+                case 'WEEK':
+                    fromDate = DateTimeFormatterUtils.subtractDate(new Date(), 6)
+                    toDate = new Date()
+                    break;
+                case 'MONTH':
+                    fromDate = DateTimeFormatterUtils.subtractDate(new Date(), 31)
+                    toDate = new Date()
+                    break;
+                case 'YEAR':
+                    fromDate = DateTimeFormatterUtils.subtractDate(new Date(), 366)
+                    toDate = new Date()
+                    break;
+                default:
+                    fromDate = new Date()
+                    toDate = new Date()
+                    break;
+            }
+
+            props.history.push(`/reports/transactionLog?fromDate=${encodeURIComponent(fromDate)}&toDate=${encodeURIComponent(toDate)}`)
         }
 
         searchDepartment = async () => {
