@@ -91,7 +91,7 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
         }
     }
 
-    const  ConnectedSingleTabComponent = connectHoc(SingleTabComponent,[],null);
+    const  ConnectedSingleTabComponent = connectHoc(SingleTabComponent,[],null,props);
     return ConnectedSingleTabComponent
 };
 

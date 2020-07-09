@@ -43,3 +43,17 @@ export const fetchActiveAppointmentServiceTypeByHopitalId = (path, hospitalId) =
     }
 };
 
+export const fetchActiveAppointmentServiceTypeWithCodeWithHospitalId = (path,id) => async dispatch => {
+    dispatch(AppointmentServiceTypeAction.fetchActiveAppointmentServiceTypePendingWithCode());
+    try {
+        const response = await Axios.getWithPathVariables(path,id);
+        dispatch(AppointmentServiceTypeAction.fetchActiveAppointmentServiceTypeSuccessWithCode(response.data));
+        return response;
+    } catch (e) {
+        dispatch(AppointmentServiceTypeAction.fetchActiveAppointmentServiceTypeErrorWithCode(
+            e.errorMessage ? e.errorMessage : 'Sorry, Internal Server Problem occurred!'))
+     
+
+    }
+};
+

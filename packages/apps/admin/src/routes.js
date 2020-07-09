@@ -83,6 +83,11 @@ const AppointmentApprovalListComponent = loadable(
     {fallback: () => getLoader()}
 )
 
+
+const AppointmentRefundStatus = loadable(() => import('./container/AppointmentRefundStatus/AppointmentRefundStatus'), {
+    fallback: () => getLoader()
+})
+
 const AppointmentStatusComponent = loadable(
     () => import('./container/AppointmentStatus/AppointmentStatus'),
     {fallback: () => getLoader()}
@@ -319,6 +324,7 @@ const RequestBodyIntegrationManage = loadable(
 const RoomSetup = loadable(() => import('./container/RoomSetup/RoomSetup'), {
     fallback: () => getLoader()
 })
+
 
 /* ****** S ***** */
 
@@ -1156,5 +1162,25 @@ export const routes = [
         isTab: false,
         name: 'Admin Department Quick Check-In',
         isSingleTab: true
+    },
+    {
+        path: '/admin/appointment/refundStatus',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        name: 'Appointment Status',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/appointment/refundStatus/doctor',
+        component: AppointmentRefundStatus,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Doctor Consultation',
+        isSingleTab: false
     }
 ]
