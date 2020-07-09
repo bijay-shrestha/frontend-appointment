@@ -104,6 +104,10 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       }
     }
 
+    searchAppointmentModeForDropdown = async () => {
+      
+    }
+
     searchAppointment = async page => {
       const {
         appointmentNumber,
