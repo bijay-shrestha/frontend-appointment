@@ -79,6 +79,14 @@ const AppointmentRefundStatusListComponent = Loadable({
   loading: () => getLoader()
 })
 
+const AppointmentDepartmentRefundStatusListComponent = Loadable({
+  loader: () =>
+    import(
+      './container/ClientAppointmentDepartmentRefundStatus/ClientAppointmentDepartmentRefundStatus'
+    ),
+  loading: () => getLoader()
+})
+
 const ActivityLog = loadable(
   () => import('./container/ClientActivitiesLog/ClientActivityLog'),
   {fallback: () => getLoader()}
@@ -231,7 +239,6 @@ const QualificationAlias = loadable(
   () => import('./container/ClientQualificationAliasSetup/QualificationAlias'),
   {fallback: () => getLoader()}
 )
-
 
 const QuickCheckInComponent = loadable(
   () =>
@@ -565,6 +572,16 @@ export const routes = [
     isLink: true,
     isTab: true,
     name: 'Doctor Consultation',
+    isSingleTab: false
+  },
+  {
+    path: '/appointment/refundStatus/department',
+    component: AppointmentDepartmentRefundStatusListComponent,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    name: 'Department Consultation',
     isSingleTab: false
   },
 
