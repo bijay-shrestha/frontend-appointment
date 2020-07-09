@@ -88,6 +88,10 @@ const AppointmentRefundStatus = loadable(() => import('./container/AppointmentRe
     fallback: () => getLoader()
 })
 
+const AppointmentRefundStatusForDepartment = loadable(() => import('./container/DepartmentAppointmentRefundStatus/DepartmentAppointmentRefundStatus'), {
+    fallback: () => getLoader()
+})
+
 const AppointmentStatusComponent = loadable(
     () => import('./container/AppointmentStatus/AppointmentStatus'),
     {fallback: () => getLoader()}
@@ -1181,6 +1185,16 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Doctor Consultation',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/appointment/refundStatus/department',
+        component: AppointmentRefundStatusForDepartment,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Department Consultation',
         isSingleTab: false
     }
 ]
