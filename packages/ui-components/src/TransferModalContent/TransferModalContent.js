@@ -103,7 +103,7 @@ const TransferContent = ({
 
                         </Row>
                         <Row>
-                            <Col xs={12} md={6} className="px-0">
+                            <Col xs={12} md={6} className="">
                                 <div className="box box-1 ">
                                     <Col xs={12}><h5 className="title">Present Appointment Details</h5></Col>
                                     <Col xs={12}>
