@@ -8,11 +8,13 @@
     "build-storybook": "cd packages/storybook && build-storybook",
     "build:all": "concurrently --kill-others-on-fail \"yarn workspace @frontend-appointment/admin build\"",
     "build:admin": "GENERATE_SOURCEMAP=false && yarn workspace @frontend-appointment/admin build",
-    "build:client": "GENERATE_SOURCEMAP=false && yarn workspace @frontend-appointment/client build",
+    "build:client": "GENERATE_SOURCEMAP=false && yarsn workspace @frontend-appointment/client build",
     "clean": "lerna exec -- rimraf dist && lerna exec -- rimraf build && lerna clean --yes && rimraf node_modules",
     "admin": "yarn workspace @frontend-appointment/admin start",
     "client": "yarn workspace @frontend-appointment/client start",
-    "build": "yarn build:admin && yarn build:client"
+    "build": "yarn build:admin && yarn build:client",
+    "analyze:admin": "yarn workspace @frontend-appointment/admin analyze",
+    "analyze:client": "yarn workspace @frontend-appointment/client analyze"
   },
   "workspaces": {
     "packages": [
@@ -126,6 +128,7 @@
     "rimraf": "^2.6.3",
     "secure-ls": "^1.2.6",
     "sinon": "^7.4.1",
+    "source-map-explorer": "^2.4.2",
     "styled-components": "^4.3.2"
   },
   "jest": {
