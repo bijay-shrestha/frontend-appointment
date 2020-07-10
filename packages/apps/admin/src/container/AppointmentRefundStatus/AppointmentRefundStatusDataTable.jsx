@@ -87,7 +87,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true,
                   cellRenderer: 'appointmentStatusBadges',
-                  width: 350
+                  width: 120
                 },
                 {
                   headerName: 'App. DateTime',
