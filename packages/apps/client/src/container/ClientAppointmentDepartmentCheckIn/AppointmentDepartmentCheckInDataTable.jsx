@@ -4,19 +4,20 @@ import PreviewDetails from './AppointmentDepartmentCheckInPreview'
 //import DepartmentAppointmentFastCheckInConfirm from './AppointmentDepartmentCheckInConfirm'
 import CheckInModalContent from './DepartmentApprovalContent';
 import {
+    AppointmentCheckInSuccessModal, AppointmentNumberWithFollowUpFlag,
+    CConfirmationModal,
+    CPageOverlayLoader,
     DepartmentCheckInOptions,
-    // CPageOverlayLoader,
-    DoctorWithSpecImage,
-    PatientNameWithAgeGenderPhoneAddress,
     DepartmentNameWithRoomNumber,
-    CConfirmationModal
+    DoctorWithSpecImage,
+    PatientNameWithAgeGenderPhoneAddress
 } from '@frontend-appointment/ui-components'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import AppointmentAmountWithTransactionNumber
     from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
-//import {AppointmentCheckInPrint, PrintableComponent} from '@frontend-appointment/commons'
+import {AppointmentCheckInPrint, PrintableComponent} from '@frontend-appointment/commons'
 
 const {checkIfRoleExists} = ActionFilterUtils
 const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, filteredActions}) => {
@@ -32,11 +33,15 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
         // approveHandleApi,
         approveConfirmationModal,
         appointmentDetails,
-        //approveSuccessMessage,
+        approveSuccessMessage,
         isConfirming,
         // onCopyAppointmentNumber,
         // copySuccessMessage,
-        approveHandleApi
+        approveHandleApi,
+        showCheckInSuccessModal,
+        onCopyAppointmentNumber,
+        copySuccessMessage,
+        closeCheckInSuccessModal
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
     return (
@@ -75,6 +80,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     width: 120,
+                                    cellRenderer: 'appointmentNumberWithFollowUpFlag'
                                 },
                                 {
                                     headerName: 'Appt. Date & Time',
@@ -179,7 +185,14 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     null,
                                     null,
                                     previewCall
-                                )
+                                ),
+                                appointmentNumberWithFollowUpFlag: PreviewHandlerHoc(
+                                    AppointmentNumberWithFollowUpFlag,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
@@ -246,13 +259,26 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
             ) : (
                 ''
             )}
-            {/* {
+            {showCheckInSuccessModal ? (
+                <AppointmentCheckInSuccessModal
+                    modalHeader={approveSuccessMessage}
+                    showModal={showCheckInSuccessModal}
+                    setShowModal={closeCheckInSuccessModal}
+                    onCopyAppointmentNumber={onCopyAppointmentNumber}
+                    copySuccessMessage={copySuccessMessage}
+                    appointmentDetails={appointmentDetails}
+                    Print={PrintableComponent(AppointmentCheckInPrint, appointmentDetails)}
+                />
+            ) : (
+                ''
+            )}
+            {
                 isConfirming ?
                     <CPageOverlayLoader
                         showModal={isConfirming}
                         modalHeader={"Appointment Check-In in process."}
                     /> : ''
-            } */}
+            }
         </>
     )
 }

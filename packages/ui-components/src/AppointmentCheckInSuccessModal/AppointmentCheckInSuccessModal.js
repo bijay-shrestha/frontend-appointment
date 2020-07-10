@@ -2,7 +2,7 @@ import React from 'react'
 import {CCopyToClipboard, CForm, CModal} from '@frontend-appointment/ui-elements'
 import {Row} from 'react-bootstrap'
 
-const AppointmentFastCheckInConfirm = ({
+const AppointmentCheckInSuccessModal = ({
                                            showModal,
                                            modalHeader,
                                            setShowModal,
@@ -16,14 +16,14 @@ const AppointmentFastCheckInConfirm = ({
     const bodyContent = <>
         <Container-fluid>
             <CForm id="quick-checkin" className="mt-2">
-              
-                    <Row className="clip">
+
+                <Row className="clip">
 
                     <i className="fa fa-check-circle"></i>
-                    <h2>Appointment Checked-In Successfully</h2>  
+                    <h2>Appointment Checked-In Successfully</h2>
                     <div className="btn-container">
-                    {Print ? <Print /> : ''}
-                    &nbsp;&nbsp;                     
+                        {Print ? <Print /> : ''}
+                        &nbsp;&nbsp;
 
                         <CCopyToClipboard
                             id={"appointmentNumber"}
@@ -36,10 +36,10 @@ const AppointmentFastCheckInConfirm = ({
                             onCopy={onCopyAppointmentNumber}
                             copiedMessage={copySuccessMessage}
                         />
-                        
-                          </div> 
-                    </Row>
-               
+
+                    </div>
+                </Row>
+
             </CForm>
         </Container-fluid>
     </>
@@ -56,9 +56,10 @@ const AppointmentFastCheckInConfirm = ({
                 // footerChildren={footer}
                 onHide={setShowModal}
                 dialogClassName="cogent-modal quick-confirm"
+                closeButton={true}
             />
         </>
     )
 }
 
-export default AppointmentFastCheckInConfirm
+export default AppointmentCheckInSuccessModal

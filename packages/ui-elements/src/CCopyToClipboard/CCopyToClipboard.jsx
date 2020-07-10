@@ -31,6 +31,10 @@ class CCopyToClipboard extends React.PureComponent {
         clearTimeout(this.alertTimer)
     }
 
+    componentDidMount() {
+
+    }
+
     render() {
         const {
             id,
