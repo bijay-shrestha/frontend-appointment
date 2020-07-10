@@ -72,3 +72,4 @@ export {default as DepartmentNameWithRoomNumberAndBillingMode} from './src/Depar
 export {default as CFavourites} from './src/CFavourites';
 export {default as TableRefundStatusAmbigous} from './src/TableRefundStatusAmbigous'
 export {default as TransferModalContent} from './src/TransferModalContent'
+export {default as AppointmentCheckInSuccessModal} from './src/AppointmentCheckInSuccessModal'

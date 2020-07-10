@@ -82,7 +82,8 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
             transferConfirmationModal: false,
             transferValid: false,
             thirdPartyApiErrorMessage: '',
-            copySuccessMessage: ''
+            copySuccessMessage: '',
+            showCheckInSuccessModal: false
         }
 
         // handleEnterPress = event => {
@@ -130,6 +131,13 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                     thirdPartyApiErrorMessage: ''
                 })
             }
+        }
+
+        closeSuccessModal = async () => {
+            console.log("CLOSE++++++++++++++++++++++++++++")
+            await this.setState({
+                showCheckInSuccessModal: false
+            })
         }
 
         checkValidityOfTransfer = () => {
@@ -840,20 +848,14 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
 
         approveApiCall = async requestDTO => {
             try {
-                console.log("===========requset dto", requestDTO)
                 await this.props.appointmentApprove(
                     appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DEPARTMENT,
                     requestDTO
                 )
                 this.setState({
                     isConfirming: false,
-                    approveConfirmationModal: true
-                    // showAlert: true,
-                    // alertMessageInfo: {
-                    //     variant: 'success',
-                    //     message: this.props.AppointmentApproveReducer
-                    //         .approveSuccessMessage
-                    // }
+                    approveConfirmationModal: true,
+                    showCheckInSuccessModal: true
                 })
             } catch (e) {
                 this.setState({
@@ -943,7 +945,8 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                 showAlert,
                 appointmentDetails,
                 isConfirming,
-                copySuccessMessage
+                copySuccessMessage,
+                showCheckInSuccessModal
                 // appointmentTransferData,
                 // transferConfirmationModal,
                 // transferValid
@@ -1058,7 +1061,9 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                             // transferHandler: this.transferHandler,
                             approveSuccessMessage: approveSuccessMessage,
                             copySuccessMessage: copySuccessMessage,
-                            onCopyAppointmentNumber: this.handleCopyAppointmentNumber
+                            onCopyAppointmentNumber: this.handleCopyAppointmentNumber,
+                            showCheckInSuccessModal: showCheckInSuccessModal,
+                            closeCheckInSuccessModal: this.closeSuccessModal
                         }}
                     />
                     {/* {transferConfirmationModal ? (

@@ -1,14 +1,14 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import PreviewDetails from './AppointmentDepartmentFastCheckInPreview'
-import DepartmentAppointmentFastCheckInConfirm from './AppointmentDepartmentFastCheckInConfirm'
 
 import {
+    AppointmentCheckInSuccessModal,
     AppointmentQuickCheckInOption,
     CPageOverlayLoader,
+    DepartmentNameWithRoomNumber,
     DoctorWithSpecImage,
-    PatientNameWithAgeGenderPhoneAddress,
-    DepartmentNameWithRoomNumber
+    PatientNameWithAgeGenderPhoneAddress
 } from '@frontend-appointment/ui-components'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
@@ -219,7 +219,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                 ''
             )} */}
             {approveConfirmationModal ? (
-                <DepartmentAppointmentFastCheckInConfirm
+                <AppointmentCheckInSuccessModal
                     modalHeader={approveSuccessMessage}
                     showModal={approveConfirmationModal}
                     setShowModal={setShowModal}
