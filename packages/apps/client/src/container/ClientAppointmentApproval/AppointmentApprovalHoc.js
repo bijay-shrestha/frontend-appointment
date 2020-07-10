@@ -11,8 +11,7 @@ import {AdminModuleAPIConstants, IntegrationConstants} from '@frontend-appointme
 import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './appointment-approval.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
-import AppointmentTransferContent from './TransferContent'
-import {CConfirmationModal} from '@frontend-appointment/ui-components'
+import {CConfirmationModal, TransferModalContent} from '@frontend-appointment/ui-components'
 
 const {
     clearAppointmentRefundPending,
@@ -894,7 +893,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                         <CConfirmationModal
                             modalHeader="Confirm Transfer?"
                             modalBody={
-                                <AppointmentTransferContent
+                                <TransferModalContent
                                     {...appointmentTransferData}
                                     doctorList={doctorsBySpecializationForDropdown}
                                     specializationList={allActiveSpecializationList}
