@@ -1,18 +1,18 @@
 import {StringUtils} from '@frontend-appointment/helpers'
 export const constructAppointmentCheckInData =(data,requestBody)=>{
   // console.log("data",data);
-  requestBody.name=data.patientName+""+Math.random();
+  requestBody.name=data.patientName;
   requestBody.age=data.patientAge?Number(data.patientAge.replace("years","")):data.age;
-  requestBody.wardNo=data.wardNo
-  requestBody.roomNo= data.roomNo
+  requestBody.wardNo=data.wardNumber
+  requestBody.roomNo= data.roomNumber.includes('-')?data.roomNumber.split('-')[1]:data.roomNumber
   requestBody.patientId= data.hospitalNumber
-  requestBody.sex= StringUtils.toTitleCase(data.patientGender||data.gender)
-  requestBody.section= data.section
+  requestBody.sex= StringUtils.toTitleCase(data.gender||data.patientGender)
+  requestBody.section= data.hospitalDepartmentName
   requestBody.mobileNo= data.mobileNumber
   requestBody.appointmentNo= data.appointmentNumber
   requestBody.phoneNo= data.mobileNumber
-  requestBody.emailAddress=data.emailAddress
-  requestBody.vdc= data.vdc
+  requestBody.email=data.emailAddress||'abc@gmail.com'
+  requestBody.vdc= data.vdcOrMunicipality
   requestBody.district= data.district
   requestBody.ageDay= data.ageDay
   requestBody.ageMonth= data.ageMonth;
