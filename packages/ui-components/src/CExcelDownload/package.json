@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-excel-download",
+  "version": "1.0.0",
+  "main": "CExcelDownload.js",
+  "author": "Sudin Shakya",
+  "license": "MIT",
+  "private": true
+}

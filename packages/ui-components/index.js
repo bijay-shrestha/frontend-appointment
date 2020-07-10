@@ -71,3 +71,4 @@ export {default as DepartmentCheckInOptions} from './src/DepartmentAppointmentCh
 export {default as DepartmentNameWithRoomNumberAndBillingMode} from './src/DepartmentNameWithRoomNumberAndBilling'
 export {default as CFavourites} from './src/CFavourites';
 export {default as TableRefundStatusAmbigous} from './src/TableRefundStatusAmbigous'
+export {default as CExcelDownload} from './src/CExcelDownload';
