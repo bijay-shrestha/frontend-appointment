@@ -1,6 +1,7 @@
 import React, {memo} from 'react';
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
 import {
+    AppointmentNumberWithFollowUpFlag,
     CConfirmationModal,
     DoctorWithSpecImage,
     PatientNameWithAgeGenderPhone
@@ -75,6 +76,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     width: 120,
+                                    cellRenderer: 'appointmentNumberWithFollowUpFlag'
                                 },
                                 {
                                     headerName: 'App. Date & Time',
@@ -161,7 +163,14 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     null,
                                     null,
                                     previewCall
-                                )
+                                ),
+                                appointmentNumberWithFollowUpFlag: PreviewHandlerHoc(
+                                    AppointmentNumberWithFollowUpFlag,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
