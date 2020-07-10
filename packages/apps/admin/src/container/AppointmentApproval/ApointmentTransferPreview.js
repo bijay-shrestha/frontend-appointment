@@ -1,6 +1,6 @@
-import React,{memo} from 'react';
+import React, {memo} from 'react';
 import {CModal} from "@frontend-appointment/ui-elements";
-import TransferContent from "./TransferContent";
+import {TransferModalContent} from "@frontend-appointment/ui-components";
 
 const AppointmentTransfer = props => {
     const {showModal, setShowModal, trasnsferData} = props;
@@ -9,7 +9,7 @@ const AppointmentTransfer = props => {
             <CModal show={showModal}
                     modalHeading="Appointment Transfer Details"
                     size="xl"
-                    bodyChildren={<TransferContent transferData={trasnsferData} />}
+                    bodyChildren={<TransferModalContent transferData={trasnsferData}/>}
                     onHide={setShowModal}
                     centered={false}
                     dialogClassName="preview-modal"

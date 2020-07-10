@@ -8,7 +8,7 @@ import {
     CConfirmationModal,
     DoctorWithSpecImage,
     DoctorAppointmentCheckInOptions,
-    PatientNameWithAgeGenderPhone
+    PatientNameWithAgeGenderPhone, AppointmentNumberWithFollowUpFlag
 } from '@frontend-appointment/ui-components'
 import CheckInModalContent from '../CommonComponents/CheckInModalContent'
 import RejectModal from './RejectModal'
@@ -78,7 +78,8 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: 120
+                                    width: 120,
+                                    cellRenderer: 'appointmentNumberWithFollowUpFlag'
                                 },
                                 {
                                     headerName: 'App. Date & Time',
@@ -167,7 +168,14 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                                     null,
                                     null,
                                     previewCall
-                                )
+                                ),
+                                appointmentNumberWithFollowUpFlag: PreviewHandlerHoc(
+                                    AppointmentNumberWithFollowUpFlag,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={

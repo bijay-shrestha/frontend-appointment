@@ -58,12 +58,16 @@
     }
 }
 
+//start transfer-modal
+
 .patient-box {
     //border:1px solid $gray-300;
     @include border-radius(0.5rem);
-    padding: 15px 0;
-    margin: 0 -15px 15px;
+    padding: 0;
+    margin: 0 -15px 0px;
 }
+
+
 
 .box {
     // border:1px solid $gray-300;
@@ -71,6 +75,10 @@
     // margin:10px;
     padding: 15px 0;
     min-height: 560px;
+    border:none;
+    background:transparent;
+    width:100%;
+    height:auto;
 }
 
 .box-1 {
@@ -110,12 +118,12 @@
             margin-right: 10px;
             flex-shrink: 0;
             line-height: 30px;
-            //    @include border-radius(4px !important) ;
+               @include border-radius(4px !important) ;
 
             img {
                 width: 100%;
                 height: auto;
-                //    @include border-radius(4px !important) ;
+                   @include border-radius(4px !important) ;
             }
         }
 
@@ -135,3 +143,4 @@
         }
     }
 }
+//end transfer-modal

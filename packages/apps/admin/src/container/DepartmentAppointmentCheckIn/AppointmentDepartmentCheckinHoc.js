@@ -82,7 +82,8 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
             transferConfirmationModal: false,
             transferValid: false,
             thirdPartyApiErrorMessage: '',
-            copySuccessMessage: ''
+            copySuccessMessage: '',
+            showCheckInSuccessModal: false
         }
 
         // handleEnterPress = event => {
@@ -130,6 +131,12 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                     thirdPartyApiErrorMessage: ''
                 })
             }
+        }
+
+        closeSuccessModal = async () => {
+            await this.setState({
+                showCheckInSuccessModal: false
+            })
         }
 
         checkValidityOfTransfer = () => {
@@ -821,7 +828,8 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                 )
                 this.setState({
                     isConfirming: false,
-                    approveConfirmationModal: true
+                    approveConfirmationModal: true,
+                    showCheckInSuccessModal: true
                     // showAlert: true,
                     // alertMessageInfo: {
                     //     variant: 'success',
@@ -929,7 +937,8 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                 showAlert,
                 appointmentDetails,
                 isConfirming,
-                copySuccessMessage
+                copySuccessMessage,
+                showCheckInSuccessModal
                 // appointmentTransferData,
                 // transferConfirmationModal,
                 // transferValid
@@ -1048,7 +1057,9 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                             // transferHandler: this.transferHandler,
                             approveSuccessMessage: approveSuccessMessage,
                             copySuccessMessage: copySuccessMessage,
-                            onCopyAppointmentNumber: this.handleCopyAppointmentNumber
+                            onCopyAppointmentNumber: this.handleCopyAppointmentNumber,
+                            showCheckInSuccessModal: showCheckInSuccessModal,
+                            closeCheckInSuccessModal: this.closeSuccessModal
                         }}
                     />
                     {/* {transferConfirmationModal ? (
