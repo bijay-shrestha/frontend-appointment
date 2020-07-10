@@ -10,383 +10,489 @@
  @import "~@frontend-appointment/common-sass/src/scss/_custom-mixins.scss";
  
  
- 
- #appointment-status {
-   .filter-message {
-     .message {
-       width: 200px;
-     }
-   }
- 
-   .manage-title{
-     background-color: $white;
-     padding: 30px 30px 15px;
-     margin: 1rem 0 0;
-     @include border-radii(0.5rem,0.5rem, 0, 0);
-     
-   }
- 
-   .manage-details{
-     height: calc(100vh - 310px);
-     overflow: auto;
-     margin:0 0 1rem;
-     padding-top:0;
-     @include border-radii(0, 0,0.5rem,0.5rem);
-   }
- 
-  
- 
-   .appointment-badge {
-     float: right;
-     margin: 10px 0;
- 
-     & > div {
-       margin-right: 20px;
-       height: auto;
-       display: inline-block;
-       //  line-height: 40px;
- 
-       &:last-child {
-         margin-right: 0;
-       }
- 
-       .badge {
-         margin-right: 4px;
-         width: 16px;
-         height: 16px;
-       }
 
-       .status-legend{
-        display:inline-flex;
-        flex-direction:column;
-        align-items: center;
+#appointment-status {
+  .filter-message {
+    .message {
+      width: 200px;
+    }
+  }
+
+  .manage-title{
+    background-color: $white;
+    padding: 30px 30px 15px;
+    margin: 1rem 0 0;
+    @include border-radii(0.5rem,0.5rem, 0, 0);
+    
+  }
+
+  .manage-details{
+    height: calc(100vh - 310px);
+    overflow: auto;
+    margin:0 0 1rem;
+    padding-top:0;
+    @include border-radii(0, 0,0.5rem,0.5rem);
+  }
+
+ 
+
+  .appointment-badge {
+    float: right;
+    margin: 10px 0;
+
+    & > div {
+      margin-right: 20px;
+      height: auto;
+      display: inline-block;
+      //  line-height: 40px;
+
+      &:last-child {
+        margin-right: 0;
       }
 
- 
-       a {
- 
-         color: $gray-600;
-         font-weight: 500;
-         margin-left: 4px;
-         padding: 2px 6px;
- 
-         &.active {
-           color: $gray-900;
-           background-color: lighten($cogent, 45%);
-           @include border-radius(4px);
-           padding: 2px 6px;
-         }
-       }
+      .badge {
+        margin-right: 4px;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-legend{
+       display:inline-flex;
+       flex-direction:column;
+       align-items: center;
      }
- 
-     .btn {
-       margin-bottom: 10px;
-     }
- 
- 
-   }
- 
-   // .badge{
-   //     width:35px;
-   //     height: 35px;
-   //     // top:50%;
-   //     // left:50%;
-   //     // transform:translate(-50%,-50%);
-   //     text-align: center;
-   //     vertical-align: middle;
-   //     font-size: 16px;
-   //     line-height: 22px;
-   //     padding:6px;
-   //     @include border-radius(50%);
-   // }
- 
-   .react-datepicker-wrapper {
-     width: 50%;
-     // padding-left: 4px;
-   }
- 
- }
- 
- .doctor-image {
-   width: 100px;
-   height: 100px;
-   margin-top: 10px;
-   background-color: $gray-500;
-   @include border-radius(50%);
-   // display: inline-block;
- 
-   img {
-     width: 100px;
-     height: 100px;
-     background-color: $gray-500;
-     @include border-radius(50%);
-   }
- }
- 
- .doctor-details {
-   position: relative;
-   display: inline-block;
-   margin-top: 10px;
-   margin-bottom: 20px;
-   color: $gray-700;
-   font-size: 0.8rem;
-   text-transform: capitalize;
-   letter-spacing: 0.01rem;
-   width: 100%;
- 
-   //  &::before{
-   //     content:"";
-   //     display: block;
-   //     position: absolute;
-   //     width:100%;
-   //     height:2px;
-   //     bottom:-5px;
-   //     background-color:$gray-600;
-   // }
- 
- 
-   span {
-     font-size: 0.8rem;
-     font-weight: 600;
-     letter-spacing: 0.01rem;
-   }
- 
- }
- 
- .patient-container {
-   padding-bottom: 20px;
- }
- 
- .patient-details {
-   display: block;
-   margin-top: 10px;
-   margin-bottom: 16px;
-   color: $gray-700;
-   font-size: 0.8rem;
-   // line-height: 1.6rem;
-   // text-transform: capitalize;
-   letter-spacing: 0.02rem;
-   font-weight: 500;
- 
- 
-   .label {
-     font-size: 0.65rem;
-     font-weight: 400;
-     line-height: 1rem;
-   }
- 
-   .data {
-     .badge-success {
-       color: $success !important;
-       padding:0;
+
+
+      a {
+
+        color: $gray-600;
+        font-weight: 500;
+        margin-left: 4px;
+        padding: 2px 6px;
+
+        &.active {
+          color: $gray-900;
+          background-color: lighten($cogent, 45%);
+          @include border-radius(4px);
+          padding: 2px 6px;
+        }
+      }
+    }
+
+    .btn {
+      margin-bottom: 10px;
+    }
+
+
+  }
+
+  // .badge{
+  //     width:35px;
+  //     height: 35px;
+  //     // top:50%;
+  //     // left:50%;
+  //     // transform:translate(-50%,-50%);
+  //     text-align: center;
+  //     vertical-align: middle;
+  //     font-size: 16px;
+  //     line-height: 22px;
+  //     padding:6px;
+  //     @include border-radius(50%);
+  // }
+
+  .react-datepicker-wrapper {
+    width: 50%;
+    // padding-left: 4px;
+  }
+
+}
+
+.doctor-image {
+  width: 100px;
+  height: 100px;
+  margin-top: 10px;
+  background-color: $gray-500;
+  @include border-radius(50%);
+  // display: inline-block;
+
+  img {
+    width: 100px;
+    height: 100px;
+    background-color: $gray-500;
+    @include border-radius(50%);
+  }
+}
+
+.doctor-details {
+  position: relative;
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: $gray-700;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  letter-spacing: 0.01rem;
+  width: 100%;
+
+  //  &::before{
+  //     content:"";
+  //     display: block;
+  //     position: absolute;
+  //     width:100%;
+  //     height:2px;
+  //     bottom:-5px;
+  //     background-color:$gray-600;
+  // }
+
+
+  span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.01rem;
+  }
+
+}
+
+.patient-container {
+  padding-bottom: 20px;
+}
+
+.patient-details {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 16px;
+  color: $gray-700;
+  font-size: 0.8rem;
+  // line-height: 1.6rem;
+  // text-transform: capitalize;
+  letter-spacing: 0.02rem;
+  font-weight: 500;
+
+
+  .label {
+    font-size: 0.65rem;
+    font-weight: 400;
+    line-height: 1rem;
+  }
+
+  .data {
+    .badge-success {
+      color: $success !important;
+      padding:0;
+      border: none;
+      background-color: white !important;
+      // text-transform: lowercase;
+    }
+
+    .pd-followup{
+      font-size: 12px;
+      padding:2px 6px;
+      font-weight: 400;
+      background-color:$gray-200;
+      @include border-radius(20px);
+    }
+
+    .badge-primary {
+      color: $primary !important;
        border: none;
+       padding:0;
        background-color: white !important;
-       // text-transform: lowercase;
-     }
- 
-     .pd-followup{
-       font-size: 12px;
-       padding:2px 6px;
-       font-weight: 400;
-       background-color:$gray-200;
-       @include border-radius(20px);
-     }
- 
-     .badge-primary {
-       color: $primary !important;
-        border: none;
-        padding:0;
-        background-color: white !important;
-     }
- 
-     .badge-info {
-       color: $info;
-       border: none;
-       padding:0;
-       background-color: transparent;
-     }
-   }
- 
- 
- }
- 
- .btn-checkin {
+    }
+
+    .badge-info {
+      color: $info;
+      border: none;
+      padding:0;
+      background-color: transparent;
+    }
+  }
+
+
+}
+
+.btn-checkin {
   width:136px;
   padding: 8px 0 !important;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   display:block;
 
   i {
     color: $white;
   }
 }
+
+
+.btn-transfer{
+  width:136px;
+  padding: 8px 0 !important;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display:block;
+}
+
+.time-container {
+
+  .time-details {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: $gray-700;
+    font-size: 0.8rem;
+    line-height: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02rem;
+
+
+  }
+
+  .time {
+    // float:left;
+    margin-left: 30px;
+  }
+
+  ul {
+    // display:flex;
+    // flex-direction:row;
+    width: 100%;
+    // flex-wrap:wrap;
+    // justify-content: space-between;
+    li {
+      // display: inline-block;
+      margin-right: 10px;
+      margin-bottom: 12px;
+      float: left;
+
+
+      .btn {
+        width: 120px;
+        // width:120px;
+        //  margin-right:10px;
+        height: 46px;
+
+
+      }
+
+      // .btn-success{
+      //    &:hover{
+
+      //     }
+      // }
+    }
+  }
+}
+
+//appointment satus list
+
+.appointment-status-list {
+  margin: 15px -30px 45px;
+  border-bottom: 1px solid $gray-200;
+
+
+  .title {
+    position: relative;
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: $gray-700;
+    font-size: 0.8rem;
+    text-transform: capitalize;
+    text-decoration: none;
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 25%;
+      height: 1px;
+      bottom: -5px;
+      background-color: $gray-600;
+    }
+
+
+  }
+
+  .day-off {
+    // width:100%;
+    // text-align: center;
+    display: inline-block;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+
+    .fa {
+      font-size: 42px !important;
+      display: block;
+      color: $danger;
+      margin-right: 10px;
+
+    }
+
+    span{
+
+    }
+  }
+
+  .back-day-off {
+    display: block;
+    padding-top: 20px;
+
+    .fa {
+      font-size: 42px !important;
+      display: block;
+      color: $danger;
+
+    }
+  }
+
+  .appointment-status-list, .appointment-badge {
+    .btn-success {
+      // background-color: adjust-hue($success,20%);
+
+      background-color: $spotify;
+      color: $gray-800;
+      padding: 8px 12px;
+      // margin: 0 0 12px;
+    }
+
+    .btn {
+      padding: 10px 6px;
+      font-weight: 500;
+    }
+  }
+
+  .filter-message {
+    margin: 0 auto;
+  }
+
+  .time-button {
+    .fa-check-circle {
+      display: none;
+      margin-right: 4px;
+
+    }
+
+    .fa-tag{
+      display: inline;
+      color:$white;
+    }
+
+    &.active {
+      .fa-check-circle{
+        display: inline;
+        margin-right: 4px;
+        color:$white;
+
+      }
+
+      .fa-tag{
+        display: none;
+        $color:$gray-900;
+      }
+    }
+
+  }
+
  
- .time-container {
- 
-   .time-details {
-     display: block;
-     margin-top: 10px;
-     margin-bottom: 20px;
-     color: $gray-700;
-     font-size: 0.8rem;
-     line-height: 1.6rem;
-     text-transform: uppercase;
-     letter-spacing: 0.02rem;
- 
- 
-   }
- 
-   .time {
-     // float:left;
-     margin-left: 30px;
-   }
- 
-   ul {
-     // display:flex;
-     // flex-direction:row;
-     width: 100%;
-     // flex-wrap:wrap;
-     // justify-content: space-between;
-     li {
-       // display: inline-block;
-       margin-right: 10px;
-       margin-bottom: 12px;
-       float: left;
- 
- 
-       .btn {
-         width: 120px;
-         // width:120px;
-         //  margin-right:10px;
-         height: 46px;
- 
- 
-       }
- 
-       // .btn-success{
-       //    &:hover{
- 
-       //     }
-       // }
-     }
-   }
- }
- 
- .appointment-status-list {
-   margin: 15px -30px 45px;
-   border-bottom: 1px solid $gray-200;
- 
- 
-   .title {
-     position: relative;
-     display: inline-block;
-     margin-top: 10px;
-     margin-bottom: 20px;
-     color: $gray-700;
-     font-size: 0.8rem;
-     text-transform: capitalize;
-     text-decoration: none;
- 
-     &::before {
-       content: "";
-       display: block;
-       position: absolute;
-       width: 25%;
-       height: 1px;
-       bottom: -5px;
-       background-color: $gray-600;
-     }
- 
- 
-   }
- 
-   .day-off {
-     // width:100%;
-     // text-align: center;
-     display: inline-block;
-     display:flex;
-     flex-direction: row;
-     align-items: center;
- 
-     .fa {
-       font-size: 42px !important;
-       display: block;
-       color: $danger;
-       margin-right: 10px;
- 
-     }
- 
-     span{
- 
-     }
-   }
- 
-   .back-day-off {
-     display: block;
-     padding-top: 20px;
- 
-     .fa {
-       font-size: 42px !important;
-       display: block;
-       color: $danger;
- 
-     }
-   }
- 
-   .appointment-status-list, .appointment-badge {
-     .btn-success {
-       // background-color: adjust-hue($success,20%);
- 
-       background-color: $spotify;
-       color: $gray-800;
-       padding: 8px 12px;
-       // margin: 0 0 12px;
-     }
- 
-     .btn {
-       padding: 10px 6px;
-       font-weight: 500;
-     }
-   }
- 
-   .filter-message {
-     margin: 0 auto;
-   }
- 
-   .time-button {
-     .fa-check-circle {
-       display: none;
-       margin-right: 4px;
- 
-     }
- 
-     .fa-tag{
-       display: inline;
-       color:$white;
-     }
- 
-     &.active {
-       .fa-check-circle{
-         display: inline;
-         margin-right: 4px;
-         color:$white;
- 
-       }
- 
-       .fa-tag{
-         display: none;
-         $color:$gray-900;
-       }
-     }
- 
-   }
- 
- 
-   @media (max-width: 1199px) {
-     .hide-on-md {
-       display: none;
-     }
-   }
- }
- 
+  
+
+
+  @media (max-width: 1199px) {
+    .hide-on-md {
+      display: none;
+    }
+  }
+}
+
+//end appointment status list
+
+
+
+//start transfer-modal
+.patient-box {
+  //border:1px solid $gray-300;
+  @include border-radius(0.5rem);
+  padding: 0;
+  margin: 0 -15px 0px;
+}
+
+
+  .box {
+    // border:1px solid $gray-300;
+    // @include border-radius(0.5rem);
+    // margin:10px;
+    padding: 15px 0;
+    min-height: 560px;
+    border:none;
+    background:transparent;
+    width:100%;
+    height:auto;
+  }
+  
+  .box-1 {
+    @include border-radius(0.5rem);
+    //border-right:1px solid $gray-400;
+    background-color: $gray-100;
+  }
+  
+  .doctor-box {
+    border: 1px solid $gray-300;
+    @include border-radius(4px);
+    background-color: #f8f9fa;
+    padding: 27px 8px;
+    margin-bottom: 35px;
+    position: relative;
+  
+    .doctor-label {
+        color: #6c757d !important;
+        position: absolute;
+        top: -8px;
+        left: 12px;
+        z-index: 2;
+        background-color: white;
+        font-size: 0.65rem;
+        padding: 0 5px;
+        border-radius: 4px;
+    }
+  
+    .di-column {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .data-image {
+            margin-top: 2px;
+            width: 55px;
+            height: 55px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            line-height: 30px;
+            //    @include border-radius(4px !important) ;
+  
+            img {
+                width: 100%;
+                height: auto;
+                //    @include border-radius(4px !important) ;
+            }
+        }
+  
+        .di-details {
+            margin: 0;
+            li {
+                line-height: 20px;
+  
+                &:nth-child(2) {
+                    font-size: 0.75rem;
+                    font-weight: 500;
+                    line-height: 20px;
+                    font-weight: $gray-300;
+                    color: $gray-600;
+                }
+            }
+        }
+    }
+  }
+
+  //end transfer-modal
+  
+
+
