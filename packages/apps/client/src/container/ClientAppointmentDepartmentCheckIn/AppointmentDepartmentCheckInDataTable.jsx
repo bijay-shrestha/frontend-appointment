@@ -4,7 +4,7 @@ import PreviewDetails from './AppointmentDepartmentCheckInPreview'
 //import DepartmentAppointmentFastCheckInConfirm from './AppointmentDepartmentCheckInConfirm'
 import CheckInModalContent from './DepartmentApprovalContent';
 import {
-    AppointmentCheckInSuccessModal,
+    AppointmentCheckInSuccessModal, AppointmentNumberWithFollowUpFlag,
     CConfirmationModal,
     CPageOverlayLoader,
     DepartmentCheckInOptions,
@@ -80,6 +80,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     width: 120,
+                                    cellRenderer: 'appointmentNumberWithFollowUpFlag'
                                 },
                                 {
                                     headerName: 'Appt. Date & Time',
@@ -184,7 +185,14 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     null,
                                     null,
                                     previewCall
-                                )
+                                ),
+                                appointmentNumberWithFollowUpFlag: PreviewHandlerHoc(
+                                    AppointmentNumberWithFollowUpFlag,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
