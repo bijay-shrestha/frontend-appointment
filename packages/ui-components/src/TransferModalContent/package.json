@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-transfer-modal-content",
+  "version": "1.0.0",
+  "main": "TransferModalContent.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}
