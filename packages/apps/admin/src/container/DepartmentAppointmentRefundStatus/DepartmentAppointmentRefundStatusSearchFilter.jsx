@@ -11,8 +11,8 @@ import {
   CButton,
   CHybridSelect,
   CForm,
-  CHybridInput,
-  CHybridSelectWithImage
+  CHybridInput
+  //CHybridSelectWithImage
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
@@ -42,13 +42,17 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
       handleSearchFormChange,
       resetSearch,
       hospitalsDropdown,
-      doctorsDropdown,
+      //doctorsDropdown,
       //doctorDropdownErrorMessage,
-      activeSpecializationList,
+      //activeSpecializationList,
       //specializationDropdownErrorMessage,
       searchParameters,
       patientListDropdown,
-      activeAppointmentModeForDropdown
+      activeAppointmentModeForDropdown,
+      activeRoomNumberForDropdownByDepartment,
+      activeHospitalDepartmentForDropdown,
+      activeDepartmentDropdownErrorMessage,
+      activeRoomsByDepartmentDropdownErrorMessage
       //patientDropdownErrorMessage
     } = searchHandler
 
@@ -146,57 +150,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                   </Col>
 
                   <Col sm={12} md={6} xl={4}>
-                    <CHybridSelect
-                      id="specializationId"
-                      label="Specialization"
-                      name="specializationId"
-                      placeholder={
-                        searchParameters.hospitalId
-                          ? activeSpecializationList.length
-                            ? 'Select Specialization.'
-                            : 'No specialization(s) available.'
-                          : 'Select client first.'
-                      }
-                      onKeyDown={event => handleEnter(event)}
-                      options={activeSpecializationList}
-                      value={searchParameters.specializationId}
-                      isDisabled={
-                        searchParameters.hospitalId
-                          ? !activeSpecializationList.length
-                          : true
-                      }
-                      onChange={handleSearchFormChange}
-                      onEnter={handleEnter}
-                    />
-                  </Col>
-
-                  <Col sm={12} md={6} xl={4}>
-                    <CHybridSelectWithImage
-                      id="doctorId"
-                      label="Doctor"
-                      placeholder={
-                        searchParameters.hospitalId
-                          ? doctorsDropdown.length
-                            ? 'Select doctor.'
-                            : 'No doctor(s) available.'
-                          : 'Select client first.'
-                      }
-                      noOptionsMessage={() => 'No Doctor(s) found.'}
-                      name="doctorId"
-                      onKeyDown={event => handleEnter(event)}
-                      onChange={event => handleSearchFormChange(event)}
-                      options={doctorsDropdown}
-                      value={searchParameters.doctorId}
-                      isDisabled={
-                        searchParameters.hospitalId
-                          ? !doctorsDropdown.length
-                          : true
-                      }
-                      onEnter={handleEnter}
-                    />
-                  </Col>
-
-                  <Col sm={12} md={6} xl={4}>
                     <CHybridInput
                       id="appointmentNumber"
                       name="appointmentNumber"
@@ -206,6 +159,59 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                       onKeyDown={handleEnter}
                     />
                   </Col>
+
+                  <Col sm={12} md={4} xl={4}>
+                    <CHybridSelect
+                      id="departmentIdHospital"
+                      label="Department"
+                      name="hospitalDepartmentId"
+                      options={activeHospitalDepartmentForDropdown}
+                      placeholder={
+                        !searchParameters.hospitalId
+                          ? 'Select client first.'
+                          : activeHospitalDepartmentForDropdown.length
+                          ? 'Select Department.'
+                          : 'No Department(s) available.'
+                      }
+                      noOptionsMessage={() =>
+                        activeDepartmentDropdownErrorMessage
+                      }
+                      onKeyDown={this.handleEnter}
+                      onChange={event => handleSearchFormChange(event)}
+                      value={searchParameters.hospitalDepartmentId}
+                      isDisabled={
+                        !searchParameters.hospitalId ||
+                        !activeHospitalDepartmentForDropdown.length
+                      }
+                    />
+                  </Col>
+
+                  <Col sm={12} md={4} xl={4}>
+                    <CHybridSelect
+                      id="roomIdHospital"
+                      label="Room"
+                      name="roomId"
+                      options={activeRoomNumberForDropdownByDepartment}
+                      placeholder={
+                        !searchParameters.hospitalDepartmentId
+                          ? 'Select client first.'
+                          : activeRoomNumberForDropdownByDepartment.length
+                          ? 'Select Room.'
+                          : 'No Room(s) available.'
+                      }
+                      noOptionsMessage={() =>
+                        activeRoomsByDepartmentDropdownErrorMessage
+                      }
+                      onKeyDown={this.handleEnter}
+                      onChange={event => handleSearchFormChange(event)}
+                      value={searchParameters.roomId}
+                      isDisabled={
+                        !searchParameters.hospitalDepartmentId ||
+                        !activeRoomNumberForDropdownByDepartment.length
+                      }
+                    />
+                  </Col>
+
                   <Col>
                     <CHybridInput
                       id="esewaId"
@@ -382,22 +388,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                 </li>
               )}
 
-              {searchParameters.specializationId && (
-                <li>
-                  <OverlayTrigger
-                    placement="top"
-                    overlay={<Tooltip id="name">Specialization Name</Tooltip>}
-                  >
-                    <Button
-                      id="search-param-button-filters"
-                      variant="secondary"
-                    >
-                      {searchParameters.specializationId.label}
-                    </Button>
-                  </OverlayTrigger>
-                </li>
-              )}
-
               {searchParameters.appointmentModeId && (
                 <li>
                   <OverlayTrigger
@@ -430,17 +420,35 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                 </li>
               )}
 
-              {searchParameters.doctorId && (
+              {searchParameters.hospitalDepartmentId && (
                 <li>
                   <OverlayTrigger
                     placement="top"
-                    overlay={<Tooltip id="name">Doctor Name</Tooltip>}
+                    overlay={
+                      <Tooltip id="name">Hospital Department Name</Tooltip>
+                    }
                   >
                     <Button
                       id="search-param-button-filters"
                       variant="secondary"
                     >
-                      {searchParameters.doctorId.label}
+                      {searchParameters.hospitalDepartmentId.label}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
+
+              {searchParameters.roomId && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={<Tooltip id="name">Room Number</Tooltip>}
+                  >
+                    <Button
+                      id="search-param-button-filters"
+                      variant="secondary"
+                    >
+                      {searchParameters.roomId.label}
                     </Button>
                   </OverlayTrigger>
                 </li>

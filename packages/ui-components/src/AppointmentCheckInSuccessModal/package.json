@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-appointment-checkIn-success-modal",
+  "version": "1.0.0",
+  "main": "AppointmentCheckInSuccessModal.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

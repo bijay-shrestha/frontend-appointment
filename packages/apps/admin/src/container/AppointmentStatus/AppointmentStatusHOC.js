@@ -1,7 +1,8 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
-    AppointmentDetailsMiddleware, AppointmentTransferMiddleware,
+    AppointmentDetailsMiddleware,
+    AppointmentTransferMiddleware,
     DoctorMiddleware,
     HospitalSetupMiddleware,
     PatientDetailsMiddleware,
@@ -20,7 +21,7 @@ const {
     clearAppointmentStatusMessage,
     appointmentApprove,
     thirdPartyApiCallCheckIn,
-    appointmentApproveIntegration,
+    // appointmentApproveIntegration,
     fetchAppointmentApprovalDetailByAppointmentId,
     clearAppointmentApproveMessage
 } = AppointmentDetailsMiddleware

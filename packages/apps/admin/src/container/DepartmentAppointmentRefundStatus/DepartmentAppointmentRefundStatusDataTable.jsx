@@ -8,9 +8,9 @@ import {
   CRemarksModal,
   DoctorWithSpecImage,
   PatientNameWithAgeGenderPhone,
-  TableRefundStatusAmbigous
+  TableRefundStatusAmbigous,
 } from '@frontend-appointment/ui-components'
-import PreviewDetails from './AppointmentRefundStatusPreview'
+import PreviewDetails from './DepartmentAppointmentRefundStatusPreview'
 //import RejectModal from "./RejectStatusModal";
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import AppointmentRefundStatus from '../CommonComponents/table-components/AppointmentRefundStatus'
@@ -70,13 +70,24 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   width: 140,
                   cellClass: 'first-class'
                 },
+                  {
+                  headerName: 'Hospital Name',
+                  field: 'hospitalName',
+                  headerClass: 'resizable-header header-first-class',
+                  resizable: true,
+                  sortable: true,
+                  editable: true,
+                  sizeColumnsToFit: true,
+                  width: 140,
+                  cellClass: 'first-class'
+                },
                 {
                   headerName: 'Status',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
                   cellRenderer: 'appointmentStatusBadges',
-                  width: 120
+                  width: 350
                 },
                 {
                   headerName: 'App. DateTime',
