@@ -205,7 +205,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         };
 
         checkFormValidity = eventType => {
-            const {hospitalData, nameValid} = this.state;
+            const {hospitalData} = this.state;
             const {
                 name, status, esewaMerchantCode, address, panNumber, refundPercentage, followUpIntervalDays,
                 alias,
@@ -214,7 +214,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 primaryAppointmentServiceType
             } = hospitalData;
             let formValidity =
-                nameValid &&
+                // nameValid &&
                 name &&
                 status &&
                 esewaMerchantCode &&

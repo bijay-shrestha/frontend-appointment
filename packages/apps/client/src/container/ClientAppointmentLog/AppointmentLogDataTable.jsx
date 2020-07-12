@@ -1,16 +1,14 @@
 import React, {memo} from 'react'
-import {
-    CDataTable,
-    CLoading,
-    CPagination
-} from '@frontend-appointment/ui-elements'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
+import {Col, Row} from 'react-bootstrap';
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus'
 import {
     AppointmentNumberWithFollowUpFlag,
     AppointmentStatusBadges,
-    PatientNameWithAgeGenderPhone,
+    CExcelDownload,
+    DepartmentNameWithRoomNumberAndBillingMode,
     DoctorWithSpecImage,
-    DepartmentNameWithRoomNumberAndBillingMode
+    PatientNameWithAgeGenderPhone
 } from '@frontend-appointment/ui-components'
 import {CommonUtils} from '@frontend-appointment/helpers'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
@@ -52,24 +50,15 @@ const AppointmentRefundDataTable = ({
     return (
         <>
             <div className="manage-details">
-                {/* <Container fluid>
-          <Row>
-          */}
-                <h5 className="title">Appointment Log Details</h5>
-                {/* </Col> */}
-                {/* <Col>
-              <CButton
-                id="downloadExcel"
-                name="DownloadExcel"
-                onClickHandler={props.exportExcel}
-                className="float-right"
-                variant="outline-secondary"
-              >
-                {' '}
-                <i className="fa fa-download" />
-              </CButton>
-            </Col> */}
-                {/* </Row> */}
+
+                <Row>
+                    <Col>
+                        <h5 className="title">Appointment Log Details</h5>
+                    </Col>
+                    <Col>
+                        <CExcelDownload/>
+                    </Col>
+                </Row>
 
                 <AppointmentStatusBadges
                     activeStatus={activeStatus}

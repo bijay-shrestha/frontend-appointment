@@ -686,15 +686,29 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
         }
 
         approveHandler = async data => {
-            await this.previewApiCall(data)
-            this.props.clearAppointmentApproveMessage()
-            await this.setState({
-                approveAppointmentId: data.appointmentId,
-                appointmentDetails: {
-                    ...this.props.AppointmentDetailReducer.appointmentDetail
-                },
-                approveConfirmationModal: true
-            })
+            try {
+                await this.previewApiCall(data)
+                this.props.clearAppointmentApproveMessage()
+                await this.setState({
+                    approveAppointmentId: data.appointmentId,
+                    appointmentDetails: {
+                        ...this.props.AppointmentDetailReducer.appointmentDetail
+                    },
+                    approveConfirmationModal: true
+                })
+            }catch (e) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message:
+                            e.message ||
+                            e.errorMessage ||
+                            'Sorry,Internal Server Error occurred!'
+                    }
+                })
+            }
+
             //  this.approveHandleApi();
         }
 

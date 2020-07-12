@@ -5,8 +5,10 @@ import PatientWithAgeAndGender from '../CommonComponents/table-components/Patien
 import {
     AppointmentNumberWithFollowUpFlag,
     AppointmentStatusBadges,
-    PatientNameWithAgeGenderPhone,
-    DoctorWithSpecImage, DepartmentNameWithRoomNumberAndBillingMode
+    CExcelDownload,
+    DepartmentNameWithRoomNumberAndBillingMode,
+    DoctorWithSpecImage,
+    PatientNameWithAgeGenderPhone
 } from '@frontend-appointment/ui-components'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './AppointmentLogPreview';
@@ -48,18 +50,9 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps, handleStatus
                     </Col>
 
 
-                    {/* <Col>
-              <CButton
-                id="downloadExcel"
-                name="DownloadExcel"
-                // onClickHandler={props.exportExcel}
-                className="float-right"
-                variant="outline-secondary"
-              >
-                {' '}
-                <i className="fa fa-download" />
-              </CButton>
-            </Col>  */}
+                    <Col>
+                        <CExcelDownload/>
+                    </Col>
                 </Row>
 
                 <AppointmentStatusBadges activeStatus={activeStatus} handleStatusChange={handleStatusChange}/>

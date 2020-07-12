@@ -4,17 +4,18 @@ import {
     CPagination,
     CLoading
 } from '@frontend-appointment/ui-elements'
-import {ConfirmDelete} from '@frontend-appointment/ui-components'
+import {ClientNameWithLogo, ConfirmDelete} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
 import TableAction from '../../CommonComponents/table-components/TableAction'
 import PreviewDetails from '../commons/PreviewDetails'
 import CompanyPicture from '../commons/CompanyPicture'
 import PreviewHandlerHoc from '../../CommonComponents/table-components/hoc/PreviewHandlerHoc'
+
 const {checkIfRoleExists} = ActionFilterUtils
 const CompanyDetailsDataTable = props => (
     <div className="manage-details">
-        
+
         <h5 className="title">Company Details</h5>
         {!props.isSearchLoading &&
         !props.searchErrorMessage &&
@@ -40,20 +41,19 @@ const CompanyDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Company Name',
+                            headerName: 'Company Details',
                             field: 'name',
                             resizable: true,
                             sortable: true,
-                            sizeColumnsToFit: true
+                            sizeColumnsToFit: true,
+                            cellRenderer: 'companyNameWithLogo'
                         },
                         {
-                            headerName: 'Company Logo',
-                            field: 'fileUri',
-                            // headerClass: "fi",
+                            headerName: 'Company Code',
+                            field: 'companyCode',
                             resizable: true,
                             sortable: true,
-                            sizeColumnsToFit: true,
-                            cellRenderer: 'imageRenderer'
+                            sizeColumnsToFit: true
                         },
                         {
                             headerName: 'Company Address',
@@ -62,7 +62,6 @@ const CompanyDetailsDataTable = props => (
                             sortable: true,
                             sizeColumnsToFit: true
                         },
-                       
                         {
                             headerName: 'Status',
                             field: 'status',
@@ -95,8 +94,9 @@ const CompanyDetailsDataTable = props => (
                     ]}
                     frameworkComponents={{
                         childActionRenderer: TableAction,
-                        childLabelRenderer: PreviewHandlerHoc(StatusLabel,checkIfRoleExists,props.filteredActions,4,props.onPreviewHandler),
-                        imageRenderer:PreviewHandlerHoc(CompanyPicture,checkIfRoleExists,props.filteredActions,4,props.onPreviewHandler)
+                        childLabelRenderer: PreviewHandlerHoc(StatusLabel, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler),
+                        imageRenderer: PreviewHandlerHoc(CompanyPicture, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler),
+                        companyNameWithLogo: PreviewHandlerHoc(ClientNameWithLogo, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler)
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={

@@ -3,8 +3,8 @@ import {ActionFilterUtils, EnvironmentVariableGetter} from '@frontend-appointmen
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {ConfirmDelete} from "@frontend-appointment/ui-components";
 import HospitalDepartmentPreviewModal from "./HospitalDepartmentPreviewModal";
-import TableAction from "../CTableComponents/TableAction";
-import {StatusLabel} from "../CTableComponents";
+import TableAction from "../TableComponents/TableAction";
+import StatusLabel from "../TableComponents/StatusLabel";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import {CForm, CHybridInput} from '@frontend-appointment/ui-elements'
+import {CForm, CHybridInput, CHybridTextArea} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
 const DepartmentApprovalContent = ({approvalData}) => {
@@ -62,6 +62,14 @@ const DepartmentApprovalContent = ({approvalData}) => {
                                     id="patientName"
                                     placeholder="Patient Name"
                                     value={approvalData.patientName || 'N/A'}
+                                    disabled={true}
+                                />
+                            </Col>
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridTextArea
+                                    id="patientAddress"
+                                    placeholder="Patient Address"
+                                    value={`${approvalData.address},${approvalData.vdcOrMunicipality}, ${approvalData.district}, ${approvalData.province}` || 'N/A'}
                                     disabled={true}
                                 />
                             </Col>

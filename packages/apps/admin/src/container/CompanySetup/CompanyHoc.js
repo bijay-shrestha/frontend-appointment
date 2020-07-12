@@ -115,7 +115,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                 nameValid: false,
                 codeValid: false,
                 showEditModal: false,
-                errorMessage:''
+                errorMessage: ''
             })
         }
 
@@ -190,10 +190,11 @@ const CompanyHOC = (ComposedComponent, props, type) => {
         }
 
         checkFormValidity = eventType => {
-            const {companyData, nameValid} = this.state
+            const {companyData} = this.state
             const {name, status, companyCode, address, panNumber} = companyData
             let formValidity =
-                nameValid && name && status && companyCode && address && panNumber
+                // nameValid &&
+                name && status && companyCode && address && panNumber
 
             if (eventType === 'E')
                 formValidity =
@@ -384,10 +385,10 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                     imagePathLogo = await this.uploadImageToServer(companyLogo, "logo");
                     this.setImageLoading(false)
                 }
-                await this.props.updateCompany(UPDATE_COMPANY, {...companyData,companyLogo: imagePathLogo})
+                await this.props.updateCompany(UPDATE_COMPANY, {...companyData, companyLogo: imagePathLogo})
                 this.resetCompanyStateValues()
                 this.setState({
-                    errorMessage:'',
+                    errorMessage: '',
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'success',
@@ -623,7 +624,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
             } catch (e) {
                 await this.setShowConfirmModal()
                 this.setState({
-                    isImageUploading:false,
+                    isImageUploading: false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'danger',
@@ -719,7 +720,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                 companyPreviewErrorMessage
             } = this.props.companyPreviewReducer
 
-            const {companyEditErrorMessage,isCompanyEditLoading} = this.props.companyUpdateReducer
+            const {companyEditErrorMessage, isCompanyEditLoading} = this.props.companyUpdateReducer
 
             const {companyDeleteErrorMessage} = this.props.companyDeleteReducer
             const {
@@ -728,7 +729,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                 companyDropdownErrorMessage
             } = this.props.companyDropdownReducer
 
-            const {isCompanySaveLoading}= this.props.companySaveReducer;
+            const {isCompanySaveLoading} = this.props.companySaveReducer;
 
             //   const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
