@@ -422,7 +422,8 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                         tableHandler={{
                             isSearchLoading: isLogListLoading,
                             appointmentLogList: this.appendSNToTable(filteredData),
-                            searchErrorMessage: logErrorMessage,
+                            searchErrorMessage: (searchParameters.appointmentServiceTypeCode) ? logErrorMessage
+                                : "Select Appointment Service type first.",
                             setShowModal: this.setShowModal,
                             showModal: showModal,
                             previewCall: this.previewCall,

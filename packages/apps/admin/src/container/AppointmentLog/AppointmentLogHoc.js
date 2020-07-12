@@ -428,7 +428,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                         tableHandler={{
                             isSearchLoading: isLogListLoading,
                             appointmentLogList: this.appendSNToTable(filteredData),
-                            searchErrorMessage: logErrorMessage,
+                            searchErrorMessage: (searchParameters.hospitalId && searchParameters.appointmentServiceTypeCode) ? logErrorMessage
+                                : "Select Client and Appointment Service type first.",
                             setShowModal: this.setShowModal,
                             showModal: showModal,
                             previewCall: this.previewCall,
