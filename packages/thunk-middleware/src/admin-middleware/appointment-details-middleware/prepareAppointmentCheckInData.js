@@ -13,8 +13,8 @@ export const constructAppointmentCheckInData = (data, requestBody) => {
     requestBody.appointmentNo = data.appointmentNumber
     requestBody.phoneNo = data.mobileNumber
     requestBody.email = data.emailAddress || 'abc@gmail.com'
-    requestBody.vdc = data.vdcOrMunicipality
-    requestBody.district = data.district
+    requestBody.vdc = "Kathmandu Metro"  //data.vdcOrMunicipality
+    requestBody.district = "Kathmandu"// data.district
     requestBody.ageDay = data.ageDay
     requestBody.ageMonth = data.ageMonth;
     requestBody.address = data.address
