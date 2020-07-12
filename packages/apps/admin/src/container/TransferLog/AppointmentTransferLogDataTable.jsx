@@ -1,21 +1,15 @@
 import React, {memo} from 'react'
-import {
-  CDataTable,
-  CLoading,
-  CPagination,
-  CButton
-} from '@frontend-appointment/ui-elements'
-import {Row, Col} from 'react-bootstrap'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
+import {Col, Row} from 'react-bootstrap'
 import PreviewDetails from './AppointmentTransferLogPreview'
 import {
-  DoctorWithSpecImage,
-  PatientNameWithAgeGenderPhone,
-  TransferredFromDateWithTime,
-  TransferredToDateWithTime,
-  AppointmentNumberWithFollowUpFlag,
-  TransferredToDoctorWithSpecImage,
-  CExcelDownload
-  //AppointmentStatusBadges
+    AppointmentNumberWithFollowUpFlag,
+    CExcelDownload,
+    DoctorWithSpecImage,
+    PatientNameWithAgeGenderPhone,
+    TransferredFromDateWithTime,
+    TransferredToDateWithTime,
+    TransferredToDoctorWithSpecImage
 } from '@frontend-appointment/ui-components'
 //import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 //import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithAgeAndGender'

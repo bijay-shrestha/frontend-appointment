@@ -1,14 +1,16 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
-    AppointmentDetailsMiddleware, AppointmentServiceTypeMiddleware,
-    DoctorMiddleware, HospitalDepartmentSetupMiddleware,
+    AppointmentDetailsMiddleware,
+    AppointmentServiceTypeMiddleware,
+    DoctorMiddleware,
+    HospitalDepartmentSetupMiddleware,
     HospitalSetupMiddleware,
     PatientDetailsMiddleware,
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {DateTimeFormatterUtils, CommonUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import {CommonUtils, DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './transaction-log.scss'
 
 const {
@@ -347,7 +349,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                     }
                 })
         }
-        
+
         downloadExcel = async () => {
             const {
                 transactionNumber,
@@ -467,7 +469,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                             queryParams: queryParams,
                             totalRecords: totalRecords,
                             handlePageChange: this.handlePageChange,
-                        
+
                         }}
                         tableHandler={{
                             isSearchLoading: isLogListLoading,
