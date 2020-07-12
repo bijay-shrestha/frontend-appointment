@@ -35,7 +35,7 @@ const AppointmentTransferDataTable = ({
         previewData,
         showModal,
         setShowModal,
-        exportExcel
+        // exportExcel
     } = tableHandler
 
     const {queryParams, totalRecords, handlePageChange} = paginationProps
@@ -58,7 +58,7 @@ const AppointmentTransferDataTable = ({
                 {' '}
                 <i className="fa fa-download" />
               </CButton>
-            </Col> 
+            </Col>
                 </Row>
 
                 {/* <AppointmentStatusBadges
