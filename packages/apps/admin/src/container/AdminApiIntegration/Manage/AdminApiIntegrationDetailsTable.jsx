@@ -1,19 +1,10 @@
 import React, {memo} from 'react'
-import {
-    CDataTable,
-    CPagination,
-    //CButton,
-    CLoading
-} from '@frontend-appointment/ui-elements'
-import {ConfirmDelete} from '@frontend-appointment/ui-components'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
+import {ConfirmDelete, RequestMethodStatus, StatusLabel} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import TableAction from '../../CommonComponents/table-components/TableAction'
 // import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
 import PreviewDetails from './AdminApiDetailsModal'
-import {
-    RequestMethodStatus
-} from '@frontend-appointment/ui-components'
-import {StatusLabel} from '@frontend-appointment/ui-components/src/CTableComponents'
 
 const {checkIfRoleExists} = ActionFilterUtils
 
@@ -124,7 +115,7 @@ const ClientApiIntegrationDetailsDataTable = ({
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
-                            width:100
+                            width: 100
                         },
                         {
                             headerName: 'Status',
@@ -133,7 +124,7 @@ const ClientApiIntegrationDetailsDataTable = ({
                             sortable: true,
                             sizeColumnsToFit: true,
                             cellRenderer: 'statusRenderer',
-                            width:70
+                            width: 70
                         },
                         {
                             headerName: '',

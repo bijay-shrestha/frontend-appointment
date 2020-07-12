@@ -1,8 +1,0 @@
-{
-  "name": "@frontend-appointement/c-room-number-for-table",
-  "version": "1.0.0",
-  "main": "RoomNumberForTable.js",
-  "author": "Sabu Shakya",
-  "license": "MIT",
-  "private": true
-}

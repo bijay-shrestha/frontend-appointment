@@ -6,7 +6,11 @@ import {
     ToDateDisplayForTable,
     FromDateDisplayForTable,
     DayOffStatusLabel,
-    OverrideActions
+    OverrideActions,
+    StatusLabel,
+    TableAction,
+    CancelDateWithTime,
+    RoomNumberForTable
 } from './src/TableComponents';
 
 export {
@@ -17,7 +21,11 @@ export {
     ToDateDisplayForTable,
     FromDateDisplayForTable,
     DayOffStatusLabel,
-    OverrideActions
+    OverrideActions,
+    TableAction,
+    StatusLabel,
+    CancelDateWithTime,
+    RoomNumberForTable
 }
 export {default as Login} from './src/Login';
 export {default as ClientLogin} from './src/ClientLogin';
@@ -63,7 +71,6 @@ export {default as RequestMethodStatus} from './src/RequestMethodStatus';
 export {default as RoomEnableBadge} from './src/RoomEnableBadge';
 export {default as AppointmentQuickCheckInOption} from './src/AppointmentQuickCheckInOption'
 export {default as PatientNameWithAgeGenderPhoneAddress} from './src/PatientNameWithAgeGenderPhoneAddressForTable'
-export {default as RoomNumberForTable} from './src/RoomNumberForTable'
 export {default as CPageOverlayLoader} from './src/CPageOverlayLoader'
 export {default as DepartmentNameWithRoomNumber} from './src/DepartmentNameWithRoomNumber'
 export {default as DoctorAppointmentCheckInOptions} from './src/DoctorAppointmentCheckInOption';
