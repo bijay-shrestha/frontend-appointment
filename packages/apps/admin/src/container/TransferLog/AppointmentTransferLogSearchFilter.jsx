@@ -162,15 +162,18 @@ class AppointmentTransferListSearchFilter extends PureComponent {
                                             label="Specialization"
                                             name="specializationId"
                                             placeholder={
-                                                activeSpecializationList.length
-                                                    ? 'Select specialization'
-                                                    : 'No specialization(s) available.'
+                                                searchParameters.hospitalId ?
+                                                    activeSpecializationList.length
+                                                        ? 'Select specialization'
+                                                        : 'No specialization(s) available.'
+                                                    : "Select Client first."
                                             }
                                             onKeyDown={event => handleEnter(event)}
                                             options={activeSpecializationList}
                                             value={searchParameters.specializationId}
                                             isDisabled={
-                                                activeSpecializationList.length ? false : true
+                                                !searchParameters.hospitalId ||
+                                                !activeSpecializationList.length
                                             }
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
@@ -183,16 +186,18 @@ class AppointmentTransferListSearchFilter extends PureComponent {
                                             label="Doctor"
                                             name="doctorId"
                                             placeholder={
-                                                doctorsDropdown.length
-                                                    ? 'Select doctor.'
-                                                    : 'No doctor(s) available.'
+                                                searchParameters.hospitalId ?
+                                                    doctorsDropdown.length
+                                                        ? 'Select doctor.'
+                                                        : 'No doctor(s) available.'
+                                                    : "Select Client first."
                                             }
                                             noOptionsMessage={() => 'No Doctor(s) found.'}
                                             onKeyDown={event => handleEnter(event)}
                                             onChange={event => handleSearchFormChange(event)}
                                             options={doctorsDropdown}
                                             value={searchParameters.doctorId}
-                                            isDisabled={!doctorsDropdown.length}
+                                            isDisabled={!searchParameters.hospitalId || !doctorsDropdown.length}
                                             onEnter={handleEnter}
                                         />
                                     </Col>
@@ -202,10 +207,15 @@ class AppointmentTransferListSearchFilter extends PureComponent {
                                             id="admin-meta-info"
                                             name="patientMetaInfoId"
                                             label="Patients Detail"
-                                            placeholder="Name, Mobile no Or Reg. no"
+                                            placeholder={
+                                                searchParameters.hospitalId ?
+                                                    patientListDropdown.length ?
+                                                        "Name, Mobile no Or Reg. no"
+                                                        : "No Patient Detail(s) found." :
+                                                    "Select Client first."}
                                             options={patientListDropdown}
                                             value={searchParameters.patientMetaInfoId}
-                                            isDisabled={patientListDropdown.length ? false : true}
+                                            isDisabled={!searchParameters.hospitalId || !patientListDropdown.length}
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                         />
