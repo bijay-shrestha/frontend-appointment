@@ -5,11 +5,11 @@ export const constructAppointmentCheckInData = (data, requestBody) => {
     requestBody.name = data.patientName;
     requestBody.age = data.patientAge ? Number(data.patientAge.replace("years", "")) : data.age;
     requestBody.wardNo = data.wardNumber
-    requestBody.roomNo = data.roomNumber && data.roomNumber.includes('-') ? data.roomNumber.split('-')[1] : data.roomNumber
-    requestBody.patientId = data.hospitalNumber
+    requestBody.roomNo = data.roomNumber && data.roomNumber.includes('-') ? (data.roomNumber.split('-')[1]).trim() : data.roomNumber
+    requestBody.patientId = data.hospitalNumber || ''
     requestBody.sex = StringUtils.toTitleCase(data.gender || data.patientGender)
-    requestBody.section = data.hospitalDepartmentName
-    requestBody.mobileNo = data.mobileNumber
+    requestBody.section = data.hospitalDepartmentName || ''
+    requestBody.mobileNo = data.mobileNumber || ''
     requestBody.appointmentNo = data.appointmentNumber
     requestBody.phoneNo = data.mobileNumber
     requestBody.email = data.emailAddress || 'abc@gmail.com'
