@@ -2,7 +2,8 @@ import React, {memo} from 'react'
 import {
     CDataTable,
     CLoading,
-    CPagination
+    CPagination,
+    CButton
 } from '@frontend-appointment/ui-elements'
 import {Row, Col} from 'react-bootstrap'
 import PreviewDetails from './AppointmentTransferLogPreview'
@@ -50,7 +51,7 @@ const AppointmentTransferDataTable = ({
               <CButton
                 id="downloadExcel"
                 name="DownloadExcel"
-                 onClickHandler={props.exportExcel}
+                // onClickHandler={props.exportExcel}
                 className="float-right"
                 variant="outline-secondary"
               >
