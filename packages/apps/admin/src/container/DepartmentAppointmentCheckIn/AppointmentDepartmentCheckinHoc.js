@@ -782,7 +782,8 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                     this.state.appointmentDetails,
                     IntegrationConstants.apiIntegrationFeatureTypeCodes
                         .DEPARTMENT_CHECK_IN_CODE,
-                    IntegrationConstants.apiIntegrationKey.CLIENT_FEATURE_INTEGRATION
+                    IntegrationConstants.apiIntegrationKey.ALL_CLIENT_FEATURE_INTEGRATION,
+                    hospitalId
                 )
                 requestDTO = {
                     appointmentId: appointmentId,
