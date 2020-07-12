@@ -1,19 +1,14 @@
 import React, {memo} from 'react'
-import {
-    CDataTable,
-    CLoading,
-    CPagination,
-    CButton
-} from '@frontend-appointment/ui-elements';
-import { Col, Row } from 'react-bootstrap';
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
+import {Col, Row} from 'react-bootstrap';
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus'
 import {
     AppointmentNumberWithFollowUpFlag,
     AppointmentStatusBadges,
-    PatientNameWithAgeGenderPhone,
-    DoctorWithSpecImage,
+    CExcelDownload,
     DepartmentNameWithRoomNumberAndBillingMode,
-    CExcelDownload
+    DoctorWithSpecImage,
+    PatientNameWithAgeGenderPhone
 } from '@frontend-appointment/ui-components'
 import {CommonUtils} from '@frontend-appointment/helpers'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
@@ -55,15 +50,15 @@ const AppointmentRefundDataTable = ({
     return (
         <>
             <div className="manage-details">
-              
-          <Row>
-              <Col>          
-                <h5 className="title">Appointment Log Details</h5>
-             </Col> 
-             <Col> 
-             <CExcelDownload/>
-            </Col> 
-            </Row> 
+
+                <Row>
+                    <Col>
+                        <h5 className="title">Appointment Log Details</h5>
+                    </Col>
+                    <Col>
+                        <CExcelDownload/>
+                    </Col>
+                </Row>
 
                 <AppointmentStatusBadges
                     activeStatus={activeStatus}
