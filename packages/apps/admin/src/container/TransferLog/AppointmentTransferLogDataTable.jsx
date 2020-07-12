@@ -33,7 +33,8 @@ const AppointmentTransferDataTable = ({
         previewCall,
         previewData,
         showModal,
-        setShowModal
+        setShowModal,
+        exportExcel
     } = tableHandler
 
     const {queryParams, totalRecords, handlePageChange} = paginationProps
@@ -45,18 +46,18 @@ const AppointmentTransferDataTable = ({
                         <h5 className="title">Transfer Log Details</h5>
                     </Col>
 
-                    {/* <Col>
+                    <Col>
               <CButton
                 id="downloadExcel"
                 name="DownloadExcel"
-                // onClickHandler={props.exportExcel}
+                 onClickHandler={props.exportExcel}
                 className="float-right"
                 variant="outline-secondary"
               >
                 {' '}
                 <i className="fa fa-download" />
               </CButton>
-            </Col>  */}
+            </Col> 
                 </Row>
 
                 {/* <AppointmentStatusBadges

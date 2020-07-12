@@ -254,7 +254,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 ''
             )} */}
 
-      {refundConfirmationModal ? (
+      {/* {refundConfirmationModal ? (
         <CRemarksModal
           confirmationMessage="Provide remarks for Refund Check."
           modalHeader="Are you sure you want to Check Refund?"
@@ -269,7 +269,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         />
       ) : (
         ''
-      )}
+      )} */}
     </>
   )
 }
