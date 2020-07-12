@@ -1,6 +1,11 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import {CRemarksModal, DoctorWithSpecImage, PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components'
+import {
+    CancelDateWithTime,
+    CRemarksModal,
+    DoctorWithSpecImage,
+    PatientNameWithAgeGenderPhone
+} from '@frontend-appointment/ui-components'
 import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
 import PreviewDetails from './AppointmentRefundPreview'
 import RejectModal from './RejectModal'
@@ -86,7 +91,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     field: 'cancelledDate',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'cancelDateWithTime'
                                 },
                                 {
                                     headerName: 'Patient Details',
@@ -176,7 +182,15 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     null,
                                     null,
                                     previewCall
-                                )
+                                ),
+                                cancelDateWithTime:
+                                    PreviewHandlerHoc(
+                                        CancelDateWithTime,
+                                        null,
+                                        null,
+                                        null,
+                                        previewCall
+                                    ),
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={previewCall}

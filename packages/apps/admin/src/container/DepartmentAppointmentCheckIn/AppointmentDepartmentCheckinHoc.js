@@ -658,15 +658,28 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
         // }
 
         approveHandler = async data => {
-            await this.previewApiCall(data)
-            this.props.clearAppointmentApproveMessage()
-            await this.setState({
-                approveAppointmentId: data.appointmentId,
-                appointmentDetails: {
-                    ...this.props.AppointmentDetailReducer.appointmentDetail
-                },
-                approveConfirmationModal: true
-            })
+            try {
+                await this.previewApiCall(data)
+                this.props.clearAppointmentApproveMessage()
+                await this.setState({
+                    approveAppointmentId: data.appointmentId,
+                    appointmentDetails: {
+                        ...this.props.AppointmentDetailReducer.appointmentDetail
+                    },
+                    approveConfirmationModal: true
+                })
+            } catch (e) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message:
+                            e.message ||
+                            e.errorMessage ||
+                            'Sorry,Internal Server Error occurred!'
+                    }
+                })
+            }
             //  this.approveHandleApi();
         }
 
@@ -769,7 +782,8 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                     this.state.appointmentDetails,
                     IntegrationConstants.apiIntegrationFeatureTypeCodes
                         .DEPARTMENT_CHECK_IN_CODE,
-                    IntegrationConstants.apiIntegrationKey.CLIENT_FEATURE_INTEGRATION
+                    IntegrationConstants.apiIntegrationKey.ALL_CLIENT_FEATURE_INTEGRATION,
+                    hospitalId
                 )
                 requestDTO = {
                     appointmentId: appointmentId,

@@ -106,9 +106,9 @@ const ApprovalContent = ({approvalData}) => {
                   value={
                     approvalData.doctorName && approvalData.specialization
                       ? 'Dr.' +
-                        approvalData.doctorName.toUpperCase() +
+                        approvalData.doctorName +
                         '(' +
-                        approvalData.specializationName.toUpperCase() +
+                        approvalData.specializationName +
                         ')'
                       : 'N/A'
                   }

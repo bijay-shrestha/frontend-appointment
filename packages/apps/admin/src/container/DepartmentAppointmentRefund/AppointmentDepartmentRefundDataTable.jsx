@@ -5,6 +5,7 @@ import {
     CPagination
 } from '@frontend-appointment/ui-elements'
 import {
+    CancelDateWithTime,
     CRemarksModal,
     DepartmentNameWithRoomNumber,
     PatientNameWithAgeGenderPhone
@@ -93,7 +94,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     field: 'cancelledDate',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'cancelDateWithTime'
                                 },
                                 {
                                     headerName: 'Patient Details',
@@ -183,7 +185,15 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     null,
                                     null,
                                     previewCall
-                                )
+                                ),
+                                cancelDateWithTime:
+                                    PreviewHandlerHoc(
+                                        CancelDateWithTime,
+                                        null,
+                                        null,
+                                        null,
+                                        previewCall
+                                    ),
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={previewCall}

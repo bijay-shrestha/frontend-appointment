@@ -8,8 +8,9 @@ import {
     SpecializationSetupMiddleware,
     HospitalDepartmentSetupMiddleware,
     RoomSetupMiddleware
+    
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {AdminModuleAPIConstants,IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
     DateTimeFormatterUtils,
     EnterKeyPressUtils
@@ -24,7 +25,9 @@ const {
     fetchAppointmentStatusListByRoom,
     clearAppointmentStatusMessage,
     appointmentApprove,
-    fetchDepartmentAppointmentStatusCount
+    fetchDepartmentAppointmentStatusCount,
+    fetchAppointmentApprovalDetailByAppointmentId,
+    thirdPartyApiCallCheckIn
 } = AppointmentDetailsMiddleware
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
@@ -378,11 +381,37 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             })
         }
 
-        checkInAppointment = async appointmentId => {
+        previewApiCall = async appointmentId => {
+            await this.props.fetchAppointmentApprovalDetailByAppointmentId(
+                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DETAIL,
+                appointmentId
+            )
+        }
+
+        previewCall = async data => {
             try {
-                this.setState({
-                    isConfirming: true
+                await this.previewApiCall(data)
+                await this.setState({
+                    appointmentDetails:this.props.AppointmentDetailReducer.appointmentDetail
                 })
+            } catch (e) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: this.props.AppointmentDetailReducer
+                            .appointmentDetailErrorMessage
+                    }
+                })
+            }
+        }
+
+        approveApiCall = async appointmentId => {
+            try {
+                // this.setState({
+                //     isConfirming: true
+                // })
+                
                 await this.props.appointmentApprove(APPOINTMENT_APPROVE, appointmentId)
                 this.setState({
                     showCheckInModal: false,
@@ -406,6 +435,65 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 })
             }
         }
+
+        checkInAppointment = async (apptId) => {
+            this.setState({
+                isConfirming: true
+            })
+            await this.previewApiCall(apptId)
+            const {hospitalId, hospitalNumber, appointmentId} = this.state.appointmentDetails;
+            // kaushal
+            let requestDTO;
+            try {
+                const {successResponse, apiRequestBody} = await thirdPartyApiCallCheckIn(
+                    this.state.appointmentDetails,
+                    IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_CHECK_IN_CODE,
+                    IntegrationConstants.apiIntegrationKey.ALL_CLIENT_FEATURE_INTEGRATION,
+                    this.state.appointmentDetails.hospitalId
+                );
+                requestDTO = {
+                    hospitalId: hospitalId,
+                    appointmentId: appointmentId,
+                    hospitalNumber: '',
+                    isPatientNew: !hospitalNumber,
+                    ...apiRequestBody
+                }
+                if (!successResponse) {
+                    requestDTO.hospitalNumber = null
+                    this.approveApiCall(requestDTO)
+                } else if (successResponse.responseData && !successResponse.responseMessage) {
+                    requestDTO.hospitalNumber = successResponse.responseData
+                    this.approveApiCall(requestDTO)
+                } else {
+                    this.setState({
+                        thirdPartyApiErrorMessage: successResponse.responseMessage,
+                        // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
+                        showAlert: true,
+                        alertMessageInfo: {
+                            variant: 'danger',
+                            message: successResponse.responseMessage
+                                || "Could not access third party api."
+                        }
+                    })
+                }
+            } catch (e) {
+                this.setState({
+                    isConfirming: false,
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message:
+                            this.props.AppointmentApproveReducer.approveErrorMessage ||
+                            e.message || e.errorMessage || "Could not access third party api."
+                    }
+                })
+            }
+            // finally {
+            //     await this.searchAppointment()
+            //     this.setShowModal()
+            // }
+        }
+
 
         clearAlertTimeout = () => {
             setTimeout(() => this.closeAlert(), 5000)
@@ -971,7 +1059,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             'HospitalDepartmentDropdownReducer',
             'RoomNumberDropdownReducer',
             'AppointmenStatusByDepartmentListReducer',
-            'AppointmenStatusByRoomListReducer'
+            'AppointmenStatusByRoomListReducer',
+            'AppointmentDetailReducer'
         ],
         {
             fetchActiveHospitalsForDropdown,
@@ -985,7 +1074,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             fetchActiveRoomNumberForDropdownByDepartmentId,
             fetchAppointmentStatusListByDepartment,
             fetchAppointmentStatusListByRoom,
-            fetchDepartmentAppointmentStatusCount
+            fetchDepartmentAppointmentStatusCount,
+            fetchAppointmentApprovalDetailByAppointmentId
         }
     )
 }

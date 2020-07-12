@@ -66,6 +66,15 @@ const ApprovalContent = ({appointmentDetails}) => {
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>
+                                <CHybridTextArea
+                                    id="patientAddress"
+                                    placeholder="Patient Address"
+                                    value={`${appointmentDetails.address},${appointmentDetails.vdcOrMunicipality}, ${appointmentDetails.district}, ${appointmentDetails.province}` || 'N/A'}
+                                    disabled={true}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="patientType"
                                     placeholder="Patient Type"
@@ -97,7 +106,10 @@ const ApprovalContent = ({appointmentDetails}) => {
                                 <CHybridTextArea
                                     id="clientName"
                                     placeholder="Department Details"
-                                    value={`${appointmentDetails.hospitalDepartmentName}(${appointmentDetails.vdcOrMunicipality}, ${appointmentDetails.address}, ${appointmentDetails.district}, ${appointmentDetails.province})`}
+                                    value={(appointmentDetails.hospitalDepartmentName || 'N/A') +
+                                    '(' +
+                                    (appointmentDetails.roomNumber || 'N/A') +
+                                    ')'}
                                     disabled={true}
                                 />
                             </Col>

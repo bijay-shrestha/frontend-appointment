@@ -97,10 +97,10 @@ const CompanyEditModal = ({
                                     placeholder="Company Name"
                                     value={companyData.name}
                                     required={true}
-                                    hasValidation={true}
-                                    max={100}
-                                    fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-                                    errorMessagePassed={errorMessageForCompanyName}
+                                    hasValidation={false}
+                                    // max={100}
+                                    // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
+                                    // errorMessagePassed={errorMessageForCompanyName}
                                 />
                             </Col>
 

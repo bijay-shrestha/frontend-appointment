@@ -38,9 +38,9 @@ export const genericThirdPartyApiCall = async (data,
         let response = null;
         try {
             if (option) {
-                if(featureTypeCode==='REFUND'||featureTypeCode==='PAYMENT_STATUS'){
-                const hmacCode = await fetchHmacTokenByAppointmentId(hmacPath, constructedData.properties.appointmentId)
-                option.requestOption.headers.signature = hmacCode;
+                if (featureTypeCode === 'REFUND' || featureTypeCode === 'PAYMENT_STATUS') {
+                    const hmacCode = await fetchHmacTokenByAppointmentId(hmacPath, constructedData.properties.appointmentId)
+                    option.requestOption.headers.signature = hmacCode;
                 }
                 // console.log("====option",option)
                 response = await Axios.dynamicMethod(option.requestOption)
