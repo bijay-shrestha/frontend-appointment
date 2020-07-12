@@ -78,18 +78,18 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
     searchTransfer = async page => {
       const {
         appointmentNumber,
-        fromDate,
-        toDate,
         patientMetaInfoId,
         // patientType,
         specializationId,
         doctorId,
+        appointmentFromDate,
+        appointmentToDate
        // patientCategory
       } = this.state.searchParameters
       let searchData = {
         appointmentNumber,
-        appointmetnFromDate: appointmentNumber ? '' : fromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
-        appointmentToDate: appointmentNumber ? '' : toDate,
+        appointmetnFromDate: appointmentNumber ? '' : appointmentFromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
+        appointmentToDate: appointmentNumber ? '' : appointmentToDate,
         patientMetaInfoId: patientMetaInfoId.value || '',
         //patientType: patientType.value || '',
         specializationId: specializationId.value || '',

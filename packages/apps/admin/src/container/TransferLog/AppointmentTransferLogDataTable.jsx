@@ -2,7 +2,8 @@ import React, {memo} from 'react'
 import {
     CDataTable,
     CLoading,
-    CPagination
+    CPagination,
+    CButton
 } from '@frontend-appointment/ui-elements'
 import {Row, Col} from 'react-bootstrap'
 import PreviewDetails from './AppointmentTransferLogPreview'
@@ -33,7 +34,8 @@ const AppointmentTransferDataTable = ({
         previewCall,
         previewData,
         showModal,
-        setShowModal
+        setShowModal,
+        exportExcel
     } = tableHandler
 
     const {queryParams, totalRecords, handlePageChange} = paginationProps
@@ -45,7 +47,7 @@ const AppointmentTransferDataTable = ({
                         <h5 className="title">Transfer Log Details</h5>
                     </Col>
 
-                    {/* <Col>
+                    <Col>
               <CButton
                 id="downloadExcel"
                 name="DownloadExcel"
@@ -56,7 +58,7 @@ const AppointmentTransferDataTable = ({
                 {' '}
                 <i className="fa fa-download" />
               </CButton>
-            </Col>  */}
+            </Col> 
                 </Row>
 
                 {/* <AppointmentStatusBadges
