@@ -156,6 +156,15 @@ export default {
 
     putForFile: (path, data) => API_WRAPPER(PUT(path, data, FILE_HEADER)),
 
+    putWithPaginationForFile: (path, paginationObject, data) =>
+    API_WRAPPER(
+        PUT(
+            convertObjectToRequestParam(path, paginationObject),
+            data,
+            FILE_HEADER
+        )
+    ),
+
     putMultipart: (path, data) => API_WRAPPER(PUT(path, data, MULTIPART_HEADER)),
 
     putWithMultiPart: (path, paramVariable, data, formData) =>

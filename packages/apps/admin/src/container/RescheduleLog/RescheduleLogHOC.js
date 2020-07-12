@@ -12,7 +12,7 @@ import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/
 import {CAlert} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 
-const {searchRescheduleLog, clearRescheduleLogMessage} = AppointmentDetailsMiddleware;
+const {searchRescheduleLog, clearRescheduleLogMessage,appointmentExcelDownload} = AppointmentDetailsMiddleware;
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware;
 const {fetchSpecializationHospitalWiseForDropdown} = SpecializationSetupMiddleware;
@@ -347,6 +347,44 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
             return newLogList
         };
 
+        downloadExcel = async () => {
+            const {
+                fromDate,
+                toDate,
+                hospitalId,
+                doctorId,
+                specializationId,
+                appointmentNumber,
+                esewaId,
+                patientMetaInfoId,
+                patientType,
+                appointmentServiceTypeCode,
+                hospitalDepartmentId
+            } = this.state.searchParameters;
+            let searchData = {
+                fromDate,
+                toDate,
+                hospitalId: hospitalId.value || '',
+                specializationId: specializationId.value || '',
+                doctorId: doctorId.value || '',
+                appointmentNumber,
+                esewaId,
+                patientMetaInfoId: patientMetaInfoId.value || '',
+                patientType: patientType.value || '',
+                appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
+                hospitalDepartmentId: hospitalDepartmentId.value || ''
+            };
+
+            try{
+              await  appointmentExcelDownload(AdminModuleAPIConstants.excleApiConstants.RESCHEDULE_LOG_EXCEL,this.state.queryParams,searchData,'rescheduleLog')
+            return false;
+           }catch(e){
+             console.log(e);
+             return false;
+            }
+           }
+      
+
         componentDidMount() {
             this.initialApiCalls();
         }
@@ -415,7 +453,8 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
                                     : "Select Client and Appointment Service type first.",
                                 isRescheduleLogLoading,
                                 searchAppointmentStatus: this.searchRescheduleLog,
-                                appointmentServiceTypeCode: primaryAppointmentService
+                                appointmentServiceTypeCode: primaryAppointmentService,
+                                downloadExcel:this.downloadExcel
                             }}
                             paginationProps={{
                                 queryParams: queryParams,

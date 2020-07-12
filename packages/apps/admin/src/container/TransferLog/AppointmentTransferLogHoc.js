@@ -1,11 +1,12 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
-    DoctorMiddleware,
-    SpecializationSetupMiddleware,
-    PatientDetailsMiddleware,
-    AppointmentTransferMiddleware,
-    HospitalSetupMiddleware
+  DoctorMiddleware,
+  SpecializationSetupMiddleware,
+  PatientDetailsMiddleware,
+  AppointmentTransferMiddleware,
+  HospitalSetupMiddleware,
+  AppointmentDetailsMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import './transfer-log.scss'
@@ -14,6 +15,7 @@ import {
     CommonUtils
 } from '@frontend-appointment/helpers'
 
+const {appointmentExcelDownload} = AppointmentDetailsMiddleware
 const {
     fetchAppointmentPreviewInfo,
     fetchAppointmentTransferSearch
@@ -256,6 +258,38 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
             }
         }
 
+        downloadExcel = async () => {
+            const {
+                appointmentNumber,
+                appointmentFromDate,
+                appointmentToDate,
+                patientMetaInfoId,
+                // patientType,
+                specializationId,
+                doctorId,
+                hospitalId
+                // patientCategory
+            } = this.state.searchParameters
+            let searchData = {
+                appointmentNumber,
+                appointmetnFromDate: appointmentNumber ? '' : appointmentFromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
+                appointmentToDate: appointmentNumber ? '' : appointmentToDate,
+                patientMetaInfoId: patientMetaInfoId.value || '',
+                //patientType: patientType.value || '',
+                specializationId: specializationId.value || '',
+                doctorId: doctorId.value || '',
+                hospitalId: hospitalId.value || ''
+                //patientCategory: patientCategory.value || ''
+            }
+            try{
+                await  appointmentExcelDownload(AdminModuleAPIConstants.excleApiConstants.TRANSFER_LOG_EXCEL,this.state.queryParams,searchData,'transferLog')
+                return false;
+            }catch(e){
+                console.log(e);
+                return false;
+            }
+        }
+
         async componentDidMount() {
             await this.searchTransfer()
             await this.props.fetchActiveHospitalsForDropdown(
@@ -331,7 +365,8 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
                             setShowModal: this.setShowModal,
                             showModal: showModal,
                             previewCall: this.previewCall,
-                            previewData: appointmentTransferInfo
+                            previewData: appointmentTransferInfo,
+                            downloadExcel:this.downloadExcel
                         }}
                         activeStatus={activeStatus}
                         handleStatusChange={this.handleStatusChange}

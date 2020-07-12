@@ -4,9 +4,9 @@ import TableAction from '../CommonComponents/table-components/TableAction'
 import TableStatus from '../CommonComponents/table-components/StatusLabel'
 import PreviewDetails from './PatientPreview'
 import PatientEditModal from './PatientEditModal'
-import {PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components';
+import {PatientNameWithAgeGenderPhone,CExcelDownload} from '@frontend-appointment/ui-components';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
-
+import {Col} from 'react-bootstrap'
 const PatientDataList = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -26,13 +26,19 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
     formValid,
     handleEnter,
     editChange,
-    editHandleApi
+    editHandleApi,
+    downloadExcel
   } = tableHandler
   const {queryParams, totalRecords, handlePageChange} = paginationProps
   return (
     <>
       <div className="manage-details">
+        <Col>
         <h5 className="title">Patient Details</h5>
+        </Col>
+        <Col>
+        <CExcelDownload onClickHandler={downloadExcel}/>
+        </Col>
         {!isSearchLoading && !searchErrorMessage && patientSearchList.length ? (
           <>
             <CDataTable
