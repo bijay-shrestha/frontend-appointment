@@ -4,9 +4,14 @@ import AppointmentStatusSearchFilter from "./AppointmentStatusByDepartmenSearchF
 
 import "./appointment-status.scss";
 import AppointmentStatusDetails from "./AppointmentStatusByDepartmentDetails";
-import {CConfirmationModal} from "@frontend-appointment/ui-components";
+import {
+    AppointmentCheckInSuccessModal,
+    CConfirmationModal,
+    CPageOverlayLoader
+} from "@frontend-appointment/ui-components";
 import CheckInModalContent from "../CommonComponents/CheckInModalContent";
 import {CModal} from "@frontend-appointment/ui-elements";
+import {AppointmentCheckInPrint, PrintableComponent} from '@frontend-appointment/commons'
 
 const AppointmentStatus = props => {
     const AppointmentStatus = AppointmentStatusHOC(
@@ -14,8 +19,17 @@ const AppointmentStatus = props => {
              searchHandler,
              statusDetailsData,
              checkInModalData
-         }) =>
-            <>
+         }) => {
+            const {
+                showCheckInSuccessModal,
+                approveSuccessMessage,
+                closeCheckInSuccessModal,
+                onCopyAppointmentNumber,
+                copySuccessMessage,
+                appointmentDetailsForCheckIn,
+                isConfirming
+            } = checkInModalData
+            return <>
                 <div>
                     <AppointmentStatusSearchFilter
                         searchHandler={searchHandler}/>
@@ -47,8 +61,29 @@ const AppointmentStatus = props => {
                             dialogClassName="cogent-modal"/>
                         : ''
                 }
+                {showCheckInSuccessModal ? (
+                    <AppointmentCheckInSuccessModal
+                        modalHeader={approveSuccessMessage}
+                        showModal={showCheckInSuccessModal}
+                        setShowModal={closeCheckInSuccessModal}
+                        onCopyAppointmentNumber={onCopyAppointmentNumber}
+                        copySuccessMessage={copySuccessMessage}
+                        appointmentDetails={appointmentDetailsForCheckIn}
+                        Print={PrintableComponent(AppointmentCheckInPrint, appointmentDetailsForCheckIn)}
+                    />
+                ) : (
+                    ''
+                )}
+                {
+                    isConfirming ?
+                        <CPageOverlayLoader
+                            showModal={isConfirming}
+                            modalHeader={"Appointment Check-In in process."}
+                        /> : ''
+                }
 
-            </>,
+            </>
+        },
         props, '');
     return <AppointmentStatus/>
 };
