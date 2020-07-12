@@ -331,7 +331,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       }))
     }
 
-    refundHandler = data => {
+    refundHandler = async data => {
       try{
       await this.previewApiCall(data.appointmentId)
       await this.setState({
