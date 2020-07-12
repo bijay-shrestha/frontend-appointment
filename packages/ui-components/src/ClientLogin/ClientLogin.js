@@ -61,7 +61,7 @@ class ClientLogin extends PureComponent {
                 } else if (
                     s === 'email' &&
                     value.includes('@') &&
-                    !value.match(patt)
+                    !value.trim().match(patt)
                 ) {
                     errorMsg[s] = `Not a valid ${s.toUpperCase()}/EMAIL `;
                     errorMsg[s.concat('Valid')] = false;
@@ -129,7 +129,7 @@ class ClientLogin extends PureComponent {
 
                                             <p className="error">{submitErrorMsg}</p>
                                             <a href="#/forgotPassword" className="mb-4">Forgot Password</a>
-                                            
+
 
                                             <Button
                                                 variant="primary"
