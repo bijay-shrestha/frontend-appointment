@@ -5,19 +5,20 @@ import {
     AppointmentNumberWithFollowUpFlag,
     PatientNameWithAgeGenderPhone,
     RescheduleLogDateWithTimeForTable,
-    DoctorWithSpecImage, DepartmentNameWithRoomNumberAndBillingMode
+    DoctorWithSpecImage, DepartmentNameWithRoomNumberAndBillingMode,
+    CExcelDownload
 } from '@frontend-appointment/ui-components';
 import AppointmentDateWithTime from "../CommonComponents/table-components/AppointmentDateWithTime";
 import {CommonUtils} from '@frontend-appointment/helpers'
-
+import {Col} from 'react-bootstrap'
 const {filterAppointmentServiceType} = CommonUtils
 
 const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
     const {
         isRescheduleLogLoading,
         rescheduleLogList,
-        searchErrorMessage, appointmentServiceTypeCode
-
+        searchErrorMessage, appointmentServiceTypeCode,
+        downloadExcel
     } = rescheduleLogData;
     const {queryParams, totalRecords, handlePageChange} = paginationProps;
     const headerNameForDoctorOrDepartment = filterAppointmentServiceType(
@@ -35,7 +36,9 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
     return (
         <>
             <div className="manage-details">
-                <h5 className="title">Reschedule Log Details</h5>
+                <Col><h5 className="title">Reschedule Log Details</h5></Col>
+                <Col><CExcelDownload onClickHandler={downloadExcel}/></Col>
+
                 {!isRescheduleLogLoading &&
                 !searchErrorMessage &&
                 rescheduleLogList.length ? (

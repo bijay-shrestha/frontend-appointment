@@ -1,6 +1,6 @@
 import {AppointmentDetailActions} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
-import {APIUtils, CommonUtils} from '@frontend-appointment/helpers'
+import {APIUtils, CommonUtils,FileExportUtils} from '@frontend-appointment/helpers'
 import {constructAppointmentCheckInData} from './prepareAppointmentCheckInData';
 import {GenericThirdPartyApiMiddleware, MinioMiddleware} from '../../../index'
 import {constructAppointmentRefundData} from './prepareAppointmentRefundData'
@@ -413,4 +413,17 @@ export const fetchDepartmentAppointmentStatusCount = (path, data) => async dispa
             e.errorMessage || 'Sorry Internal Server Problem'))
         throw e
     }
+}
+
+export const appointmentExcelDownload = async (path,pagination,data,fileName) =>{
+
+    try {
+        const response = await Axios.putWithPaginationForFile(path, pagination, data)
+        await FileExportUtils.exportEXCEL(response.data,fileName)
+        return true
+    } catch (e) {
+        console.log(e)
+        throw e;
+    }
+
 }

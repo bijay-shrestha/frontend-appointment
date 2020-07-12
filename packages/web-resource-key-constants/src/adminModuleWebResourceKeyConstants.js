@@ -578,8 +578,10 @@ export const favouritesApiConstants = {
 }
 
 export const excleApiConstants = {
-  APPOINTMENT_LOG_EXCEL: '/excel-report/APPOINTMENT_LOG',
+  APPOINTMENT_LOG_EXCEL: '/excel-report/appointment-log',
   RESCHEDULE_LOG_EXCEL: '/excel-report/reschedule-log',
-  TRANSACTION_LOG_EXCEL: '/excel-report/transaction-log'
+  TRANSACTION_LOG_EXCEL: '/excel-report/transaction-log',
+  TRANSFER_LOG_EXCEL: '/excel-report/transfer-log',
+  PATIENT_LOG_EXCEL:'/excel-report/patientDetails'
 }
 

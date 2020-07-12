@@ -4,7 +4,8 @@ import {
   DoctorMiddleware,
   SpecializationSetupMiddleware,
   PatientDetailsMiddleware,
-  AppointmentTransferMiddleware
+  AppointmentTransferMiddleware,
+  AppointmentDetailsMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import './transfer-log.scss'
@@ -12,9 +13,12 @@ import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
 const {
    fetchAppointmentPreviewInfo,
-   fetchAppointmentTransferSearch
+   fetchAppointmentTransferSearch,
 } = AppointmentTransferMiddleware
 
+const {
+appointmentExcelDownload
+} = AppointmentDetailsMiddleware
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
 const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware
@@ -212,6 +216,15 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
       }
     }
 
+    downloadExcel = async () => {
+     try{
+      const file = appointmentExcelDownload(AdminModuleAPIConstants.excleApiConstants.TRANSFER_LOG_EXCEL,this.state.queryParams,this.state.searchParameters)
+     console.log(file) 
+    }catch(e){
+      console.log(e);
+     }
+    }
+
     async componentDidMount () {
       await this.searchTransfer()
       await this.callApiForHospitalChange()
@@ -279,7 +292,8 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
               setShowModal: this.setShowModal,
               showModal: showModal,
               previewCall: this.previewCall,
-              previewData: appointmentTransferInfo
+              previewData: appointmentTransferInfo,
+              downloadExcel:this.downloadExcel
             }}
           />
         </div>
