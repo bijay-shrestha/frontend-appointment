@@ -1,9 +1,5 @@
 import React, {memo} from 'react'
-import {
-  CDataTable,
-  CLoading,
-  CPagination
-} from '@frontend-appointment/ui-elements'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {
   CRemarksModal,
   DoctorWithSpecImage,

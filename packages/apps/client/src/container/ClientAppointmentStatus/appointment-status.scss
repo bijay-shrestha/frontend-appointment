@@ -175,23 +175,31 @@
     .badge-success {
       color: $success !important;
       padding:0;
-      border: none;
+      border: 1px solid $success;
       background-color: white !important;
       // text-transform: lowercase;
     }
 
-    .pd-followup{
+    .app-details-link{
       font-size: 12px;
-      padding:2px 6px;
+      padding:2px 4px;
       font-weight: 400;
+      margin-top:6px;
       background-color:$gray-200;
-      @include border-radius(20px);
+      // border:1px solid $primary;
+      @include border-radius(4px);
+      margin-top:4px;
+      display: inline-block;
+
+      &:hover{
+        cursor: pointer;
+      }
     }
 
     .badge-primary {
       color: $primary !important;
-       border: none;
-       padding:0;
+      border: 1px solid $primary;
+       padding:2px;
        background-color: white !important;
     }
 
@@ -206,11 +214,20 @@
 
 }
 
+.action-wrapper{
+  .btn{
+    display: inline-block;
+    font-size:13px;
+   
+  }
+}
+
 .btn-checkin {
-  width:136px;
-  padding: 8px 0 !important;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  width:auto;
+  padding: 6px 8px !important;
+  // margin-top: 10px;
+  // margin-bottom: 10px;
+  margin:6px;
   display:block;
 
   i {
@@ -220,10 +237,10 @@
 
 
 .btn-transfer{
-  width:136px;
-  padding: 8px 0 !important;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  width:auto;
+  padding: 6px 8px !important;
+  // margin-top: 10px;
+  // margin-bottom: 10px;
   display:block;
 }
 
@@ -261,10 +278,9 @@
 
 
       .btn {
-        width: 120px;
-        // width:120px;
+        width: 120px;      
         //  margin-right:10px;
-        height: 46px;
+        height: 40px;
 
 
       }
@@ -394,3 +410,89 @@
     }
   }
 }
+
+//start transfer-modal
+.patient-box {
+  //border:1px solid $gray-300;
+  @include border-radius(0.5rem);
+  padding: 0;
+  margin: 0 -15px 0px;
+}
+
+
+  .box {
+    // border:1px solid $gray-300;
+    // @include border-radius(0.5rem);
+    // margin:10px;
+    padding: 15px 0;
+    min-height: 560px;
+    border:none;
+    background:transparent;
+    width:100%;
+    height:auto;
+  }
+  
+  .box-1 {
+    @include border-radius(0.5rem);
+    //border-right:1px solid $gray-400;
+    background-color: $gray-100;
+  }
+  
+  .doctor-box {
+    border: 1px solid $gray-300;
+    @include border-radius(4px);
+    background-color: #f8f9fa;
+    padding: 27px 8px;
+    margin-bottom: 35px;
+    position: relative;
+  
+    .doctor-label {
+        color: #6c757d !important;
+        position: absolute;
+        top: -8px;
+        left: 12px;
+        z-index: 2;
+        background-color: white;
+        font-size: 0.65rem;
+        padding: 0 5px;
+        border-radius: 4px;
+    }
+  
+    .di-column {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .data-image {
+            margin-top: 2px;
+            width: 55px;
+            height: 55px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            line-height: 30px;
+            //    @include border-radius(4px !important) ;
+  
+            img {
+                width: 100%;
+                height: auto;
+                //    @include border-radius(4px !important) ;
+            }
+        }
+  
+        .di-details {
+            margin: 0;
+            li {
+                line-height: 20px;
+  
+                &:nth-child(2) {
+                    font-size: 0.75rem;
+                    font-weight: 500;
+                    line-height: 20px;
+                    font-weight: $gray-300;
+                    color: $gray-600;
+                }
+            }
+        }
+    }
+  }
+
+  //end transfer-modal

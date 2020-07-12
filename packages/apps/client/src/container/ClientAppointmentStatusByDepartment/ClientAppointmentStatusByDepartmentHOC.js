@@ -2,12 +2,8 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
-    //DoctorMiddleware,
-    // HospitalSetupMiddleware,
     PatientDetailsMiddleware,
-    //SpecializationSetupMiddleware,
     HospitalDepartmentSetupMiddleware
-    // RoomSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {
     AdminModuleAPIConstants,
@@ -28,7 +24,8 @@ const {
     clearAppointmentStatusMessage,
     appointmentApprove,
     thirdPartyApiCallCheckIn,
-    fetchDepartmentAppointmentStatusCount
+    fetchDepartmentAppointmentStatusCount,
+    fetchAppointmentApprovalDetailByAppointmentId
 } = AppointmentDetailsMiddleware
 // const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 // const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
@@ -114,12 +111,15 @@ const ClientAppointmentStatusHOCByDepartment = (
             previousSelectedTimeSlotIds: '', // used for changing class of time slots, remove /add active class
             previousSelectedTimeSlotRowIndex: '',
             appointmentDetails: '',
+            appointmentDetailsForCheckIn: '',
             showCheckInModal: false,
             isConfirming: false,
             showAppointmentDetailModal: false,
             searchErrorMessage: '',
             searchStatusLoading: '',
-            appointmentStatusCount: ''
+            appointmentStatusCount: '',
+            showCheckInSuccessModal: false,
+            copySuccessMessage: '',
         }
 
         onChangeRoom = async (roomId, departmentId, uniqueIdentifier, date) => {
@@ -270,6 +270,7 @@ const ClientAppointmentStatusHOCByDepartment = (
                 appointmentMode:
                     appointmentStatusDetail.patientDetails.appointmentMode || 'N/A'
             }
+            await this.previewCall(appointmentStatusDetail.patientDetails.appointmentId)
             this.setState({
                 showCheckInModal: true,
                 appointmentDetails: {...appointmentData}
@@ -312,6 +313,12 @@ const ClientAppointmentStatusHOCByDepartment = (
             })
         }
 
+        handleCopyAppointmentNumber = async text => {
+            await this.setState({
+                copySuccessMessage: `Appointment Number ${text} copied to clipboard.`
+            })
+        }
+
         setStateValuesForSearch = searchParams => {
             this.setState({
                 searchParameters: searchParams
@@ -344,6 +351,31 @@ const ClientAppointmentStatusHOCByDepartment = (
             })
         }
 
+        previewApiCall = async appointmentId => {
+            await this.props.fetchAppointmentApprovalDetailByAppointmentId(
+                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_PREVIEW_DEPARTMENT,
+                appointmentId
+            )
+        }
+
+        previewCall = async data => {
+            try {
+                await this.previewApiCall(data)
+                await this.setState({
+                    appointmentDetailsForCheckIn: this.props.AppointmentDetailReducer.appointmentDetail
+                })
+            } catch (e) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: this.props.AppointmentDetailReducer
+                            .appointmentDetailErrorMessage
+                    }
+                })
+            }
+        }
+
         approveApiCall = async requestDTO => {
             try {
                 await this.props.appointmentApprove(
@@ -353,17 +385,19 @@ const ClientAppointmentStatusHOCByDepartment = (
                 this.setState({
                     isConfirming: false,
                     showCheckInModal: false,
-                    showAlert: true,
-                    alertMessageInfo: {
-                        variant: 'success',
-                        message: this.props.AppointmentApproveReducer
-                            .approveSuccessMessage
-                    }
+                    showCheckInSuccessModal: true,
+                    // showAlert: true,
+                    // alertMessageInfo: {
+                    //     variant: 'success',
+                    //     message: this.props.AppointmentApproveReducer
+                    //         .approveSuccessMessage
+                    // }
                 })
             } catch (e) {
                 this.setState({
                     isConfirming: false,
                     showAlert: true,
+                    showCheckInModal: false,
                     alertMessageInfo: {
                         variant: 'danger',
                         message:
@@ -381,33 +415,19 @@ const ClientAppointmentStatusHOCByDepartment = (
             this.setState({
                 isConfirming: true
             })
-            const {hospitalNumber, appointmentId} = this.state.appointmentDetails
+            const {hospitalNumber, appointmentId} = this.state.appointmentDetailsForCheckIn
             let requestDTO
 
             try {
-                const splittedPatientInfo = this.state.appointmentDetails.patientName.split(
-                    '('
-                )
-                const patientName = splittedPatientInfo[0]
-                const splittedPatienAgeAndGender = splittedPatientInfo[1].split('/')
-                const patientAge = splittedPatienAgeAndGender[0]
-                let patientGender = splittedPatienAgeAndGender[1].replace(')', '')
-                patientGender = patientGender.replace(" ", '')
                 const {successResponse, apiRequestBody} = await thirdPartyApiCallCheckIn(
-                    {
-                        ...this.state.appointmentStatusDetails,
-                        patientName: patientName,
-                        patientAge: patientAge,
-                        patientGender: patientGender
-                    },
-                    IntegrationConstants.apiIntegrationFeatureTypeCodes
-                        .DEPARTMENT_CHECK_IN_CODE,
-                    IntegrationConstants.apiIntegrationKey.CLIENT_FEATURE_INTEGRATION
-                )
+                    this.state.appointmentDetailsForCheckIn,
+                    IntegrationConstants.apiIntegrationFeatureTypeCodes.DEPARTMENT_CHECK_IN_CODE,
+                    IntegrationConstants.apiIntegrationKey.ALL_CLIENT_FEATURE_INTEGRATION
+                );
                 requestDTO = {
                     appointmentId: appointmentId,
                     hospitalNumber: '',
-                    isPatientNew: hospitalNumber ? false : true,
+                    isPatientNew: !hospitalNumber,
                     ...apiRequestBody
                 }
                 if (!successResponse) {
@@ -440,6 +460,7 @@ const ClientAppointmentStatusHOCByDepartment = (
                 this.setState({
                     isConfirming: false,
                     showAlert: true,
+                    showCheckInModal: false,
                     alertMessageInfo: {
                         variant: 'danger',
                         message:
@@ -466,6 +487,12 @@ const ClientAppointmentStatusHOCByDepartment = (
             this.setState({
                 showAppointmentDetailModal: false,
                 appointmentDetails: {}
+            })
+        }
+
+        closeSuccessModal = async () => {
+            await this.setState({
+                showCheckInSuccessModal: false
             })
         }
 
@@ -675,11 +702,11 @@ const ClientAppointmentStatusHOCByDepartment = (
                 } catch (e) {
                     await this.setState({
                         searchErrorMessage: this.props
-                            .AppointmenStatusByDepartmentListReducer
-                            .isAppointmentStatusErrorMessage
+                                .AppointmenStatusByDepartmentListReducer
+                                .isAppointmentStatusErrorMessage
                             || this.props
-                            .AppointmenStatusByDepartmentListReducer
-                            .isAppointmentStatusErrorMessage.appStatusCountError,
+                                .AppointmenStatusByDepartmentListReducer
+                                .isAppointmentStatusErrorMessage.appStatusCountError,
                         searchStatusLoading: this.props
                             .AppointmenStatusByDepartmentListReducer
                             .isAppointmentStatusListLoading
@@ -845,7 +872,7 @@ const ClientAppointmentStatusHOCByDepartment = (
                     getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) <= 7
                 ) {
                     errorMessageForStatus = //hospitalId
-                        // ?
+                                            // ?
                         hospitalDepartmentId ? '' : SELECT_DEPARTMENT_MESSAGE
                     //: SELECT_HOSPITAL_AND_DOCTOR_MESSAGE
                 } else if (
@@ -890,20 +917,11 @@ const ClientAppointmentStatusHOCByDepartment = (
                 showAppointmentDetailModal,
                 searchErrorMessage,
                 searchStatusLoading,
-                appointmentStatusCount
+                appointmentStatusCount,
+                showCheckInSuccessModal,
+                appointmentDetailsForCheckIn,
+                copySuccessMessage
             } = this.state
-            // console.log('=============', this.state.appointmentDetails)
-            // const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
-
-            // const {
-            //   activeDoctorsByHospitalForDropdown,
-            //   doctorDropdownErrorMessage
-            // } = this.props.DoctorDropdownReducer
-
-            // const {
-            //   activeSpecializationListByHospital,
-            //   dropdownErrorMessage
-            // } = this.props.SpecializationDropdownReducer
 
             const {
                 isFetchAllHospitalDepartmentLoading,
@@ -911,11 +929,8 @@ const ClientAppointmentStatusHOCByDepartment = (
                 allDepartmentDropdownErrorMessage
             } = this.props.HospitalDepartmentDropdownReducer
 
-            // const {
-            //   isFetchActiveRoomNumberByDepartmentLoading,
-            //   activeRoomNumberForDropdownByDepartment,
-            //   activeRoomsByDepartmentDropdownErrorMessage
-            // } = this.props.RoomNumberDropdownReducer
+            const {approveSuccessMessage} = this.props.AppointmentApproveReducer;
+
             return (
                 <>
                     <div id="appointment-status">
@@ -955,7 +970,13 @@ const ClientAppointmentStatusHOCByDepartment = (
                                 checkInAppointment: this.checkInAppointment,
                                 appointmentDetails: {...appointmentDetails},
                                 isConfirming: isConfirming,
-                                closeAppointmentDetailModal: this.closeAppointmentDetailModal
+                                closeAppointmentDetailModal: this.closeAppointmentDetailModal,
+                                approveSuccessMessage: approveSuccessMessage,
+                                copySuccessMessage: copySuccessMessage,
+                                onCopyAppointmentNumber: this.handleCopyAppointmentNumber,
+                                showCheckInSuccessModal: showCheckInSuccessModal,
+                                closeCheckInSuccessModal: this.closeSuccessModal,
+                                appointmentDetailsForCheckIn: appointmentDetailsForCheckIn
                             }}
                         />
                         <CAlert
@@ -993,7 +1014,8 @@ const ClientAppointmentStatusHOCByDepartment = (
             'PatientDetailReducer',
             'HospitalDepartmentDropdownReducer',
             'AppointmenStatusByDepartmentListReducer',
-            'AppointmenStatusByRoomListReducer'
+            'AppointmenStatusByRoomListReducer',
+            'AppointmentDetailReducer'
         ],
         {
             fetchAppointmentStatusList,
@@ -1004,7 +1026,8 @@ const ClientAppointmentStatusHOCByDepartment = (
             fetchAppointmentStatusListByDepartment,
             fetchAppointmentStatusListByRoom,
             thirdPartyApiCallCheckIn,
-            fetchDepartmentAppointmentStatusCount
+            fetchDepartmentAppointmentStatusCount,
+            fetchAppointmentApprovalDetailByAppointmentId
         }
     )
 }

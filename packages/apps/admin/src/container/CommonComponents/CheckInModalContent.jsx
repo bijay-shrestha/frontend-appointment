@@ -12,22 +12,24 @@ const CheckInModalContent = ({appointmentDetails}) => {
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="clientName"
-                                    placeholder={appointmentDetails.hospitalName?"Client Name":"Department Name"}
-                                    value={appointmentDetails.hospitalName ||appointmentDetails.departmentName||'N/A'}
+                                    placeholder={appointmentDetails.hospitalName ? "Client Name" : "Department Name"}
+                                    value={appointmentDetails.hospitalName || appointmentDetails.departmentName || 'N/A'}
                                     disabled={true}
                                 />
                             </Col>
 
-                            {appointmentDetails.roomNumber?<Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="roomNumber"
-                                    placeholder="Room Number"
-                                    value={appointmentDetails.roomNumber||'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>:null}
+                            {appointmentDetails.departmentName ?
+                                <Col sm={12} md={6} lg={6}>
+                                    <CHybridInput
+                                        id="departmentDetails"
+                                        placeholder="Department Details"
+                                        value={(appointmentDetails.departmentName || 'N/A') + "("
+                                        + (appointmentDetails.roomNumber || 'N/A') + ")"}
+                                        disabled={true}
+                                    />
+                                </Col> : null}
 
-                            {appointmentDetails.doctorName?<Col sm={12} md={6} lg={6}>
+                            {appointmentDetails.doctorName ? <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="doctor-specializationName"
                                     placeholder="Doctor(Specialization)"
@@ -40,7 +42,7 @@ const CheckInModalContent = ({appointmentDetails}) => {
                                     }
                                     disabled={true}
                                 />
-                            </Col>:null}
+                            </Col> : null}
 
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput

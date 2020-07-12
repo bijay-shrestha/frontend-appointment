@@ -23,21 +23,22 @@ import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewH
 import AppointmentLogStatus from '../CommonComponents/table-components/AppointmentLogStatus'
 
 const AppointmentTransferDataTable = ({
-  tableHandler,
-  // activeStatus,
-  // handleStatusChange,
-  paginationProps
-}) => {
-  const {
-    isSearchLoading,
-    appointmentTransferList,
-    searchErrorMessage,
-    previewCall,
-    previewData,
-    showModal,
-    setShowModal,
-    downloadExcel
-  } = tableHandler
+                                          tableHandler,
+                                          // activeStatus,
+                                          // handleStatusChange,
+                                          paginationProps
+                                      }) => {
+    const {
+        isSearchLoading,
+        appointmentTransferList,
+        searchErrorMessage,
+        previewCall,
+        previewData,
+        showModal,
+        setShowModal,
+        // exportExcel,
+        downloadExcel
+    } = tableHandler
 
   const {queryParams, totalRecords, handlePageChange} = paginationProps
   return (

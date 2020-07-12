@@ -40,7 +40,7 @@ const AppointmentStatusDetails = ({
         onChangeRoom,
         appointmentStatusCount
     } = statusDetailsData
-    console.log('appointmentStatusDetails', appointmentStatusDetails)
+    // console.log('appointmentStatusDetails', appointmentStatusDetails)
     return (
         <>
             <div className="manage-title">
@@ -368,7 +368,7 @@ const AppointmentStatusDetails = ({
                                             </ul>
                                         </Col>
                                         {appointmentStatusDetail.patientDetails ? (
-                                            <Col sm={12} md={3} >
+                                            <Col sm={12} md={3}>
                                                 <div className="patient-container">
                                                     <h5 className="title">Patients Details </h5>
                                                     <br></br>
@@ -462,7 +462,7 @@ const AppointmentStatusDetails = ({
                                                         name=""
                                                         variant="outline-primary"
                                                         size="lg"
-                                                      
+
                                                         onClickHandler={() =>
                                                             handleViewAppointmentDetails(
                                                                 appointmentStatusDetail
