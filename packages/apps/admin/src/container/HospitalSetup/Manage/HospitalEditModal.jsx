@@ -140,10 +140,10 @@ const HospitalEditModal = ({
                                     placeholder="Client Name"
                                     value={hospitalData.name}
                                     required={true}
-                                    hasValidation={true}
-                                    max={100}
-                                    fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-                                    errorMessagePassed={errorMessageForHospitalName}
+                                    hasValidation={false}
+                                    // max={100}
+                                    // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
+                                    // errorMessagePassed={errorMessageForHospitalName}
                                 />
                             </Col>
 

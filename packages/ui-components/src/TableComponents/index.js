@@ -8,4 +8,5 @@ export {default as TableAction} from './TableAction';
 export {default as StatusLabel} from './StatusLabel';
 export {default as CancelDateWithTime} from './CancelDateWithTime';
 export {default as RoomNumberForTable} from './RoomNumberForTable';
+export {default as ClientNameWithLogo} from './ClientNameWithLogo';
 

@@ -10,7 +10,8 @@ import {
     StatusLabel,
     TableAction,
     CancelDateWithTime,
-    RoomNumberForTable
+    RoomNumberForTable,
+    ClientNameWithLogo
 } from './src/TableComponents';
 
 export {
@@ -25,7 +26,8 @@ export {
     TableAction,
     StatusLabel,
     CancelDateWithTime,
-    RoomNumberForTable
+    RoomNumberForTable,
+    ClientNameWithLogo
 }
 export {default as Login} from './src/Login';
 export {default as ClientLogin} from './src/ClientLogin';
