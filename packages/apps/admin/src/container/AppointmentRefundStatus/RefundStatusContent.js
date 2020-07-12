@@ -1,5 +1,5 @@
 import React from 'react'
-import {CForm, CHybridInput} from '@frontend-appointment/ui-elements'
+import {CForm, CHybridInput, CHybridSelectWithImage} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
 const DetailsModal = ({refundData}) => {
@@ -58,21 +58,27 @@ const DetailsModal = ({refundData}) => {
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id=""
-                                    placeholder="Doctor Name"
-                                    value={refundData.doctorName}
-                                    disabled={true}
+                                <CHybridSelectWithImage
+                                    id="doctorName"
+                                    label="Doctor Name(Specialization)"
+                                    value={{
+                                        label: refundData.doctorName +
+                                            '(' +
+                                            refundData.specializationName +
+                                            ')',
+                                        fileUri: refundData.fileUri
+                                    }}
+                                    isDisabled={true}
                                 />
                             </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id=""
-                                    placeholder="Specialization Name"
-                                    value={refundData.specializationName}
-                                    disabled={true}
-                                />
-                            </Col>
+                            {/*<Col sm={12} md={6} lg={6}>*/}
+                            {/*    <CHybridInput*/}
+                            {/*        id=""*/}
+                            {/*        placeholder="Specialization Name"*/}
+                            {/*        value={refundData.specializationName}*/}
+                            {/*        disabled={true}*/}
+                            {/*    />*/}
+                            {/*</Col>*/}
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="transactionNumber"
@@ -97,7 +103,7 @@ const DetailsModal = ({refundData}) => {
                                     disabled={true}
                                 />
                             </Col>
-                             <Col sm={12} md={6} lg={6}>
+                            <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="appointmentMode"
                                     placeholder="AppointmentMode"

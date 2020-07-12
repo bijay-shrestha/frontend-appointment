@@ -358,7 +358,9 @@ export const fetchAppointmentRefundDetailByAppointmentId = (
     dispatch(AppointmentDetailActions.appointmentRefundDetailFetchingStart())
     try {
         const response = await Axios.getWithPathVariables(path, appointmentId)
-        dispatch(AppointmentDetailActions.appointmentRefundDetailFetchingSuccess(response.data))
+        let dataWithFileUri = response.data
+        dataWithFileUri.fileUri = await MinioMiddleware.fetchPresignedUrlForGetOperation(dataWithFileUri.fileUri)
+        dispatch(AppointmentDetailActions.appointmentRefundDetailFetchingSuccess(dataWithFileUri))
     } catch (e) {
         dispatch(AppointmentDetailActions.appointmentRefundDetailFetchingError(
             e.errorMessage ? e.errorMessage : 'Sorry,Internal Server problem!'))

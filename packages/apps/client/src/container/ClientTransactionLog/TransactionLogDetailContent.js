@@ -21,7 +21,7 @@ const TransactionLogDetailContent = ({logData, appointmentServiceTypeCode}) => {
                                 ) ? (
                                     <CHybridSelectWithImage
                                         id="doctorName"
-                                        placeholder="Doctor Name(Specialization)"
+                                        label="Doctor Name(Specialization)"
                                         value={{
                                             label: logData.doctorName +
                                                 '(' +

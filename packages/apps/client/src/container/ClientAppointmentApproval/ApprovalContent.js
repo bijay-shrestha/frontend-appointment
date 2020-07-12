@@ -92,7 +92,7 @@ const ApprovalContent = ({approvalData}) => {
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridSelectWithImage
                                     id="doctor-specializationName"
-                                    placeholder="Doctor(Specialization)"
+                                    label="Doctor(Specialization)"
                                     value={{
                                         label: approvalData.doctorName && approvalData.specializationName ?
                                             (approvalData.doctorSalutation ? approvalData.doctorSalutation : '') +
