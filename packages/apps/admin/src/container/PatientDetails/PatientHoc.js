@@ -387,7 +387,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
            await this.props.fetchEsewaDetails(patientSetupApiConstant.FETCH_PATIENT_ESEWA_ID_FOR_DROPDOWN,value)
          }
         }
-         
+
         downloadExcel = async () => {
             const {
                 esewaId,
@@ -404,7 +404,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
 
 
             try{
-              await  appointmentExcelDownload(AdminModuleAPIConstants.excleApiConstants.RESCHEDULE_LOG_EXCEL,this.state.queryParams,searchData,'patientDetails')
+              await  appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.RESCHEDULE_LOG_EXCEL,this.state.queryParams,searchData,'patientDetails')
             return false;
            }catch(e){
              console.log(e);

@@ -380,7 +380,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                 hospitalDepartmentId: hospitalDepartmentId.value || ''
             }
             try{
-             const file = await appointmentExcelDownload(AdminModuleAPIConstants.excleApiConstants.TRANSACTION_LOG_EXCEL,this.state.queryParams,searchData,'transactionLog')
+             const file = await appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.TRANSACTION_LOG_EXCEL,this.state.queryParams,searchData,'transactionLog')
             return false;
            }catch(e){
              console.log(e);

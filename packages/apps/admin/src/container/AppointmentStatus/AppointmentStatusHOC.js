@@ -934,7 +934,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 transferredDate,
                 appointmentId,
                 transferredCharge,
-                remarks
+                remarks,
+                hospitalId,
             } = transferData
             try {
                 await this.props.appointmentTransfer(
@@ -947,6 +948,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                         doctorId: transferredDoctor.value,
                         isFollowUp: followUp,
                         remarks: remarks,
+                        hospitalId,
                         specializationId: transferredSpecialization.value
                     }
                 )

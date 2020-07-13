@@ -218,7 +218,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
 
     downloadExcel = async () => {
      try{
-      const file = appointmentExcelDownload(AdminModuleAPIConstants.excleApiConstants.TRANSFER_LOG_EXCEL,this.state.queryParams,this.state.searchParameters)
+      const file = appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.TRANSFER_LOG_EXCEL,this.state.queryParams,this.state.searchParameters)
      console.log(file)
     }catch(e){
       console.log(e);
