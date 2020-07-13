@@ -9,7 +9,7 @@ export const fetchLoggedInAdminUserInfo = (path, data) => async dispatch => {
     try {
         let adminInfoResponse = await Axios.put(path, data);
         let dataWithFileUri = adminInfoResponse.data
-        dataWithFileUri.fileUri = await MinioMiddleware.fetchUrlForGetOperation(dataWithFileUri.fileUri)
+        dataWithFileUri.fileUri = await MinioMiddleware.fetchPresignedUrlForGetOperation(dataWithFileUri.fileUri)
         await AdminInfoUtils.saveLoggedInAdminInfo(dataWithFileUri);
         dispatch(LoggedInAdminInfoActions.loggedInAdminInfoFetchSuccess(dataWithFileUri));
         return adminInfoResponse.data;
