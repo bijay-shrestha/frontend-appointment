@@ -92,7 +92,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
       } = this.state.searchParameters
       let searchData = {
         appointmentNumber,
-        appointmetnFromDate: appointmentNumber ? '' : appointmentFromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
+        appointmentFromDate: appointmentNumber ? '' : appointmentFromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
         appointmentToDate: appointmentNumber ? '' : appointmentToDate,
         patientMetaInfoId: patientMetaInfoId.value || '',
         //patientType: patientType.value || '',
@@ -219,7 +219,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
     downloadExcel = async () => {
      try{
       const file = appointmentExcelDownload(AdminModuleAPIConstants.excleApiConstants.TRANSFER_LOG_EXCEL,this.state.queryParams,this.state.searchParameters)
-     console.log(file) 
+     console.log(file)
     }catch(e){
       console.log(e);
      }

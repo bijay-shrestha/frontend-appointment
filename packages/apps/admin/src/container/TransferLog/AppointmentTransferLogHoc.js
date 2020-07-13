@@ -272,7 +272,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
             } = this.state.searchParameters
             let searchData = {
                 appointmentNumber,
-                appointmetnFromDate: appointmentNumber ? '' : appointmentFromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
+                appointmentFromDate: appointmentNumber ? '' : appointmentFromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
                 appointmentToDate: appointmentNumber ? '' : appointmentToDate,
                 patientMetaInfoId: patientMetaInfoId.value || '',
                 //patientType: patientType.value || '',
