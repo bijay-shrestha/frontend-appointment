@@ -32,7 +32,8 @@ const AppointmentRefundDataTable = ({
         previewData,
         showModal,
         setShowModal,
-        appointmentServiceTypeCode
+        appointmentServiceTypeCode,
+        downloadExcel
     } = tableHandler
     const headerNameForDoctorOrDepartment = filterAppointmentServiceType(
         appointmentServiceTypeCode,
@@ -56,7 +57,7 @@ const AppointmentRefundDataTable = ({
                         <h5 className="title">Appointment Log Details</h5>
                     </Col>
                     <Col>
-                        <CExcelDownload/>
+                        <CExcelDownload onClickHandler={downloadExcel}/>
                     </Col>
                 </Row>
 

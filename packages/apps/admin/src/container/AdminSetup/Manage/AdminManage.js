@@ -939,12 +939,16 @@ class AdminManage extends PureComponent {
         const {
             adminAvatar,
             fullName,
+            hospital
         } = this.state.adminUpdateData;
 
-        let adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
+        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+        let hospitalSelected = hospitalsForDropdown.find(hospitalDropdown => Number(hospitalDropdown.value) === Number(hospital.value))
+        let hospitalAlias = hospital.alias ? hospital.alias :
+            hospitalSelected && hospitalSelected.alias
 
         let fileToUpload = new File([adminAvatar], (fullName + new Date().getTime()).concat('.jpeg'))
-        let fileLocation = FileUploadLocationUtils.getLocationPathForClientAdminFileUpload(adminInfo.hospitalCode, fullName)
+        let fileLocation = FileUploadLocationUtils.getLocationPathForClientAdminFileUpload(hospitalAlias, fullName)
 
         return await uploadImageInMinioServer(fileToUpload, fileLocation)
     }
