@@ -57,9 +57,9 @@ const TransactionLogDataTable = ({
                     <Col>
                         <h5 className="title">Transaction Log Details</h5>
                     </Col>
-                     <Col>
-                     <CExcelDownload onClickHandler={downloadExcel} />
-                     </Col>
+                    <Col>
+                        <CExcelDownload onClickHandler={downloadExcel}/>
+                    </Col>
                     {/* <Col>
               <CButton
                 id="downloadExcel"
@@ -272,7 +272,7 @@ const TransactionLogDataTable = ({
                         <div className="no-data">
                             <i className="fa fa-file-text-o"></i>
                         </div>
-                        <div className="message"> {searchErrorMessage}</div>
+                        <div className="message"> {searchErrorMessage || 'No Transaction Log(s) Found.'}</div>
                     </div>
                 )}
             </div>

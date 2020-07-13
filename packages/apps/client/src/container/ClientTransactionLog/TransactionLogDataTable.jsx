@@ -264,7 +264,7 @@ const TransactionLogDataTable = ({
                         <div className="no-data">
                             <i className="fa fa-file-text-o"></i>
                         </div>
-                        <div className="message"> {searchErrorMessage || 'No Transaction(s) Log Found'}</div>
+                        <div className="message"> {searchErrorMessage || 'No Transaction Log(s) Found.'}</div>
                     </div>
 
                 )}
