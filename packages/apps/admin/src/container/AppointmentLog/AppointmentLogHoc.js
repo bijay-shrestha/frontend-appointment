@@ -385,7 +385,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 appointmentCategory,
                 status,
                 appointmentServiceTypeCode,
-                hospitalDepartmentId
+                hospitalDepartmentId,
             } = this.state.searchParameters
             let searchData = {
                 appointmentNumber,
@@ -431,7 +431,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 previewData,
                 filteredData,
                 activeStatus,
-                primaryAppointmentService
+                primaryAppointmentService,
+                showAlert,
+                alertMessageInfo
             } = this.state
 
             const {

@@ -402,7 +402,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 return false;
             } catch (e) {
                 console.log(e);
-                this.showAlertMessage('danger',e.errorMessage || 'Sorry,Internal Server Error occurred!')
+                this.showAlertMessage('danger', e.errorMessage || 'Sorry,Internal Server Error occurred!')
                 return false;
             }
         }
@@ -416,7 +416,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 previewData,
                 filteredData,
                 activeStatus,
-                primaryAppointmentService
+                primaryAppointmentService,
+                showAlert,
+                alertMessageInfo
             } = this.state
 
             const {
