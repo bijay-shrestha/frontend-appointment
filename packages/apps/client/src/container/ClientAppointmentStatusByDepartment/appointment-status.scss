@@ -240,13 +240,7 @@
   }
 
   .data {
-    .badge-success {
-      color: $success !important;
-      padding:2px;
-      border: 1px solid $success;
-      background-color: white !important;
-      // text-transform: lowercase;
-    }
+   
 
     .app-details-link{
       font-size: 12px;
@@ -264,6 +258,14 @@
       }
     }
 
+    .badge-success {
+      color: $success !important;
+      padding:2px;
+      border: 1px solid $success;
+      background-color: white !important;
+      // text-transform: lowercase;
+    }
+
     .badge-primary {
       color: $primary !important;
        border: 1px solid $primary;
@@ -274,7 +276,7 @@
     .badge-info {
       color: $success;
       border: 1px solid $success !important;
-      padding:0;
+      padding:2px;
       background-color: transparent;
     }
   }
@@ -288,21 +290,21 @@
   .btn{
     display: inline-block;
     font-size:13px;
+    padding: 10px 12px !important;
+    width:auto
    
   }
-}
 
-.btn-checkin {
-  width:auto;
-  padding: 6px 8px !important;
-  // margin-top: 10px;
-  // margin-bottom: 10px;
-  margin:6px;
-  display:block;
-
-  i {
-    color: $white;
-  }
+  .btn-checkin {
+    width:auto;
+    margin:6px;
+  
+  
+    i {
+      color: $white;
+    }
+  } 
+  
 }
 
 //end patient deatail action buttons
@@ -334,17 +336,18 @@
     }
   }
 
-  .time-wrapper{
-    max-height: 250px;
-    overflow: auto;
+  // .time-wrapper{
+  //   max-height: 250px;
+  //   overflow: auto;
     
-  }
+  // }
 
   
 
   ul {
     width: 100%;
-    max-height: 400px;
+    max-height: 250px;
+    overflow: auto;
   
     li {
       // display: inline-block;
@@ -486,4 +489,38 @@
       display: none;
     }
   }
+}
+
+
+
+#scrollbar_appt-scrollbar{
+  .track-vertical {
+    top: 2px;
+    bottom: 2px;
+    right: 2px;
+    border-radius: 3px;
+    /*background: rgba(255, 255, 255, 0.111);*/
+     background: #f1f1f1;
+}
+
+.track-vertical .thumb-vertical {
+    position: relative;
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    border-radius: inherit;
+    /*background-color: rgba(123, 154, 255, 0.418);*/
+    background: #888;
+}
+.view {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: scroll;
+    margin-right: -15px;
+    margin-bottom: -17px !important;
+    background:transparent;
+}
 }
