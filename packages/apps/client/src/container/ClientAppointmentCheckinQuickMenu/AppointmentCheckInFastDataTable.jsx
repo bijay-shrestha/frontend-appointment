@@ -49,7 +49,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                             height="460px"
                             enableSorting
                             editType
-                            rowHeight={70}
+                            rowHeight={50}
                             columnDefs={[
                                 {
                                     headerName: 'SN',
@@ -89,6 +89,15 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                                     width: "260",
                                     height: "600",
                                     cellRenderer: 'PatientNameWithMobileNumber'
+                                },
+                                {
+                                    headerName: 'Address',
+                                    field: 'address',
+                                    // headerClass: "fi",
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 260,
                                 },
 
                                 {
