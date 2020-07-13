@@ -114,7 +114,7 @@ const AppointmentStatusDetails = ({
                     )}
             </div>
             <div className="manage-details">
-                <CScrollbar id="sidebar-scrollbar">
+                <CScrollbar id="appt-scrollbar">
                     <Container fluid>
 
                         {!isStatusListLoading &&
@@ -440,7 +440,10 @@ const AppointmentStatusDetails = ({
                                                     ) : (
                                                         'Details'
                                                     )}
+                                                    
                                                 </CButton> */}
+
+                                               
 
                                                         <CButton
                                                             name=""

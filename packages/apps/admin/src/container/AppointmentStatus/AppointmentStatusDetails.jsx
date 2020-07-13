@@ -114,7 +114,7 @@ const AppointmentStatusDetails = ({
                 )}
             </div>
             <div className="manage-details">
-                <CScrollbar id="sidebar-scrollbar">
+                <CScrollbar id="appt-scrollbar">
                     <Container fluid>
 
                         {!isStatusListLoading &&
@@ -199,7 +199,7 @@ const AppointmentStatusDetails = ({
                                                     ''
                                                 )}
                                             </p>
-                                            <ul>
+                                            <ul className="clearfix">
                                                 {appointmentStatusDetail.doctorTimeSlots ? (
                                                     appointmentStatusDetail.doctorTimeSlots.length ? (
                                                         appointmentStatusDetail.doctorTimeSlots.map(
@@ -331,47 +331,57 @@ const AppointmentStatusDetails = ({
                                         {appointmentStatusDetail.patientDetails ? (
                                             <Col sm={12} md={3} className="pb-4 pr-4">
                                                 <div className="patient-container">
-                                                    <h5 className="title">Patients Details </h5>
+                                                    <h5 className="title">Appointment Information </h5>
                                                     <br></br>
                                                     <div className="patient-details">
-                                                        <div className="label">Appointment No.</div>
+                                                        <div className="label">Appointment Details</div>
                                                         <div className="data">
-                                                            {
-                                                                appointmentStatusDetail.patientDetails
-                                                                    .appointmentNumber
-                                                            }
-                                                            <br/>
-                                                            {appointmentStatusDetail.patientDetails
-                                                                .isFollowUp === 'Y' ? (
-                                                                <>
-                                                                            <span className="pd-followup">
-                                                                                <i className="fa fa-tag"/>
-                                                                                &nbsp; Follow Up
-                                </span>
-                                                                </>
-                                                            ) : (
-                                                                ''
-                                                            )}
-                                                        </div>
-                                                    </div>
 
-                                                    <div className="patient-details">
-                                                        <div className="label">Appointment Amount</div>
-                                                        <div className="data">
-                                                            {
+                                                            <CButton
+                                                                name=""
+                                                                variant="default"
+                                                                className="app-details-link"
+                                                                onClickHandler={() =>
+                                                                    handleViewAppointmentDetails(appointmentStatusDetail)
+                                                                }
+                                                                disabled={showAppointmentDetailModal}
+                                                            >
+                                                                 <span> {
+                                                                            appointmentStatusDetail.patientDetails
+                                                                                .appointmentNumber
+                                                                        }
+                                                                          &nbsp;  <i className="fa fa-chevron-down"></i></span>                                                           
+                                                            </CButton>
+
+
+                                                            <br />
+                                                       Rs.
+
+                                                        {
                                                                 appointmentStatusDetail.patientDetails
                                                                     .appointmentAmount
                                                             }
-                                                        </div>
-                                                    </div>
+                                                        &nbsp;,  &nbsp;  
 
-                                                    <div className="patient-details">
-                                                        <div className="label">Appointment Mode</div>
-                                                        <div className="data">
-                                                            {
+
+                                                        {
                                                                 appointmentStatusDetail.patientDetails
                                                                     .appointmentMode
                                                             }
+                                                            <br />
+                                                            
+                                                      
+                                                            {appointmentStatusDetail.patientDetails.isFollowUp ===
+                                                                'Y' ? (
+                                                                    <>
+                                                                        <span className="pd-followup">
+                                                                            <i className="fa fa-tag" />
+                                                                            &nbsp; Follow Up
+                                                                        </span>
+                                                                    </>
+                                                                ) : (
+                                                                    ''
+                                                                )}
                                                         </div>
                                                     </div>
 
@@ -379,13 +389,15 @@ const AppointmentStatusDetails = ({
                                                         <div className="label">Patient Details</div>
                                                         <div className="data">
                                                             {appointmentStatusDetail.patientDetails.name}
-                                                            <br/>
-                                                            {' (' +
-                                                            appointmentStatusDetail.patientDetails.age +
-                                                            ' / ' +
-                                                            appointmentStatusDetail.patientDetails.gender +
-                                                            ')'}
-                                                            <br/>
+                                                            <br />
+                                                            {' ' +
+                                                                appointmentStatusDetail.patientDetails.age +
+                                                                ' / ' +
+                                                                appointmentStatusDetail.patientDetails.gender +
+                                                                ' '}
+                                                            <br />
+
+
                                                             <Badge
                                                                 variant={
                                                                     appointmentStatusDetail.patientDetails
@@ -399,27 +411,24 @@ const AppointmentStatusDetails = ({
                                                                     ? 'NEW'
                                                                     : 'REGISTERED'}
                                                             </Badge>{' '}
+                                                        ,&nbsp;
+                                                        <i class="fa fa-phone"></i> &nbsp;{appointmentStatusDetail.patientDetails.mobileNumber}
+
                                                         </div>
                                                     </div>
 
-                                                    <div className="patient-details">
-                                                        <div className="label">Contact No.</div>
-                                                        <div className="data">
-                                                            {
-                                                                appointmentStatusDetail.patientDetails
-                                                                    .mobileNumber
-                                                            }
-                                                        </div>
-                                                    </div>
 
-                                                    <div className="patient-details">
+
+                                                    
+                                                    {/* <div className="patient-details">
                                                         <div className="label">Address</div>
                                                         <div className="data">
                                                             {appointmentStatusDetail.patientDetails.address}
                                                         </div>
-                                                    </div>
+                                                    </div> */}
+                                                    <div className="action-wrapper">
 
-                                                    <CButton
+                                                    {/* <CButton
                                                         name=""
                                                         variant="outline-primary"
                                                         size="lg"
@@ -444,7 +453,10 @@ const AppointmentStatusDetails = ({
                                                         ) : (
                                                             'View Details'
                                                         )}
-                                                    </CButton>
+                                                    </CButton> */}
+
+
+                                                  
 
                                                     {appointmentStatusDetail.patientDetails
                                                         .showCheckInButton ? (
@@ -499,6 +511,7 @@ const AppointmentStatusDetails = ({
                                                             'Transfer'
                                                         )}
                                                     </CButton>
+                                                    </div>
                                                 </div>
                                             </Col>
                                         ) : (
