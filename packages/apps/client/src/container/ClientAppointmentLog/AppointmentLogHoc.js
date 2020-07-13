@@ -20,7 +20,8 @@ import './appointment-log.scss'
 
 const {
     clearAppointmentRefundPending,
-    fetchAppointmentLogList
+    fetchAppointmentLogList,
+    appointmentExcelDownload
     //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
 const {fetchAllHospitalDepartmentForDropdown} = HospitalDepartmentSetupMiddleware
@@ -98,7 +99,6 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
                 hospitalDepartmentId: hospitalDepartmentId.value || ''
             }
-
             let updatedPage =
                 this.state.queryParams.page === 0
                     ? 1
@@ -334,6 +334,45 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             await this.searchAppointment()
         }
 
+        downloadExcel = async () => {
+            const {
+                appointmentNumber,
+                fromDate,
+                toDate,
+                hospitalId,
+                patientMetaInfoId,
+                patientType,
+                specializationId,
+                doctorId,
+                appointmentCategory,
+                status,
+                appointmentServiceTypeCode,
+                hospitalDepartmentId
+            } = this.state.searchParameters
+            let searchData = {
+                appointmentNumber,
+                fromDate,
+                toDate,
+                // hospitalId: hospitalId.value || '',
+                patientMetaInfoId: patientMetaInfoId.value || '',
+                patientType: patientType.value || '',
+                specializationId: specializationId.value || '',
+                doctorId: doctorId.value || '',
+                appointmentCategory: appointmentCategory.value || '',
+                status: status.value === 'All' ? '' : status.value || '',
+                appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
+                hospitalDepartmentId: hospitalDepartmentId.value || ''
+            }
+
+            try{
+                await  appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.APPOINTMENT_LOG_EXCEL,this.state.queryParams,searchData,'rescheduleLog')
+                return false;
+            }catch(e){
+                console.log(e);
+                return false;
+            }
+        }
+
         render() {
             const {
                 searchParameters,
@@ -415,7 +454,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                             showModal: showModal,
                             previewCall: this.previewCall,
                             previewData: previewData,
-                            appointmentServiceTypeCode: primaryAppointmentService
+                            appointmentServiceTypeCode: primaryAppointmentService,
+                            downloadExcel:this.downloadExcel
                         }}
                         activeStatus={activeStatus}
                         handleStatusChange={this.handleStatusChange}
