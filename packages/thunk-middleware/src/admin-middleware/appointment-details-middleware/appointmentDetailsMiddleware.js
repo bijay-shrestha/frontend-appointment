@@ -418,7 +418,6 @@ export const fetchDepartmentAppointmentStatusCount = (path, data) => async dispa
 }
 
 export const appointmentExcelDownload = async (path,pagination,data,fileName) =>{
-
     try {
         const response = await Axios.putWithPaginationForFile(path, pagination, data)
         await FileExportUtils.exportEXCEL(response.data,fileName)

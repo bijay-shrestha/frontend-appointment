@@ -12,6 +12,8 @@ import {
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {CommonUtils, DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './appointment-log.scss'
+import {CAlert} from '@frontend-appointment/ui-elements'
+import * as Material from 'react-icons/md'
 
 const {
     clearAppointmentRefundPending,
@@ -60,12 +62,40 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             showModal: false,
             previewData: {},
             filteredData: [],
-            activeStatus: 'All'
+            activeStatus: 'All',
+            alertMessageInfo: {
+                variant: '',
+                message: ''
+            },
+            showAlert: false
         }
+
+        alertTimer = '';
 
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
         }
+
+        clearAlertTimeout = () => {
+            this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
+        };
+
+        closeAlert = () => {
+            this.setState({
+                showAlert: false
+            })
+        };
+
+        showAlertMessage = (type, message) => {
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: type,
+                    message: message
+                }
+            });
+            this.clearAlertTimeout();
+        };
 
         searchHospitalForDropDown = async () => {
             try {
@@ -372,14 +402,18 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 hospitalDepartmentId: hospitalDepartmentId.value || ''
             }
 
-            try{
-              await  appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.APPOINTMENT_LOG_EXCEL,this.state.queryParams,searchData,'rescheduleLog')
-            return false;
-           }catch(e){
-             console.log(e);
-             return false;
+            try {
+                await appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.APPOINTMENT_LOG_EXCEL,
+                    this.state.queryParams, searchData,
+                    `appointmentLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)}`)
+                //DO NOT ENTER NAME
+                return false;
+            } catch (e) {
+                console.log(e);
+                this.showAlertMessage('danger', e.errorMessage || 'Sorry,Internal Server Error occurred!')
+                return false;
             }
-           }
+        }
 
         async componentDidMount() {
             // this.searchAppointmentServiceType()
@@ -475,11 +509,32 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                             previewCall: this.previewCall,
                             previewData: previewData,
                             appointmentServiceTypeCode: primaryAppointmentService,
-                            downloadExcel:this.downloadExcel
+                            downloadExcel: this.downloadExcel
                         }}
                         activeStatus={activeStatus}
                         handleStatusChange={this.handleStatusChange}
                         appointmentStatistics={appointmentStatistics}
+                    />
+                    <CAlert
+                        id="profile-manage"
+                        variant={alertMessageInfo.variant}
+                        show={showAlert}
+                        onClose={this.closeAlert}
+                        alertType={
+                            alertMessageInfo.variant === 'success' ? (
+                                <>
+                                    <Material.MdDone/>
+                                </>
+                            ) : (
+                                <>
+                                    <i
+                                        className="fa fa-exclamation-triangle"
+                                        aria-hidden="true"
+                                    />
+                                </>
+                            )
+                        }
+                        message={alertMessageInfo.message}
                     />
                 </div>
             )
