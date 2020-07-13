@@ -339,7 +339,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 appointmentNumber,
                 fromDate,
                 toDate,
-                hospitalId,
+                // hospitalId,
                 patientMetaInfoId,
                 patientType,
                 specializationId,
