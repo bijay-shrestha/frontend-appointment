@@ -242,30 +242,38 @@
   .data {
     .badge-success {
       color: $success !important;
-      padding:0;
-      border: none;
+      padding:2px;
+      border: 1px solid $success;
       background-color: white !important;
       // text-transform: lowercase;
     }
 
-    .pd-followup{
+    .app-details-link{
       font-size: 12px;
-      padding:2px 6px;
+      padding:2px 4px;
       font-weight: 400;
+      margin-top:6px;
       background-color:$gray-200;
-      @include border-radius(20px);
+      // border:1px solid $primary;
+      @include border-radius(4px);
+      margin-top:4px;
+      display: inline-block;
+
+      &:hover{
+        cursor: pointer;
+      }
     }
 
     .badge-primary {
       color: $primary !important;
-       border: none;
-       padding:0;
+       border: 1px solid $primary;
+       padding:2px;
        background-color: white !important;
     }
 
     .badge-info {
-      color: $info;
-      border: none;
+      color: $success;
+      border: 1px solid $success !important;
       padding:0;
       background-color: transparent;
     }
@@ -274,17 +282,31 @@
 
 }
 
+//start patient detail action buttons
+
+.action-wrapper{
+  .btn{
+    display: inline-block;
+    font-size:13px;
+   
+  }
+}
+
 .btn-checkin {
-  width:136px;
-  padding: 8px 0 !important;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  width:auto;
+  padding: 6px 8px !important;
+  // margin-top: 10px;
+  // margin-bottom: 10px;
+  margin:6px;
   display:block;
 
   i {
     color: $white;
   }
 }
+
+//end patient deatail action buttons
+
 
 .time-container {
 
@@ -312,12 +334,18 @@
     }
   }
 
+  .time-wrapper{
+    max-height: 250px;
+    overflow: auto;
+    
+  }
+
+  
+
   ul {
-    // display:flex;
-    // flex-direction:row;
     width: 100%;
-    // flex-wrap:wrap;
-    // justify-content: space-between;
+    max-height: 400px;
+  
     li {
       // display: inline-block;
       margin-right: 10px;

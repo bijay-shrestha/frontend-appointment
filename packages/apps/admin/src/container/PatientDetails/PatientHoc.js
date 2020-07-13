@@ -2,7 +2,8 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     HospitalSetupMiddleware,
-    PatientDetailsMiddleware
+    PatientDetailsMiddleware,
+    AppointmentDetailsMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
@@ -21,7 +22,7 @@ const {
 } = PatientDetailsMiddleware
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
-
+const {appointmentExcelDownload} = AppointmentDetailsMiddleware
 const PatientDetailsHOC = (ComposedComponent, props, type) => {
     const {
         hospitalSetupApiConstants,
@@ -386,6 +387,30 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
            await this.props.fetchEsewaDetails(patientSetupApiConstant.FETCH_PATIENT_ESEWA_ID_FOR_DROPDOWN,value)
          }
         }
+         
+        downloadExcel = async () => {
+            const {
+                esewaId,
+                hospitalId,
+                patientMetaInfoId,
+                status
+            } = this.state.searchParameters
+            let searchData = {
+                esewaId:esewaId.label||'',
+                hospitalId: hospitalId.value || '',
+                patientMetaInfoId: patientMetaInfoId.value || '',
+                status: status && status.value === 'A' ? '' : status.value
+            }
+
+
+            try{
+              await  appointmentExcelDownload(AdminModuleAPIConstants.excleApiConstants.RESCHEDULE_LOG_EXCEL,this.state.queryParams,searchData,'patientDetails')
+            return false;
+           }catch(e){
+             console.log(e);
+             return false;
+            }
+           }
 
         async componentDidMount() {
             await this.searchPatient()
@@ -474,7 +499,8 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
                             formValid: formValid,
                             editChange: this.handleOnChange,
                             handleEnter: this.handleEnterPress,
-                            editHandleApi: this.editHandleApi
+                            editHandleApi: this.editHandleApi,
+                            downloadExcel:this.downloadExcel
                         }}
                     />
                     <CAlert

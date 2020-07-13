@@ -8,9 +8,8 @@ import {
     SpecializationSetupMiddleware,
     HospitalDepartmentSetupMiddleware,
     RoomSetupMiddleware
-    
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants,IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
+import {AdminModuleAPIConstants, IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
     DateTimeFormatterUtils,
     EnterKeyPressUtils
@@ -27,7 +26,7 @@ const {
     appointmentApprove,
     fetchDepartmentAppointmentStatusCount,
     fetchAppointmentApprovalDetailByAppointmentId,
-    thirdPartyApiCallCheckIn
+    thirdPartyApiCallCheckIn,
 } = AppointmentDetailsMiddleware
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
@@ -62,7 +61,7 @@ const {
     //APPOINTMENT_STATUS_LIST,
     APPOINTMENT_HOSPITAL_DEPARTMENT_LIST,
     APPOINTMENT_HOSPITAL_DEPARTMENT_ROOM_LIST,
-    APPOINTMENT_APPROVE,
+    APPOINTMENT_APPROVAL_DEPARTMENT,
     FETCH_DEPARTMENT_APPOINTMENT_STATUS_COUNT
 } = appointmentSetupApiConstant
 
@@ -112,13 +111,15 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             previousSelectedTimeSlotIds: '', // used for changing class of time slots, remove /add active class
             previousSelectedTimeSlotRowIndex: '',
             appointmentDetails: '',
+            appointmentDetailsForCheckIn: '',
             showCheckInModal: false,
             isConfirming: false,
             showAppointmentDetailModal: false,
             searchErrorMessage: '',
             searchStatusLoading: '',
-            appointmentStatusCount: ''
-
+            appointmentStatusCount: '',
+            showCheckInSuccessModal: false,
+            copySuccessMessage: '',
         }
 
         onChangeRoom = async (roomId, departmentId, uniqueIdentifier, date) => {
@@ -306,6 +307,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 appointmentMode:
                     appointmentStatusDetail.patientDetails.appointmentMode || 'N/A'
             }
+            await this.previewCall(appointmentStatusDetail.patientDetails.appointmentId)
             this.setState({
                 showCheckInModal: true,
                 appointmentDetails: {...appointmentData}
@@ -349,6 +351,12 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             })
         }
 
+        handleCopyAppointmentNumber = async text => {
+            await this.setState({
+                copySuccessMessage: `Appointment Number ${text} copied to clipboard.`
+            })
+        }
+
         setStateValuesForSearch = searchParams => {
             this.setState({
                 searchParameters: searchParams
@@ -383,7 +391,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
         previewApiCall = async appointmentId => {
             await this.props.fetchAppointmentApprovalDetailByAppointmentId(
-                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DETAIL,
+                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_PREVIEW_DEPARTMENT,
                 appointmentId
             )
         }
@@ -392,7 +400,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             try {
                 await this.previewApiCall(data)
                 await this.setState({
-                    appointmentDetails:this.props.AppointmentDetailReducer.appointmentDetail
+                    appointmentDetailsForCheckIn: this.props.AppointmentDetailReducer.appointmentDetail
                 })
             } catch (e) {
                 this.setState({
@@ -408,48 +416,47 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
         approveApiCall = async appointmentId => {
             try {
-                // this.setState({
-                //     isConfirming: true
-                // })
-                
-                await this.props.appointmentApprove(APPOINTMENT_APPROVE, appointmentId)
+                await this.props.appointmentApprove(APPOINTMENT_APPROVAL_DEPARTMENT, appointmentId)
                 this.setState({
-                    showCheckInModal: false,
-                    showAlert: true,
                     isConfirming: false,
-                    alertMessageInfo: {
-                        variant: 'success',
-                        message: this.props.AppointmentApproveReducer.approveSuccessMessage
-                    }
+                    showCheckInModal: false,
+                    showCheckInSuccessModal: true,
+                    // showAlert: true,
+                    // alertMessageInfo: {
+                    //     variant: 'success',
+                    //     message: this.props.AppointmentApproveReducer.approveSuccessMessage
+                    // }
                 })
                 await this.searchAppointmentStatus()
             } catch (e) {
                 this.setState({
                     showAlert: true,
                     isConfirming: false,
+                    showCheckInModal: false,
                     alertMessageInfo: {
-                        showCheckInModal: false,
                         variant: 'danger',
                         message: this.props.AppointmentApproveReducer.approveErrorMessage
                     }
                 })
+            } finally {
+                await this.searchAppointmentStatus()
+                // this.setShowModal()
             }
         }
 
-        checkInAppointment = async (apptId) => {
+        checkInAppointment = async () => {
             this.setState({
                 isConfirming: true
             })
-            await this.previewApiCall(apptId)
-            const {hospitalId, hospitalNumber, appointmentId} = this.state.appointmentDetails;
-            // kaushal
+            const {hospitalId, hospitalNumber, appointmentId} = this.state.appointmentDetailsForCheckIn;
+
             let requestDTO;
             try {
                 const {successResponse, apiRequestBody} = await thirdPartyApiCallCheckIn(
-                    this.state.appointmentDetails,
-                    IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_CHECK_IN_CODE,
+                    this.state.appointmentDetailsForCheckIn,
+                    IntegrationConstants.apiIntegrationFeatureTypeCodes.DEPARTMENT_CHECK_IN_CODE,
                     IntegrationConstants.apiIntegrationKey.ALL_CLIENT_FEATURE_INTEGRATION,
-                    this.state.appointmentDetails.hospitalId
+                    hospitalId
                 );
                 requestDTO = {
                     hospitalId: hospitalId,
@@ -465,13 +472,18 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                     requestDTO.hospitalNumber = successResponse.responseData
                     this.approveApiCall(requestDTO)
                 } else {
+                    const thirdPartyErrorMessage = 'Third Party Integration error: '.concat(
+                        successResponse.responseMessage
+                    )
                     this.setState({
                         thirdPartyApiErrorMessage: successResponse.responseMessage,
                         // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
                         showAlert: true,
+                        isConfirming: false,
+                        showCheckInModal: false,
                         alertMessageInfo: {
                             variant: 'danger',
-                            message: successResponse.responseMessage
+                            message: thirdPartyErrorMessage
                                 || "Could not access third party api."
                         }
                     })
@@ -480,6 +492,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 this.setState({
                     isConfirming: false,
                     showAlert: true,
+                    showCheckInModal: false,
                     alertMessageInfo: {
                         variant: 'danger',
                         message:
@@ -509,6 +522,12 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             this.setState({
                 showAppointmentDetailModal: false,
                 appointmentDetails: {}
+            })
+        }
+
+        closeSuccessModal = async () => {
+            await this.setState({
+                showCheckInSuccessModal: false
             })
         }
 
@@ -936,7 +955,10 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 showAppointmentDetailModal,
                 searchErrorMessage,
                 searchStatusLoading,
-                appointmentStatusCount
+                appointmentStatusCount,
+                showCheckInSuccessModal,
+                appointmentDetailsForCheckIn,
+                copySuccessMessage
             } = this.state
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
@@ -951,14 +973,6 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 dropdownErrorMessage
             } = this.props.SpecializationDropdownReducer
 
-            // const {
-            //   isAppointmentStatusListLoading,
-            //   isAppointmentStatusErrorMessage
-            // } = this.props.AppointmenStatusByDepartmentListReducer
-            // const {
-            //   isAppointmentStatusByRoomListLoading,
-            //   isAppointmentStatusByRoomErrorMessage
-            // } = this.props.AppointmenStatusByRoomListReducer
             const {
                 isFetchActiveHospitalDepartmentLoading,
                 activeHospitalDepartmentForDropdown,
@@ -970,6 +984,9 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 activeRoomNumberForDropdownByDepartment,
                 activeRoomsByDepartmentDropdownErrorMessage
             } = this.props.RoomNumberDropdownReducer
+
+            const {approveSuccessMessage} = this.props.AppointmentApproveReducer;
+
             return (
                 <>
                     <div id="appointment-status">
@@ -1017,7 +1034,13 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                                 checkInAppointment: this.checkInAppointment,
                                 appointmentDetails: {...appointmentDetails},
                                 isConfirming: isConfirming,
-                                closeAppointmentDetailModal: this.closeAppointmentDetailModal
+                                closeAppointmentDetailModal: this.closeAppointmentDetailModal,
+                                approveSuccessMessage: approveSuccessMessage,
+                                copySuccessMessage: copySuccessMessage,
+                                onCopyAppointmentNumber: this.handleCopyAppointmentNumber,
+                                showCheckInSuccessModal: showCheckInSuccessModal,
+                                closeCheckInSuccessModal: this.closeSuccessModal,
+                                appointmentDetailsForCheckIn: appointmentDetailsForCheckIn
                             }}
                         />
                         <CAlert

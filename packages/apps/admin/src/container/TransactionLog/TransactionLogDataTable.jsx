@@ -11,7 +11,8 @@ import {
     AppointmentStatusBadges,
     PatientNameWithAgeGenderPhone,
     TransactionDateWithTime,
-    DoctorWithSpecImage, DepartmentNameWithRoomNumberAndBillingMode
+    DoctorWithSpecImage, DepartmentNameWithRoomNumberAndBillingMode,
+    CExcelDownload
 } from '@frontend-appointment/ui-components'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './TransactionLogPreview'
@@ -37,7 +38,8 @@ const TransactionLogDataTable = ({
         previewData,
         showModal,
         setShowModal,
-        appointmentServiceTypeCode
+        appointmentServiceTypeCode,
+        downloadExcel
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
     const headerNameForDoctorOrDepartment = filterAppointmentServiceType(
@@ -55,7 +57,9 @@ const TransactionLogDataTable = ({
                     <Col>
                         <h5 className="title">Transaction Log Details</h5>
                     </Col>
-
+                    <Col>
+                        <CExcelDownload onClickHandler={downloadExcel}/>
+                    </Col>
                     {/* <Col>
               <CButton
                 id="downloadExcel"
@@ -268,7 +272,7 @@ const TransactionLogDataTable = ({
                         <div className="no-data">
                             <i className="fa fa-file-text-o"></i>
                         </div>
-                        <div className="message"> {searchErrorMessage}</div>
+                        <div className="message"> {searchErrorMessage || 'No Transaction Log(s) Found.'}</div>
                     </div>
                 )}
             </div>

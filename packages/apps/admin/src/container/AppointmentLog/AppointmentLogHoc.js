@@ -15,7 +15,8 @@ import './appointment-log.scss'
 
 const {
     clearAppointmentRefundPending,
-    fetchAppointmentLogList
+    fetchAppointmentLogList,
+    appointmentExcelDownload
     //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
@@ -341,6 +342,45 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             }
         }
 
+        downloadExcel = async () => {
+            const {
+                appointmentNumber,
+                fromDate,
+                toDate,
+                hospitalId,
+                patientMetaInfoId,
+                patientType,
+                specializationId,
+                doctorId,
+                appointmentCategory,
+                status,
+                appointmentServiceTypeCode,
+                hospitalDepartmentId
+            } = this.state.searchParameters
+            let searchData = {
+                appointmentNumber,
+                fromDate,
+                toDate,
+                hospitalId: hospitalId.value || '',
+                patientMetaInfoId: patientMetaInfoId.value || '',
+                patientType: patientType.value || '',
+                specializationId: specializationId.value || '',
+                doctorId: doctorId.value || '',
+                appointmentCategory: appointmentCategory.value || '',
+                status: status.value === 'All' ? '' : status.value || '',
+                appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
+                hospitalDepartmentId: hospitalDepartmentId.value || ''
+            }
+
+            try{
+              await  appointmentExcelDownload(AdminModuleAPIConstants.excleApiConstants.APPOINTMENT_LOG_EXCEL,this.state.queryParams,searchData,'rescheduleLog')
+            return false;
+           }catch(e){
+             console.log(e);
+             return false;
+            }
+           }
+
         async componentDidMount() {
             // this.searchAppointmentServiceType()
             // this.setPrimaryAppointmentService()
@@ -428,12 +468,14 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                         tableHandler={{
                             isSearchLoading: isLogListLoading,
                             appointmentLogList: this.appendSNToTable(filteredData),
-                            searchErrorMessage: logErrorMessage,
+                            searchErrorMessage: (searchParameters.hospitalId && searchParameters.appointmentServiceTypeCode) ? logErrorMessage
+                                : "Select Client and Appointment Service type first.",
                             setShowModal: this.setShowModal,
                             showModal: showModal,
                             previewCall: this.previewCall,
                             previewData: previewData,
-                            appointmentServiceTypeCode: primaryAppointmentService
+                            appointmentServiceTypeCode: primaryAppointmentService,
+                            downloadExcel:this.downloadExcel
                         }}
                         activeStatus={activeStatus}
                         handleStatusChange={this.handleStatusChange}

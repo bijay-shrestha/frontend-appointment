@@ -1,11 +1,6 @@
 import React, {memo} from 'react'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {
-  CDataTable,
-  CLoading,
-  CPagination
-} from '@frontend-appointment/ui-elements'
-import {
-  CRemarksModal,
   DoctorWithSpecImage,
   PatientNameWithAgeGenderPhone,
   TableRefundStatusAmbigous,
@@ -30,14 +25,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     // refundRejectRemarksHandler,
     onRejectHandler,
     refundHandler,
-    refundHandleApi,
+    // refundHandleApi,
     //refundRejectError,
-    refundConfirmationModal,
+    // refundConfirmationModal,
     // rejectRemarks,
     totalRefundAmount,
-    isRefundLoading,
-    remarks,
-    handleInputChange
+    // isRefundLoading,
+    // remarks,
+    // handleInputChange
     //isRejectLoading
   } = tableHandler
   const {queryParams, totalRecords, handlePageChange} = paginationProps
@@ -254,7 +249,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 ''
             )} */}
 
-      {refundConfirmationModal ? (
+      {/* {refundConfirmationModal ? (
         <CRemarksModal
           confirmationMessage="Provide remarks for Refund Check."
           modalHeader="Are you sure you want to Check Refund?"
@@ -269,7 +264,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         />
       ) : (
         ''
-      )}
+      )} */}
     </>
   )
 }

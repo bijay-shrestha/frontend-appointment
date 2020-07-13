@@ -1,19 +1,22 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
-    AppointmentDetailsMiddleware, AppointmentServiceTypeMiddleware,
-    DoctorMiddleware, HospitalDepartmentSetupMiddleware,
+    AppointmentDetailsMiddleware,
+    AppointmentServiceTypeMiddleware,
+    DoctorMiddleware,
+    HospitalDepartmentSetupMiddleware,
     HospitalSetupMiddleware,
     PatientDetailsMiddleware,
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {DateTimeFormatterUtils, CommonUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import {CommonUtils, DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './transaction-log.scss'
 
 const {
     clearTransactionLogMessage,
-    fetchTransactionLogList
+    fetchTransactionLogList,
+    appointmentExcelDownload
     //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware;
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
@@ -347,6 +350,43 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                 })
         }
 
+        downloadExcel = async () => {
+            const {
+                transactionNumber,
+                fromDate,
+                toDate,
+                hospitalId,
+                patientMetaInfoId,
+                patientType,
+                specializationId,
+                doctorId,
+                appointmentCategory,
+                status,
+                appointmentServiceTypeCode,
+                hospitalDepartmentId
+            } = this.state.searchParameters
+            let searchData = {
+                transactionNumber,
+                fromDate,
+                toDate,
+                hospitalId: hospitalId.value || '',
+                patientMetaInfoId: patientMetaInfoId.value || '',
+                patientType: patientType.value || '',
+                specializationId: specializationId.value || '',
+                doctorId: doctorId.value || '',
+                appointmentCategory: appointmentCategory.value || '',
+                status: status.value === "All" ? "" : status.value,
+                appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
+                hospitalDepartmentId: hospitalDepartmentId.value || ''
+            }
+            try{
+             const file = await appointmentExcelDownload(AdminModuleAPIConstants.excleApiConstants.TRANSACTION_LOG_EXCEL,this.state.queryParams,searchData,'transactionLog')
+            return false;
+           }catch(e){
+             console.log(e);
+             return false;
+            }
+           }
         async componentDidMount() {
             await this.getFromAndToDateFromUrl();
             this.searchHospitalForDropDown()
@@ -428,7 +468,8 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                         paginationProps={{
                             queryParams: queryParams,
                             totalRecords: totalRecords,
-                            handlePageChange: this.handlePageChange
+                            handlePageChange: this.handlePageChange,
+
                         }}
                         tableHandler={{
                             isSearchLoading: isLogListLoading,
@@ -439,7 +480,8 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                             showModal: showModal,
                             previewCall: this.previewCall,
                             previewData: previewData,
-                            appointmentServiceTypeCode: primaryAppointmentService
+                            appointmentServiceTypeCode: primaryAppointmentService,
+                            downloadExcel:this.downloadExcel
                         }}
                         activeStatus={activeStatus}
                         handleStatusChange={this.handleStatusChange}

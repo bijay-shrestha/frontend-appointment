@@ -154,8 +154,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         patientType: patientType.value || '',
         appointmentModeId: appointmentModeId.value || '',
         esewaId,
-        hospitalDepartmentId:hospitalDepartmentId.value || '',
-        roomId:roomId.value || '',
+        hospitalDepartmentId: hospitalDepartmentId.value || '',
+        roomId: roomId.value || ''
       }
 
       let updatedPage =
@@ -302,7 +302,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       this.fetchDepartmentByHospitalId(hospitalId)
     }
 
-    callApiForDepartmentChange = async hospitalDepartmentId =>{
+    callApiForDepartmentChange = async hospitalDepartmentId => {
       this.fetchRoomByDepartmentId(hospitalDepartmentId)
     }
 
@@ -319,14 +319,14 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           fileUri = event.target.fileUri
           if (fieldName === 'hospitalId')
             await this.callApiForHospitalChange(value)
-          if(fieldName === 'hospitalDepartmentId')
-           await this.callApiForDepartmentChange(value)  
+          if (fieldName === 'hospitalDepartmentId')
+            await this.callApiForDepartmentChange(value)
         }
         let searchParams = {...this.state.searchParameters}
         if (fieldName === 'hospitalId')
           await this.handleHospitalChangeReset(searchParams)
-        if(fieldName ===  'hospitalDepartmentId')
-           await this.handleDepartmentChangeReset(searchParams)
+        if (fieldName === 'hospitalDepartmentId')
+          await this.handleDepartmentChangeReset(searchParams)
         let newSearchParams = {...this.state.searchParameters}
 
         newSearchParams[fieldName] = label
@@ -358,21 +358,33 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       }))
     }
 
-    refundHandler = data => {
-      this.previewApiCall(data.appointmentId)
-      this.setState({
-        refundConfirmationModal: true,
-        refundAppointmentId: data.appointmentId
-      })
+    refundHandler = async data => {
+      try{
+        await this.previewApiCall(data.appointmentId)
+        await this.setState({
+          refundConfirmationModal: true,
+          refundAppointmentId: data.appointmentId
+        })
+        this.refundHandleApi()
+        }catch(e){
+          this.setState({
+            showAlert: true,
+            alertMessageInfo: {
+              variant: 'danger',
+              message: this.props.AppointmentRefundDetailReducer
+                .refundDetailErrorMessage
+            }
+          })
+        }
     }
 
     refundHandleApi = async () => {
       const {refundDetail} = this.props.AppointmentRefundDetailReducer
-      const {remarks} = this.state
+      // const {remarks} = this.state
       this.setState({
         isConfirming: true
       })
-      const {hospitalId, appointmentId, appointmentModeId} = refundDetail
+      // const {hospitalId, appointmentId, appointmentModeId} = refundDetail
       let requestDTO
       try {
         // let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
@@ -380,7 +392,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         //   appointmentId
         // )
         const {successResponse, apiRequestBody} = await thirdPartyApiCallRefund(
-          {...refundDetail, remarks},
+          {...refundDetail},
           IntegrationConstants.apiIntegrationFeatureTypeCodes
             .APPOINTMENT_REFUND_STATUS_CODE,
           IntegrationConstants.apiIntegrationKey
@@ -389,12 +401,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID
         )
         requestDTO = {
-          hospitalId: hospitalId,
-          appointmentId: appointmentId,
-          appointmentModeId: appointmentModeId,
-          status: null,
-          remarks: remarks,
-          ...apiRequestBody
+          ...apiRequestBody,
+          ...refundDetail
         }
         if (!successResponse) {
           this.refundAppointment(requestDTO)
@@ -515,10 +523,37 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     }
 
     refundAppointment = async data => {
+      const {
+        appointmentId,
+        appointmentMode,
+        remarks,
+        integrationChannelCode,
+        featureCode,
+        appointmentModeId,
+        esewaMerchantCode,
+        esewaId,
+        transactionNumber,
+        status,
+        hospitalId
+      } = data
+
+      const requestData = {
+        appointmentId,
+        appointmentMode,
+        esewaId,
+        esewaMerchantCode,
+        transactionNumber,
+        appointmentModeId,
+        status,
+        remarks,
+        hospitalId,
+        integrationChannelCode,
+        featureCode
+      }
       try {
         await this.props.appointmentRefund(
           appointmentSetupApiConstant.CHECK_APPOINTMENT_REFUND_STATUS,
-          data
+          requestData
         )
         this.setState({
           isConfirming: false,
@@ -657,13 +692,13 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         isFetchActiveHospitalDepartmentLoading,
         activeHospitalDepartmentForDropdown,
         activeDepartmentDropdownErrorMessage
-    } = this.props.HospitalDepartmentDropdownReducer
+      } = this.props.HospitalDepartmentDropdownReducer
 
-    const {
+      const {
         isFetchActiveRoomNumberByDepartmentLoading,
         activeRoomNumberForDropdownByDepartment,
         activeRoomsByDepartmentDropdownErrorMessage
-    } = this.props.RoomNumberDropdownReducer
+      } = this.props.RoomNumberDropdownReducer
 
       const {refundDetail} = this.props.AppointmentRefundDetailReducer
 
