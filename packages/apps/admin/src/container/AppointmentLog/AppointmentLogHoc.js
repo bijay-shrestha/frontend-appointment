@@ -373,7 +373,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             }
 
             try{
-              await  appointmentExcelDownload(AdminModuleAPIConstants.excleApiConstants.APPOINTMENT_LOG_EXCEL,this.state.queryParams,searchData,'rescheduleLog')
+              await  appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.APPOINTMENT_LOG_EXCEL,this.state.queryParams,searchData,'rescheduleLog')
             return false;
            }catch(e){
              console.log(e);

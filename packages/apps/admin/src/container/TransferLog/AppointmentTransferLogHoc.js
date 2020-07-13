@@ -282,7 +282,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
                 //patientCategory: patientCategory.value || ''
             }
             try{
-                await  appointmentExcelDownload(AdminModuleAPIConstants.excleApiConstants.TRANSFER_LOG_EXCEL,this.state.queryParams,searchData,'transferLog')
+                await  appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.TRANSFER_LOG_EXCEL,this.state.queryParams,searchData,'transferLog')
                 return false;
             }catch(e){
                 console.log(e);
