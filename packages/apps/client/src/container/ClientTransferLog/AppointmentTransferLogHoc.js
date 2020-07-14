@@ -234,7 +234,8 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         doctorId: doctorId.value || '',
       }
      try{
-      const file = appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.TRANSFER_LOG_EXCEL,this.state.queryParams,searchData)
+      const file = appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.TRANSFER_LOG_EXCEL,this.state.queryParams,searchData, `transferLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(appointmentFromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(appointmentToDate)}`)
+      
      console.log(file)
     }catch(e){
       console.log(e);
