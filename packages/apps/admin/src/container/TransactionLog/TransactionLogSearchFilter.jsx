@@ -126,6 +126,17 @@ class TransactionLogSearchFilter extends PureComponent {
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridInput
+                                            id="appointmentNumber"
+                                            name="appointmentNumber"
+                                            placeholder="Appointment Number"
+                                            value={searchParameters.appointmentNumber}
+                                            onChange={handleSearchFormChange}
+                                            onKeyDown={handleEnter}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridInput
                                             id="transactionNumber"
                                             name="transactionNumber"
                                             placeholder="Transaction Number"
@@ -392,22 +403,6 @@ class TransactionLogSearchFilter extends PureComponent {
                                 </CButton>
                             </li>
 
-                            {searchParameters.transactionNumber && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        delay={{show: 250, hide: 400}}
-                                        overlay={props => (
-                                            <Tooltip {...props}>Transaction Number</Tooltip>
-                                        )}
-                                    >
-                                        <Button id="light-search-filters" variant="secondary">
-                                            {searchParameters.transactionNumber}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
-
                             {searchParameters.hospitalId && (
                                 <li>
                                     <OverlayTrigger
@@ -442,17 +437,33 @@ class TransactionLogSearchFilter extends PureComponent {
                                 </li>
                             )}
 
-                            {searchParameters.hospitalDepartmentId && (
+                            {searchParameters.transactionNumber && (
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
-                                        overlay={<Tooltip id="name">Department</Tooltip>}
+                                        delay={{show: 250, hide: 400}}
+                                        overlay={props => (
+                                            <Tooltip {...props}>Transaction Number</Tooltip>
+                                        )}
                                     >
-                                        <Button
-                                            id="search-param-button-filters"
-                                            variant="secondary"
-                                        >
-                                            {searchParameters.hospitalDepartmentId.label}
+                                        <Button id="light-search-filters" variant="secondary">
+                                            {searchParameters.transactionNumber}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
+                            {searchParameters.appointmentNumber && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        delay={{show: 250, hide: 400}}
+                                        overlay={props => (
+                                            <Tooltip {...props}>Appointment Number</Tooltip>
+                                        )}
+                                    >
+                                        <Button id="light-search-filters" variant="secondary">
+                                            {searchParameters.appointmentNumber}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>
@@ -475,6 +486,7 @@ class TransactionLogSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
+
                             {searchParameters.toDate && (
                                 <li>
                                     <OverlayTrigger
@@ -492,6 +504,23 @@ class TransactionLogSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
+
+                            {searchParameters.hospitalDepartmentId && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Department</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.hospitalDepartmentId.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
                             {searchParameters.appointmentCategory && (
                                 <li>
                                     <OverlayTrigger

@@ -56,9 +56,14 @@ const AppointmentRefundDataTable = ({
                     <Col>
                         <h5 className="title">Appointment Log Details</h5>
                     </Col>
-                    <Col>
-                        <CExcelDownload onClickHandler={downloadExcel}/>
-                    </Col>
+                    {
+                        !isSearchLoading &&
+                        !searchErrorMessage &&
+                        appointmentLogList.length ?
+                            <Col>
+                                <CExcelDownload onClickHandler={downloadExcel}/>
+                            </Col>
+                            : ''}
                 </Row>
 
                 <AppointmentStatusBadges
