@@ -217,8 +217,25 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
     }
 
     downloadExcel = async () => {
+      const {
+        appointmentNumber,
+        patientMetaInfoId,
+        specializationId,
+        doctorId,
+        appointmentFromDate,
+        appointmentToDate
+      } = this.state.searchParameters
+      let searchData = {
+        appointmentNumber,
+        appointmentFromDate: appointmentNumber ? '' : appointmentFromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
+        appointmentToDate: appointmentNumber ? '' : appointmentToDate,
+        patientMetaInfoId: patientMetaInfoId.value || '',
+        specializationId: specializationId.value || '',
+        doctorId: doctorId.value || '',
+      }
      try{
-      const file = appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.TRANSFER_LOG_EXCEL,this.state.queryParams,this.state.searchParameters)
+      const file = appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.TRANSFER_LOG_EXCEL,this.state.queryParams,searchData, `transferLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(appointmentFromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(appointmentToDate)}`)
+      
      console.log(file)
     }catch(e){
       console.log(e);

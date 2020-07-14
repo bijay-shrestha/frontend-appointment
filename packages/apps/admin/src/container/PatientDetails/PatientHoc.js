@@ -6,7 +6,7 @@ import {
     AppointmentDetailsMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import {EnterKeyPressUtils,DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 import './patient-detail.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
@@ -404,7 +404,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
 
 
             try{
-              await  appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.RESCHEDULE_LOG_EXCEL,this.state.queryParams,searchData,'patientDetails')
+              await  appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.PATIENT_LOG_EXCEL,this.state.queryParams,searchData,`patientDetails-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(new Date().toLocaleString())}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(new Date().toLocaleString())}`)
             return false;
            }catch(e){
              console.log(e);
