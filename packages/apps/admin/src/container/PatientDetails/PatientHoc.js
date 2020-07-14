@@ -404,7 +404,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
 
 
             try{
-              await  appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.RESCHEDULE_LOG_EXCEL,this.state.queryParams,searchData,'patientDetails')
+              await  appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.PATIENT_LOG_EXCEL,this.state.queryParams,searchData,'patientDetails')
             return false;
            }catch(e){
              console.log(e);
