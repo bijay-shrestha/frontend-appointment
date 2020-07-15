@@ -65,7 +65,6 @@ const AppointmentStatus = props => {
                     <AppointmentCheckInSuccessModal
                         modalHeader={approveSuccessMessage}
                         showModal={showCheckInSuccessModal}
-                         showModal={true}
                         setShowModal={closeCheckInSuccessModal}
                         onCopyAppointmentNumber={onCopyAppointmentNumber}
                         copySuccessMessage={copySuccessMessage}
@@ -74,7 +73,7 @@ const AppointmentStatus = props => {
                     />
                 ) : (
                     ''
-                )} 
+                )}
                 {
                     isConfirming ?
                         <CPageOverlayLoader
