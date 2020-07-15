@@ -75,14 +75,23 @@ const AppointmentRefundDataTable = ({
         !searchErrorMessage &&
         appointmentLogList.length ? (
           <>
+          <div className="ag-table-wrapper">
+            <div className="ag-table-container">
             <CDataTable
               classes="ag-theme-balham"
               id="roles-table"
-              width="100%"
+              width="90%"
               height="460px"
               enableSorting
               editType
               rowHeight={50}
+              domLayout='autoHeight'          
+              suppressMenuHide="true"
+              defaultColDef="defaultColDef"              
+              gridReady="onGridReady($event)"
+              alwaysShowVerticalScroll="false"
+              suppressHorizontalScroll="false"
+
               columnDefs={[
                 {
                   headerName: 'SN',
@@ -234,6 +243,8 @@ const AppointmentRefundDataTable = ({
               rowSelection={'single'}
               rowData={appointmentLogList}
             />
+            </div>
+            </div>
 
             {/* <div className=" total-amount">
                         <span>
