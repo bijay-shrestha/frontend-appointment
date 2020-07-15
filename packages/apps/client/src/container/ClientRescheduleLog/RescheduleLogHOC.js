@@ -82,6 +82,26 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
       totalRecords: 0
     }
 
+    clearAlertTimeout = () => {
+      this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
+    }
+
+    closeAlert = () => {
+      this.showOrCloseAlertMessage(false, '', '')
+    }
+
+    showOrCloseAlertMessage = (showAlert, type, message) => {
+      this.setState({
+        showAlert,
+        alertMessageInfo: {
+          variant: type,
+          message: message
+        }
+      })
+      this.clearAlertTimeout()
+    }
+
+
     fetchHospitalForDropDown = async () => {
       try {
         await this.props.fetchActiveHospitalsForDropdown(
@@ -420,9 +440,23 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
 
       try{
         await  appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.RESCHEDULE_LOG_EXCEL,this.state.queryParams,searchData,`rescheduleLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)}`)
+        this.showOrCloseAlertMessage(
+          true,
+          'success',
+          `rescheduleLog ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            fromDate
+          )} - ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            toDate
+          )} downloaded successfully!!`
+        )
+
       return false;
      }catch(e){
-       console.log(e);
+      this.showOrCloseAlertMessage(
+        true,
+        'success',
+        e.errorMessage || 'Sorry Internal Server Error'
+      )
        return false;
       }
      }

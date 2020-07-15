@@ -81,7 +81,11 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
 
         closeAlert = () => {
             this.setState({
-                showAlert: false
+                showAlert: false,
+                alertMessageInfo: {
+                    variant: '',
+                    message: ''
+                }
             })
         };
 
