@@ -10,7 +10,7 @@ import {
 } from '@frontend-appointment/ui-components';
 import AppointmentDateWithTime from "../CommonComponents/table-components/AppointmentDateWithTime";
 import {CommonUtils} from '@frontend-appointment/helpers'
-import {Col} from 'react-bootstrap'
+import {Col,Row} from 'react-bootstrap'
 const {filterAppointmentServiceType} = CommonUtils
 
 const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
@@ -36,9 +36,10 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
     return (
         <>
             <div className="manage-details">
+                <Row>
                 <Col><h5 className="title">Reschedule Log Details</h5></Col>
                 <Col><CExcelDownload onClickHandler={downloadExcel}/></Col>
-
+                </Row>
                 {!isRescheduleLogLoading &&
                 !searchErrorMessage &&
                 rescheduleLogList.length ? (

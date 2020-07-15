@@ -9,7 +9,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background:$gray-400;
   border-radius:8px;
   height: 50px;
   cursor: pointer;
@@ -17,6 +17,6 @@
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: $gray-500;
   cursor: pointer;
 }

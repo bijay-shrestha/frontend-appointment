@@ -380,7 +380,7 @@ const AppointmentStatusDetails = ({
                                                                         appointmentStatusDetail.patientDetails
                                                                             .appointmentNumber
                                                                     }
-                                                                          &nbsp;  <i className="fa fa-chevron-down"></i></span>
+                                                                          &nbsp;  <i className="fa fa-chevron-right"></i></span>
                                                                 </CButton>
                                                                 <br />
                                                             Rs. {

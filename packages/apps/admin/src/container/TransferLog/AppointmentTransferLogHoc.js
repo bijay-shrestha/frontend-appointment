@@ -353,7 +353,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         filteredData,
         activeStatus,
         alertMessageInfo,
-        showAlert,
+        showAlert
 
       } = this.state
 

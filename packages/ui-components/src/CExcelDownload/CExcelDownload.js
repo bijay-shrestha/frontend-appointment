@@ -9,21 +9,21 @@ const CExcelDownload = props => {
     }
     return (
         <>
-            <OverlayTrigger
+            {/* <OverlayTrigger
                 trigger={'hover'}
                 placement="top"
                 overlay={<Tooltip id="tooltip-disabled"> Download Excel</Tooltip>}
-            >
+            > */}
                 <a
                     href="/"
                     id="downloadExcel"
                     name=""
                     onClick={handleDownload}
-                    className="float-right excel-download"
+                    className="float-right btn btn-light excel-download"
                 >
-                    <img src={require('./xls-3.png')} alt="excel"/>
+                    <img src={require('./xls-3.png')} alt="excel"/>&nbsp; Download Excel
                 </a>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
         </>
     )
 }

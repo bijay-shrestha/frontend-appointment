@@ -244,17 +244,27 @@
 
     .app-details-link{
       font-size: 12px;
-      padding:2px 4px;
+      padding:6px;
       font-weight: 400;
       margin-top:6px;
-      background-color:$gray-200;
-      // border:1px solid $primary;
+  
+      background-color:$gray-400; 
+      // border:1px solid $gray-500;
+      color:white;
       @include border-radius(4px);
       margin-top:4px;
       display: inline-block;
+      @include transition(all,0.3s,ease);
+
+      
 
       &:hover{
+        background-color:$gray-300; 
         cursor: pointer;
+      }
+
+      span{
+        color:$gray-900;
       }
     }
 

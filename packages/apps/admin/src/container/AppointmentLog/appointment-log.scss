@@ -365,3 +365,14 @@
     }
 
 }
+
+.ag-table-wrapper{
+    display: flex;
+    flex-direction: row;
+}
+
+.ag-table-container{
+    overflow: hidden; 
+    flex-grow: 1;
+    flex-shrink: 1;
+}
