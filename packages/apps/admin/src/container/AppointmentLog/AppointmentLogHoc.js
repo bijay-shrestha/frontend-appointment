@@ -409,7 +409,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 //DO NOT ENTER NAME
                 return false;
             } catch (e) {
-                console.log(e);
+                // console.log(e);
                 this.showAlertMessage('danger', e.errorMessage || 'Sorry,Internal Server Error occurred!')
                 return false;
             }

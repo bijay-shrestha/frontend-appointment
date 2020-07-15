@@ -57,21 +57,15 @@ const TransactionLogDataTable = ({
                     <Col>
                         <h5 className="title">Transaction Log Details</h5>
                     </Col>
-                    <Col>
-                        <CExcelDownload onClickHandler={downloadExcel}/>
-                    </Col>
-                    {/* <Col>
-              <CButton
-                id="downloadExcel"
-                name="DownloadExcel"
-                // onClickHandler={props.exportExcel}
-                className="float-right"
-                variant="outline-secondary"
-              >
-                {' '}
-                <i className="fa fa-download" />
-              </CButton>
-            </Col>  */}
+                    {
+                        !isSearchLoading &&
+                        !searchErrorMessage &&
+                        appointmentLogList.length ?
+                            <Col>
+                                <CExcelDownload onClickHandler={downloadExcel}/>
+                            </Col>
+                            : ''
+                    }
                 </Row>
 
                 <AppointmentStatusBadges

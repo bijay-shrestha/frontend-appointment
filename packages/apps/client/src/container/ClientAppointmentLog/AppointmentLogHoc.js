@@ -401,7 +401,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     `appointmentLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)}`)
                 return false;
             } catch (e) {
-                console.log(e);
+                // console.log(e);
                 this.showAlertMessage('danger', e.errorMessage || 'Sorry,Internal Server Error occurred!')
                 return false;
             }

@@ -1,12 +1,12 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
-  DoctorMiddleware,
-  SpecializationSetupMiddleware,
-  PatientDetailsMiddleware,
-  AppointmentTransferMiddleware,
-  HospitalSetupMiddleware,
-  AppointmentDetailsMiddleware
+    DoctorMiddleware,
+    SpecializationSetupMiddleware,
+    PatientDetailsMiddleware,
+    AppointmentTransferMiddleware,
+    HospitalSetupMiddleware,
+    AppointmentDetailsMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import './transfer-log.scss'
@@ -14,6 +14,7 @@ import {
     DateTimeFormatterUtils,
     CommonUtils
 } from '@frontend-appointment/helpers'
+import {CAlert} from '@frontend-appointment/ui-elements'
 
 const {appointmentExcelDownload} = AppointmentDetailsMiddleware
 const {
@@ -22,7 +23,9 @@ const {
 } = AppointmentTransferMiddleware
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
-const {fetchSpecializationHospitalWiseForDropdown} = SpecializationSetupMiddleware
+const {
+    fetchSpecializationHospitalWiseForDropdown
+} = SpecializationSetupMiddleware
 const {fetchPatientMetaDropdown} = PatientDetailsMiddleware
 const TransferApprovalHOC = (ComposedComponent, props, type) => {
     const {
@@ -50,7 +53,12 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
             activeStatus: 'All',
             filteredData: [],
             totalRecords: 0,
-            showModal: false
+            showModal: false,
+            alertMessageInfo: {
+                variant: '',
+                message: ''
+            },
+            showAlert: false
         }
 
         previewApiCall = async data => {
@@ -215,7 +223,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
             return false
         }
 
-        callApiForHospitalChange = async (hospitalId) => {
+        callApiForHospitalChange = async hospitalId => {
             this.props.fetchActiveDoctorsHospitalWiseForDropdown(
                 doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
                 hospitalId
@@ -252,8 +260,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
                             : {value, label}
                         : ''
                     : value
-                if (fieldName === 'hospitalId')
-                    this.callApiForHospitalChange(value);
+                if (fieldName === 'hospitalId') this.callApiForHospitalChange(value)
                 await this.setStateValuesForSearch(newSearchParams)
             }
         }
@@ -281,12 +288,35 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
                 hospitalId: hospitalId.value || ''
                 //patientCategory: patientCategory.value || ''
             }
-            try{
-                await  appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.TRANSFER_LOG_EXCEL,this.state.queryParams,searchData,'transferLog')
-                return false;
-            }catch(e){
-                console.log(e);
-                return false;
+            try {
+                await appointmentExcelDownload(
+                    AdminModuleAPIConstants.excelApiConstants.TRANSFER_LOG_EXCEL,
+                    this.state.queryParams,
+                    searchData,
+                    `transferLog ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                        new Date()
+                    )}`
+                )
+                this.setState({
+                    alertMessageInfo: {
+                        variant: 'success',
+                        message: `transferLog ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                            new Date()
+                        )} downloaded successfully!!`
+                    },
+                    showAlert: true
+                })
+
+                return false
+            } catch (e) {
+                this.setState({
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: e.errorMessage
+                    },
+                    showAlert: true
+                })
+                return false
             }
         }
 
@@ -305,7 +335,9 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
                 totalRecords,
                 showModal,
                 filteredData,
-                activeStatus
+                activeStatus,
+                showAlert,
+                alertMessageInfo
             } = this.state
 
             const {
@@ -366,10 +398,32 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
                             showModal: showModal,
                             previewCall: this.previewCall,
                             previewData: appointmentTransferInfo,
-                            downloadExcel:this.downloadExcel
+                            downloadExcel: this.downloadExcel
                         }}
                         activeStatus={activeStatus}
                         handleStatusChange={this.handleStatusChange}
+                    />
+                    <CAlert
+                        id="profile-add"
+                        variant={alertMessageInfo.variant}
+                        show={showAlert}
+                        onClose={this.setShowAlert}
+                        alertType={
+                            alertMessageInfo.variant === 'success' ? (
+                                <>
+                                    <i className="fa fa-check-circle" aria-hidden="true">
+                                        {' '}
+                                    </i>
+                                </>
+                            ) : (
+                                <>
+                                    <i className="fa fa-exclamation-triangle" aria-hidden="true">
+                                        {' '}
+                                    </i>
+                                </>
+                            )
+                        }
+                        message={alertMessageInfo.message}
                     />
                 </div>
             )

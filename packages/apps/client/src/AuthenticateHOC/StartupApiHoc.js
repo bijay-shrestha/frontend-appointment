@@ -1,6 +1,11 @@
 import React, {PureComponent} from 'react'
 import {ComponentHoc, ConnectHoc, NoRoleTabComponentHOC, SingleTabComponentHOC} from '@frontend-appointment/commons'
-import {CommonUtils, EnvironmentVariableGetter, LocalStorageSecurity,} from '@frontend-appointment/helpers'
+import {
+    AdminInfoUtils,
+    CommonUtils,
+    EnvironmentVariableGetter,
+    LocalStorageSecurity,
+} from '@frontend-appointment/helpers'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
     DashboardDetailsMiddleware,
@@ -8,12 +13,16 @@ import {
     fetchLoggedInAdminUserInfo,
     fetchUserMenusNew,
     logoutUser,
+    MinioMiddleware,
     signinUser
 } from '@frontend-appointment/thunk-middleware'
 import {CLoading, CUnauthorized} from '@frontend-appointment/ui-elements'
 
 const {fetchDashboardFeaturesByAdmin} = DashboardDetailsMiddleware
 const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant
+
+const {fetchPresignedUrlForGetOperation} = MinioMiddleware;
+
 const {
     GET_LOGGED_IN_ADMIN_INFO_CLIENT,
     GET_SIDEBAR_DATA
@@ -45,6 +54,10 @@ class StartupApiHoc extends PureComponent {
                 await this.props.fetchLoggedInAdminUserInfo(GET_LOGGED_IN_ADMIN_INFO_CLIENT, {
                     email: user.username
                 })
+            } else {
+                let adminData = LocalStorageSecurity.localStorageDecoder('adminInfo');
+                adminData.fileUri = await fetchPresignedUrlForGetOperation(adminData.fileLocation || '') || ''
+                await AdminInfoUtils.saveLoggedInAdminInfo(adminData);
             }
             if (!LocalStorageSecurity.localStorageDecoder('adminDashRole')) {
                 const featuresAdmin = await this.props.fetchDashboardFeaturesByAdmin(
