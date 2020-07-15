@@ -41,7 +41,7 @@ const AppointmentStatusDetails = ({
         transferHandler,
         showTransferModal
     } = statusDetailsData
-    console.log("count", appointmentStatusCount)
+    // console.log("count", appointmentStatusCount)
     return (
         <>
             <div className="manage-title">
@@ -350,27 +350,16 @@ const AppointmentStatusDetails = ({
                                                                             appointmentStatusDetail.patientDetails
                                                                                 .appointmentNumber
                                                                         }
-                                                                          &nbsp;  <i className="fa fa-chevron-down"></i></span>                                                           
+                                                                          &nbsp;  <i className="fa fa-chevron-down"></i></span>
                                                             </CButton>
 
 
                                                             <br />
                                                        Rs.
-
-                                                        {
-                                                                appointmentStatusDetail.patientDetails
-                                                                    .appointmentAmount
-                                                            }
-                                                        &nbsp;,  &nbsp;  
-
-
-                                                        {
-                                                                appointmentStatusDetail.patientDetails
-                                                                    .appointmentMode
-                                                            }
+                                                        {appointmentStatusDetail.patientDetails.appointmentAmount}
+                                                        &nbsp;,  &nbsp;
+                                                        {appointmentStatusDetail.patientDetails.appointmentMode}
                                                             <br />
-                                                            
-                                                      
                                                             {appointmentStatusDetail.patientDetails.isFollowUp ===
                                                                 'Y' ? (
                                                                     <>
@@ -419,7 +408,7 @@ const AppointmentStatusDetails = ({
 
 
 
-                                                    
+
                                                     {/* <div className="patient-details">
                                                         <div className="label">Address</div>
                                                         <div className="data">
@@ -456,7 +445,7 @@ const AppointmentStatusDetails = ({
                                                     </CButton> */}
 
 
-                                                  
+
 
                                                     {appointmentStatusDetail.patientDetails
                                                         .showCheckInButton ? (
