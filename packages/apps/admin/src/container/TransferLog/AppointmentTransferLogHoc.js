@@ -55,9 +55,30 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
       showModal: false,
       alertMessageInfo: {
         variant: '',
-        message:''
+        message: ''
       },
       showAlert: false
+    }
+
+    alertTimer = ''
+
+    clearAlertTimeout = () => {
+      this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
+    }
+
+    closeAlert = () => {
+      this.showOrCloseAlertMessage(false, '', '')
+    }
+
+    showOrCloseAlertMessage = (showAlert, type, message) => {
+      this.setState({
+        showAlert,
+        alertMessageInfo: {
+          variant: type,
+          message: message
+        }
+      })
+      this.clearAlertTimeout()
     }
 
     previewApiCall = async data => {
@@ -296,25 +317,21 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
             new Date()
           )}`
         )
-        this.setState({
-          alertMessageInfo: {
-            variant: 'success',
-            message: `transferLog ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
-              new Date()
-            )} downloaded successfully!!`
-          },
-          showAlert: true
-        })
+        this.showOrCloseAlertMessage(
+          true,
+          'success',
+          `transferLog ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            new Date()
+          )} downloaded successfully!!`
+        )
 
         return false
       } catch (e) {
-        this.setState({
-          alertMessageInfo: {
-            variant: 'danger',
-            message: e.errorMessage
-          },
-          showAlert: true
-        })
+        this.showOrCloseAlertMessage(
+          true,
+          'danger',
+          e.errorMessage || 'Sorry Internal Server Error'
+        )
         return false
       }
     }
@@ -334,7 +351,10 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         totalRecords,
         showModal,
         filteredData,
-        activeStatus
+        activeStatus,
+        alertMessageInfo,
+        showAlert,
+
       } = this.state
 
       const {

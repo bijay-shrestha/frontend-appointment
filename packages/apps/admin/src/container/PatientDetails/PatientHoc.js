@@ -75,6 +75,28 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
       hospitalNumber: false
     }
 
+    alertTimer = ''
+
+    clearAlertTimeout = () => {
+      this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
+    }
+
+    closeAlert = () => {
+      this.showOrCloseAlertMessage(false, '', '')
+    }
+
+    showOrCloseAlertMessage = (showAlert, type, message) => {
+      this.setState({
+        showAlert,
+        alertMessageInfo: {
+          variant: type,
+          message: message
+        }
+      })
+      this.clearAlertTimeout()
+    }
+
+
     setShowAlert = () => {
       this.setState(prevState => ({
         showAlert: !prevState.showAlert
@@ -418,26 +440,22 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
             new Date().toLocaleString()
           )}`
         )
-        await this.setState({
-          showAlert: true,
-          alertMessageInfo: {
-            variant: 'success',
-            message: `patientDetails-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
-              new Date().toLocaleString()
-            )}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
-              new Date().toLocaleString()
-            )} downloaded successfully!!`
-          }
-        })
+        this.showOrCloseAlertMessage(
+          true,
+          'success',
+          `patientDetails ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            new Date().toLocaleDateString()
+          )} - ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+           new Date().toLocaleDateString()
+          )} downloaded successfully!!`
+        )
         return false
       } catch (e) {
-        await this.setState({
-          showAlert: true,
-          alertMessageInfo: {
-            variant: 'danger',
-            message: e.errorMessage
-          }
-        })
+        this.showOrCloseAlertMessage(
+          true,
+          'danger',
+           e.errorMessage||'Sorry Internal Server Error!!'
+        )
         return false
       }
     }
