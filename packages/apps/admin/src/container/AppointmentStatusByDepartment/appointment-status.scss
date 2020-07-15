@@ -459,3 +459,61 @@
     background:transparent;
 }
 }
+
+
+//print board scss
+
+.btn-clip {
+  width: auto;
+  height: auto;
+  padding: 10px;
+  background-color: $primary;
+}
+
+
+.clip {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: -20px;
+  padding: 0px 0 20px;
+  align-items: center;
+  h2{
+    margin-bottom:6px;
+  }
+
+  .fa-check-circle {
+      color:lighten($success,20%) ;
+      font-size: 80px;
+      margin-bottom: 20px;
+  }
+
+  p.load-title {
+      margin-top: 10px;
+      margin-bottom: 28px;
+      color: $success;
+      display: block;
+      font-size: 16px;
+  }
+}
+
+.clip-alert {
+  // background-color: $white;
+  padding: 15px 0px 20px 20px;
+  // .close {
+  //     color: $success;
+  // }
+  // p {
+  //     color: $success;
+  // }
+
+  .close {
+      padding-top: 1rem;
+  }
+}
+
+.btn-container{
+  display: flex;
+  flex-direction: row;
+}
+

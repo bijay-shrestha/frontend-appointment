@@ -399,7 +399,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 await appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.APPOINTMENT_LOG_EXCEL,
                     this.state.queryParams, searchData,
                     `appointmentLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)}`)
-                return false;
+                this.showAlertMessage('success',  `appointmentLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)}`)
+               return false;
             } catch (e) {
                 // console.log(e);
                 this.showAlertMessage('danger', e.errorMessage || 'Sorry,Internal Server Error occurred!')

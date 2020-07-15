@@ -6,7 +6,7 @@ import PreviewDetails from './PatientPreview'
 import PatientEditModal from './PatientEditModal'
 import {PatientNameWithAgeGenderPhone,CExcelDownload} from '@frontend-appointment/ui-components';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
-import {Col} from 'react-bootstrap'
+import {Col,Row} from 'react-bootstrap'
 const PatientDataList = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -33,12 +33,14 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
   return (
     <>
       <div className="manage-details">
+        <Row>
         <Col>
         <h5 className="title">Patient Details</h5>
         </Col>
         <Col>
         <CExcelDownload onClickHandler={downloadExcel}/>
         </Col>
+        </Row>
         {!isSearchLoading && !searchErrorMessage && patientSearchList.length ? (
           <>
             <CDataTable

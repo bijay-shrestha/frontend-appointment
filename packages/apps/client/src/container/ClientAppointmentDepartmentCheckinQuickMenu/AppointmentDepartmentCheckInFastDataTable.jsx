@@ -98,7 +98,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: 260,
+                                    width: 240,
                                 },
 
                                 {
@@ -126,7 +126,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'childActionRenderer',
                                     cellClass: 'actions-button-cell',
-                                    width: '120',
+                                    width: '100',
                                     cellRendererParams: {
                                         onClick: function (e, id, type) {
                                             approveHandler(id)

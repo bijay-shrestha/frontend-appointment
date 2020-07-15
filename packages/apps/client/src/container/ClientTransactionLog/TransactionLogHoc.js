@@ -403,6 +403,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                     this.state.queryParams,
                     searchData,
                     `transactionLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)}`)
+                    this.showAlertMessage('success',  `transactionLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)}`)
                 return false;
             } catch (e) {
                 // console.log(e);
