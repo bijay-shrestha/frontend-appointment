@@ -399,7 +399,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 await appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.APPOINTMENT_LOG_EXCEL,
                     this.state.queryParams, searchData,
                     `appointmentLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)}`)
-                this.showAlertMessage('success',  `appointmentLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)} downloaded successfully`)
+                this.showAlertMessage('success',  `appointmentLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)} downloaded successfully!!`)
                return false;
             } catch (e) {
                 // console.log(e);
