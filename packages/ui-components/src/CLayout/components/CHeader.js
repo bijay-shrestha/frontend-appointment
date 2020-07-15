@@ -335,6 +335,7 @@ class CHeader extends Component {
                 avatar: imagePathLogo
             });
             let adminData = LocalStorageSecurity.localStorageDecoder('adminInfo');
+            adminData.fileLocation = imagePathLogo
             adminData.fileUri = await this.fetchPresignedUrlForGetOperation(imagePathLogo)
             await AdminInfoUtils.saveLoggedInAdminInfo(adminData);
             this.setImageLoading(false)
