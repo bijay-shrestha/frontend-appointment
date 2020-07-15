@@ -1,8 +1,9 @@
 import React from 'react'
-import {CForm, CHybridInput} from '@frontend-appointment/ui-elements'
+import {CForm, CHybridInput, CHybridSelectWithImage} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
 const ApprovalContent = ({approvalData}) => {
+    console.log("Check-in modal",approvalData);
     return (
         <>
             <Container-fluid>
@@ -90,17 +91,19 @@ const ApprovalContent = ({approvalData}) => {
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
+                                <CHybridSelectWithImage
                                     id="doctor-specializationName"
-                                    placeholder="Doctor(Specialization)"
+                                    label="Doctor(Specialization)"
                                     value={
-                                        approvalData.doctorName && approvalData.specialization ? 'Dr.' +
+                                       { label: approvalData.doctorName && approvalData.specializationName ?
                                             approvalData.doctorName +
                                             '(' +
                                             approvalData.specializationName +
-                                            ')' : 'N/A'
+                                            ')' : 'N/A',
+                                           fileUri: approvalData.fileUri
+                                       }
                                     }
-                                    disabled={true}
+                                    isDisabled={true}
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>
