@@ -52,7 +52,12 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
       activeStatus: 'All',
       filteredData: [],
       totalRecords: 0,
-      showModal: false
+      showModal: false,
+      alertMessageInfo: {
+        variant: '',
+        message:''
+      },
+      showAlert: false
     }
 
     previewApiCall = async data => {
