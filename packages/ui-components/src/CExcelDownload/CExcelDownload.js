@@ -20,7 +20,9 @@ const CExcelDownload = props => {
                     onClick={handleDownload}
                     className="float-right btn btn-light excel-download"
                 >
-                    <img src={require('./xls-3.png')} alt="excel"/>&nbsp; Download Excel
+                    {/* <img src={require('./xls-3.png')} alt="excel"/> */}
+                    <i className="fa fa-download"></i>
+                    &nbsp; Download Excel
                 </a>
             {/* </OverlayTrigger> */}
         </>
