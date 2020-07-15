@@ -238,12 +238,14 @@
                 left: 8px;
                 width: 100px;
                 height: 100px;
+                border:1px solid $gray-200;
+                @include border-radius(50%);              
                
 
                 img{
                     width:100px;
                     height: 100px;
-                    border:1px solid $gray-200;
+                    // border:1px solid $gray-200;
                     @include centerer;
                     @include border-radius(50%);
                 }
@@ -361,14 +363,15 @@
         .btn {
             width: 40px;
             // height: 40px;
-            color: $gray-600;
-            border: 1px solid $gray-200;
-            background-color: transparent;
+            color:$gray-700;
+            // border: 1px solid $gray-200;
+            // background-color: $gray-100;
             @include border-radius(50%);
+         
             
 
             &:hover {
-                color: $gray-700;
+                color: $primary;
                 background-color: #fff;
                 @include border-radius(50%);
             }
@@ -398,7 +401,8 @@
 
             &:hover{
                 .fa-star{
-                    color:#f4cd0c;
+                    // color:#f4cd0c;
+                    $color:$primary;
                 }
             }
         }
@@ -406,8 +410,8 @@
         &.show {
             background-color: $white !important;
 
-            .fa-star{
-                color:#f4cd0c;
+             i{
+                color:$primary;
             }
         }
 
@@ -662,7 +666,8 @@
 
         &.selected{
             .anchor-icon{
-                background-color: #f4cd0c;
+                background-color:$primary;
+                color:$white;
                 
             }
         }

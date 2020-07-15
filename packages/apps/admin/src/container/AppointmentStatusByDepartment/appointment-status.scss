@@ -224,19 +224,23 @@
 
     .app-details-link{
       font-size: 12px;
-      padding:2px 4px;
+      padding:4px 4px;
       font-weight: 400;
       margin-top:6px;
-      background-color:$gray-200;
-      // border:1px solid $primary;
+      background-color:$gray-300;
+    
+      border:1px solid $gray-400;
       @include border-radius(4px);
       margin-top:4px;
       display: inline-block;
 
       &:hover{
         cursor: pointer;
+        background-color:$gray-200;
+        border:1px solid $gray-200;
       }
     }
+
 
     .badge-success {
       color: $success !important;
@@ -517,3 +521,22 @@
   flex-direction: row;
 }
 
+  //for checkin print
+  .quick-confirm{
+    max-width: 600px;
+
+    h2{
+        margin-bottom:24px;
+    }
+
+    .modal-header .close {
+        margin:0;
+        margin-left:auto;
+    }
+
+    .modal-body{
+        padding:40px;
+        padding-top:30px;
+        margin-top:-22px;
+    }
+}
