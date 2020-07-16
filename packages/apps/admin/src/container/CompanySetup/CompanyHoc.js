@@ -407,7 +407,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
         searchCompany = async page => {
             const {companyCode, name, status} = this.state.searchParameters
             let searchData = {
-                name: name,
+                name: name.value||'',
                 companyCode: companyCode,
                 status: status.value === 'A' ? '' : status.value
             }

@@ -443,7 +443,8 @@ const AppointmentStatusDetails = ({
                                                     
                                                 </CButton> */}
 
-                                               
+                                               {appointmentStatusDetail.patientDetails
+                                                            .showCheckInButton ?
 
                                                         <CButton
                                                             name=""
@@ -464,7 +465,7 @@ const AppointmentStatusDetails = ({
                                                             ) : (
                                                                     'Transfer'
                                                                 )}
-                                                        </CButton>
+                                                        </CButton>:''}
 
                                                         {appointmentStatusDetail.patientDetails
                                                             .showCheckInButton ? (
