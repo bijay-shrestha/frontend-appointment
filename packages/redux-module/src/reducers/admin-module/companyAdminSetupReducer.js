@@ -171,7 +171,10 @@ export const CompanyAdminListReducer = (
   switch (action.type) {
     case COMPANY_ADMIN_LIST_PENDING:
       return {
-        ...state
+        ...state,
+        isAdminSearchLoading: true,
+        adminList: [],
+        adminSearchErrorMessage: ''
       }
     case COMPANY_ADMIN_LIST_SUCCESS:
       return {
@@ -184,8 +187,8 @@ export const CompanyAdminListReducer = (
       return {
         ...state,
         adminList: [],
-        isSearchLoading: false,
-        searchErrorMessage: action.payload.message
+        isAdminSearchLoading: false,
+        adminSearchErrorMessage: action.payload.message
       }
 
     default:
