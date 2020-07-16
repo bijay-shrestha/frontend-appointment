@@ -57,24 +57,20 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 {
                   headerName: 'SN',
                   field: 'sN',
-                  headerClass: 'resizable-header header-first-class',
                   resizable: true,
                   sortable: true,
                   editable: true,
                   sizeColumnsToFit: true,
-                  width: 140,
-                  cellClass: 'first-class'
-                },
+                  width: 100,
+                  },
                   {
                   headerName: 'Hospital Name',
-                  field: 'hospitalName',
-                  headerClass: 'resizable-header header-first-class',
+                  field: 'hospitalName',              
                   resizable: true,
                   sortable: true,
                   editable: true,
                   sizeColumnsToFit: true,
-                  width: 140,
-                  cellClass: 'first-class'
+                  width: 240,                
                 },
                 {
                   headerName: 'Status',
@@ -82,7 +78,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true,
                   cellRenderer: 'appointmentStatusBadges',
-                  width: 350
+                  width: 100
                 },
                 {
                   headerName: 'App. DateTime',
