@@ -10,7 +10,10 @@ import AppointmentQueue from './AppointmentQueue'
 import DoctorRevenueList from './DoctorRevenueList'
 import {checkDashboardRole} from '@frontend-appointment/helpers'
 import CheckDashboardRole from '../CommonComponents/CheckDashBoardRoleComponent'
+import AppointmentServiceDropdown from './AppointmentServiceDropdown'
 //import {CHybridSelectWithImage} from '@frontend-appointment/ui-elements'
+import DepartmentRevenueList from './DepartmentRevenueList'
+
 const AdminDashboard = props => {
     const AdminDash = AdminDashboardHoc(
         ({
@@ -26,7 +29,11 @@ const AdminDashboard = props => {
              appointmentFilter,
              appointmentQueue,
              doctorRevenue,
-             specializationListHospitalWise
+             //specializationListHospitalWise,
+             appointmentServiceTypeList,
+             appointmentServiceTypeCode,
+             handleAppointmentServiceTypeChange,
+             departmentRevenue
          }) => {
             const RevenuStats = (
                 <CheckDashboardRole
@@ -61,16 +68,29 @@ const AdminDashboard = props => {
                     <Container fluid className="">
                         <Row className="">
                             <Col className="px-0">{RevenuStats}</Col>
-                            {checkDashboardRole(generateRevenue.code) ||
-                            checkDashboardRole(appointmentQueue.code) ||
-                            checkDashboardRole(appointmentList.code) ? (
-                                <HospitalDropdown
-                                    hospitalDropdown={hospitalDropdown}
-                                    hospitalId={hospitalId}
-                                    handleHospitalChange={handleHospitalChange}
-                                    className="top-hospital-list"
-                                />
-                            ) : null}
+
+                            <Col className="px-0">
+                                {checkDashboardRole(generateRevenue.code) ||
+                                checkDashboardRole(appointmentQueue.code) ||
+                                checkDashboardRole(appointmentList.code) ? (
+                                    <AppointmentServiceDropdown
+                                        serviceTypeDropdown={appointmentServiceTypeList}
+                                        appointmentServiceTypeCode={appointmentServiceTypeCode}
+                                        handleAppointmentChange={handleAppointmentServiceTypeChange}
+                                        className="top-hospital-list"
+                                    />
+                                ) : null}
+                                {checkDashboardRole(generateRevenue.code) ||
+                                checkDashboardRole(appointmentQueue.code) ||
+                                checkDashboardRole(appointmentList.code) ? (
+                                    <HospitalDropdown
+                                        hospitalDropdown={hospitalDropdown}
+                                        hospitalId={hospitalId}
+                                        handleHospitalChange={handleHospitalChange}
+                                        className="top-hospital-list mr-4"
+                                    />
+                                ) : null}
+                            </Col>
                         </Row>
 
                         <Row>
@@ -100,7 +120,17 @@ const AdminDashboard = props => {
                             <CheckDashboardRole
                                 component={
                                     <Col md={6} className="pr-0">
-                                        <DoctorRevenueList doctorRevenue={doctorRevenue}/>
+                                        {appointmentServiceTypeCode.value === 'DOC' ? (
+                                            <DoctorRevenueList
+                                                doctorRevenue={doctorRevenue}
+                                                code={doctorRevenue.code}
+                                            />
+                                        ) : (
+                                            <DepartmentRevenueList
+                                                departmentRevenue={departmentRevenue}
+                                                code={departmentRevenue.code}
+                                            />
+                                        )}
                                     </Col>
                                 }
                                 code={doctorRevenue.code}
@@ -114,6 +144,7 @@ const AdminDashboard = props => {
                                         <AppointmentQueue
                                             appointmentQueue={appointmentQueue}
                                             hospitalId={hospitalId}
+                                            appointmentServiceTypeCode={appointmentServiceTypeCode}
                                         />
                                     </Col>
                                 }

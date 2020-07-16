@@ -61,7 +61,7 @@ class Login2 extends PureComponent {
                 } else if (
                     s === 'email' &&
                     value.includes('@') &&
-                    !value.match(patt)
+                    !value.trim().match(patt)
                 ) {
                     errorMsg[s] = `Not a valid ${s.toUpperCase()}/EMAIL `;
                     errorMsg[s.concat('Valid')] = false;
@@ -96,11 +96,15 @@ class Login2 extends PureComponent {
         return (
             <>
                 <div className="header-login">
+
+
                     <div className="inner-header flex">
                         <Container className="container-login">
                             <Row>
                                 <Col md={{span: 6, offset: 3}} className="login-right">
+                                <div class="ribbon"><span>Admin </span></div>
                                     <div className="login-wrapper">
+
                                         <div className="login-header">
                                             <Image src={logo} className="logo-image"/>
                                         </div>

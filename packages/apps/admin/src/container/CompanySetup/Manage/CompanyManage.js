@@ -58,7 +58,9 @@ const CompanyManage = props => {
              setImageShow,
              isCompanyDropdownLoading,
              companyDropdownData,
-             companyDropdownErrorMessage
+             companyDropdownErrorMessage,
+             isImageUploading,
+             isCompanyEditLoading
              //,
 
              //hospitalDropdown,
@@ -141,6 +143,8 @@ const CompanyManage = props => {
                         handleImageUpload={handleImageUpload}
                         setImageShow={setImageShow}
                         contactLength={contactLength}
+                        isImageUploading={isImageUploading}
+                        isCompanyEditLoading={isCompanyEditLoading}
                         // hospitalBannerImage={hospitalBannerImage}
                         // hospitalBannerImageCroppedUrl={hospitalBannerImageCroppedUrl}
                         // hospitalBannerFileCropped={hospitalBannerFileCropped}

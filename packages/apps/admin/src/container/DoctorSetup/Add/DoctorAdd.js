@@ -37,7 +37,9 @@ function DoctorAdd(props) {
              appointmentChargeValid,
              errorMessageForAppointmentCharge,
              emailValid,
-             createConsultantLoading
+             createConsultantLoading,
+             salutationList,
+             isImageUploading
          }) => (
             <div className="">
                 <Container className="bg-white add-container " fluid>
@@ -74,6 +76,7 @@ function DoctorAdd(props) {
                         appointmentChargeValid={appointmentChargeValid}
                         errorMessageForAppointmentCharge={errorMessageForAppointmentCharge}
                         emailValid={emailValid}
+                        salutationList={salutationList}
                     />
 
                     <Row className="mt-4">
@@ -88,6 +91,7 @@ function DoctorAdd(props) {
                                 onClickHandler={setShowConfirmModal}
                             />
                             <DoctorConfirmationModal
+                                salutationList={salutationList}
                                 showModal={showConfirmModal}
                                 setShowModal={setShowConfirmModal}
                                 onConfirmClick={submitAddChanges}
@@ -95,6 +99,7 @@ function DoctorAdd(props) {
                                 type="A"
                                 doctorImageCroppedUrl={doctorImageCroppedUrl}
                                 createConsultantLoading={createConsultantLoading}
+                                isImageUploading={isImageUploading}
                             />
                         </Col>
                     </Row>

@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/department-with-room-number-billing-mode",
+  "version": "1.0.0",
+  "main": "DepartmentNameWithRoomNumberAndBilling.js",
+  "author": "Kaushal Regmi",
+  "license": "MIT",
+  "private": true
+}

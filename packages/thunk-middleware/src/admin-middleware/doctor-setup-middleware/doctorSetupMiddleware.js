@@ -1,19 +1,18 @@
 import {DoctorSetupActions} from '@frontend-appointment/action-module';
 import {Axios} from '@frontend-appointment/core';
+import {CommonUtils} from '@frontend-appointment/helpers'
+import {MinioMiddleware} from '../../../index'
 //import {DropdownUtils} from "@frontend-appointment/helpers";
 
 export const createConsultant = (
     path,
-    doctorData,
-    formData
+    doctorData
 ) => async dispatch => {
     dispatch(DoctorSetupActions.createConsultantPending());
     try {
-        let response = await Axios.postForMultipart(
+        let response = await Axios.post(
             path,
-            'request',
-            doctorData,
-            formData
+            doctorData
         );
         dispatch(DoctorSetupActions.createConsultantSuccess());
         return response;
@@ -31,10 +30,10 @@ export const clearConsultantCreateMessage = () => dispatch => {
     dispatch(DoctorSetupActions.clearConsultantPreviewMessage());
 };
 
-export const editConsultant = (path, data, formData) => async dispatch => {
+export const editConsultant = (path, data) => async dispatch => {
     dispatch(DoctorSetupActions.createConsultantEditPending());
     try {
-        const response = await Axios.putWithMultiPart(path, 'request', data, formData);
+        const response = await Axios.put(path, data);
         dispatch(DoctorSetupActions.createConsultantEditSuccess(response.data));
         return response;
     } catch (e) {
@@ -47,7 +46,9 @@ export const previewConsultant = (path, id) => async dispatch => {
     dispatch(DoctorSetupActions.createConsultantPreviewPending());
     try {
         const response = await Axios.getWithPathVariables(path, id);
-        dispatch(DoctorSetupActions.createConsultantPreviewSuccess(response.data));
+        let dataWithFileUri = response.data
+        dataWithFileUri.fileUri = await MinioMiddleware.fetchPresignedUrlForGetOperation(dataWithFileUri.fileUri)
+        dispatch(DoctorSetupActions.createConsultantPreviewSuccess(dataWithFileUri));
         return response;
     } catch (e) {
         dispatch(DoctorSetupActions.createConsultantPreviewError(e.errorMessage || 'Sorry Internal Server Error'));
@@ -59,7 +60,9 @@ export const searchConsultant = (path, queryParams, data) => async dispatch => {
     dispatch(DoctorSetupActions.createConsultantSearchPending());
     try {
         const response = await Axios.putWithRequestParam(path, queryParams, data);
-        dispatch(DoctorSetupActions.createConsultantSearchSuccess(response.data));
+        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data, queryParams.page, queryParams.size)
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(dataWithSn, "fileUri");
+        dispatch(DoctorSetupActions.createConsultantSearchSuccess(dataWithPresignedUrl));
         return response;
     } catch (e) {
         dispatch(DoctorSetupActions.createConsultantListError(e.errorMessage || 'Sorry Internal Server Error'));
@@ -89,9 +92,8 @@ export const downloadExcelForConsultants = path => async () => {
 export const fetchActiveDoctorsForDropdown = path => async dispatch => {
     try {
         const response = await Axios.get(path);
-        dispatch(
-            DoctorSetupActions.fetchActiveDoctorsForDropdownSuccess(response.data)
-        );
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(response.data, "fileUri");
+        dispatch(DoctorSetupActions.fetchActiveDoctorsForDropdownSuccess(dataWithPresignedUrl));
         return response;
     } catch (e) {
         dispatch(
@@ -107,7 +109,8 @@ export const fetchAllDoctorsForDropdown = path => async dispatch => {
     dispatch(DoctorSetupActions.fetchAllDoctorsByHospitalForDropdownPending());
     try {
         const response = await Axios.get(path);
-        dispatch(DoctorSetupActions.fetchAllDoctorsByHospitalForDropdownSuccess(response.data));
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(response.data, "fileUri");
+        dispatch(DoctorSetupActions.fetchAllDoctorsByHospitalForDropdownSuccess(dataWithPresignedUrl));
         return response;
     } catch (e) {
         dispatch(DoctorSetupActions.fetchAllDoctorsByHospitalForDropdownError(
@@ -118,7 +121,8 @@ export const fetchAllDoctorsForDropdown = path => async dispatch => {
 export const fetchActiveDoctorsHospitalWiseForDropdown = (path, id) => async dispatch => {
     try {
         const response = await Axios.getWithPathVariables(path, id);
-        dispatch(DoctorSetupActions.fetchActiveDoctorsByHospitalForDropdownSuccess(response.data));
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(response.data, "fileUri");
+        dispatch(DoctorSetupActions.fetchActiveDoctorsByHospitalForDropdownSuccess(dataWithPresignedUrl));
         return response;
     } catch (e) {
         dispatch(
@@ -133,7 +137,8 @@ export const fetchAllDoctorsHospitalWiseForDropdown = (path, id) => async dispat
     dispatch(DoctorSetupActions.fetchAllDoctorsByHospitalForDropdownPending());
     try {
         const response = await Axios.getWithPathVariables(path, id);
-        dispatch(DoctorSetupActions.fetchAllDoctorsByHospitalForDropdownSuccess(response.data));
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(response.data, "fileUri");
+        dispatch(DoctorSetupActions.fetchAllDoctorsByHospitalForDropdownSuccess(dataWithPresignedUrl));
         return response;
     } catch (e) {
         dispatch(
@@ -148,7 +153,8 @@ export const fetchAllDoctorsHospitalWiseForDropdown = (path, id) => async dispat
 export const fetchDoctorsBySpecializationIdForDropdown = (path, specializationId) => async dispatch => {
     try {
         const response = await Axios.getWithPathVariables(path, specializationId);
-        dispatch(DoctorSetupActions.fetchDoctorsBySpecializationForDropdownSuccess(response.data));
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(response.data, "fileUri");
+        dispatch(DoctorSetupActions.fetchDoctorsBySpecializationForDropdownSuccess(dataWithPresignedUrl));
         return response;
     } catch (e) {
         dispatch(DoctorSetupActions.fetchDoctorsBySpecializationForDropdownError(
@@ -161,7 +167,8 @@ export const fetchActiveDoctorsByDepartmentForDropdown = (path, id) => async dis
     dispatch(DoctorSetupActions.fetchActiveDoctorsByDepartmentForDropdownPending());
     try {
         const response = await Axios.getWithPathVariables(path, id);
-        dispatch(DoctorSetupActions.fetchActiveDoctorsByDepartmentForDropdownSuccess(response.data));
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(response.data, "fileUri");
+        dispatch(DoctorSetupActions.fetchActiveDoctorsByDepartmentForDropdownSuccess(dataWithPresignedUrl));
         return response;
     } catch (e) {
         dispatch(

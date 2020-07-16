@@ -214,7 +214,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
             )
         }
     }
-const MultipleTabComponent = connectHoc(CheckTabs,[],null);
+const MultipleTabComponent = connectHoc(CheckTabs,[],null,props);
 return MultipleTabComponent;
 }
 

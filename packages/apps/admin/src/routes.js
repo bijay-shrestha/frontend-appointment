@@ -11,11 +11,13 @@ const AdminActivityLog = loadable(
 )
 
 const AdminApiIntegrationAdd = loadable(
-    () => import('./container/AdminApiIntegration/Add/AdminApiIntegrationAddForm'),
+    () =>
+        import('./container/AdminApiIntegration/Add/AdminApiIntegrationAddForm'),
     {fallback: getLoader()}
 )
 const AdminApiIntegrationManage = loadable(
-    () => import('./container/AdminApiIntegration/Manage/AdminApiIntegrationManage'),
+    () =>
+        import('./container/AdminApiIntegration/Manage/AdminApiIntegrationManage'),
     {fallback: getLoader()}
 )
 const ClientActivityLog = loadable(
@@ -68,10 +70,27 @@ const AppointmentRefundListComponent = loadable(
     {fallback: () => getLoader()}
 )
 
+const AppointmentDepartmentRefundListComponent = Loadable({
+    loader: () =>
+        import(
+            './container/DepartmentAppointmentRefund/AppointmentDepartmentRefund'
+            ),
+    loading: () => getLoader()
+})
+
 const AppointmentApprovalListComponent = loadable(
     () => import('./container/AppointmentApproval/AppointmentApproval'),
     {fallback: () => getLoader()}
 )
+
+
+const AppointmentRefundStatus = loadable(() => import('./container/AppointmentRefundStatus/AppointmentRefundStatus'), {
+    fallback: () => getLoader()
+})
+
+const AppointmentRefundStatusForDepartment = loadable(() => import('./container/DepartmentAppointmentRefundStatus/DepartmentAppointmentRefundStatus'), {
+    fallback: () => getLoader()
+})
 
 const AppointmentStatusComponent = loadable(
     () => import('./container/AppointmentStatus/AppointmentStatus'),
@@ -104,6 +123,14 @@ const AddDepartmentSetup = loadable(
 )
 const AddDepartmentDutyRosterComponent = loadable(
     () => import('./container/DepartmentDutyRoster/Add/DepartmentDutyRosterAdd'),
+    {fallback: () => getLoader()}
+)
+
+const DepartmentStatusComponent = loadable(
+    () =>
+        import(
+            './container/AppointmentStatusByDepartment/AppointmentStatusByDepartment'
+            ),
     {fallback: () => getLoader()}
 )
 
@@ -147,7 +174,13 @@ const DashboardComponent = loadable(
     () => import('./container/AdminDashboard/AdminDashboard'),
     {fallback: () => getLoader()}
 )
-
+const DepartmentCheckInComponent = loadable(
+    () =>
+        import(
+            './container/DepartmentAppointmentCheckIn/AppointmentDepartmentCheckin'
+            ),
+    {fallback: () => getLoader()}
+)
 // const AddCompanyAdminComponent = loadable(
 //   () => import('./container/CompanySetupAdmin/Add/CompanyAdminAdd'),
 //   {fallback: () => getLoader()}
@@ -264,6 +297,21 @@ const QualificationAlias = loadable(
     {fallback: () => getLoader()}
 )
 
+const DoctorQuickCheckInComponent = loadable(
+    () =>
+        import(
+            './container/AdminAppointmentCheckinQuickMenu/AdminAppointmentCheckinFast'
+            ),
+    {fallback: () => getLoader()}
+)
+const DepartmentQuickCheckInComponent = loadable(
+    () =>
+        import(
+            './container/AdminAppointmentDepartmentCheckinQuickMenu/AdminAppointmentDepartmentCheckinFast'
+            ),
+    {fallback: () => getLoader()}
+)
+
 /* ****** R ***** */
 
 const RescheduleLog = loadable(
@@ -285,6 +333,7 @@ const RequestBodyIntegrationManage = loadable(
 const RoomSetup = loadable(() => import('./container/RoomSetup/RoomSetup'), {
     fallback: () => getLoader()
 })
+
 
 /* ****** S ***** */
 
@@ -428,7 +477,7 @@ export const routes = [
     },
     {
         path: '/admin/apiIntegration/adminApiIntegration',
-        name: 'Admin Api Integration',
+        name: 'Appointment Mode Api Integration',
         component: <></>,
         icon: '',
         hasTab: true,
@@ -684,23 +733,63 @@ export const routes = [
     },
     {
         path: '/admin/appointment/pendingRefundApproval',
-        component: AppointmentRefundListComponent,
+        component: <></>,
         icon: '',
-        hasTab: false,
+        hasTab: true,
         isLink: true,
         isTab: false,
-        name: 'Pending Refund Approval',
-        isSingleTab: true
+        name: 'Appointment Cancellation',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/appointment/pendingRefundApproval/doctor',
+        component: AppointmentRefundListComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Doctor Pending Refund Approval',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/appointment/pendingRefundApproval/department',
+        component: AppointmentDepartmentRefundListComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Department Pending Refund Approval',
+        isSingleTab: false
     },
     {
         path: '/admin/appointment/checkIn',
-        component: AppointmentApprovalListComponent,
+        component: <></>,
         icon: '',
-        hasTab: false,
+        hasTab: true,
         isLink: true,
         isTab: false,
         name: 'Appointment Check-In',
-        isSingleTab: true
+        isSingleTab: false
+    },
+    {
+        path: '/admin/appointment/checkIn/doctor',
+        component: AppointmentApprovalListComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Doctor Consultation',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/appointment/checkIn/department',
+        component: DepartmentCheckInComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Department Consultation',
+        isSingleTab: false
     },
     {
         path: '/admin/reports/appointmentLog',
@@ -710,16 +799,6 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Appointment Log',
-        isSingleTab: true
-    },
-    {
-        path: '/admin/appointment/appointmentStatus',
-        component: AppointmentStatusComponent,
-        icon: '',
-        hasTab: false,
-        isLink: true,
-        isTab: false,
-        name: 'Appointment Status',
         isSingleTab: true
     },
     {
@@ -1031,7 +1110,97 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Billing Mode Setup',
-        isSingleTab: true,
+        isSingleTab: true
+    },
+    {
+        path: '/admin/appointment/status',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        name: 'Appointment Status',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/appointment/status/doctor',
+        component: AppointmentStatusComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Doctor Consultation',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/appointment/status/department',
+        component: DepartmentStatusComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Department Consultation',
+        isSingleTab: false
+    },
+    {
+        path: '/quickMenu',
+        component: <></>,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Quick Menu',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/quickMenu/doctorCheckIn',
+        component: DoctorQuickCheckInComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Admin Doctor Quick Check-In',
+        isSingleTab: true
+    },
+    {
+        path: '/admin/quickMenu/departmentCheckIn',
+        component: DepartmentQuickCheckInComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Admin Department Quick Check-In',
+        isSingleTab: true
+    },
+    {
+        path: '/admin/appointment/refundStatus',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        name: 'Appointment Status',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/appointment/refundStatus/doctor',
+        component: AppointmentRefundStatus,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Doctor Consultation',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/appointment/refundStatus/department',
+        component: AppointmentRefundStatusForDepartment,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Department Consultation',
+        isSingleTab: false
     },
     {
         path: '/admin/doctorDutyRosterShiftWise',
@@ -1053,4 +1222,4 @@ export const routes = [
         name: 'Add',
         isSingleTab: false,
     },
-];
+]

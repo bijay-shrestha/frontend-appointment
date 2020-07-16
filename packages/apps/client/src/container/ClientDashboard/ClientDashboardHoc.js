@@ -1,15 +1,26 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
+    AppointmentServiceTypeMiddleware,
     DashboardDetailsMiddleware,
     DoctorMiddleware,
+    HospitalDepartmentSetupMiddleware,
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {checkDashboardRole, DateTimeFormatterUtils, LocalStorageSecurity} from '@frontend-appointment/helpers'
+import {
+    checkDashboardRole,
+    CommonUtils,
+    DateTimeFormatterUtils,
+    LocalStorageSecurity
+} from '@frontend-appointment/helpers'
 import {CNoDashboardRoleContent} from '@frontend-appointment/ui-components'
 
+const {getPrimaryServiceType} = CommonUtils
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
+const {
+    fetchActiveHospitalDepartmentForDropdown
+} = HospitalDepartmentSetupMiddleware
 const {
     fetchDashboardAppointmentStatisticsList,
     fetchDashboardRevenueDayList,
@@ -20,9 +31,14 @@ const {
     fetchAppointmentQueueList,
     clearDashboardDoctorRevenue,
     fetchDashboardDoctorRevenue,
-    fetchDashboardRegisteredPatientListForClient
+    fetchDashboardRegisteredPatientListForClient,
+    fetchDashboardDepartmentRevenue,
+    clearDashboardDepartmentRevenue
 } = DashboardDetailsMiddleware
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
+const {
+    fetchActiveAppointmentServiceTypeWithCode
+} = AppointmentServiceTypeMiddleware
 const ClientDashboardHoc = (ComposedComponent, props, type) => {
     const {
         DashboardApiConstant,
@@ -41,18 +57,23 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                 currentToDate: new Date(),
                 currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 0),
                 previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
-                previousFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1)
+                previousFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
+                appointmentServiceTypeCode: getPrimaryServiceType()
             },
             searchParamsForOverallAppoinment: {
                 fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 6),
-                toDate: new Date()
+                toDate: new Date(),
+                appointmentServiceTypeCode: getPrimaryServiceType()
             },
             searchParameterForRevenueTrend: {
                 revFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 6),
-                revToDate: new Date()
+                revToDate: new Date(),
+                appointmentServiceTypeCode: getPrimaryServiceType()
             },
             appointmentQueue: {
+                appointmentServiceTypeCode: getPrimaryServiceType(),
                 doctorId: '',
+                hospitalDepartmentId: '',
                 date: new Date()
             },
             revenueFilter: 'W',
@@ -62,36 +83,102 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                 size: 6
             },
             doctorRevenue: {
-                doctorId: 0,
+                doctorId: '',
                 hospitalId: 0,
                 fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
                 toDate: new Date(),
                 specializationId: 0
             },
+            departmentRevenue: {
+                hospitalDepartmentId: '',
+                fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
+                toDate: new Date()
+            },
             doctorQueryParams: {
+                page: 0,
+                size: 3
+            },
+            departmentQueryParams: {
                 page: 0,
                 size: 3
             },
             doctorTotalRecords: 0,
             doctorTotalAppointments: 0,
             doctorTotalRevenueAmount: 0,
-            doctorTotalFollowUp: 0
+            doctorTotalFollowUp: 0,
+            departmentTotalRecords: 0,
+            departmentTotalAppointments: 0,
+            deparmentRevenueAmount: 0,
+            departmentTotalFollowUp: 0
+        }
+
+        handleAppointmentServiceChange = async e => {
+            //this.props.clearDashboardDoctorRevenue()
+            const {value, label} = e.target
+            const {
+                appointmentQueue,
+                searchParameterForGenerateRevenue,
+                searchParameterForRevenueTrend,
+                searchParamsForOverallAppoinment
+            } = this.state
+
+            let revenuGenerate = {...searchParameterForGenerateRevenue}
+            let queueAppointmentment = {...appointmentQueue}
+            let revenueTrend = {...searchParameterForRevenueTrend}
+            let overAllAppointment = {...searchParamsForOverallAppoinment}
+            const appointmentServiceTypeCode = value ? {value, label} : ''
+            revenuGenerate.appointmentServiceTypeCode = appointmentServiceTypeCode
+            queueAppointmentment.appointmentServiceTypeCode = appointmentServiceTypeCode
+            queueAppointmentment.doctorId = ''
+            queueAppointmentment.hospitalDepartmentId = ''
+            revenueTrend.appointmentServiceTypeCode = appointmentServiceTypeCode
+            overAllAppointment.appointmentServiceTypeCode = appointmentServiceTypeCode
+            await this.setState({
+                appointmentQueue: queueAppointmentment,
+                searchParameterForGenerateRevenue: revenuGenerate,
+                searchParameterForRevenueTrend: revenueTrend,
+                searchParamsForOverallAppoinment: overAllAppointment,
+                doctorRevenue: {
+                    doctorId: '',
+                    hospitalId: 0,
+                    fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
+                    toDate: new Date(),
+                    specializationId: 0
+                },
+                departmentRevenue: {
+                    hospitalDepartmentId: '',
+                    fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
+                    toDate: new Date()
+                }
+            })
+
+            await this.fetchDashboardData()
+            if (value === 'DOC') {
+                await this.searchDoctorRevenueList()
+            } else {
+                await this.searchDepartmentRevenueList()
+            }
         }
 
         fetchDashboardData = statsType => {
-            const {fromDate, toDate} = this.state.searchParamsForOverallAppoinment
+            const {
+                fromDate,
+                toDate,
+                appointmentServiceTypeCode
+            } = this.state.searchParamsForOverallAppoinment
 
             const {revFromDate, revToDate} = this.state.searchParameterForRevenueTrend
 
             //const adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
-            //const hospitalId = adminInfo.hospitalId
+            //const appointmentServiceTypeCode = adminInfo.hospitalId
             if (checkDashboardRole(ACCESSCODE.PATIENT_STAT)) {
                 if (!statsType || statsType !== 'refund')
                     this.props.fetchDashboardAppointmentStatisticsList(
                         DashboardApiConstant.OVERALL_APPOINTMENTS,
                         {
                             fromDate,
-                            toDate
+                            toDate,
+                            appointmentServiceTypeCode: appointmentServiceTypeCode.value || ''
                         }
                     )
             }
@@ -101,7 +188,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                         DashboardApiConstant.REVENUE_STATISTICS,
                         {
                             fromDate: revFromDate,
-                            toDate: revToDate
+                            toDate: revToDate,
+                            appointmentServiceTypeCode: appointmentServiceTypeCode.value || ''
                         }
                     )
             }
@@ -127,7 +215,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                             previousFromDate: DateTimeFormatterUtils.subtractDate(
                                 new Date(),
                                 1
-                            )
+                            ),
+                            appointmentServiceTypeCode: appointmentServiceTypeCode.value || ''
                         }
                     )
                     this.props.fetchDashboardRevenueWeekList(
@@ -145,7 +234,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                             previousFromDate: DateTimeFormatterUtils.subtractDate(
                                 new Date(),
                                 12
-                            )
+                            ),
+                            appointmentServiceTypeCode: appointmentServiceTypeCode.value || ''
                         }
                     )
                     this.props.fetchDashboardRevenueMonthList(
@@ -163,7 +253,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                             previousFromDate: DateTimeFormatterUtils.subtractDate(
                                 new Date(),
                                 60
-                            )
+                            ),
+                            appointmentServiceTypeCode: appointmentServiceTypeCode.value || ''
                         }
                     )
 
@@ -182,7 +273,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                             previousFromDate: DateTimeFormatterUtils.subtractDate(
                                 new Date(),
                                 731
-                            )
+                            ),
+                            appointmentServiceTypeCode: appointmentServiceTypeCode.value || ''
                         }
                     )
                 }
@@ -193,39 +285,49 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
             let searchParameterChange = {
                 fromDate: '',
                 toDate: '',
-                hospitalId: this.state.searchParamsForOverallAppoinment.hospitalId
+                hospitalId: this.state.searchParamsForOverallAppoinment.hospitalId,
+                appointmentServiceTypeCode: this.state.searchParamsForOverallAppoinment
+                    .appointmentServiceTypeCode
             }
             switch (dayFilter) {
                 case 'D':
                     searchParameterChange = {
                         fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
                         toDate: new Date(),
-                        hospitalId: searchParameterChange.hospitalId
+                        hospitalId: searchParameterChange.hospitalId,
+                        appointmentServiceTypeCode:
+                        searchParameterChange.appointmentServiceTypeCode
                     }
                     break
                 case 'W':
                     searchParameterChange = {
                         fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 6),
                         toDate: new Date(),
-                        hospitalId: searchParameterChange.hospitalId
+                        hospitalId: searchParameterChange.hospitalId,
+                        appointmentServiceTypeCode:
+                        searchParameterChange.appointmentServiceTypeCode
                     }
                     break
                 case 'M':
                     searchParameterChange = {
                         fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 31),
                         toDate: new Date(),
-                        hospitalId: searchParameterChange.hospitalId
+                        hospitalId: searchParameterChange.hospitalId,
+                        appointmentServiceTypeCode:
+                        searchParameterChange.appointmentServiceTypeCode
                     }
                     break
                 case 'Y':
                     searchParameterChange = {
                         fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 366),
                         toDate: new Date(),
-                        hospitalId: searchParameterChange.hospitalId
+                        hospitalId: searchParameterChange.hospitalId,
+                        appointmentServiceTypeCode:
+                        searchParameterChange.appointmentServiceTypeCode
                     }
-                    break;
+                    break
                 default:
-                    break;
+                    break
             }
             return searchParameterChange
         }
@@ -289,7 +391,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
         }
         searchAppointmentQueue = async page => {
             if (checkDashboardRole(ACCESSCODE.APPOINTMENT_LOG)) {
-                const {doctorId, date} = this.state.appointmentQueue
+                const {doctorId, hospitalDepartmentId, date, appointmentServiceTypeCode} = this.state.appointmentQueue
 
                 let updatedPage =
                     this.state.queryParams.page === 0
@@ -305,7 +407,9 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                     },
                     {
                         doctorId: doctorId.value || '',
-                        date: date || new Date()
+                        date: date || new Date(),
+                        hospitalDepartmentId: hospitalDepartmentId.value || '',
+                        appointmentServiceType: appointmentServiceTypeCode.value || ''
                     }
                 )
                 await this.setState({
@@ -329,6 +433,25 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
             this.searchAppointmentQueue()
         }
 
+        handleDateChangeForDepartmentRevenue = async (e, fieldName) => {
+            let departmentRevenueParam = {...this.state.departmentRevenue}
+            departmentRevenueParam[fieldName] = e || ''
+            await this.setState({
+                departmentRevenue: departmentRevenueParam
+            })
+            this.searchDepartmentRevenueList()
+        }
+
+        handlePageChangeForDeparmentRevenue = async newPage => {
+            await this.setState({
+                departmentQueryParams: {
+                    ...this.state.departmentQueryParams,
+                    page: newPage
+                }
+            })
+            this.searchDepartmentRevenueList()
+        }
+
         handlePageChange = async newPage => {
             await this.setState({
                 queryParams: {
@@ -342,29 +465,37 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
         handleDoctorChange = async (event, types) => {
             let searchParams = {
                 ...this.state.appointmentQueue
-            };
+            }
 
             let searchParamsForDoctor = {
                 ...this.state.doctorRevenue
-            };
+            }
 
-            let fieldName, value, label, fileUri;
-            fieldName = event.target.name;
-            value = event.target.value;
-            label = event.target.label;
-            fileUri = event.target.fileUri;
+            let fieldName, value, label, fileUri
+            fieldName = event.target.name
+            value = event.target.value
+            label = event.target.label
+            fileUri = event.target.fileUri
             if (types === 'Q') {
-                searchParams[fieldName] = label ? (value ? fileUri ? {value, label, fileUri} : {value, label}
-                    : '') : value;
+                searchParams[fieldName] = label
+                    ? value
+                        ? fileUri
+                            ? {value, label, fileUri}
+                            : {value, label}
+                        : ''
+                    : value
+                searchParams.hospitalDepartmentId = ''
                 await this.setState({
                     appointmentQueue: searchParams
                 })
             } else {
                 searchParamsForDoctor[fieldName] = label
                     ? value
-                        ? fileUri ? {value, label, fileUri} : {value, label}
+                        ? fileUri
+                            ? {value, label, fileUri}
+                            : {value, label}
                         : ''
-                    : value;
+                    : value
                 await this.setState({
                     doctorRevenue: searchParamsForDoctor
                 })
@@ -375,6 +506,44 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                     this.searchAppointmentQueue()
                 } else {
                     this.searchDoctorRevenueList()
+                }
+        }
+
+        handleDepartmentChange = async (event, types) => {
+            let searchParams = {
+                ...this.state.appointmentQueue
+            }
+
+            let searchParamsForDepartment = {
+                ...this.state.departmentRevenue
+            }
+
+            let fieldName, value, label // fileUri
+            fieldName = event.target.name
+            value = event.target.value
+            label = event.target.label
+            //fileUri = event.target.fileUri
+            if (types === 'Q') {
+                searchParams[fieldName] = label ? (value ? {value, label} : '') : value
+                searchParams.doctorId = ''
+                await this.setState({
+                    appointmentQueue: searchParams
+                })
+            } else {
+                searchParamsForDepartment[fieldName] =
+                    value
+                        ? {value, label}
+                        : ''
+                await this.setState({
+                    departmentRevenue: searchParamsForDepartment
+                })
+            }
+
+            if (fieldName === 'hospitalDepartmentId')
+                if (types === 'Q') {
+                    this.searchAppointmentQueue()
+                } else {
+                    this.searchDepartmentRevenueList()
                 }
         }
 
@@ -428,6 +597,57 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
             }
         }
 
+        searchDepartmentRevenueList = async page => {
+            if (checkDashboardRole(ACCESSCODE.REVENUE_STAT)) {
+                this.props.clearDashboardDepartmentRevenue()
+                const {
+                    hospitalDepartmentId,
+                    fromDate,
+                    toDate
+                } = this.state.departmentRevenue
+                let response = ''
+
+                let updatedPage =
+                    this.state.departmentQueryParams.page === 0
+                        ? 1
+                        : page
+                        ? page
+                        : this.state.departmentQueryParams.page
+                try {
+                    response = await this.props.fetchDashboardDepartmentRevenue(
+                        DashboardApiConstant.DEPARTMENT_REVENUE,
+                        {
+                            page: updatedPage,
+                            size: this.state.departmentQueryParams.size,
+                            hospitalDepartmentId: hospitalDepartmentId
+                                ? hospitalDepartmentId.value
+                                : 0,
+                            fromDate: DateTimeFormatterUtils.getFormattedDate(fromDate),
+                            toDate: DateTimeFormatterUtils.getFormattedDate(toDate)
+                        }
+                    )
+                    const {
+                        totalItemsDepartment,
+                        totalAmountDepartment,
+                        overallAppointmentDepartment,
+                        totalFollowUpDepartment
+                    } = this.props.DepartmentRevenuGeneratedReducer
+                    await this.setState({
+                        departmentTotalRecords: totalItemsDepartment,
+                        departmentTotalAppointments: overallAppointmentDepartment,
+                        deparmentRevenueAmount: totalAmountDepartment,
+                        departmentTotalFollowUp: totalFollowUpDepartment,
+                        departmentQueryParams: {
+                            ...this.state.departmentQueryParams,
+                            page: updatedPage
+                        }
+                    })
+                    return response
+                } catch (e) {
+                }
+            }
+        }
+
         handleDoctorRevenuePageChange = async newPage => {
             try {
                 await this.setState({
@@ -462,12 +682,62 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
             this.searchDoctorRevenueList()
         }
 
+        handleRevenueTilesClick = (tileType) => {
+            let fromDate,
+                toDate;
+            switch (tileType) {
+                case 'DAY':
+                    fromDate = DateTimeFormatterUtils.subtractDate(new Date(), 0)
+                    toDate = new Date()
+                    break;
+                case 'WEEK':
+                    fromDate = DateTimeFormatterUtils.subtractDate(new Date(), 6)
+                    toDate = new Date()
+                    break;
+                case 'MONTH':
+                    fromDate = DateTimeFormatterUtils.subtractDate(new Date(), 31)
+                    toDate = new Date()
+                    break;
+                case 'YEAR':
+                    fromDate = DateTimeFormatterUtils.subtractDate(new Date(), 366)
+                    toDate = new Date()
+                    break;
+                default:
+                    fromDate = new Date()
+                    toDate = new Date()
+                    break;
+            }
+
+            props.history.push(`/reports/transactionLog?fromDate=${encodeURIComponent(fromDate)}&toDate=${encodeURIComponent(toDate)}`)
+        }
+
+        searchDepartment = async () => {
+            await this.props.fetchActiveHospitalDepartmentForDropdown(
+                AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants
+                    .FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN
+            )
+        }
+
+        searchAppointmentServiceType = async () => {
+            await this.props.fetchActiveAppointmentServiceTypeWithCode(
+                AdminModuleAPIConstants.appointmentServiceTypeApiConstants
+                    .FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE_WITH_CODE
+            )
+        }
+
         componentDidMount() {
             this.searchDoctor()
             this.searchSpecialization()
             this.searchAppointmentQueue()
-            this.searchDoctorRevenueList()
+
             this.fetchDashboardData()
+            this.searchAppointmentServiceType()
+            this.searchDepartment()
+            if (getPrimaryServiceType().value === 'DOC') {
+                this.searchDoctorRevenueList()
+            } else {
+                this.searchDepartmentRevenueList()
+            }
         }
 
         render() {
@@ -483,14 +753,21 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                 doctorTotalAppointments,
                 doctorTotalRecords,
                 doctorTotalRevenueAmount,
-                doctorTotalFollowUp
+                doctorTotalFollowUp,
+                deparmentRevenueAmount,
+                departmentQueryParams,
+                departmentRevenue,
+                departmentTotalAppointments,
+                departmentTotalFollowUp,
+                departmentTotalRecords
             } = this.state
             const {revFromDate, revToDate} = searchParameterForRevenueTrend
 
             const {
                 currentToDate,
                 previousFromDate,
-                hospitalId
+                hospitalId,
+                appointmentServiceTypeCode
             } = searchParameterForGenerateRevenue
             const {fromDate, toDate} = searchParamsForOverallAppoinment
             const {
@@ -545,11 +822,30 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                 doctorRevenueGeneratedErrorMessage
             } = this.props.DashboardRevenueGeneratedByDoctorReducer
 
+            const {
+                isDepartmentRevenueGeneratedLoading,
+                departmentRevenueGenerated,
+                departmentRevenueGeneratedErrorMessage
+            } = this.props.DepartmentRevenuGeneratedReducer
+
             const {activeDoctorsForDropdown} = this.props.DoctorDropdownReducer
+            const {
+                activeAppointmentServiceTypeWithCodeForDropdown
+            } = this.props.AppointmentServiceTypeDropdownReducer
 
             const dashBoardRoles = LocalStorageSecurity.localStorageDecoder(
                 'adminDashRole'
             )
+            const {
+                // isFetchAllHospitalDepartmentLoading,
+                activeHospitalDepartmentForDropdown
+                //allDepartmentDropdownErrorMessage
+            } = this.props.HospitalDepartmentDropdownReducer
+
+            // console.log(
+            //   '=======hospitalDepartmentDropdown',
+            //   this.props.HospitalDepartmentDropdownReducer
+            // )
 
             return (
                 <>
@@ -573,7 +869,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                                 isRevenueGeneratedYearLoading: isRevenueGeneratedYearLoading,
                                 revenueGeneratedYearData: revenueGeneratedYearData,
                                 revenueGeneratedYearErrorMessage: revenueGeneratedYearErrorMessage,
-                                code: ACCESSCODE.REVENUE_STAT
+                                code: ACCESSCODE.REVENUE_STAT,
+                                onRevenueTileClick: this.handleRevenueTilesClick
                             }}
                             appointmentList={{
                                 isAppointmentStatsLoading: isAppointmentStatsLoading,
@@ -603,8 +900,12 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                                 appointmentQueueErrorMessage: appointmentQueueErrorMessage,
                                 totalRecords: totalRecords,
                                 queryParams: queryParams,
+                                departmentDropdown: activeHospitalDepartmentForDropdown,
+                                hospitalDepartmentId: this.state.appointmentQueue
+                                    .hospitalDepartmentId,
                                 handlePageChange: this.handlePageChange,
                                 handleDoctorChange: this.handleDoctorChange,
+                                handleDepartmentChange: this.handleDepartmentChange,
                                 doctorId: this.state.appointmentQueue.doctorId,
                                 date: this.state.appointmentQueue.date,
                                 doctorDropdown: activeDoctorsForDropdown,
@@ -635,12 +936,37 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                                 doctorTotalFollowUp: doctorTotalFollowUp,
                                 code: ACCESSCODE.REVENUE_STAT
                             }}
+                            departmentRevenue={{
+                                isDepartmentRevenueLoading: isDepartmentRevenueGeneratedLoading,
+                                departmentRevenueData: departmentRevenueGenerated,
+                                departmentRevenueErrorMessage: departmentRevenueGeneratedErrorMessage,
+                                totalRecords: departmentTotalRecords,
+                                queryParams: departmentQueryParams,
+                                handlePageChange: this.handlePageChangeForDeparmentRevenue,
+                                hospitalDepartmentId: departmentRevenue.hospitalDepartmentId,
+                                handleDepartmentChange: this.handleDepartmentChange,
+                                departmentDropdown: activeHospitalDepartmentForDropdown,
+                                fromDate: departmentRevenue.fromDate,
+                                toDate: departmentRevenue.toDate,
+                                handleDateChange: this.handleDateChangeForDepartmentRevenue,
+                                departmentTotalAppointments: departmentTotalAppointments,
+                                departmentTotalRevenueAmount: deparmentRevenueAmount,
+                                handleSpecializationChange: this.handleSpecializationChange,
+                                departmentTotalFollowUp: departmentTotalFollowUp,
+                                code: ACCESSCODE.REVENUE_STAT
+                            }}
                             onPillsClickHandler={this.onPillsClickHandler}
-                            //handleHospitalChange={this.handleHospitalChange}
+                            handleAppointmentServiceChange={
+                                this.handleAppointmentServiceChange
+                            }
                             hospitalDropdown={hospitalList}
                             hospitalId={hospitalId}
                             revenueFilter={this.state.revenueFilter}
                             appointmentFilter={this.state.appointmentFilter}
+                            appointmentServiceTypeList={
+                                activeAppointmentServiceTypeWithCodeForDropdown
+                            }
+                            appointmentServiceTypeCode={appointmentServiceTypeCode}
                         />
                     ) : (
                         <CNoDashboardRoleContent/>
@@ -663,7 +989,10 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
             'DashboardRevenueStatisticsReducer',
             'DashboardAppointmentQueueReducer',
             'DoctorDropdownReducer',
-            'SpecializationDropdownReducer'
+            'SpecializationDropdownReducer',
+            'AppointmentServiceTypeDropdownReducer',
+            'HospitalDepartmentDropdownReducer',
+            'DepartmentRevenuGeneratedReducer'
         ],
         {
             fetchDashboardAppointmentStatisticsList,
@@ -677,7 +1006,11 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
             fetchActiveDoctorsForDropdown,
             clearDashboardDoctorRevenue,
             fetchDashboardDoctorRevenue,
-            fetchSpecializationForDropdown
+            fetchSpecializationForDropdown,
+            fetchActiveAppointmentServiceTypeWithCode,
+            fetchActiveHospitalDepartmentForDropdown,
+            fetchDashboardDepartmentRevenue,
+            clearDashboardDepartmentRevenue
         }
     )
 }

@@ -2,22 +2,27 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
   AppointmentDetailsMiddleware,
+  AppointmentServiceTypeMiddleware,
   DoctorMiddleware,
+  HospitalDepartmentSetupMiddleware,
   HospitalSetupMiddleware,
   PatientDetailsMiddleware,
   SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
+  CommonUtils,
   DateTimeFormatterUtils,
-  EnterKeyPressUtils,
-  CommonUtils
+  EnterKeyPressUtils
 } from '@frontend-appointment/helpers'
 import './appointment-log.scss'
+import {CAlert} from '@frontend-appointment/ui-elements'
+import * as Material from 'react-icons/md'
 
 const {
   clearAppointmentRefundPending,
-  fetchAppointmentLogList
+  fetchAppointmentLogList,
+  appointmentExcelDownload
   //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
@@ -26,6 +31,13 @@ const {
   fetchSpecializationHospitalWiseForDropdown
 } = SpecializationSetupMiddleware
 const {fetchPatientMetaDropdown} = PatientDetailsMiddleware
+const {
+  fetchAllHospitalDepartmentForDropdownByHospitalId
+} = HospitalDepartmentSetupMiddleware
+const {
+  fetchActiveAppointmentServiceTypeByHopitalId
+} = AppointmentServiceTypeMiddleware
+
 const AppointmentLogHOC = (ComposedComponent, props, type) => {
   const {
     appointmentSetupApiConstant,
@@ -47,8 +59,11 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         patientType: '',
         specializationId: '',
         appointmentCategory: '',
-        status: {value: 'All', label: 'All'}
+        status: {value: 'All', label: 'All'},
+        appointmentServiceTypeCode: '',
+        hospitalDepartmentId: ''
       },
+      primaryAppointmentService: '',
       queryParams: {
         page: 0,
         size: 10
@@ -57,11 +72,39 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       showModal: false,
       previewData: {},
       filteredData: [],
-      activeStatus: 'All'
+      activeStatus: 'All',
+      alertMessageInfo: {
+        variant: '',
+        message: ''
+      },
+      showAlert: false
     }
+
+    alertTimer = ''
 
     handleEnterPress = event => {
       EnterKeyPressUtils.handleEnter(event)
+    }
+
+    clearAlertTimeout = () => {
+      this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
+    }
+
+    closeAlert = () => {
+      this.setState({
+        showAlert: false
+      })
+    }
+
+    showAlertMessage = (type, message) => {
+      this.setState({
+        showAlert: true,
+        alertMessageInfo: {
+          variant: type,
+          message: message
+        }
+      })
+      this.clearAlertTimeout()
     }
 
     searchHospitalForDropDown = async () => {
@@ -85,7 +128,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         specializationId,
         doctorId,
         appointmentCategory,
-        status
+        status,
+        appointmentServiceTypeCode,
+        hospitalDepartmentId
       } = this.state.searchParameters
       let searchData = {
         appointmentNumber,
@@ -97,7 +142,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         specializationId: specializationId.value || '',
         doctorId: doctorId.value || '',
         appointmentCategory: appointmentCategory.value || '',
-        status: status.value === 'All' ? '' : status.value || ''
+        status: status.value === 'All' ? '' : status.value || '',
+        appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
+        hospitalDepartmentId: hospitalDepartmentId.value || ''
       }
 
       let updatedPage =
@@ -132,7 +179,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         logList.length &&
         logList.map((spec, index) => ({
           ...spec,
-          sN: index + 1,
+          // sN: index + 1,
           status: spec.status || 'N/A',
           hospitalName: spec.hospitalName || 'N/A',
           appointmentDate: spec.appointmentDate || 'N/A',
@@ -144,8 +191,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           patientAddress: spec.patientAddress || 'N/A',
           gender: spec.patientGender.split('')[0] || 'N/A',
           patientGender: spec.patientGender,
-          age: spec.patientAge.slice(0, 4) || 'N/A',
-          patientAge: spec.patientAge.slice(0, 4),
+          age: spec.age.slice(0, 4) || 'N/A',
+          patientAge: spec.age.slice(0, 4),
           patientDob: spec.patientDob || 'N/A',
           isSelf: spec.isSelf || 'N/A',
           isRegistered: spec.isRegistered || 'N/A',
@@ -184,11 +231,15 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           specializationId: '',
           doctorId: '',
           appointmentCategory: '',
-          status: {value: 'All', label: 'All'}
+          status: {value: 'All', label: 'All'},
+          appointmentServiceTypeCode: '',
+          hospitalDepartmentId: ''
         },
+        primaryAppointmentService: '',
         activeStatus: 'All',
         filteredData: []
       })
+      // this.setPrimaryAppointmentService()
       this.searchAppointment()
     }
 
@@ -231,6 +282,13 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS,
         hospitalId
       )
+      this.props.fetchAllHospitalDepartmentForDropdownByHospitalId(
+        AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants
+          .FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN,
+        hospitalId
+      )
+      await this.searchAppointmentServiceType(hospitalId)
+      await this.setPrimaryAppointmentService()
     }
 
     handleStatusChange = (event, status) => {
@@ -287,9 +345,112 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       }))
     }
 
+    searchAppointmentServiceType = async hospitalId => {
+      await this.props.fetchActiveAppointmentServiceTypeByHopitalId(
+        AdminModuleAPIConstants.hospitalSetupApiConstants
+          .HOSPITAL_API_SERVICE_TYPE,
+        hospitalId
+      )
+    }
+
+    setPrimaryAppointmentService = async () => {
+      const {
+        activeAppointmentServiceTypeWithCodeForDropdown
+      } = this.props.AppointmentServiceTypeDropdownReducer
+      if (activeAppointmentServiceTypeWithCodeForDropdown) {
+        const allAppointmentServices = activeAppointmentServiceTypeWithCodeForDropdown
+        const primaryAppointmentService = allAppointmentServices
+          ? allAppointmentServices.length
+            ? allAppointmentServices.filter(
+                service => service.isPrimary === 'Y'
+              )
+            : []
+          : []
+        if (primaryAppointmentService.length) {
+          let searchParams = {...this.state.searchParameters}
+          searchParams['appointmentServiceTypeCode'] = {
+            value: primaryAppointmentService[0].code,
+            label: primaryAppointmentService[0].name
+          }
+          await this.setState({
+            searchParameters: searchParams,
+            primaryAppointmentService: {
+              value: primaryAppointmentService[0].code,
+              label: primaryAppointmentService[0].name
+            }
+          })
+          this.searchAppointment()
+        }
+      }
+    }
+
+    downloadExcel = async () => {
+      const {
+        appointmentNumber,
+        fromDate,
+        toDate,
+        hospitalId,
+        patientMetaInfoId,
+        patientType,
+        specializationId,
+        doctorId,
+        appointmentCategory,
+        status,
+        appointmentServiceTypeCode,
+        hospitalDepartmentId
+      } = this.state.searchParameters
+      let searchData = {
+        appointmentNumber,
+        fromDate,
+        toDate,
+        hospitalId: hospitalId.value || '',
+        patientMetaInfoId: patientMetaInfoId.value || '',
+        patientType: patientType.value || '',
+        specializationId: specializationId.value || '',
+        doctorId: doctorId.value || '',
+        appointmentCategory: appointmentCategory.value || '',
+        status: status.value === 'All' ? '' : status.value || '',
+        appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
+        hospitalDepartmentId: hospitalDepartmentId.value || ''
+      }
+
+      try {
+        await appointmentExcelDownload(
+          AdminModuleAPIConstants.excelApiConstants.APPOINTMENT_LOG_EXCEL,
+          this.state.queryParams,
+          searchData,
+          `appointmentLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            fromDate
+          )}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            toDate
+          )}`
+        )
+        //DO NOT ENTER NAME
+        // console.log(e);
+        this.showAlertMessage(
+          'success',
+          `appointmentLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            fromDate
+          )}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            toDate
+          )}`
+        )
+        return false
+      } catch (e) {
+        // console.log(e);
+        this.showAlertMessage(
+          'danger',
+          e.errorMessage || 'Sorry,Internal Server Error occurred!'
+        )
+        return false
+      }
+    }
+
     async componentDidMount () {
-      await this.searchAppointment()
-      await this.searchHospitalForDropDown()
+      // this.searchAppointmentServiceType()
+      // this.setPrimaryAppointmentService()
+      this.searchHospitalForDropDown()
+      this.searchAppointment()
     }
 
     render () {
@@ -300,7 +461,10 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         showModal,
         previewData,
         filteredData,
-        activeStatus
+        activeStatus,
+        primaryAppointmentService,
+        showAlert,
+        alertMessageInfo
       } = this.state
 
       const {
@@ -325,6 +489,19 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         patientList,
         patientDropdownErrorMessage
       } = this.props.PatientDropdownListReducer
+
+      const {
+        isFetchAppointmentServiceTypeWithCodeLoading,
+        activeAppointmentServiceTypeWithCodeForDropdown,
+        dropdownWithCodeErrorMessage
+      } = this.props.AppointmentServiceTypeDropdownReducer
+
+      const {
+        isFetchAllHospitalDepartmentLoading,
+        allHospitalDepartmentForDropdown,
+        allDepartmentDropdownErrorMessage
+      } = this.props.HospitalDepartmentDropdownReducer
+
       return (
         <div id="appointment-log">
           <ComposedComponent
@@ -342,7 +519,13 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
               specializationDropdownErrorMessage: dropdownErrorMessage,
               searchParameters: searchParameters,
               patientListDropdown: patientList,
-              patientDropdownErrorMessage: patientDropdownErrorMessage
+              patientDropdownErrorMessage: patientDropdownErrorMessage,
+              isFetchAppointmentServiceTypeWithCodeLoading,
+              activeAppointmentServiceTypeWithCodeForDropdown,
+              dropdownWithCodeErrorMessage,
+              isFetchAllHospitalDepartmentLoading,
+              allHospitalDepartmentForDropdown,
+              allDepartmentDropdownErrorMessage
             }}
             paginationProps={{
               queryParams: queryParams,
@@ -352,15 +535,42 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             tableHandler={{
               isSearchLoading: isLogListLoading,
               appointmentLogList: this.appendSNToTable(filteredData),
-              searchErrorMessage: logErrorMessage,
+              searchErrorMessage:
+                searchParameters.hospitalId &&
+                searchParameters.appointmentServiceTypeCode
+                  ? logErrorMessage
+                  : 'Select Client and Appointment Service type first.',
               setShowModal: this.setShowModal,
               showModal: showModal,
               previewCall: this.previewCall,
-              previewData: previewData
+              previewData: previewData,
+              appointmentServiceTypeCode: primaryAppointmentService,
+              downloadExcel: this.downloadExcel
             }}
             activeStatus={activeStatus}
             handleStatusChange={this.handleStatusChange}
             appointmentStatistics={appointmentStatistics}
+          />
+          <CAlert
+            id="profile-manage"
+            variant={alertMessageInfo.variant}
+            show={showAlert}
+            onClose={this.closeAlert}
+            alertType={
+              alertMessageInfo.variant === 'success' ? (
+                <>
+                  <Material.MdDone />
+                </>
+              ) : (
+                <>
+                  <i
+                    className="fa fa-exclamation-triangle"
+                    aria-hidden="true"
+                  />
+                </>
+              )
+            }
+            message={alertMessageInfo.message}
           />
         </div>
       )
@@ -374,7 +584,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       'SpecializationDropdownReducer',
       'DoctorDropdownReducer',
       'HospitalDropdownReducer',
-      'PatientDropdownListReducer'
+      'PatientDropdownListReducer',
+      'AppointmentServiceTypeDropdownReducer',
+      'HospitalDepartmentDropdownReducer'
     ],
     {
       clearAppointmentRefundPending,
@@ -382,7 +594,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       fetchActiveHospitalsForDropdown,
       fetchActiveDoctorsHospitalWiseForDropdown,
       fetchSpecializationHospitalWiseForDropdown,
-      fetchPatientMetaDropdown
+      fetchPatientMetaDropdown,
+      fetchActiveAppointmentServiceTypeByHopitalId,
+      fetchAllHospitalDepartmentForDropdownByHospitalId
     }
   )
 }

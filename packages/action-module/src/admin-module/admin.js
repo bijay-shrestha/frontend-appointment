@@ -52,6 +52,8 @@ import * as  BillingModeActions from './billing-mode/billingModeActions';
 import {billingModeActionConstants} from './billing-mode/billingModeActionConstants';
 import * as AppointmentServiceTypeAction from './appointment-service-type/appointmentServiceTypeAction';
 import {appointmentServiceTypeActionConstants} from './appointment-service-type/appointmentServiceTypeActionConstants'
+import * as FavouritesActions from './favourites/favouritesActions';
+import {favouritesActionConstants} from './favourites/favouritesActionConstants';
 import * as  BreakTypeSetupActions from './break-type-setup/breakTypeSetupActions';
 import {breakTypeSetupActionConstants} from './break-type-setup/breakTypeSetupActionConstants';
 import * as  ShiftSetupActions from './shift-setup/shiftSetupActions';
@@ -115,10 +117,12 @@ export {
     BillingModeActions,
     appointmentServiceTypeActionConstants,
     AppointmentServiceTypeAction,
+    favouritesActionConstants,
+    FavouritesActions,
     breakTypeSetupActionConstants,
     BreakTypeSetupActions,
     shiftSetupActionConstants,
     ShiftSetupActions,
     ddrShiftWiseActionConstants,
-    DDRShiftWiseAction
+    DDRShiftWiseAction,
 }

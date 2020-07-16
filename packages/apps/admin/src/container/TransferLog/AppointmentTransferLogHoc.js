@@ -5,20 +5,27 @@ import {
   SpecializationSetupMiddleware,
   PatientDetailsMiddleware,
   AppointmentTransferMiddleware,
-  HospitalSetupMiddleware
+  HospitalSetupMiddleware,
+  AppointmentDetailsMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import './transfer-log.scss'
-import {DateTimeFormatterUtils,CommonUtils} from '@frontend-appointment/helpers'
-
+import {
+  DateTimeFormatterUtils,
+  CommonUtils
+} from '@frontend-appointment/helpers'
+import {CAlert} from '@frontend-appointment/ui-elements'
+const {appointmentExcelDownload} = AppointmentDetailsMiddleware
 const {
-   fetchAppointmentPreviewInfo,
-   fetchAppointmentTransferSearch
+  fetchAppointmentPreviewInfo,
+  fetchAppointmentTransferSearch
 } = AppointmentTransferMiddleware
-const {fetchActiveHospitalsForDropdown} =HospitalSetupMiddleware;
-const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
-const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
-const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware
+const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
+const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
+const {
+  fetchSpecializationHospitalWiseForDropdown
+} = SpecializationSetupMiddleware
+const {fetchPatientMetaDropdown} = PatientDetailsMiddleware
 const TransferApprovalHOC = (ComposedComponent, props, type) => {
   const {
     doctorSetupApiConstants,
@@ -36,16 +43,42 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         patientMetaInfoId: '',
         doctorId: '',
         specializationId: '',
-        hospitalId:''
+        hospitalId: ''
       },
       queryParams: {
         page: 0,
         size: 10
       },
-      activeStatus:'All',
-      filteredData:[],
+      activeStatus: 'All',
+      filteredData: [],
       totalRecords: 0,
-      showModal: false
+      showModal: false,
+      alertMessageInfo: {
+        variant: '',
+        message: ''
+      },
+      showAlert: false
+    }
+
+    alertTimer = ''
+
+    clearAlertTimeout = () => {
+      this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
+    }
+
+    closeAlert = () => {
+      this.showOrCloseAlertMessage(false, '', '')
+    }
+
+    showOrCloseAlertMessage = (showAlert, type, message) => {
+      this.setState({
+        showAlert,
+        alertMessageInfo: {
+          variant: type,
+          message: message
+        }
+      })
+      this.clearAlertTimeout()
     }
 
     previewApiCall = async data => {
@@ -82,24 +115,24 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
     searchTransfer = async page => {
       const {
         appointmentNumber,
-        fromDate,
-        toDate,
+        appointmentFromDate,
+        appointmentToDate,
         patientMetaInfoId,
         // patientType,
         specializationId,
         doctorId,
         hospitalId
-       // patientCategory
+        // patientCategory
       } = this.state.searchParameters
       let searchData = {
         appointmentNumber,
-        appointmetnFromDate: appointmentNumber ? '' : fromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
-        appointmentToDate: appointmentNumber ? '' : toDate,
+        appointmetnFromDate: appointmentNumber ? '' : appointmentFromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
+        appointmentToDate: appointmentNumber ? '' : appointmentToDate,
         patientMetaInfoId: patientMetaInfoId.value || '',
         //patientType: patientType.value || '',
         specializationId: specializationId.value || '',
         doctorId: doctorId.value || '',
-        hospitalId:hospitalId.value||''
+        hospitalId: hospitalId.value || ''
         //patientCategory: patientCategory.value || ''
       }
 
@@ -109,7 +142,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
           : page
           ? page
           : this.state.queryParams.page
-        await this.props.fetchAppointmentTransferSearch(
+      await this.props.fetchAppointmentTransferSearch(
         appointmentTransferApiConstants.APPOINTMENT_TRANSFER_SEARCH,
         {
           page: updatedPage,
@@ -118,15 +151,16 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         searchData
       )
       await this.setState({
-        totalRecords: this.props.appointmentTransferSearchReducer.appointmentTransferList
-          .length
+        totalRecords: this.props.appointmentTransferSearchReducer
+          .appointmentTransferList.length
           ? this.props.appointmentTransferSearchReducer.totalItems
           : 0,
         queryParams: {
           ...this.state.queryParams,
           page: updatedPage
         },
-        filteredData:this.props.appointmentTransferSearchReducer.appointmentTransferList
+        filteredData: this.props.appointmentTransferSearchReducer
+          .appointmentTransferList
       })
     }
 
@@ -138,10 +172,10 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         refundList.map((spec, index) => ({
           ...spec,
           patientMobileNumber: spec.mobileNumber,
-          sN: index + 1,
+          // sN: index + 1,
           registrationNumber: spec.registrationNumber || 'N/A',
-          gender:spec.gender.split("")[0],
-          age:spec.age.slice(0, 4)
+          gender: spec.gender.split('')[0],
+          age: spec.age.slice(0, 4)
         }))
       return newRefundList
     }
@@ -160,18 +194,21 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
       await this.setState({
         searchParameters: {
           appointmentNumber: '',
-          appointmentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
+          appointmentFromDate: DateTimeFormatterUtils.subtractDate(
+            new Date(),
+            7
+          ),
           appointmentToDate: new Date(),
           patientMetaInfoId: '',
           //patientType: '',
           specializationId: '',
           doctorId: '',
-          hospitalId:''
+          hospitalId: ''
           //patientCategory: '',
           //appointmentDetails: ''
         },
-        activeStatus:'All',
-        filteredData:[],
+        activeStatus: 'All',
+        filteredData: []
       })
       this.searchTransfer()
     }
@@ -181,34 +218,43 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         searchParameters: searchParams
       })
     }
-   
-    handleStatusChange= (event,status) =>{
-      let filteredData=[]
-      if(this.props.appointmentTransferSearchReducer.appointmentTransferList.length){
-        if(status==='All'){
-           filteredData= [...this.props.appointmentTransferSearchReducer.appointmentTransferList]
-        }
-        else
-       filteredData=CommonUtils.filterTableDataWithGivenStatus(status,this.props.appointmentTransferSearchReducer.appointmentTransferList)
+
+    handleStatusChange = (event, status) => {
+      let filteredData = []
+      if (
+        this.props.appointmentTransferSearchReducer.appointmentTransferList
+          .length
+      ) {
+        if (status === 'All') {
+          filteredData = [
+            ...this.props.appointmentTransferSearchReducer
+              .appointmentTransferList
+          ]
+        } else
+          filteredData = CommonUtils.filterTableDataWithGivenStatus(
+            status,
+            this.props.appointmentTransferSearchReducer.appointmentTransferList
+          )
       }
       this.setState({
-          activeStatus:status,
-          filteredData:[...filteredData]
+        activeStatus: status,
+        filteredData: [...filteredData]
       })
-      return false;
+      return false
     }
 
-    callApiForHospitalChange = async () => {
-      this.props.fetchActiveDoctorsForDropdown(
-        doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN
+    callApiForHospitalChange = async hospitalId => {
+      this.props.fetchActiveDoctorsHospitalWiseForDropdown(
+        doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
+        hospitalId
       )
-
-      this.props.fetchSpecializationForDropdown(
-        specializationSetupAPIConstants.ACTIVE_DROPDOWN_SPECIALIZATION
+      this.props.fetchSpecializationHospitalWiseForDropdown(
+        specializationSetupAPIConstants.SPECIALIZATION_BY_HOSPITAL,
+        hospitalId
       )
-
-      this.props.fetchPatientMetaDropdownForClient(
-        patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS
+      this.props.fetchPatientMetaDropdown(
+        patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS,
+        hospitalId
       )
     }
 
@@ -234,14 +280,68 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
               : {value, label}
             : ''
           : value
+        if (fieldName === 'hospitalId') this.callApiForHospitalChange(value)
         await this.setStateValuesForSearch(newSearchParams)
       }
     }
 
+    downloadExcel = async () => {
+      const {
+        appointmentNumber,
+        appointmentFromDate,
+        appointmentToDate,
+        patientMetaInfoId,
+        // patientType,
+        specializationId,
+        doctorId,
+        hospitalId
+        // patientCategory
+      } = this.state.searchParameters
+      let searchData = {
+        appointmentNumber,
+        appointmentFromDate: appointmentNumber ? '' : appointmentFromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
+        appointmentToDate: appointmentNumber ? '' : appointmentToDate,
+        patientMetaInfoId: patientMetaInfoId.value || '',
+        //patientType: patientType.value || '',
+        specializationId: specializationId.value || '',
+        doctorId: doctorId.value || '',
+        hospitalId: hospitalId.value || ''
+        //patientCategory: patientCategory.value || ''
+      }
+      try {
+        await appointmentExcelDownload(
+          AdminModuleAPIConstants.excelApiConstants.TRANSFER_LOG_EXCEL,
+          this.state.queryParams,
+          searchData,
+          `transferLog ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            new Date()
+          )}`
+        )
+        this.showOrCloseAlertMessage(
+          true,
+          'success',
+          `transferLog ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            new Date()
+          )} downloaded successfully!!`
+        )
+
+        return false
+      } catch (e) {
+        this.showOrCloseAlertMessage(
+          true,
+          'danger',
+          e.errorMessage || 'Sorry Internal Server Error'
+        )
+        return false
+      }
+    }
+
     async componentDidMount () {
-      await this.searchTransfer();
-      await this.props.fetchActiveHospitalsForDropdown(AdminModuleAPIConstants.hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN)
-      await this.callApiForHospitalChange()
+      await this.searchTransfer()
+      await this.props.fetchActiveHospitalsForDropdown(
+        AdminModuleAPIConstants.hospitalSetupApiConstants
+          .FETCH_HOSPITALS_FOR_DROPDOWN
+      )
     }
 
     render () {
@@ -251,31 +351,34 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         totalRecords,
         showModal,
         filteredData,
-        activeStatus
+        activeStatus,
+        alertMessageInfo,
+        showAlert
+
       } = this.state
 
       const {
-        activeDoctorsForDropdown,
+        activeDoctorsByHospitalForDropdown,
         doctorDropdownErrorMessage
       } = this.props.DoctorDropdownReducer
 
       const {
-       // appointmentTransferList,
+        // appointmentTransferList,
         isAppointmentTransferSearchLoading,
-       appointmentTransferSearchErrorMessage
+        appointmentTransferSearchErrorMessage
       } = this.props.appointmentTransferSearchReducer
-      
+
       const {
         appointmentTransferInfo
       } = this.props.appointmentTransferPreviewReducer
 
       const {
-        allActiveSpecializationList,
+        activeSpecializationListByHospital,
         dropdownErrorMessage
       } = this.props.SpecializationDropdownReducer
-     const {
-      hospitalsForDropdown
-     }=this.props.HospitalDropdownReducer
+
+      const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
+
       const {
         patientList,
         patientDropdownErrorMessage
@@ -290,13 +393,13 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
               handleSearchFormChange: this.handleSearchFormChange,
               resetSearch: this.handleSearchFormReset,
               searchAppointment: this.searchTransfer,
-              doctorsDropdown: activeDoctorsForDropdown,
+              doctorsDropdown: activeDoctorsByHospitalForDropdown,
               doctorDropdownErrorMessage: doctorDropdownErrorMessage,
-              activeSpecializationList: allActiveSpecializationList,
+              activeSpecializationList: activeSpecializationListByHospital,
               specializationDropdownErrorMessage: dropdownErrorMessage,
               searchParameters: searchParameters,
               patientListDropdown: patientList,
-              hospitalsForDropdown:hospitalsForDropdown,
+              hospitalsForDropdown: hospitalsForDropdown,
               patientDropdownErrorMessage: patientDropdownErrorMessage
             }}
             paginationProps={{
@@ -311,10 +414,33 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
               setShowModal: this.setShowModal,
               showModal: showModal,
               previewCall: this.previewCall,
-              previewData: appointmentTransferInfo
+              previewData: appointmentTransferInfo,
+              downloadExcel: this.downloadExcel
             }}
             activeStatus={activeStatus}
             handleStatusChange={this.handleStatusChange}
+          />
+          <CAlert
+            id="profile-add"
+            variant={alertMessageInfo.variant}
+            show={showAlert}
+            onClose={this.setShowAlert}
+            alertType={
+              alertMessageInfo.variant === 'success' ? (
+                <>
+                  <i className="fa fa-check-circle" aria-hidden="true">
+                    {' '}
+                  </i>
+                </>
+              ) : (
+                <>
+                  <i className="fa fa-exclamation-triangle" aria-hidden="true">
+                    {' '}
+                  </i>
+                </>
+              )
+            }
+            message={alertMessageInfo.message}
           />
         </div>
       )
@@ -333,9 +459,9 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
       'HospitalDropdownReducer'
     ],
     {
-      fetchSpecializationForDropdown,
-      fetchPatientMetaDropdownForClient,
-      fetchActiveDoctorsForDropdown,
+      fetchSpecializationHospitalWiseForDropdown,
+      fetchPatientMetaDropdown,
+      fetchActiveDoctorsHospitalWiseForDropdown,
       fetchAppointmentPreviewInfo,
       fetchAppointmentTransferSearch,
       fetchActiveHospitalsForDropdown

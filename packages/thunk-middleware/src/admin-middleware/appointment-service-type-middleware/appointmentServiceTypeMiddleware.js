@@ -10,7 +10,50 @@ export const fetchActiveAppointmentServiceType = (path) => async dispatch => {
     } catch (e) {
         dispatch(AppointmentServiceTypeAction.fetchActiveAppointmentServiceTypeError(
             e.errorMessage ? e.errorMessage : 'Sorry, Internal Server Problem occurred!'))
-        throw e;
+
 
     }
 };
+
+export const fetchActiveAppointmentServiceTypeWithCode = (path) => async dispatch => {
+    dispatch(AppointmentServiceTypeAction.fetchActiveAppointmentServiceTypePendingWithCode());
+    try {
+        const response = await Axios.get(path);
+        dispatch(AppointmentServiceTypeAction.fetchActiveAppointmentServiceTypeSuccessWithCode(response.data));
+        return response;
+    } catch (e) {
+        dispatch(AppointmentServiceTypeAction.fetchActiveAppointmentServiceTypeErrorWithCode(
+            e.errorMessage ? e.errorMessage : 'Sorry, Internal Server Problem occurred!'))
+
+
+    }
+};
+
+export const fetchActiveAppointmentServiceTypeByHopitalId = (path, hospitalId) => async dispatch => {
+    dispatch(AppointmentServiceTypeAction.fetchActiveAppointmentServiceTypePendingWithCode());
+    try {
+        const response = await Axios.getWithPathVariables(path, hospitalId);
+        dispatch(AppointmentServiceTypeAction.fetchActiveAppointmentServiceTypeSuccessWithCode(response.data));
+        return response;
+    } catch (e) {
+        dispatch(AppointmentServiceTypeAction.fetchActiveAppointmentServiceTypeErrorWithCode(
+            e.errorMessage ? e.errorMessage : 'Sorry, Internal Server Problem occurred!'))
+
+
+    }
+};
+
+export const fetchActiveAppointmentServiceTypeWithCodeWithHospitalId = (path,id) => async dispatch => {
+    dispatch(AppointmentServiceTypeAction.fetchActiveAppointmentServiceTypePendingWithCode());
+    try {
+        const response = await Axios.getWithPathVariables(path,id);
+        dispatch(AppointmentServiceTypeAction.fetchActiveAppointmentServiceTypeSuccessWithCode(response.data));
+        return response;
+    } catch (e) {
+        dispatch(AppointmentServiceTypeAction.fetchActiveAppointmentServiceTypeErrorWithCode(
+            e.errorMessage ? e.errorMessage : 'Sorry, Internal Server Problem occurred!'))
+     
+
+    }
+};
+

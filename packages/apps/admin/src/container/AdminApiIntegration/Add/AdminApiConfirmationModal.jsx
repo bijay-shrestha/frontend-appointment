@@ -16,7 +16,7 @@ const AdminApiConfirmationModal = props => {
         <>
             <CModal
                 show={showConfirmationModal}
-                modalHeading="Admin API Integration Details"
+                modalHeading="Appointment Mode API Integration Details"
                 size="xl"
                 bodyChildren={
                     <DetailsModal

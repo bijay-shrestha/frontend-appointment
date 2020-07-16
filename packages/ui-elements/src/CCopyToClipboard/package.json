@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-copy-to-clipboard",
+  "main": "CCopyToClipboard.jsx",
+  "version": "0.0.0",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

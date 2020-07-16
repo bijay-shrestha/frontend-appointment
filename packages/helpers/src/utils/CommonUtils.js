@@ -1,5 +1,9 @@
+import {localStorageSecurity} from './localStorageUtils'
+
 export const checkIfOneArrayElementContainOther = (fArray, sArray) => {
-    return fArray.some(elem => sArray.includes(elem.name.toLowerCase()))
+    return fArray.some(elem =>
+        sArray.includes(elem.path.replace('/', '').toLowerCase())
+    )
 }
 
 export const checkIfTwoArrayEquals = (fArray, sArray, keyToMatch) => {
@@ -66,4 +70,41 @@ export const checkKeyValuePairAndRemoveIfAnyOfThemIsNotPresent = arrayOfKeyValue
 
 export const sortListOfObjectsAlphabetically = (dataList, sortingParam) =>
     dataList.sort((firstElement, secondElement) =>
-        (firstElement[sortingParam]).toLowerCase().localeCompare((secondElement[sortingParam]).toLowerCase()));
+        firstElement[sortingParam]
+            .toLowerCase()
+            .localeCompare(secondElement[sortingParam].toLowerCase())
+    )
+
+const serviceType = {
+    DOC: 'DOC',
+    DEP: 'DEP'
+}
+
+export const filterAppointmentServiceType = (appointmentSeviceType, type) => {
+    if (appointmentSeviceType && appointmentSeviceType.value) {
+        if (appointmentSeviceType.value === serviceType[type]) {
+            return true
+        }
+        return false
+    }
+    return false
+}
+
+export const getPrimaryServiceType = () => {
+    const adminInfo = localStorageSecurity.localStorageDecoder('adminInfo')
+    if (adminInfo) {
+        const allAppointmentServices = adminInfo.hospitalAppointmentServiceType
+        const primaryAppointmentService = allAppointmentServices
+            ? allAppointmentServices.length
+                ? allAppointmentServices.filter(service => service.isPrimary === 'Y')
+                : []
+            : []
+        if (primaryAppointmentService.length) {
+            return {
+                value: primaryAppointmentService[0].code,
+                label: primaryAppointmentService[0].name
+            }
+        }
+        return '';
+    }
+}

@@ -155,6 +155,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 hospital: null,
                 specialization: null,
                 doctor: null,
+                doctorSalutation: '',
                 doctorDutyRosterId: 0,
                 hasOverrideDutyRoster: '',
                 remarks: '',
@@ -713,7 +714,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     })
                     this.checkOverrideFormValidity()
                     break;
-                default:break;
+                default:
+                    break;
             }
         }
 
@@ -739,7 +741,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         deleteOverrideErrorMessage: ''
                     })
                     break
-                default:break;
+                default:
+                    break;
             }
         }
 
@@ -837,6 +840,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     hasOverrideDutyRoster,
                     doctorWeekDaysDutyRosterRequestDTOS,
                     doctorDutyRosterOverrideRequestDTOS,
+                    doctorSalutation,
                     createdDate,
                     createdBy,
                     lastModifiedBy,
@@ -848,6 +852,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     showAlert: false,
                     specialization: {...specialization},
                     doctor: {...doctor},
+                    doctorSalutation: doctorSalutation,
                     rosterGapDuration: rosterGapDuration,
                     fromDate: new Date(fromDate),
                     toDate: new Date(toDate),
@@ -1065,7 +1070,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     })
                     this.checkOverrideFormValidity()
                     break
-                default:break;
+                default:
+                    break;
             }
         }
 
@@ -1465,17 +1471,23 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 hospitalId,
                 hospitalName,
                 status,
+                doctorSalutation,
                 createdBy,
                 createdDate,
                 lastModifiedBy,
-                lastModifiedDate
+                lastModifiedDate,
+                fileUri
             } = doctorDutyRosterInfo && doctorDutyRosterInfo
 
             return {
                 id: id,
                 hospital: {label: hospitalName, value: hospitalId},
                 specialization: {label: specializationName, value: specializationId},
-                doctor: {label: doctorName, value: doctorId},
+                doctor: {
+                    label: doctorSalutation ? doctorSalutation.concat(' '.concat(doctorName)) : doctorName,
+                    value: doctorId,
+                    fileUri: fileUri
+                },
                 rosterGapDuration: rosterGapDuration,
                 fromDate: new Date(fromDate),
                 toDate: new Date(toDate),
@@ -1699,7 +1711,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
         deleteDoctorDutyRoster = async () => {
             try {
-                await this.props.deleteDepartmentDutyRoster(
+                await this.props.deleteDoctorDutyRoster(
                     DELETE_DOCTOR_DUTY_ROSTER,
                     this.state.deleteRequestDTO
                 )

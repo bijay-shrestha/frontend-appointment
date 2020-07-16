@@ -1,6 +1,6 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import {CDoctorNameDisplayForTable, ConfirmDelete} from '@frontend-appointment/ui-components'
+import {DoctorWithSpecImage, ConfirmDelete} from '@frontend-appointment/ui-components'
 import TableAction from '../../CommonComponents/table-components/TableAction';
 import StatusLabel from "../../CommonComponents/table-components/StatusLabel";
 import PreviewDetails from '../commons/PreviewDetails'
@@ -11,7 +11,6 @@ import {ActionFilterUtils} from '@frontend-appointment/helpers';
 const {checkIfRoleExists} = ActionFilterUtils;
 const DoctorDetailsDataTable = props => (
     <div className="manage-details">
-        {console.log(props.searchData)}
         <h5 className="title">Doctor Details</h5>
         {!props.isSearchLoading &&
         !props.searchErrorMessage &&
@@ -37,21 +36,12 @@ const DoctorDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Name',
+                            headerName: 'Name (Specialization)',
                             field: 'doctorName',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
                             cellRenderer: 'doctorNameRenderer'
-                        },
-                        {
-                            headerName: 'Picture',
-                            field: 'fileUri',
-                            // headerClass: "fi",
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true,
-                            cellRenderer: 'imageRenderer'
                         },
                         {
                             headerName: 'Code',
@@ -63,13 +53,6 @@ const DoctorDetailsDataTable = props => (
                         {
                             headerName: 'Phone Number',
                             field: 'mobileNumber',
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true
-                        },
-                        {
-                            headerName: 'Specialization',
-                            field: 'specializationName',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
@@ -108,7 +91,7 @@ const DoctorDetailsDataTable = props => (
                         childActionRenderer: TableAction,
                         childLabelRenderer: StatusLabel,
                         imageRenderer: PreviewHandlerHoc(HospitalPicture, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler),
-                        doctorNameRenderer: PreviewHandlerHoc(CDoctorNameDisplayForTable, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler)
+                        doctorNameRenderer: PreviewHandlerHoc(DoctorWithSpecImage, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler)
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={

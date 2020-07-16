@@ -1,39 +1,38 @@
 import React, {memo} from 'react'
-import {
-  CDataTable,
-  CLoading,
-  CPagination
-} from '@frontend-appointment/ui-elements'
-import {Row, Col} from 'react-bootstrap'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
+import {Col, Row} from 'react-bootstrap'
 import PreviewDetails from './AppointmentTransferLogPreview'
 import {
-  DoctorWithSpecImage,
-  PatientNameWithAgeGenderPhone,
-  TransferredFromDateWithTime,
-  TransferredToDateWithTime,
-  AppointmentNumberWithFollowUpFlag,
-  TransferredToDoctorWithSpecImage
-  //AppointmentStatusBadges
+    AppointmentNumberWithFollowUpFlag,
+    CExcelDownload,
+    DoctorWithSpecImage,
+    PatientNameWithAgeGenderPhone,
+    TransferredFromDateWithTime,
+    TransferredToDateWithTime,
+    TransferredToDoctorWithSpecImage
 } from '@frontend-appointment/ui-components'
 //import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 //import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithAgeAndGender'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import AppointmentLogStatus from '../CommonComponents/table-components/AppointmentLogStatus'
+
 const AppointmentTransferDataTable = ({
-  tableHandler,
-  // activeStatus,
-  // handleStatusChange,
-  paginationProps
-}) => {
-  const {
-    isSearchLoading,
-    appointmentTransferList,
-    searchErrorMessage,
-    previewCall,
-    previewData,
-    showModal,
-    setShowModal
-  } = tableHandler
+                                          tableHandler,
+                                          // activeStatus,
+                                          // handleStatusChange,
+                                          paginationProps
+                                      }) => {
+    const {
+        isSearchLoading,
+        appointmentTransferList,
+        searchErrorMessage,
+        previewCall,
+        previewData,
+        showModal,
+        setShowModal,
+        // exportExcel,
+        downloadExcel
+    } = tableHandler
 
   const {queryParams, totalRecords, handlePageChange} = paginationProps
   return (
@@ -44,18 +43,9 @@ const AppointmentTransferDataTable = ({
             <h5 className="title">Transfer Log Details</h5>
           </Col>
 
-          {/* <Col>
-              <CButton
-                id="downloadExcel"
-                name="DownloadExcel"
-                // onClickHandler={props.exportExcel}
-                className="float-right"
-                variant="outline-secondary"
-              >
-                {' '}
-                <i className="fa fa-download" />
-              </CButton>
-            </Col>  */}
+          <Col>
+            <CExcelDownload onClickHandler={downloadExcel} />
+          </Col>
         </Row>
 
         {/* <AppointmentStatusBadges
@@ -97,15 +87,6 @@ const AppointmentTransferDataTable = ({
                   cellRenderer: 'TransferLogStatus'
                 },
                 {
-                  headerName: 'Patient Detail ',
-                  field: 'patientDetails',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  width: 250,
-                  cellRenderer: 'PatientNameWithAgeGenderPhone'
-                },
-                {
                   headerName: 'Appt. No',
                   field: 'apptNumber',
                   // headerClass: "fi",
@@ -116,7 +97,15 @@ const AppointmentTransferDataTable = ({
 
                   cellRenderer: 'AppointmentNumberWithFollowUpFlag'
                 },
-
+                {
+                  headerName: 'Patient Detail ',
+                  field: 'patientDetails',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true,
+                  width: 250,
+                  cellRenderer: 'PatientNameWithAgeGenderPhone'
+                },
                 {
                   headerName: ' Transf. From Date/Time',
                   //field: 'transferredFromDate',

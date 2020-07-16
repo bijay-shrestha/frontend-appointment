@@ -173,6 +173,8 @@ class CImageUploadAndCropModal extends PureComponent {
             ruleOfThirds,
             showModal,
             style,
+            errorMsg,
+            isLoading
         } = this.props;
 
         const bodyContent = (<>
@@ -214,9 +216,9 @@ class CImageUploadAndCropModal extends PureComponent {
                             }
 
                         </div>
-                        {errorMessage ?
+                        {errorMessage || errorMsg ?
                             <p className="modal-error"><i
-                                className="fa fa-exclamation-triangle"/> &nbsp;  {errorMessage}
+                                className="fa fa-exclamation-triangle"/> &nbsp;  {errorMessage || errorMsg}
                             </p> : ''}
                         <input id="imageUpload" type="file" accept="image/*" onChange={this.handleImageSelect}
                                className=""/>
@@ -248,10 +250,11 @@ class CImageUploadAndCropModal extends PureComponent {
                         <CButton
                             id="image-confirm"
                             name="Confirm"
+                            isLoading={isLoading}
                             variant="primary"
                             size="xl"
                             className="float-right btn-action"
-                            disabled={srcValue && !errorMessage ? false : true}
+                            disabled={srcValue && !errorMessage ? false : true || isLoading}
                             onClickHandler={this.handleUploadConfirmClick}/>
                     </div>
                 </Row>

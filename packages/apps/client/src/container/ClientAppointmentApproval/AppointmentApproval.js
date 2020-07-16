@@ -15,7 +15,7 @@ const AppointmentApprovalLog = props => {
           <AppointmentApprovalDataTable
             tableHandler={tableHandler}
             paginationProps={paginationProps}
-
+            filteredActions={props.filteredAction}
           />
         </div>
       </>

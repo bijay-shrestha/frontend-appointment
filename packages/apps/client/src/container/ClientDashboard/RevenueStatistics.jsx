@@ -16,11 +16,12 @@ const RevenueStatistics = props => {
         revenueGeneratedWeekErrorMessage,
         isRevenueGeneratedYearLoading,
         revenueGeneratedYearData,
-        revenueGeneratedYearErrorMessage
+        revenueGeneratedYearErrorMessage,
+        onRevenueTileClick
     } = props.generateRevenue
     return (
         <>
-            <div className="revenue-box">
+            <div className="revenue-box" onClick={() => onRevenueTileClick("YEAR")}>
                 {!isRevenueGeneratedYearLoading &&
                 Object.keys(revenueGeneratedYearData) && !revenueGeneratedYearErrorMessage ? (
                     <>
@@ -132,7 +133,7 @@ const RevenueStatistics = props => {
                 )}
             </div>
 
-            <div className="revenue-box">
+            <div className="revenue-box" onClick={() => onRevenueTileClick("MONTH")}>
                 {!isRevenueGeneratedMonthLoading &&
                 Object.keys(revenueGeneratedMonthData) && !revenueGeneratedMonthErrorMessage ? (
                     <>
@@ -244,7 +245,7 @@ const RevenueStatistics = props => {
                 )}
             </div>
 
-            <div className="revenue-box">
+            <div className="revenue-box"  onClick={() => onRevenueTileClick("WEEK")}>
                 {!isRevenueGeneratedWeekLoading &&
                 Object.keys(revenueGeneratedWeekData) && !revenueGeneratedWeekErrorMessage ? (
                     <>
@@ -351,7 +352,7 @@ const RevenueStatistics = props => {
                 )}
             </div>
 
-            <div className="revenue-box">
+            <div className="revenue-box"  onClick={() => onRevenueTileClick("DAY")}>
                 {!isRevenueGeneratedDayLoading &&
                 Object.keys(revenueGeneratedDayData) && !revenueGeneratedDayErrorMessage ? (
                     <>

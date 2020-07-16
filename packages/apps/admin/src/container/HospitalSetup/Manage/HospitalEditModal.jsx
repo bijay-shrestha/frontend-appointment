@@ -45,7 +45,8 @@ const HospitalEditModal = ({
                                contactLength,
                                activeBillingModeForDropdown,
                                activeAppointmentServiceTypeForDropdown,
-                               appointmentServiceTypeListForPrimary
+                               appointmentServiceTypeListForPrimary,
+                               isImageUploading
                            }) => {
     const bodyContent = (
         <>
@@ -139,10 +140,10 @@ const HospitalEditModal = ({
                                     placeholder="Client Name"
                                     value={hospitalData.name}
                                     required={true}
-                                    hasValidation={true}
-                                    max={100}
-                                    fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-                                    errorMessagePassed={errorMessageForHospitalName}
+                                    hasValidation={false}
+                                    // max={100}
+                                    // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
+                                    // errorMessagePassed={errorMessageForHospitalName}
                                 />
                             </Col>
 
@@ -347,7 +348,7 @@ const HospitalEditModal = ({
                                     name="refundPercentage"
                                     type="number"
                                     onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
+                                    onChange={(event, validity) => onInputChange(event, validity, 'E')}
                                     placeholder="Refund Percentage"
                                     value={hospitalData.refundPercentage}
                                     required={true}
@@ -361,7 +362,7 @@ const HospitalEditModal = ({
                                     name="numberOfFollowUps"
                                     type="number"
                                     onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
+                                    onChange={(event, validity) => onInputChange(event, validity, 'E')}
                                     placeholder="Number Of Follow Ups"
                                     value={hospitalData.numberOfFollowUps}
                                     required={true}
@@ -374,7 +375,7 @@ const HospitalEditModal = ({
                                     name="followUpIntervalDays"
                                     type="number"
                                     onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
+                                    onChange={(event, validity) => onInputChange(event, validity, 'E')}
                                     placeholder="Follow Up Interval Days"
                                     value={hospitalData.followUpIntervalDays}
                                     required={true}
@@ -386,7 +387,7 @@ const HospitalEditModal = ({
                                     id="billing-mode"
                                     name="billingMode"
                                     onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
+                                    onChange={(event, validity) => onInputChange(event, validity, 'E')}
                                     label="Billing Mode (optional)"
                                     options={activeBillingModeForDropdown}
                                     value={hospitalData.billingMode}
@@ -404,7 +405,7 @@ const HospitalEditModal = ({
                                     id="appt-service-type"
                                     name="appointmentServiceType"
                                     onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
+                                    onChange={(event, validity) => onInputChange(event, validity, 'E')}
                                     label="Appointment Service Type"
                                     options={activeAppointmentServiceTypeForDropdown}
                                     value={hospitalData.appointmentServiceType}
@@ -424,7 +425,7 @@ const HospitalEditModal = ({
                                             id="primary-appt-service-type"
                                             name="primaryAppointmentServiceType"
                                             onKeyDown={event => onEnterKeyPress(event)}
-                                            onChange={(event, validity) => onInputChange(event, validity,'E')}
+                                            onChange={(event, validity) => onInputChange(event, validity, 'E')}
                                             label="Primary Appointment Service Type"
                                             options={appointmentServiceTypeListForPrimary}
                                             value={hospitalData.primaryAppointmentServiceType}
@@ -474,8 +475,9 @@ const HospitalEditModal = ({
                     <div className="col-md-6">
                         <CButton
                             id="submit-update-button"
-                            disabled={!formValid || isHospitalEditLoading}
-                            name={isHospitalEditLoading ? 'Updating' : 'Update'}
+                            disabled={!formValid || isHospitalEditLoading || isImageUploading}
+                            name={'Update'}
+                            isLoading={isHospitalEditLoading || isImageUploading}
                             variant="primary"
                             size="lg"
                             className="btn-action  float-right"
@@ -485,6 +487,7 @@ const HospitalEditModal = ({
                             id="cancel-update-profile"
                             variant="light"
                             size="lg"
+                            disabled={isHospitalEditLoading || isImageUploading}
                             className="btn-action  float-right mr-2"
                             name="Cancel"
                             onClickHandler={setShowModal}
@@ -500,6 +503,7 @@ const HospitalEditModal = ({
                 show={showModal}
                 modalHeading="Client Details"
                 size="lg"
+                backdrop={"static"}
                 bodyChildren={bodyContent}
                 onHide={setShowModal}
                 centered={false}

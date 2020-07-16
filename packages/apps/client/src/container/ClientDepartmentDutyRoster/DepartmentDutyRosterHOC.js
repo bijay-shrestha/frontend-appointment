@@ -497,7 +497,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     this.state.toDate,
                     [...weekDays]
                 );
-                this.setState({
+                await this.setState({
                     departmentWeekDaysDutyRosterRequestDTOS: [...weekDaysData]
                 })
             };
@@ -1166,7 +1166,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     toDate: addDate(new Date(), 6),
                     hasOverrideDutyRoster: 'N',
                     isWholeWeekOff: 'N',
-                    // departmentWeekDaysDutyRosterRequestDTOS: [...weekDays],
+                    departmentWeekDaysDutyRosterRequestDTOS: [],
                     departmentDutyRosterOverrideRequestDTOS: [],
                     overrideRequestDTO: {
                         fromDate: new Date(),
@@ -1448,7 +1448,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     overrideDetail: [],
                 };
                 if (!isSaveFromManageClone) {
-                    let weekDayData = departmentWeekDaysDutyRosterRequestDTOS.map(weekDay => ({
+                    let weekDayData = departmentWeekDaysDutyRosterRequestDTOS && departmentWeekDaysDutyRosterRequestDTOS.map(weekDay => ({
                         ...weekDay,
                         hospitalDepartmentDoctorInfoIds: weekDay.weekDaysDoctorInfo ? weekDay.weekDaysDoctorInfo.map(doctor => doctor.value) : []
                     }));
@@ -1464,9 +1464,9 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         }
                     }) : [];
 
-                    let weekDaysList = departmentWeekDaysDutyRosterRequestDTOS.map(weekdays => {
+                    let weekDaysList = departmentWeekDaysDutyRosterRequestDTOS && departmentWeekDaysDutyRosterRequestDTOS.map(weekdays => {
                         weekdays.rosterWeekDaysId = '';
-                        weekdays.hospitalDepartmentDoctorInfoIds = weekdays.weekDaysDoctorInfo.map(doctor => doctor.value);
+                        weekdays.hospitalDepartmentDoctorInfoIds = weekdays.weekDaysDoctorInfo ? weekdays.weekDaysDoctorInfo.map(doctor => doctor.value) : [];
                         return weekdays;
                     });
                     dataToSave.weekDaysDetail = [...weekDaysList];

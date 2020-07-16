@@ -13,22 +13,23 @@ const ConfirmationModal = props => {
                         profileData={profileData}
                         rolesJson={rolesJson}/>}
                 footerChildren={<>
+                   
                     <CButton
-                    variant="primary"
+                    variant="light"
                     size="lg"
-                    className="float-right"
-                    name={"Confirm"}
-                    isLoading={!isCloneAndAdd && isAddLoading}
-                    disabled={isAddLoading}
-                    onClickHandler={onConfirmClick}/>
-                    <CButton
-                    variant="primary"
-                    size="lg"
-                    className="float-right"
+                    className="btn-action float-right"
                     name={"Clone And Add"}
                     isLoading={isCloneAndAdd && isAddLoading}
                     disabled={isAddLoading}
                     onClickHandler={cloneAndAdd}/>
+                     <CButton
+                    variant="primary"
+                    size="lg"
+                    className="btn-action float-right"
+                    name={"Confirm"}
+                    isLoading={!isCloneAndAdd && isAddLoading}
+                    disabled={isAddLoading}
+                    onClickHandler={onConfirmClick}/>
                     </>
                 }
                 onHide={setShowConfirmModal}

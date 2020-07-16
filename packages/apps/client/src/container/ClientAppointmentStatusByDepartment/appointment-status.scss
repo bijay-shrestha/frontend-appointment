@@ -1,0 +1,555 @@
+
+ @import '~bootstrap/scss/functions';
+
+ //custom colors
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+ @import '~bootstrap/scss/mixins';
+ @import "~@frontend-appointment/common-sass/src/scss/_custom-mixins.scss";
+ 
+ 
+ 
+ #appointment-status {
+  .filter-message {
+    .message {
+      width: 200px;
+    }
+  }
+
+  .manage-title{
+    background-color: $white;
+    padding: 30px 30px 15px;
+    margin: 1rem 0 0;
+    @include border-radii(0.5rem,0.5rem, 0, 0);
+    
+  }
+
+  .manage-details{
+    height: calc(100vh - 310px);
+    overflow: auto;
+    margin:0 0 1rem;
+    padding-top:0;
+    @include border-radii(0, 0,0.5rem,0.5rem);
+  }
+
+ 
+
+  .appointment-badge {
+    float: right;
+    margin: 10px 0;
+
+    & > div {
+      margin-right: 20px;
+      height: auto;
+      display: inline-block;
+      //  line-height: 40px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      .badge {
+        margin-right: 4px;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-legend{
+        display:inline-flex;
+        flex-direction:column;
+        align-items: center;
+      }
+
+
+      a {
+
+        color: $gray-600;
+        font-weight: 500;
+        margin-left: 4px;
+        padding: 2px 6px;
+
+        &.active {
+          color: $gray-900;
+          background-color: lighten($cogent, 45%);
+          @include border-radius(4px);
+          padding: 2px 6px;
+        }
+      }
+    }
+
+    .btn {
+      margin-bottom: 10px;
+    }
+
+
+  }
+
+  // .badge{
+  //     width:35px;
+  //     height: 35px;
+  //     // top:50%;
+  //     // left:50%;
+  //     // transform:translate(-50%,-50%);
+  //     text-align: center;
+  //     vertical-align: middle;
+  //     font-size: 16px;
+  //     line-height: 22px;
+  //     padding:6px;
+  //     @include border-radius(50%);
+  // }
+
+  .react-datepicker-wrapper {
+    width: 50%;
+    // padding-left: 4px;
+  }
+
+}
+
+.doctor-image {
+ //  width: 100px;
+ //  height: 100px;
+ //  margin-top: 10px;
+ //  background-color: $gray-500;
+ //  @include border-radius(50%);
+  // display: inline-block;
+
+  .anchor-icon{
+   margin:0 auto;
+   width: 100px;
+   height: 100px;
+   line-height: 100px;
+   text-align: center;
+   flex-shrink: 0;
+   border-radius: 50%;
+   border: 1px solid $gray-100;
+   background-color: $gray-100;
+}
+
+  img {
+    width: 100px;
+    height: 100px;
+    background-color: $gray-500;
+    @include border-radius(50%);
+  }
+}
+
+.doctor-details {
+  position: relative;
+  display: inline-block;
+  margin-top: 4px;
+  margin-bottom: 20px;
+  color: $gray-700;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  letter-spacing: 0.01rem;
+  width: 100%;
+
+  .department-name{
+    font-size: 0.85rem;
+    margin-top:0;
+    color:$primary;
+    margin-bottom:20px;
+    // min-height: 56px;
+  }
+
+  //  &::before{
+  //     content:"";
+  //     display: block;
+  //     position: absolute;
+  //     width:100%;
+  //     height:2px;
+  //     bottom:-5px;
+  //     background-color:$gray-600;
+  // }
+
+  p {
+   font-size: 0.8rem;
+   font-weight: 400;
+   letter-spacing: 0.01rem;
+   margin-top:32px;
+   margin-bottom:0;
+ 
+ }
+ ul{
+  margin-top:56px;
+}
+
+  li{ 
+    
+    margin:4px 0;
+    padding:4px;
+    border:1px solid $gray-100;
+    background-color: $gray-100;
+ 
+    @include border-radius(4px);
+
+    img{
+     margin-right: 10px;
+     width: 32px;
+     height: 32px;
+     line-height: 32px;
+     text-align: center;
+     flex-shrink: 0;
+     border-radius: 50%;
+     border: 1px solid $gray-100;
+     background-color: $gray-100;
+    }
+
+    .anchor-icon{
+     margin-right: 10px;
+     width: 32px;
+     height: 32px;
+     line-height: 32px;
+     text-align: center;
+     flex-shrink: 0;
+     border-radius: 50%;
+     border: 1px solid $gray-100;
+     background-color: $gray-100;
+   }
+  }
+
+  
+
+
+
+
+}
+
+.patient-container {
+  padding-bottom: 20px;
+}
+
+.patient-details {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 16px;
+  color: $gray-700;
+  font-size: 0.8rem;
+  // line-height: 1.6rem;
+  // text-transform: capitalize;
+  letter-spacing: 0.02rem;
+  font-weight: 500;
+
+
+  .label {
+    font-size: 0.65rem;
+    font-weight: 400;
+    line-height: 1rem;
+  }
+
+  .data {
+   
+
+    .app-details-link{
+      font-size: 12px;
+      padding:4px 4px;
+      font-weight: 400;
+      margin-top:6px;
+      background-color:$gray-300;
+    
+      border:1px solid $gray-400;
+      @include border-radius(4px);
+      margin-top:4px;
+      display: inline-block;
+
+      &:hover{
+        cursor: pointer;
+        background-color:$gray-200;
+        border:1px solid $gray-200;
+      }
+    
+
+      span{
+        color:$gray-900;
+      }
+    }
+
+    .badge-success {
+      color: $success !important;
+      padding:2px;
+      border: 1px solid $success;
+      background-color: white !important;
+      // text-transform: lowercase;
+    }
+
+    .badge-primary {
+      color: $primary !important;
+       border: 1px solid $primary;
+       padding:2px;
+       background-color: white !important;
+    }
+
+    .badge-info {
+      color: $success;
+      border: 1px solid $success !important;
+      padding:2px;
+      background-color: transparent;
+    }
+  }
+
+
+}
+
+//start patient detail action buttons
+
+.action-wrapper{
+  .btn{
+    display: inline-block;
+    font-size:13px;
+    padding: 10px 12px !important;
+    width:auto
+   
+  }
+
+  .btn-checkin {
+    width:auto;
+    margin:6px;
+  
+  
+    i {
+      color: $white;
+    }
+  } 
+  
+}
+
+//end patient deatail action buttons
+
+
+.time-container {
+
+  .time-details {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: $gray-700;
+    font-size: 0.8rem;
+    line-height: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02rem;
+
+
+  }
+
+  .time {
+    // float:left;
+    margin-left: 30px;
+  }
+
+  .room-tabs{
+    .nav-link{      
+      padding: 4px 6px 0 0;
+    }
+  }
+
+  // .time-wrapper{
+  //   max-height: 250px;
+  //   overflow: auto;
+    
+  // }
+
+  
+
+  ul {
+    width: 100%;
+    max-height: 250px;
+    overflow: auto;
+  
+    li {
+      // display: inline-block;
+      margin-right: 10px;
+      margin-bottom: 12px;
+      float: left;
+
+
+      .btn {
+        width: 120px;
+        // width:120px;
+        //  margin-right:10px;
+        height: 46px;
+
+
+      }
+
+      // .btn-success{
+      //    &:hover{
+
+      //     }
+      // }
+    }
+  }
+}
+
+.appointment-status-list {
+  margin: 15px -30px 45px;
+  border-bottom: 1px solid $gray-200;
+
+
+  .title {
+    position: relative;
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: $gray-700;
+    font-size: 0.85rem;
+    text-transform: capitalize;
+    text-decoration: none;
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 25%;
+      height: 1px;
+      bottom: -5px;
+      background-color: $gray-600;
+    }
+
+
+  }
+
+  .day-off {
+    // width:100%;
+    // text-align: center;
+    display: inline-block;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+
+    .fa {
+      font-size: 42px !important;
+      display: block;
+      color: $danger;
+      margin-right: 10px;
+
+    }
+
+    span{
+
+    }
+  }
+
+  .back-day-off {
+    display: block;
+    padding-top: 20px;
+
+    .fa {
+      font-size: 42px !important;
+      display: block;
+      color: $danger;
+
+    }
+  }
+
+  .appointment-status-list, .appointment-badge {
+    .btn-success {
+      // background-color: adjust-hue($success,20%);
+
+      background-color: $spotify;
+      color: $gray-800;
+      padding: 8px 12px;
+      // margin: 0 0 12px;
+    }
+
+    .btn {
+      padding: 10px 6px;
+      font-weight: 500;
+    }
+  }
+
+  .filter-message {
+    margin: 0 auto;
+  }
+
+  .time-button {
+    .fa-check-circle {
+      display: none;
+      margin-right: 4px;
+
+    }
+
+    .fa-tag{
+      display: inline;
+      color:$white;
+    }
+
+    &.active {
+      .fa-check-circle{
+        display: inline;
+        margin-right: 4px;
+        color:$white;
+
+      }
+
+      .fa-tag{
+        display: none;
+        $color:$gray-900;
+      }
+    }
+
+  }
+
+
+  @media (max-width: 1199px) {
+    .hide-on-md {
+      display: none;
+    }
+  }
+}
+
+
+
+#scrollbar_appt-scrollbar{
+  .track-vertical {
+    top: 2px;
+    bottom: 2px;
+    right: 2px;
+    border-radius: 3px;
+    /*background: rgba(255, 255, 255, 0.111);*/
+     background: #f1f1f1;
+}
+
+.track-vertical .thumb-vertical {
+    position: relative;
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    border-radius: inherit;
+    /*background-color: rgba(123, 154, 255, 0.418);*/
+    background: #888;
+}
+.view {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: scroll;
+    margin-right: -15px;
+    margin-bottom: -17px !important;
+    background:transparent;
+}
+}
+
+
+  //for checkin print
+  .quick-confirm{
+    max-width: 600px;
+
+    h2{
+        margin-bottom:24px;
+    }
+
+    .modal-header .close {
+        margin:0;
+        margin-left:auto;
+    }
+
+    .modal-body{
+        padding:40px;
+        padding-top:30px;
+        margin-top:-22px;
+    }
+}

@@ -1,7 +1,8 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {
-    CConfirmationModal,
+    CancelDateWithTime,
+    CRemarksModal,
     DoctorWithSpecImage,
     PatientNameWithAgeGenderPhone
 } from '@frontend-appointment/ui-components'
@@ -11,6 +12,8 @@ import RejectModal from "./RejectModal";
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime';
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
+import AppointmentAmountWithTransactionNumber
+    from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
 
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     const {
@@ -29,15 +32,19 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         refundHandleApi,
         refundRejectError,
         refundConfirmationModal,
+        rejectRemarks,
+        totalRefundAmount,
+        isRefundLoading,
         remarks,
-        totalRefundAmount
+        handleInputChange,
+        isRejectLoading
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
 
     return (
         <>
             <div className="manage-details">
-                <h5 className="title">Appointment Refund Details</h5>
+                <h5 className="title">Appointment Cancellation Details</h5>
                 {!isSearchLoading &&
                 !searchErrorMessage &&
                 appointmentRefundList.length ? (
@@ -63,6 +70,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     cellClass: 'first-class'
                                 },
                                 {
+                                    headerName: 'App. No',
+                                    field: 'appointmentNumber',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 140,
+                                },
+                                {
                                     headerName: 'App. DateTime',
                                     field: 'appointmentDate',
                                     resizable: true,
@@ -76,22 +91,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     field: 'cancelledDate',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Reg. No',
-                                    field: 'registrationNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'App. No',
-                                    field: 'appointmentNumber',
-                                    resizable: true,
-                                    sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: 140,
+                                    cellRenderer: 'cancelDateWithTime'
                                 },
                                 {
                                     headerName: 'Patient Details',
@@ -102,12 +103,11 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     width: 300,
                                 },
                                 {
-                                    headerName: 'Doctor Detail',
+                                    headerName: 'Reg. No',
+                                    field: 'registrationNumber',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true,
-                                    cellRenderer: 'doctorWithSpecializationRenderer',
-                                    width:350
+                                    sizeColumnsToFit: true
                                 },
                                 {
                                     headerName: 'Esewa Id',
@@ -117,11 +117,20 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true
                                 },
                                 {
-                                    headerName: 'Amount',
+                                    headerName: 'Doctor Detail',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'doctorWithSpecializationRenderer',
+                                    width: 350
+                                },
+                                {
+                                    headerName: 'Transaction Details(No/Amount)',
                                     field: 'refundAmount',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'refundAmtWithTxnNumberRenderer'
                                 },
                                 {
                                     headerName: '',
@@ -149,6 +158,21 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 appointmentDateAndTimeRenderer: PreviewHandlerHoc(AppointmentDateWithTime, null, null, null, previewCall),
                                 patientWithAgeRenderer: PreviewHandlerHoc(PatientNameWithAgeGenderPhone, null, null, null, previewCall),
                                 doctorWithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecImage, null, null, null, previewCall),
+                                refundAmtWithTxnNumberRenderer: PreviewHandlerHoc(
+                                    AppointmentAmountWithTransactionNumber,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
+                                cancelDateWithTime:
+                                    PreviewHandlerHoc(
+                                        CancelDateWithTime,
+                                        null,
+                                        null,
+                                        null,
+                                        previewCall
+                                    ),
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={previewCall}
@@ -195,22 +219,27 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                     showModal={rejectModalShow}
                     setShowModal={setShowModal}
                     onDeleteRemarksChangeHandler={refundRejectRemarksHandler}
-                    remarks={remarks}
+                    remarks={rejectRemarks}
                     onSubmitDelete={rejectSubmitHandler}
                     deleteErrorMessage={refundRejectError}
+                    actionDisabled={isRejectLoading}
                 />
             ) : (
                 ''
             )}
 
             {refundConfirmationModal ? (
-                <CConfirmationModal
+                <CRemarksModal
+                    confirmationMessage="Provide remarks for refund."
                     modalHeader="Are you sure you want to refund?"
                     showModal={refundConfirmationModal}
-                    setShowModal={setShowModal}
-                    remarks={remarks}
-                    onConfirm={refundHandleApi}
                     onCancel={setShowModal}
+                    onRemarksChangeHandler={handleInputChange}
+                    remarks={remarks}
+                    onPrimaryAction={refundHandleApi}
+                    primaryActionName={"Confirm"}
+                    actionDisabled={isRefundLoading}
+                    primaryActionLoading={isRefundLoading}
                 />
             ) : (
                 ''

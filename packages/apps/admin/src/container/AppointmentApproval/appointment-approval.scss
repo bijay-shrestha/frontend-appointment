@@ -1,89 +1,101 @@
-@import '~bootstrap/scss/functions';
+@import "~bootstrap/scss/functions";
 
 //custom colors
 @import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
 
 // // Customized Bootstrap variables
 @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
-@import '~bootstrap/scss/mixins';
-
+@import "~bootstrap/scss/mixins";
 
 #appointment-approval {
-
     .appointment-badge {
-        float : right;
+        float: right;
         margin: 10px 0;
 
-        &>span {
+        & > span {
             margin-right: 20px;
-            height      : auto;
-            line-height : 40px;
+            height: auto;
+            line-height: 40px;
 
             &:last-child {
                 margin-right: 0;
             }
         }
-
     }
 
     .badge {
-        width         : 35px;
-        height        : 35px;
+        width: 35px;
+        height: 35px;
         // top        :50%;
         // left       :50%;
         // transform  :translate(-50%,-50%);
-        text-align    : center;
+        text-align: center;
         vertical-align: middle;
-        font-size     : 16px;
-        line-height   : 22px;
-        padding       : 6px;
+        font-size: 16px;
+        line-height: 22px;
+        padding: 6px;
         @include border-radius(50%);
     }
 
     .react-datepicker-wrapper {
-        width          : 50%;
+        width: 50%;
         // padding-left: 4px;
     }
-    
+
+    .ag-root-wrapper .patient-column li:nth-child(2)
+    {
+        .badge-primary,.badge-success{
+        @include border-radius(0.25rem);
+       height: auto;
+    } 
+
+   }
 
     @media (max-width: 1199px) {
         .hide-on-md {
             display: none;
         }
     }
-
 }
 
-.patient-box{
+//start transfer-modal
+
+.patient-box {
     //border:1px solid $gray-300;
     @include border-radius(0.5rem);
-    padding:15px 0;
-    margin:0 -15px 15px;
+    padding: 0;
+    margin: 0 -15px 0px;
 }
 
-.box{
+
+
+.box {
     // border:1px solid $gray-300;
     // @include border-radius(0.5rem);
     // margin:10px;
-    padding:15px 0;
+    padding: 15px 0;
     min-height: 560px;
+    border:none;
+    background:transparent;
+    width:100%;
+    height:auto;
 }
 
-.box-1{
+.box-1 {
     @include border-radius(0.5rem);
     //border-right:1px solid $gray-400;
-    background-color:$gray-100;
+    background-color: $gray-100;
 }
 
-.doctor-box{
-    border:1px solid $gray-300;
+.doctor-box {
+    border: 1px solid $gray-300;
     @include border-radius(4px);
     background-color: #f8f9fa;
-    padding:27px 8px;
-    margin-bottom:35px;
+    padding: 27px 8px;
+    margin-bottom: 35px;
     position: relative;
 
-    .doctor-label{
+    .doctor-label {
         color: #6c757d !important;
         position: absolute;
         top: -8px;
@@ -95,45 +107,40 @@
         border-radius: 4px;
     }
 
-    .di-column{
+    .di-column {
         display: flex;
         flex-direction: row;
         align-items: center;
-        .data-image{
-            margin-top:2px;
-           width:55px;
-           height: 55px;
-           margin-right:10px;
-           flex-shrink: 0;
-           line-height: 30px;
-        //    @include border-radius(4px !important) ;
-           
+        .data-image {
+            margin-top: 2px;
+            width: 55px;
+            height: 55px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            line-height: 30px;
+               @include border-radius(4px !important) ;
 
-           img{
-                 width:100%;
-               height: auto;
-            //    @include border-radius(4px !important) ;
-           }
+            img {
+                width: 100%;
+                height: auto;
+                   @include border-radius(4px !important) ;
+            }
         }
 
-       .di-details{
-           margin:0;
-                li{
-                   line-height: 20px; 
+        .di-details {
+            margin: 0;
+            li {
+                line-height: 20px;
 
-                   &:nth-child(2){
+                &:nth-child(2) {
                     font-size: 0.75rem;
                     font-weight: 500;
                     line-height: 20px;
                     font-weight: $gray-300;
-                    color:$gray-600;
-                   }
+                    color: $gray-600;
                 }
-       }
+            }
+        }
     }
-
 }
-
-
-   
-
+//end transfer-modal

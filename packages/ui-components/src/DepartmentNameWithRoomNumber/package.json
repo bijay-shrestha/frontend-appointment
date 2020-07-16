@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/department-with-room-number",
+  "version": "1.0.0",
+  "main": "DepartmentNameWithRoomNumber.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

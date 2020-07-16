@@ -1,0 +1,9 @@
+{
+    "name": "@frontend-appointement/c-appointment-checkin-options",
+    "version": "1.0.0",
+    "main": "AppointmentQuickCheckInOption.js",
+    "author": "Kaushal Regmi",
+    "license": "MIT",
+    "private": true
+  }
+  

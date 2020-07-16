@@ -36,7 +36,9 @@ const DoctorEditModal = ({
                              hospitalsForDropdown,
                              activeSpecializationList,
                              qualificationDropdown,
-                             isConsultantEditLoading
+                             isConsultantEditLoading,
+                             salutationList,
+                             isImageUploading
                          }) => {
     const checkIfSpecializationIdAndHospitalIdMatch = (
         currSpec,
@@ -50,10 +52,10 @@ const DoctorEditModal = ({
                 currSpec && currSpec.map(currSpec => {
                     if (currSpec.doctorSpecializationId === editSp.doctorSpecializationId)
                         flag = true
-                return currSpec;
+                    return currSpec;
                 });
                 !flag && editSpec.length !== currSpec.length && CommonUtils.checkIfTwoArrayEquals(currSpec, editSpec, 'doctorSpecializationId') && newArray.push(editSp)
-              return editSp;
+                return editSp;
             })
         }
         return newArray
@@ -82,7 +84,8 @@ const DoctorEditModal = ({
                                     size="lg"
                                     className="upload-button my-1"
                                     onClickHandler={setImageShow}
-                                ><><i className="fa fa-upload"></i>&nbsp;Upload</></CButton>
+                                ><><i className="fa fa-upload"></i>&nbsp;Upload</>
+                                </CButton>
                                 <CImageUploadAndCropModal
                                     showModal={showImageUploadModal}
                                     ruleOfThirds={true}
@@ -130,9 +133,25 @@ const DoctorEditModal = ({
                                     errorMessagePassed={errorMessageForDoctorName}
                                 />
                             </Col>
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridSelect
+                                    id="salutation"
+                                    name="salutations"
+                                    onKeyDown={event => onEnterKeyPress(event)}
+                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                    label="Salutation (optional)"
+                                    options={salutationList}
+                                    value={doctorData.salutations}
+                                    required={true}
+                                    placeholder={salutationList.length ? "Select Salutation." : "No Salutation(s) available."}
+                                    isDisabled={!salutationList.length}
+                                    isMulti={true}
+                                    className="multiple-select"
+                                />
+                            </Col>
 
                             <Col sm={12} md={6} lg={6}>
-                                <CFLabel labelName="Gender" id="gender"></CFLabel>
+                                <CFLabel labelName="Gender" id="gender"/>
                                 <div>
                                     <CRadioButton
                                         checked={doctorData.genderCode === 'M'}
@@ -309,7 +328,7 @@ const DoctorEditModal = ({
                                 />
                             </Col>
 
-                            <Col sm={12} md={12} lg={6} >
+                            <Col sm={12} md={12} lg={6}>
                                 <CHybridTextArea
                                     id="remarks"
                                     name="remarks"
@@ -345,9 +364,9 @@ const DoctorEditModal = ({
                     <div className="col-md-6">
                         <CButton
                             id="submit-update-button"
-                            disabled={!formValid || isConsultantEditLoading}
-                            name={isConsultantEditLoading ? <span className="saving">Updating <img
-                              alt="three-dots"  src={require("../../../images/three-dots.svg")}/></span> : "Update"}
+                            disabled={!formValid || isConsultantEditLoading || isImageUploading}
+                            name={"Update"}
+                            isLoading={isConsultantEditLoading || isImageUploading}
                             variant="primary"
                             size="lg"
                             className="btn-action  float-right"
@@ -357,6 +376,7 @@ const DoctorEditModal = ({
                             id="cancel-update-profile"
                             variant="light"
                             size="lg"
+                            disabled={isConsultantEditLoading || isImageUploading}
                             className="btn-action  float-right mr-2"
                             name="Cancel"
                             onClickHandler={setShowModal}
@@ -372,6 +392,7 @@ const DoctorEditModal = ({
                 show={showModal}
                 modalHeading="Doctor Details"
                 size="xl"
+                backdrop={'static'}
                 bodyChildren={bodyContent}
                 onHide={setShowModal}
                 centered={false}

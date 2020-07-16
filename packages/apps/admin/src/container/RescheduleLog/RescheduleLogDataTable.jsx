@@ -5,21 +5,41 @@ import {
     AppointmentNumberWithFollowUpFlag,
     PatientNameWithAgeGenderPhone,
     RescheduleLogDateWithTimeForTable,
-    DoctorWithSpecImage
+    DoctorWithSpecImage, DepartmentNameWithRoomNumberAndBillingMode,
+    CExcelDownload
 } from '@frontend-appointment/ui-components';
 import AppointmentDateWithTime from "../CommonComponents/table-components/AppointmentDateWithTime";
+import {CommonUtils} from '@frontend-appointment/helpers'
+import {Col,Row} from 'react-bootstrap'
+const {filterAppointmentServiceType} = CommonUtils
 
 const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
     const {
         isRescheduleLogLoading,
         rescheduleLogList,
-        searchErrorMessage
+        searchErrorMessage, appointmentServiceTypeCode,
+        downloadExcel
     } = rescheduleLogData;
     const {queryParams, totalRecords, handlePageChange} = paginationProps;
+    const headerNameForDoctorOrDepartment = filterAppointmentServiceType(
+        appointmentServiceTypeCode,
+        'DEP'
+    )
+        ? 'Department Details' : 'Doctor Details'
+
+    const componentRendererDoctorOrDepartment = filterAppointmentServiceType(
+        appointmentServiceTypeCode,
+        'DEP'
+    )
+        ? 'departmentWithRoomNumberAndBillingMode' : 'doctorWithSpecializationRenderer'
+
     return (
         <>
             <div className="manage-details">
-                <h5 className="title">Reschedule Log Details</h5>
+                <Row>
+                <Col><h5 className="title">Reschedule Log Details</h5></Col>
+                <Col><CExcelDownload onClickHandler={downloadExcel}/></Col>
+                </Row>
                 {!isRescheduleLogLoading &&
                 !searchErrorMessage &&
                 rescheduleLogList.length ? (
@@ -43,6 +63,15 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                     sizeColumnsToFit: true,
                                     cellClass: 'first-class',
                                     width: '140'
+                                },
+                                {
+                                    headerName: 'App. No.',
+                                    field: 'appointmentNumber',
+                                    // headerClass: "fi",
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: "appNoWithFollowUp"
                                 },
                                 // {
                                 //     headerName: 'Hospital Name',
@@ -74,15 +103,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                 //     sortable: true,
                                 //     sizeColumnsToFit: true
                                 // },
-                                {
-                                    headerName: 'App. No.',
-                                    field: 'appointmentNumber',
-                                    // headerClass: "fi",
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    cellRenderer: "appNoWithFollowUp"
-                                },
+
                                 {
                                     headerName: 'Patient Details',
                                     resizable: true,
@@ -107,13 +128,13 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                 },
 
                                 {
-                                    headerName: 'Doctor(Specialization)',
+                                    headerName: headerNameForDoctorOrDepartment,
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    cellRenderer: 'doctorWithSpecializationRenderer',
-                                    width: "260",
-                                },
+                                    cellRenderer: componentRendererDoctorOrDepartment,
+                                    width: '300'
+                                }
                                 // {
                                 //     headerName: 'Transaction Number',
                                 //     field: 'transactionNumber',
@@ -138,6 +159,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                             ]}
                             frameworkComponents={{
                                 doctorWithSpecializationRenderer: DoctorWithSpecImage,
+                                departmentWithRoomNumberAndBillingMode: DepartmentNameWithRoomNumberAndBillingMode,
                                 statusRenderer: AppointmentLogAction,
                                 patientRenderer: PatientNameWithAgeGenderPhone,
                                 appointmentDateAndTime: AppointmentDateWithTime,

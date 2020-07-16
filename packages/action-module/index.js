@@ -12,7 +12,9 @@ import {
     WeekdaysActions,
     ForgotPasswordActions,
     countryActionConstants,
-    CountryActions
+    CountryActions,
+    SalutationAction,
+    salutationActionConstants
 } from './src/common'
 import {
     adminSetupActionConstants,
@@ -69,6 +71,8 @@ import {
     BillingModeActions,
     appointmentServiceTypeActionConstants,
     AppointmentServiceTypeAction,
+    FavouritesActions,
+    favouritesActionConstants,
     shiftSetupActionConstants,
     ShiftSetupActions,
     BreakTypeSetupActions,
@@ -146,10 +150,14 @@ export {
     BillingModeActions,
     appointmentServiceTypeActionConstants,
     AppointmentServiceTypeAction,
+    SalutationAction,
+    salutationActionConstants,
+    FavouritesActions,
+    favouritesActionConstants,
     shiftSetupActionConstants,
     ShiftSetupActions,
     BreakTypeSetupActions,
     breakTypeSetupActionConstants,
     ddrShiftWiseActionConstants,
-    DDRShiftWiseAction
+    DDRShiftWiseAction,
 }

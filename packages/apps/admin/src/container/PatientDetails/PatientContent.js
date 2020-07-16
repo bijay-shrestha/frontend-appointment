@@ -38,9 +38,9 @@ const DetailsModal = ({previewData}) => {
 
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="patientType"
-                                    placeholder="Patient Type"
-                                    value={previewData.isRegistered === 'N' ? 'New' : 'Registered' || 'N/A'}
+                                    id="address"
+                                    placeholder="Address"
+                                    value={previewData.address || 'N/A'}
                                     disabled={true}
                                 />
                             </Col>
@@ -64,11 +64,13 @@ const DetailsModal = ({previewData}) => {
                                 />
                             </Col>
 
+                   
+
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="address"
-                                    placeholder="Address"
-                                    value={previewData.address || 'N/A'}
+                                    id="patientType"
+                                    placeholder="Patient Type"
+                                    value={previewData.isRegistered === 'N' ? 'New' : 'Registered' || 'N/A'}
                                     disabled={true}
                                 />
                             </Col>

@@ -29,6 +29,7 @@
      .image-box{
         img{
             width:140px;
+            height: 140px;
             @include border-radius(50%);
         }
 
@@ -60,7 +61,7 @@
  .data-image{
      width:40px;
      height: 40px;
-     @include border-radius(50%);
+     @include border-radius(4px);
      overflow: hidden;
      img{
         width:40px;

@@ -1,6 +1,6 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import {ConfirmDelete} from '@frontend-appointment/ui-components'
+import {ClientNameWithLogo, ConfirmDelete} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import TableAction from '../../CommonComponents/table-components/TableAction';
 import StatusLabel from '../../CommonComponents/table-components/StatusLabel';
@@ -38,17 +38,16 @@ const HospitalDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Client Logo',
-                            field: 'fileUri',
-                            // headerClass: "fi",
+                            headerName: 'Client Details',
+                            field: 'name',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
-                            cellRenderer: 'imageRenderer'
+                            cellRenderer: 'hospitalNameWithLogo'
                         },
                         {
-                            headerName: 'Client Name',
-                            field: 'name',
+                            headerName: 'Esewa Merchant Code',
+                            field: 'esewaMerchantCode',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
@@ -60,7 +59,6 @@ const HospitalDetailsDataTable = props => (
                             sortable: true,
                             sizeColumnsToFit: true
                         },
-
                         {
                             headerName: 'Status',
                             field: 'status',
@@ -94,7 +92,8 @@ const HospitalDetailsDataTable = props => (
                     frameworkComponents={{
                         childActionRenderer: TableAction,
                         childLabelRenderer: PreviewHandlerHoc(StatusLabel, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler),
-                        imageRenderer: PreviewHandlerHoc(HospitalPicture, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler)
+                        imageRenderer: PreviewHandlerHoc(HospitalPicture, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler),
+                        hospitalNameWithLogo: PreviewHandlerHoc(ClientNameWithLogo, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler)
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={

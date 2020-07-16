@@ -4,17 +4,20 @@ import {
   DoctorMiddleware,
   SpecializationSetupMiddleware,
   PatientDetailsMiddleware,
-  AppointmentTransferMiddleware
+  AppointmentTransferMiddleware,
+  AppointmentDetailsMiddleware
 } from '@frontend-appointment/thunk-middleware'
+import * as Material from 'react-icons/md'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import './transfer-log.scss'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
-
+import {CAlert} from '@frontend-appointment/ui-elements'
 const {
-   fetchAppointmentPreviewInfo,
-   fetchAppointmentTransferSearch
+  fetchAppointmentPreviewInfo,
+  fetchAppointmentTransferSearch
 } = AppointmentTransferMiddleware
 
+const {appointmentExcelDownload} = AppointmentDetailsMiddleware
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
 const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware
@@ -41,7 +44,33 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         size: 10
       },
       totalRecords: 0,
-      showModal: false
+      showModal: false,
+      alertMessageInfo: {
+        variant: '',
+        message: ''
+      },
+      showAlert: false
+    }
+
+    alertTimer = ''
+
+    clearAlertTimeout = () => {
+      this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
+    }
+
+    closeAlert = () => {
+      this.showOrCloseAlertMessage(false, '', '')
+    }
+
+    showOrCloseAlertMessage = (showAlert, type, message) => {
+      this.setState({
+        showAlert,
+        alertMessageInfo: {
+          variant: type,
+          message: message
+        }
+      })
+      this.clearAlertTimeout()
     }
 
     previewApiCall = async data => {
@@ -78,22 +107,22 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
     searchTransfer = async page => {
       const {
         appointmentNumber,
-        fromDate,
-        toDate,
         patientMetaInfoId,
         // patientType,
         specializationId,
         doctorId,
-       // patientCategory
+        appointmentFromDate,
+        appointmentToDate
+        // patientCategory
       } = this.state.searchParameters
       let searchData = {
         appointmentNumber,
-        appointmetnFromDate: appointmentNumber ? '' : fromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
-        appointmentToDate: appointmentNumber ? '' : toDate,
+        appointmentFromDate: appointmentNumber ? '' : appointmentFromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
+        appointmentToDate: appointmentNumber ? '' : appointmentToDate,
         patientMetaInfoId: patientMetaInfoId.value || '',
         //patientType: patientType.value || '',
         specializationId: specializationId.value || '',
-        doctorId: doctorId.value || '',
+        doctorId: doctorId.value || ''
         //patientCategory: patientCategory.value || ''
       }
 
@@ -103,7 +132,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
           : page
           ? page
           : this.state.queryParams.page
-        await this.props.fetchAppointmentTransferSearch(
+      await this.props.fetchAppointmentTransferSearch(
         appointmentTransferApiConstants.APPOINTMENT_TRANSFER_SEARCH,
         {
           page: updatedPage,
@@ -112,8 +141,8 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         searchData
       )
       await this.setState({
-        totalRecords: this.props.appointmentTransferSearchReducer.appointmentTransferList
-          .length
+        totalRecords: this.props.appointmentTransferSearchReducer
+          .appointmentTransferList.length
           ? this.props.appointmentTransferSearchReducer.totalItems
           : 0,
         queryParams: {
@@ -131,10 +160,10 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         refundList.map((spec, index) => ({
           ...spec,
           patientMobileNumber: spec.mobileNumber,
-          sN: index + 1,
+          // sN: index + 1,
           registrationNumber: spec.registrationNumber || 'N/A',
-          gender:spec.gender.split("")[0],
-          age:spec.age.slice(0, 4)
+          gender: spec.gender.split('')[0],
+          age: spec.age.slice(0, 4)
         }))
       return newRefundList
     }
@@ -153,12 +182,15 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
       await this.setState({
         searchParameters: {
           appointmentNumber: '',
-          appointmentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
+          appointmentFromDate: DateTimeFormatterUtils.subtractDate(
+            new Date(),
+            7
+          ),
           appointmentToDate: new Date(),
           patientMetaInfoId: '',
           //patientType: '',
           specializationId: '',
-          doctorId: '',
+          doctorId: ''
           //patientCategory: '',
           //appointmentDetails: ''
         }
@@ -212,6 +244,55 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
       }
     }
 
+    downloadExcel = async () => {
+      const {
+        appointmentNumber,
+        patientMetaInfoId,
+        specializationId,
+        doctorId,
+        appointmentFromDate,
+        appointmentToDate
+      } = this.state.searchParameters
+      let searchData = {
+        appointmentNumber,
+        appointmentFromDate: appointmentNumber ? '' : appointmentFromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
+        appointmentToDate: appointmentNumber ? '' : appointmentToDate,
+        patientMetaInfoId: patientMetaInfoId.value || '',
+        specializationId: specializationId.value || '',
+        doctorId: doctorId.value || ''
+      }
+      try {
+        await appointmentExcelDownload(
+          AdminModuleAPIConstants.excelApiConstants.TRANSFER_LOG_EXCEL,
+          this.state.queryParams,
+          searchData,
+          `transferLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            appointmentFromDate
+          )}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            appointmentToDate
+          )}`
+        )
+        this.showOrCloseAlertMessage(
+          true,
+          'success',
+          `transferLog ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            appointmentFromDate
+          )} - ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            appointmentToDate
+          )} downloaded successfully!!`
+        )
+
+        return false
+      } catch (e) {
+        this.showOrCloseAlertMessage(
+          true,
+          'danger',
+          e.errorMessage || 'Sorry Internal Server Error'
+        )
+        return false
+      }
+    }
+
     async componentDidMount () {
       await this.searchTransfer()
       await this.callApiForHospitalChange()
@@ -222,7 +303,9 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         searchParameters,
         queryParams,
         totalRecords,
-        showModal
+        showModal,
+        alertMessageInfo,
+        showAlert
       } = this.state
 
       const {
@@ -233,9 +316,9 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
       const {
         appointmentTransferList,
         isAppointmentTransferSearchLoading,
-       appointmentTransferSearchErrorMessage
+        appointmentTransferSearchErrorMessage
       } = this.props.appointmentTransferSearchReducer
-      
+
       const {
         appointmentTransferInfo
       } = this.props.appointmentTransferPreviewReducer
@@ -274,14 +357,38 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
             }}
             tableHandler={{
               isSearchLoading: isAppointmentTransferSearchLoading,
-              appointmentTransferList: this.appendSNToTable(appointmentTransferList),
+              appointmentTransferList: this.appendSNToTable(
+                appointmentTransferList
+              ),
               searchErrorMessage: appointmentTransferSearchErrorMessage,
               setShowModal: this.setShowModal,
               showModal: showModal,
               previewCall: this.previewCall,
-              previewData: appointmentTransferInfo
+              previewData: appointmentTransferInfo,
+              downloadExcel: this.downloadExcel
             }}
           />
+              <CAlert
+                        id="profile-manage"
+                        variant={alertMessageInfo.variant}
+                        show={showAlert}
+                        onClose={this.closeAlert}
+                        alertType={
+                            alertMessageInfo.variant === 'success' ? (
+                                <>
+                                    <Material.MdDone/>
+                                </>
+                            ) : (
+                                <>
+                                    <i
+                                        className="fa fa-exclamation-triangle"
+                                        aria-hidden="true"
+                                    />
+                                </>
+                            )
+                        }
+                        message={alertMessageInfo.message}
+                    />
         </div>
       )
     }

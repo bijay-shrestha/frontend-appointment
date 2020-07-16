@@ -17,21 +17,44 @@ const CheckInModalContent = ({appointmentDetails}) => {
                             {/*        disabled={true}*/}
                             {/*    />*/}
                             {/*</Col>*/}
+                            {appointmentDetails.departmentName ?
+                                <Col sm={12} md={6} lg={6}>
+                                    <CHybridInput
+                                        id="departmentDetails"
+                                        placeholder="Department Details"
+                                        value={(appointmentDetails.departmentName || 'N/A') + "("
+                                        + (appointmentDetails.roomNumber || 'N/A') + ")"}
+                                        disabled={true}
+                                    />
+                                </Col> : null}
 
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="doctor-specializationName"
-                                    placeholder="Doctor(Specialization)"
-                                    value={
-                                        'Dr.' +
-                                        appointmentDetails.doctorName +
-                                        '(' +
-                                        appointmentDetails.specializationName +
-                                        ')'
-                                    }
-                                    disabled={true}
-                                />
-                            </Col>
+                            {/*{appointmentDetails.roomNumber ? (*/}
+                            {/*  <Col sm={12} md={6} lg={6}>*/}
+                            {/*    <CHybridInput*/}
+                            {/*      id="roomNumber"*/}
+                            {/*      placeholder="Room Number"*/}
+                            {/*      value={appointmentDetails.roomNumber || 'N/A'}*/}
+                            {/*      disabled={true}*/}
+                            {/*    />*/}
+                            {/*  </Col>*/}
+                            {/*) : null}*/}
+
+                            {appointmentDetails.doctorName ? (
+                                <Col sm={12} md={6} lg={6}>
+                                    <CHybridInput
+                                        id="doctor-specializationName"
+                                        placeholder="Doctor(Specialization)"
+                                        value={
+                                            'Dr.' +
+                                            appointmentDetails.doctorName +
+                                            '(' +
+                                            appointmentDetails.specializationName +
+                                            ')'
+                                        }
+                                        disabled={true}
+                                    />
+                                </Col>
+                            ) : null}
 
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
@@ -86,7 +109,11 @@ const CheckInModalContent = ({appointmentDetails}) => {
                                 <CHybridInput
                                     id="patientType"
                                     placeholder="Patient Type"
-                                    value={appointmentDetails.patientType === 'N' ? 'New' : 'Registered'}
+                                    value={
+                                        appointmentDetails.patientType === 'N'
+                                            ? 'New'
+                                            : 'Registered'
+                                    }
                                     disabled={true}
                                 />
                             </Col>
@@ -120,6 +147,6 @@ const CheckInModalContent = ({appointmentDetails}) => {
             </Container-fluid>
         </>
     )
-};
+}
 
-export default CheckInModalContent;
+export default CheckInModalContent

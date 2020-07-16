@@ -12,13 +12,24 @@ const CheckInModalContent = ({appointmentDetails}) => {
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="clientName"
-                                    placeholder="Client Name"
-                                    value={appointmentDetails.hospitalName || 'N/A'}
+                                    placeholder={"Client Name"}
+                                    value={appointmentDetails.hospitalName }
                                     disabled={true}
                                 />
                             </Col>
 
-                            <Col sm={12} md={6} lg={6}>
+                            {appointmentDetails.departmentName ?
+                                <Col sm={12} md={6} lg={6}>
+                                    <CHybridInput
+                                        id="departmentDetails"
+                                        placeholder="Department Details"
+                                        value={(appointmentDetails.departmentName || 'N/A') + "("
+                                        + (appointmentDetails.roomNumber || 'N/A') + ")"}
+                                        disabled={true}
+                                    />
+                                </Col> : null}
+
+                            {appointmentDetails.doctorName ? <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="doctor-specializationName"
                                     placeholder="Doctor(Specialization)"
@@ -29,6 +40,15 @@ const CheckInModalContent = ({appointmentDetails}) => {
                                         appointmentDetails.specializationName +
                                         ')'
                                     }
+                                    disabled={true}
+                                />
+                            </Col> : null}
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="appointmentNumber"
+                                    placeholder="Appointment Number"
+                                    value={appointmentDetails.appointmentNumber || 'N/A'}
                                     disabled={true}
                                 />
                             </Col>

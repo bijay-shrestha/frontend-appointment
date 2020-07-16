@@ -16,6 +16,8 @@ import {
     TryCatchHandler,
     UserMenusFilter,
     UserMenuUtils,
+    FavouritesUtils,
+    FileUploadLocationUtils
 } from "./src/utils";
 import * as adminUserMenusJson from './src/cogent-appointment-admin-menu';
 import * as clientUserMenusJson from './src/cogent-appointment-client-menu';
@@ -24,7 +26,7 @@ import * as dateHelpers from './src/utils/datehelpers';
 import {appointmentStatusList} from './src/appointment-status';
 import * as StringUtils from './src/utils/StringUtils';
 import {appointmentStatusListForAppontmentAndTransaction} from './src/appointment-transaction-status'
-import * as APIUtils from './src/utils/ApiUtilHeader';
+import * as APIUtils from './src/utils/APIUtils';
 import * as MultiSelectOptionUpdateUtils from './src/utils/MultiSelectOptionUpdateUtils';
 
 export {
@@ -53,5 +55,7 @@ export {
     StringUtils,
     appointmentStatusListForAppontmentAndTransaction,
     APIUtils,
-    MultiSelectOptionUpdateUtils
+    MultiSelectOptionUpdateUtils,
+    FavouritesUtils,
+    FileUploadLocationUtils
 }

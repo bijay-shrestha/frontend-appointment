@@ -20,7 +20,7 @@ export default {
                  } 
                 // if(error.response)
                 //  throw Error({...error.response,errorMessage:error.response.error})
-              //break;
+               
             default:
                 console.log("Developer Api Error:", error);
                 let errorObj = {

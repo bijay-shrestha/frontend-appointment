@@ -34,7 +34,9 @@ const CompanyEditModal = ({
                               handleCropImage,
                               handleImageUpload,
                               setImageShow,
-                              contactLength
+                              contactLength,
+                              isImageUploading,
+                              isCompanyEditLoading
                               //    hospitalBannerImage,
                               //    onBannerImageSelect,
                               //    hospitalBannerImageCroppedUrl,
@@ -95,10 +97,10 @@ const CompanyEditModal = ({
                                     placeholder="Company Name"
                                     value={companyData.name}
                                     required={true}
-                                    hasValidation={true}
-                                    max={100}
-                                    fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-                                    errorMessagePassed={errorMessageForCompanyName}
+                                    hasValidation={false}
+                                    // max={100}
+                                    // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
+                                    // errorMessagePassed={errorMessageForCompanyName}
                                 />
                             </Col>
 
@@ -304,7 +306,8 @@ const CompanyEditModal = ({
                     <div className="col-md-6">
                         <CButton
                             id="submit-update-button"
-                            disabled={!formValid}
+                            disabled={!formValid || isImageUploading || isCompanyEditLoading}
+                            isLoading={isImageUploading || isCompanyEditLoading}
                             name="Update"
                             variant="primary"
                             size="lg"
@@ -314,6 +317,7 @@ const CompanyEditModal = ({
                         <CButton
                             id="cancel-update-profile"
                             variant="light"
+                            disabled={isImageUploading || isCompanyEditLoading}
                             size="lg"
                             className="btn-action  float-right mr-2"
                             name="Cancel"
@@ -330,6 +334,7 @@ const CompanyEditModal = ({
                 show={showModal}
                 modalHeading="Company Details"
                 size="xl"
+                backdrop={'static'}
                 bodyChildren={bodyContent}
                 onHide={setShowModal}
                 centered={false}

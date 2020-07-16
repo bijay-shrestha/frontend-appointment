@@ -27,9 +27,9 @@ const SpecializationForm = ({
                                     placeholder="Specialization Name"
                                     value={specializationInfoObj.name}
                                     required={true}
-                                    hasValidation={true}
-                                    fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-                                    errorMessagePassed={errorMessageForSpecializationName}
+                                    // hasValidation={true}
+                                    // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
+                                    // errorMessagePassed={errorMessageForSpecializationName}
                                 />
                             </Col>
 

@@ -44,3 +44,21 @@
 	-moz-border-radius-bottomright: $bottomright;
 	-moz-border-radius-bottomleft: $bottomleft;
 }
+
+
+@mixin transition($what: all, $time: 0.2s, $how: ease-in-out) {
+    -webkit-transition: $what $time $how;
+    -moz-transition:    $what $time $how;
+    -ms-transition:     $what $time $how;
+    -o-transition:      $what $time $how;
+    transition:         $what $time $how;
+}
+
+@mixin centerer {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width:auto;
+  }
+  

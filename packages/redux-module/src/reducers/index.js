@@ -65,7 +65,8 @@ import {
     DashboardRevenueGeneratedMonthReducer,
     DashboardRevenueGeneratedWeekReducer,
     DashboardRevenueGeneratedYearReducer,
-    DashboardRevenueStatisticsReducer
+    DashboardRevenueStatisticsReducer,
+    DepartmentRevenuGeneratedReducer
 } from './admin-module/dashboardDetailsReducer'
 import * as CompanyAdminReducer from './admin-module/companyAdminSetupReducer'
 import {
@@ -91,11 +92,14 @@ import {
     AppointmentRejectReducer,
     AppointmentStatusListReducer,
     RescheduleLogReducer,
-    TransactionLogReducer
+    TransactionLogReducer,
+    AppointmenStatusByDepartmentListReducer,
+    AppointmenStatusByRoomListReducer
 } from './admin-module/appointmentDetailsReducer'
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer'
 import {logoutReducer} from './common/logoutReducer'
 import {WeekdaysReducer} from './common/weekdaysReducer'
+import {SalutationDropdownReducer} from './common/salutationReducer'
 import {
     PatientDetailReducer,
     PatientDropdownListReducer,
@@ -225,8 +229,12 @@ import {
 
 import {AppointmentServiceTypeDropdownReducer} from './admin-module/appointmentServiceTypeReducer';
 
+import {FavouritesReducers} from './admin-module/favouritesReducer'
+
 export {
     AdminApiIntegrationReducers,
+    AppointmenStatusByDepartmentListReducer,
+    AppointmenStatusByRoomListReducer,
     AdminDeleteReducer,
     AdminEditReducer,
     AdminListReducer,
@@ -302,6 +310,7 @@ export {
     DoctorSaveReducer,
     DoctorSearchReducer,
     ForgotPasswordVerification,
+    FavouritesReducers,
     HospitalDeleteReducer,
     HospitalDropdownReducer,
     HospitalEditReducer,
@@ -334,6 +343,7 @@ export {
     QualificationSaveReducer,
     QualificationSearchReducer,
     RescheduleLogReducer,
+    SalutationDropdownReducer,
     ShiftDeleteReducer,
     ShiftDropdownReducer,
     ShiftEditReducer,
@@ -384,8 +394,9 @@ export {
     BillingModePreviewReducer,
     BillingModeSaveReducer,
     BillingModeSearchReducer,
+    DepartmentRevenuGeneratedReducer,
     DDRBreakReducer,
     DDRExistingAvailabilityReducer,
     DDRSaveReducer,
-    DDRWeekdaysReducer
+    DDRWeekdaysReducer,
 }

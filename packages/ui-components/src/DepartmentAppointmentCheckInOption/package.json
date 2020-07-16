@@ -1,0 +1,9 @@
+{
+    "name": "@frontend-appointement/c-appointment-department-checkin-options",
+    "version": "1.0.0",
+    "main": "DepartmentAppointmentApproveAction.js",
+    "author": "Kaushal Regmi",
+    "license": "MIT",
+    "private": true
+  }
+  

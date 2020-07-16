@@ -1,0 +1,17 @@
+.excel-download{
+    // background-color:#f1f1f1;
+    // color:#585b5e;
+    border-radius:4px;
+    padding:4px;
+   
+    img{
+        width:14px;
+        height: auto;
+    }
+
+    &:hover{
+        // background-color:#e6efff;
+        text-decoration: none;
+        cursor: pointer;
+    }
+}

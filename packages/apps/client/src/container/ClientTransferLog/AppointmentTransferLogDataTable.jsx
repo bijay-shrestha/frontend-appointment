@@ -11,13 +11,14 @@ import {
   TransferredFromDateWithTime,
   TransferredToDateWithTime,
   AppointmentNumberWithFollowUpFlag,
-  TransferredToDoctorWithSpecImage
-  
+  TransferredToDoctorWithSpecImage,
+  CExcelDownload
 } from '@frontend-appointment/ui-components'
 //import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 //import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithAgeAndGender'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import AppointmentLogStatus from '../CommonComponents/table-components/AppointmentLogStatus'
+
 const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -26,13 +27,15 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
     previewCall,
     previewData,
     showModal,
-    setShowModal
+    setShowModal,
+    downloadExcel
   } = tableHandler
   const {queryParams, totalRecords, handlePageChange} = paginationProps
   return (
     <>
       <div className="manage-details">
         <h5 className="title">Appointment Transfer Details</h5>
+        <CExcelDownload onClickHandler={downloadExcel} />
         {!isSearchLoading &&
         !searchErrorMessage &&
         appointmentTransferList.length ? (
@@ -65,16 +68,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true,
                   width: 80,
-                  cellRenderer:'TransferLogStatus'
-                },
-                {
-                  headerName: 'Patient Detail ',
-                  field: 'patientDetails',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  width: 250,
-                  cellRenderer: 'PatientNameWithAgeGenderPhone'
+                  cellRenderer: 'TransferLogStatus'
                 },
                 {
                   headerName: 'Appt. No',
@@ -87,7 +81,15 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
 
                   cellRenderer: 'AppointmentNumberWithFollowUpFlag'
                 },
-
+                {
+                  headerName: 'Patient Detail ',
+                  field: 'patientDetails',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true,
+                  width: 250,
+                  cellRenderer: 'PatientNameWithAgeGenderPhone'
+                },
                 {
                   headerName: ' Transf. From Date/Time',
                   //field: 'transferredFromDate',
@@ -129,7 +131,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true,
                   width: 300,
                   cellRenderer: 'TransferredToDoctorWithSpecImage'
-                },
+                }
                 // {
                 //     headerName: 'Doctor Detail',
                 //     resizable: true,
@@ -167,7 +169,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   null,
                   previewCall
                 ),
-                TransferredToDoctorWithSpecImage:PreviewHandlerHoc(
+                TransferredToDoctorWithSpecImage: PreviewHandlerHoc(
                   TransferredToDoctorWithSpecImage,
                   null,
                   null,
@@ -202,7 +204,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   null,
                   previewCall
                 ),
-                TransferLogStatus:PreviewHandlerHoc(
+                TransferLogStatus: PreviewHandlerHoc(
                   AppointmentLogStatus,
                   null,
                   null,

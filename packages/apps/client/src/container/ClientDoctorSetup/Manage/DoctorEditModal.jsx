@@ -35,7 +35,9 @@ const DoctorEditModal = ({
                              setImageShow,
                              activeSpecializationList,
                              qualificationDropdown,
-                             isConsultantEditLoading
+                             isConsultantEditLoading,
+                             salutationList,
+                             isImageUploading
                          }) => {
 
     const checkIfSpecializationIdAndHospitalIdMatch = (
@@ -48,10 +50,10 @@ const DoctorEditModal = ({
             currSpec && currSpec.map(currSpec => {
                 if (currSpec.doctorSpecializationId === editSp.doctorSpecializationId)
                     flag = true
-            return currSpec
+                return currSpec
             });
             !flag && editSpec.length !== currSpec.length && CommonUtils.checkIfTwoArrayEquals(currSpec, editSpec, 'doctorSpecializationId') && newArray.push(editSp)
-           return editSp;
+            return editSp;
         });
         return newArray;
     };
@@ -111,6 +113,23 @@ const DoctorEditModal = ({
                                     hasValidation={true}
                                     fieldValuePattern={/^[A-Za-z0-9 ]+$/}
                                     errorMessagePassed={errorMessageForDoctorName}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridSelect
+                                    id="salutation"
+                                    name="salutations"
+                                    onKeyDown={event => onEnterKeyPress(event)}
+                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                    label="Salutation (optional)"
+                                    options={salutationList}
+                                    value={doctorData.salutations}
+                                    required={true}
+                                    placeholder={salutationList.length ? "Select Salutation." : "No Salutation(s) available."}
+                                    isDisabled={!salutationList.length}
+                                    isMulti={true}
+                                    className="multiple-select"
                                 />
                             </Col>
 
@@ -327,9 +346,9 @@ const DoctorEditModal = ({
                     <div className="col-md-6">
                         <CButton
                             id="submit-update-button"
-                            disabled={!formValid || isConsultantEditLoading}
-                            name={isConsultantEditLoading ? <span className="saving">Updating <img
-                               alt="three-dots" src={require("../../../images/three-dots.svg")}/></span> : "Update"}
+                            disabled={!formValid || isConsultantEditLoading || isImageUploading}
+                            name={"Update"}
+                            isLoading={isConsultantEditLoading || isImageUploading}
                             variant="primary"
                             size="lg"
                             className="btn-action  float-right"
@@ -341,6 +360,7 @@ const DoctorEditModal = ({
                             size="lg"
                             className="btn-action  float-right mr-2"
                             name="Cancel"
+                            disabled={isConsultantEditLoading || isImageUploading}
                             onClickHandler={setShowModal}
                         />
                     </div>
@@ -354,7 +374,7 @@ const DoctorEditModal = ({
                 show={showModal}
                 modalHeading="Doctor Details"
                 size="xl"
-                backdrop={true}
+                backdrop={'static'}
                 bodyChildren={bodyContent}
                 onHide={setShowModal}
                 centered={false}

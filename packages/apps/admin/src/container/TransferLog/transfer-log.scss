@@ -26,7 +26,7 @@
     }
 
     .badge {
-        width         : auto;
+        width         : 32px;
         height        : auto;
         // top        :50%;
         // left       :50%;
@@ -35,11 +35,12 @@
         vertical-align: middle;
         font-size     : 0.65rem;
         line-height   : 0.8rem;
-        padding       : 6px 8px;
+        padding       : 6px auto;
         
         text-transform: uppercase;
         @include border-radius(4px);
     }
+
     
     #status-link-button {
         color: $gray-600;
@@ -116,13 +117,13 @@
            margin-right:10px;
            flex-shrink: 0;
            line-height: 30px;
-        //    @include border-radius(4px !important) ;
+           @include border-radius(4px !important) ;
            
 
            img{
                  width:100%;
                height: auto;
-            //    @include border-radius(4px !important) ;
+               @include border-radius(4px !important) ;
            }
         }
 

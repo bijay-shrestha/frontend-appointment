@@ -25,7 +25,8 @@ const AdminEditModal = ({
                             editApiCall,
                             viewProfileDetails,
                             isAdminEditLoading,
-                            onChangeDashBoardRole
+                            onChangeDashBoardRole,
+                            isImageUploading
                         }) => {
 
     let footerChildren = <>
@@ -39,10 +40,10 @@ const AdminEditModal = ({
                 <div className="col-sm-12 col-md-6">
                     <CButton
                         id="submit-update-button"
-                        disabled={!adminUpdateData.formValid || isAdminEditLoading}
+                        disabled={!adminUpdateData.formValid || isAdminEditLoading || isImageUploading}
                         name="Update"
                         size="lg"
-                        isLoading={isAdminEditLoading}
+                        isLoading={isAdminEditLoading || isImageUploading}
                         className="btn-action  float-right"
                         onClickHandler={editApiCall}/>
                     <CButton id="cancel-update-profile"
@@ -50,7 +51,7 @@ const AdminEditModal = ({
                              size="lg"
                              className="btn-action  float-right mr-2"
                              name="Cancel"
-                             disabled={isAdminEditLoading}
+                             disabled={isAdminEditLoading || isImageUploading}
                              onClickHandler={setShowModal}
                     />
                 </div>

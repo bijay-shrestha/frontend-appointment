@@ -1,8 +1,13 @@
 import React from 'react'
-import {CForm, CHybridInput, CHybridTextArea} from '@frontend-appointment/ui-elements'
+import {
+    CForm,
+    CHybridInput, CHybridSelectWithImage,
+    CHybridTextArea
+} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
+import {CommonUtils} from '@frontend-appointment/helpers'
 
-const TransactionLogDetailContent = ({logData}) => {
+const TransactionLogDetailContent = ({logData, appointmentServiceTypeCode}) => {
     return (
         <>
             <Container-fluid>
@@ -10,12 +15,37 @@ const TransactionLogDetailContent = ({logData}) => {
                     <Container-fluid>
                         <Row>
                             <Col sm={12} md={6} lg={6}>
-                                <CHybridTextArea
-                                    id="doctorName"
-                                    placeholder="Doctor Name(Specialization)"
-                                    value={logData.doctorName.toUpperCase() + "(" + logData.specializationName.toUpperCase() + ")"}
-                                    disabled={true}
-                                />
+                                {CommonUtils.filterAppointmentServiceType(
+                                    appointmentServiceTypeCode,
+                                    'DOC'
+                                ) ? (
+                                    <CHybridSelectWithImage
+                                        id="doctorName"
+                                        label="Doctor Name(Specialization)"
+                                        value={{
+                                            label: logData.doctorName +
+                                                '(' +
+                                                logData.specializationName +
+                                                ')',
+                                            fileUri: logData.fileUri
+                                        }}
+                                        isDisabled={true}
+                                    />
+                                ) : (
+                                    <CHybridTextArea
+                                        id="departmentName"
+                                        placeholder="Department Name (Room Number And Billing Mode)"
+                                        value={
+                                            logData.hospitalDepartmentName +
+                                            '(' +
+                                            logData.roomNumber +
+                                            ',' +
+                                            logData.billingModeName +
+                                            ')'
+                                        }
+                                        disabled={true}
+                                    />
+                                )}
                             </Col>
 
                             <Col sm={12} md={6} lg={6}>
@@ -93,7 +123,14 @@ const TransactionLogDetailContent = ({logData}) => {
                                 <CHybridInput
                                     id="patientName"
                                     placeholder="Patient Name"
-                                    value={logData.patientName + "(" + logData.patientAge + "/" + logData.patientGender.split("")[0].toUpperCase() + ")"}
+                                    value={
+                                        logData.patientName +
+                                        '(' +
+                                        logData.patientAge +
+                                        '/' +
+                                        logData.patientGender.split('')[0].toUpperCase() +
+                                        ')'
+                                    }
                                     disabled={true}
                                 />
                             </Col>
@@ -102,7 +139,7 @@ const TransactionLogDetailContent = ({logData}) => {
                                 <CHybridInput
                                     id="patientType"
                                     placeholder="Patient Type"
-                                    value={logData.isRegistered === "Y" ? "Registered" : "New"}
+                                    value={logData.isRegistered === 'Y' ? 'Registered' : 'New'}
                                     disabled={true}
                                 />
                             </Col>

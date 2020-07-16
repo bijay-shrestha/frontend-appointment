@@ -1,21 +1,35 @@
 import React, {memo} from 'react'
-import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus';
-import PatientWithAgeAndGender from '../CommonComponents/table-components/PatientNameWithAgeAndGender';
+import {
+    CDataTable,
+    CLoading,
+    CPagination
+} from '@frontend-appointment/ui-elements'
+import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus'
+import PatientWithAgeAndGender from '../CommonComponents/table-components/PatientNameWithAgeAndGender'
 import {
     AppointmentNumberWithFollowUpFlag,
     AppointmentStatusBadges,
-    PatientNameWithAgeGenderPhone,
-    DoctorWithSpecImage
+    CExcelDownload,
+    DepartmentNameWithRoomNumberAndBillingMode,
+    DoctorWithSpecImage,
+    PatientNameWithAgeGenderPhone
 } from '@frontend-appointment/ui-components'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
-import PreviewDetails from './AppointmentLogPreview';
-import {Col, Row} from 'react-bootstrap';
-import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
+import PreviewDetails from './AppointmentLogPreview'
+import {Col, Row} from 'react-bootstrap'
+import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import AppointmentAmountWithTransactionNumber
-    from "../CommonComponents/table-components/AppointmentAmountWithTransactionNumber";
+    from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
+import {CommonUtils} from '@frontend-appointment/helpers'
 
-const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusChange, activeStatus}) => {
+const {filterAppointmentServiceType} = CommonUtils
+
+const AppointmentRefundDataTable = ({
+                                        tableHandler,
+                                        paginationProps,
+                                        handleStatusChange,
+                                        activeStatus
+                                    }) => {
     const {
         isSearchLoading,
         appointmentLogList,
@@ -24,33 +38,44 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusC
         previewData,
         showModal,
         setShowModal,
+        appointmentServiceTypeCode,
+        downloadExcel
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
+    const headerNameForDoctorOrDepartment = filterAppointmentServiceType(
+        appointmentServiceTypeCode,
+        'DEP'
+    )
+        ? 'Department Details'
+        : 'Doctor Details'
+    const componentRendererDoctorOrDepartment = filterAppointmentServiceType(
+        appointmentServiceTypeCode,
+        'DEP'
+    )
+        ? 'departmentWithRoomNumberAndBillingMode'
+        : 'doctorwithSpecializationRenderer'
     return (
         <>
             <div className="manage-details">
-
                 <Row>
                     <Col>
                         <h5 className="title">Appointment Log Details</h5>
                     </Col>
 
-
-                    {/* <Col>
-              <CButton
-                id="downloadExcel"
-                name="DownloadExcel"
-                // onClickHandler={props.exportExcel}
-                className="float-right"
-                variant="outline-secondary"
-              >
-                {' '}
-                <i className="fa fa-download" />
-              </CButton>
-            </Col>  */}
+                    {
+                        !isSearchLoading &&
+                        !searchErrorMessage &&
+                        appointmentLogList.length ?
+                            <Col>
+                                <CExcelDownload onClickHandler={downloadExcel}/>
+                            </Col>
+                            : ''}
                 </Row>
 
-                <AppointmentStatusBadges activeStatus={activeStatus} handleStatusChange={handleStatusChange}/>
+                <AppointmentStatusBadges
+                    activeStatus={activeStatus}
+                    handleStatusChange={handleStatusChange}
+                />
 
                 {!isSearchLoading &&
                 !searchErrorMessage &&
@@ -73,7 +98,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusC
                                     sortable: true,
                                     editable: true,
                                     sizeColumnsToFit: true,
-                                    width: "150",
+                                    width: '150',
                                     cellClass: 'first-class'
                                 },
                                 {
@@ -86,42 +111,23 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusC
                                     cellRenderer: 'statusRenderer'
                                 },
                                 {
-                                    headerName: 'App. DateTime',
-                                    field: 'appointmentDate',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: "200",
-                                    cellRenderer: "AppointmentDateWithTime"
-                                },
-                                {
                                     headerName: 'App. No',
                                     field: 'appointmentNumber',
                                     // headerClass: "fi",
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: "140",
-                                    cellRenderer: "appointmentNumberWithFollowUpFlag"
+                                    width: '140',
+                                    cellRenderer: 'appointmentNumberWithFollowUpFlag'
                                 },
                                 {
-                                    headerName: 'Doctor(Specialization)',
+                                    headerName: 'App. DateTime',
+                                    field: 'appointmentDate',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    cellRenderer: 'doctorwithSpecializationRenderer',
-                                    autoSize: true,
-                                    autoWidth: true,
-                                    width: "300"
-                                },
-
-                                {
-                                    headerName: 'Reg. No',
-                                    field: 'registrationNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: "180"
+                                    width: '200',
+                                    cellRenderer: 'AppointmentDateWithTime'
                                 },
                                 {
                                     headerName: 'Patient Details',
@@ -130,7 +136,15 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusC
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'PatientNameWitheAgeGenderPhone',
                                     autoSize: true,
-                                    width: "300"
+                                    width: '300'
+                                },
+                                {
+                                    headerName: 'Reg. No',
+                                    field: 'registrationNumber',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: '180'
                                 },
                                 {
                                     headerName: 'Address',
@@ -140,6 +154,16 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusC
                                     sizeColumnsToFit: true
                                 },
                                 {
+                                    headerName: headerNameForDoctorOrDepartment,
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: componentRendererDoctorOrDepartment,
+                                    autoSize: true,
+                                    autoWidth: true,
+                                    width: '300'
+                                },
+                                {
                                     headerName: 'Txn. Detail (No/Amount)',
                                     resizable: true,
                                     sortable: true,
@@ -147,17 +171,66 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusC
                                     cellRenderer: 'transactionDetail',
                                     autoSize: true,
                                     autoWidth: true,
-                                    width: "180"
-                                },
+                                    width: '180'
+                                }
                             ]}
                             frameworkComponents={{
-                                doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecImage, null, null, null, previewCall),
-                                statusRenderer: PreviewHandlerHoc(AppointmentLogAction, null, null, null, previewCall),
-                                patientRenderer: PreviewHandlerHoc(PatientWithAgeAndGender, null, null, null, previewCall),
-                                PatientNameWitheAgeGenderPhone: PreviewHandlerHoc(PatientNameWithAgeGenderPhone, null, null, null, previewCall),
-                                AppointmentDateWithTime: PreviewHandlerHoc(AppointmentDateWithTime, null, null, null, previewCall),
-                                transactionDetail: PreviewHandlerHoc(AppointmentAmountWithTransactionNumber, null, null, null, previewCall),
-                                appointmentNumberWithFollowUpFlag: PreviewHandlerHoc(AppointmentNumberWithFollowUpFlag, null, null, null, previewCall),
+                                doctorwithSpecializationRenderer: PreviewHandlerHoc(
+                                    DoctorWithSpecImage,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
+                                departmentWithRoomNumberAndBillingMode: PreviewHandlerHoc(
+                                    DepartmentNameWithRoomNumberAndBillingMode,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
+                                statusRenderer: PreviewHandlerHoc(
+                                    AppointmentLogAction,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
+                                patientRenderer: PreviewHandlerHoc(
+                                    PatientWithAgeAndGender,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
+                                PatientNameWitheAgeGenderPhone: PreviewHandlerHoc(
+                                    PatientNameWithAgeGenderPhone,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
+                                AppointmentDateWithTime: PreviewHandlerHoc(
+                                    AppointmentDateWithTime,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
+                                transactionDetail: PreviewHandlerHoc(
+                                    AppointmentAmountWithTransactionNumber,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
+                                appointmentNumberWithFollowUpFlag: PreviewHandlerHoc(
+                                    AppointmentNumberWithFollowUpFlag,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                )
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
@@ -166,9 +239,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusC
                             }
                             rowSelection={'single'}
                             rowData={appointmentLogList}
-
                         />
-
 
                         {/* <div className=" total-amount">
                         <span>
@@ -179,14 +250,12 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusC
 
                         </div> */}
 
-
                         <CPagination
                             totalItems={totalRecords}
                             maxSize={queryParams.size}
                             currentPage={queryParams.page}
                             onPageChanged={handlePageChange}
                         />
-
                     </>
                 ) : isSearchLoading && !searchErrorMessage ? (
                     <CLoading/>
@@ -195,9 +264,11 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusC
                         <div className="no-data">
                             <i className="fa fa-file-text-o"></i>
                         </div>
-                        <div className="message"> {searchErrorMessage||`No Appointment(s) Found`}</div>
+                        <div className="message">
+                            {' '}
+                            {searchErrorMessage || `No Appointment(s) Found`}
+                        </div>
                     </div>
-                    
                 )}
             </div>
 
@@ -206,6 +277,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusC
                     showModal={showModal}
                     setShowModal={setShowModal}
                     logData={previewData}
+                    appointmentServiceTypeCode={appointmentServiceTypeCode}
                 />
             ) : (
                 ''

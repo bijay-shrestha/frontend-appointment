@@ -170,5 +170,137 @@
     "tabOrder": null,
     "isChecked": false,
     "isSingleTab": true
+  },
+  {
+    "id": 18,
+    "name": "Doctor Consultation",
+    "status": "Y",
+    "path": "/doctor",
+    "parent_role_id": null,
+    "role_type": "tab",
+    "tabOrder": 1,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 19,
+    "name": "View [Doc. Consultation]",
+    "status": "Y",
+    "parent_role_id": 18,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 20,
+    "name": "Approve[Doc. Consultation]",
+    "status": "Y",
+    "parent_role_id": 18,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 21,
+    "name": "Transfer[Doc. Consultation]",
+    "status": "Y",
+    "parent_role_id": 18,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 22,
+    "name": "Refund [Doc. Consultation]",
+    "status": "Y",
+    "parent_role_id": 18,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 23,
+    "name": "Reject[Doc. Consultation]",
+    "status": "Y",
+    "parent_role_id": 18,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 24,
+    "name": "Check[Doc. Consultation]",
+    "status": "Y",
+    "parent_role_id": 18,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 25,
+    "name": "Department Consultation",
+    "status": "Y",
+    "path": "/department",
+    "parent_role_id": null,
+    "role_type": "tab",
+    "tabOrder": 2,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 26,
+    "name": "View [Dept. Consultation]",
+    "status": "Y",
+    "parent_role_id": 25,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 27,
+    "name": "Approve[Dept. Consultation]",
+    "status": "Y",
+    "parent_role_id": 25,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 28,
+    "name": "Refund [Dept. Consultation]",
+    "status": "Y",
+    "parent_role_id": 25,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 29,
+    "name": "Reject[Dept. Consultation]",
+    "status": "Y",
+    "parent_role_id": 25,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 30,
+    "name": "Check[Dept. Consultation]",
+    "status": "Y",
+    "parent_role_id": 25,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
   }
 ]

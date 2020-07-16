@@ -22,19 +22,19 @@ const DoctorWithSpecializationAndImage = props => {
           </Col>
           <Col xs="9" className="doctor-column">
             <ul>
-              <li>Dr. {props.node.data.doctorName || ''}</li>
+              <li>{props.node.data.doctorSalutation ? props.node.data.doctorSalutation.concat(" ") : ''} {props.node.data.doctorName || ''}</li>
               <li>
                 <span className="spec">
-                
+
                 {props.node.data.specializationName ||
                   props.node.data.specialization ||
                   'N/A'}
-                
+
                 </span>
               </li>
             </ul>
           </Col>
-          
+
         </Row>
       </Container>
     </>
