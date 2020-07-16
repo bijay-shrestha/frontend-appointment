@@ -338,7 +338,7 @@ const AppointmentStatusDetails = ({
 
                                                             <CButton
                                                                 name=""
-                                                                variant="default"
+                                                                variant="success"
                                                                 className="app-details-link"
                                                                 onClickHandler={() =>
                                                                     handleViewAppointmentDetails(appointmentStatusDetail)
@@ -349,7 +349,7 @@ const AppointmentStatusDetails = ({
                                                                             appointmentStatusDetail.patientDetails
                                                                                 .appointmentNumber
                                                                         }
-                                                                          &nbsp;  <i className="fa fa-chevron-down"></i></span>                                                           
+                                                                          &nbsp;  <i className="fa fa-caret-down"></i></span>                                                           
                                                             </CButton>
 
 
