@@ -20,8 +20,8 @@
     "@frontend-appointment/web-resource-key-constants":"1.0.0",
     "@frontend-appointment/helpers": "1.0.0",
     "@react-workspaces/react-scripts": "3.0.1-alpha-07",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "cross-env": "6.0.3"
