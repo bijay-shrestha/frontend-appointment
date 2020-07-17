@@ -1,7 +1,6 @@
 import React from 'react'
 import loadable from '@loadable/component'
 import {CLoading, CUnauthorized} from '@frontend-appointment/ui-elements'
-import Loadable from 'react-loadable'
 
 const getLoader = () => <CLoading/>
 /* ****** A ***** */
@@ -70,7 +69,7 @@ const AppointmentRefundListComponent = loadable(
     {fallback: () => getLoader()}
 )
 
-const AppointmentDepartmentRefundListComponent = Loadable({
+const AppointmentDepartmentRefundListComponent = loadable({
     loader: () =>
         import(
             './container/DepartmentAppointmentRefund/AppointmentDepartmentRefund'
@@ -255,7 +254,7 @@ const ManageCompanyAdminComponent = loadable(
     {fallback: () => getLoader()}
 )
 
-const ManageDepartmentComponent = Loadable({
+const ManageDepartmentComponent = loadable({
     loader: () =>
         import(
             './container/HospitalDepartmentSetup/Manage/HospitalDepartmentManage'
