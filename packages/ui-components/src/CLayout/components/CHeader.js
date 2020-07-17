@@ -342,7 +342,9 @@ class CHeader extends Component {
             });
             let adminData = LocalStorageSecurity.localStorageDecoder('adminInfo');
             adminData.fileLocation = imagePathLogo
-            adminData.fileUri = await this.fetchPresignedUrlForGetOperation(response.data.avatar)
+            if (response.data.avatar.split("/")[0] === "private")
+                adminData.fileUri = await this.fetchPresignedUrlForGetOperation(response.data.avatar)
+            else adminData.fileUri = response.data.avatar
             await AdminInfoUtils.saveLoggedInAdminInfo(adminData);
             this.setImageLoading(false)
             this.showAlertMessage('success', "Admin Image updated successfully.")
@@ -364,8 +366,8 @@ class CHeader extends Component {
     showImageUploadModal = () => {
         this.setState({
             showImageUploadModal: !this.state.showImageUploadModal,
-            adminImage:'',
-            adminImageCroppedUrl:''
+            adminImage: '',
+            adminImageCroppedUrl: ''
         })
     }
     uploadImageToServer = async (adminAvatar, adminInfo) => {
