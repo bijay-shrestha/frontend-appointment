@@ -1,8 +1,14 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
-import {PatientDetailsMiddleware} from '@frontend-appointment/thunk-middleware'
+import {
+  PatientDetailsMiddleware,
+  AppointmentDetailsMiddleware
+} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import {
+  EnterKeyPressUtils,
+  DateTimeFormatterUtils
+} from '@frontend-appointment/helpers'
 import './client-patient-detail.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
@@ -16,6 +22,8 @@ const {
   fetchPatientMetaDropdownWithoutHospitalId,
   fetchEsewaDetails
 } = PatientDetailsMiddleware
+
+const {appointmentExcelDownload} = AppointmentDetailsMiddleware
 
 const PatientDetailsHOC = (ComposedComponent, props, type) => {
   const {patientSetupApiConstant} = AdminModuleAPIConstants
@@ -62,6 +70,27 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
       hospitalNumber: false
     }
 
+    alertTimer = ''
+
+    clearAlertTimeout = () => {
+      this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
+    }
+
+    closeAlert = () => {
+      this.showOrCloseAlertMessage(false, '', '')
+    }
+
+    showOrCloseAlertMessage = (showAlert, type, message) => {
+      this.setState({
+        showAlert,
+        alertMessageInfo: {
+          variant: type,
+          message: message
+        }
+      })
+      this.clearAlertTimeout()
+    }
+
     setShowAlert = () => {
       this.setState(prevState => ({
         showAlert: !prevState.showAlert
@@ -74,7 +103,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     searchPatient = async page => {
       const {esewaId, patientMetaInfoId, status} = this.state.searchParameters
       let searchData = {
-        esewaId:esewaId.label||'',
+        esewaId: esewaId.label || '',
         patientMetaInfoId: patientMetaInfoId.value || '',
         status: status && status.value === 'A' ? '' : status.value
       }
@@ -357,12 +386,51 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
       } catch (e) {}
     }
 
+    downloadExcel = async () => {
+      const {esewaId, patientMetaInfoId, status} = this.state.searchParameters
+      let searchData = {
+        esewaId: esewaId.label || '',
+        patientMetaInfoId: patientMetaInfoId.value || '',
+        status: status && status.value === 'A' ? '' : status.value
+      }
+
+      try {
+        await appointmentExcelDownload(
+          AdminModuleAPIConstants.excelApiConstants.PATIENT_LOG_EXCEL,
+          this.state.queryParams,
+          searchData,
+          `patientDetails-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            new Date().toLocaleString()
+          )}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            new Date().toLocaleString()
+          )}`
+        )
+        this.showOrCloseAlertMessage(
+          true,
+          'success',
+          `patientDetails ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            new Date().toLocaleDateString()
+          )} - ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+           new Date().toLocaleDateString()
+          )} downloaded successfully!!`
+        )
+        return false
+      } catch (e) {
+        this.showOrCloseAlertMessage(
+          true,
+          'danger',
+           e.errorMessage||'Sorry Internal Server Error!!'
+        )
+        return false
+      }
+    }
+
     async componentDidMount () {
       await this.searchPatient()
       await this.props.fetchPatientMetaDropdownWithoutHospitalId(
         patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS
       )
-      await this.searchEsewaId();
+      await this.searchEsewaId()
     }
 
     render () {
@@ -403,7 +471,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         patientListWithoutHospitalDropdownErrorMessage
       } = this.props.PatientDropdownWithoutHospitalListReducer
 
-      const {esewaIdDropdown}=this.props.PatientEsewaIdReducer
+      const {esewaIdDropdown} = this.props.PatientEsewaIdReducer
       return (
         <>
           <ComposedComponent
@@ -417,7 +485,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
               searchParameters: searchParameters,
               patientListDropdown: patientListWithoutHospitalDropdown,
               patientDropdownErrorMessage: patientListWithoutHospitalDropdownErrorMessage,
-              esewaIdDropdown:esewaIdDropdown
+              esewaIdDropdown: esewaIdDropdown
             }}
             paginationProps={{
               queryParams: queryParams,
@@ -445,7 +513,8 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
               formValid: formValid,
               editChange: this.handleOnChange,
               handleEnter: this.handleEnterPress,
-              editHandleApi: this.editHandleApi
+              editHandleApi: this.editHandleApi,
+              downloadExcel: this.downloadExcel
             }}
           />
           <CAlert

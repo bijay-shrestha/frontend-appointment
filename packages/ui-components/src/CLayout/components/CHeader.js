@@ -28,7 +28,7 @@ const {
 } = AdminModuleAPIConstants.companyProfileSetupApiConstants
 const {ADMIN_FEATURE, LOGOUT_API} = CommonAPIConstants
 
-const {FILE_UPLOAD_PATH, FILE_URI_FOR_DISPLAY} = CommonAPIConstants.FileResourceConstants
+const {FILE_UPLOAD_PATH, FILE_URI_FOR_DISPLAY, FILE_PRE_SIGNED_URI_FOR_DISPLAY} = CommonAPIConstants.FileResourceConstants
 
 class CHeader extends Component {
     state = {
@@ -314,6 +314,16 @@ class CHeader extends Component {
         }
     }
 
+    fetchPresignedUrlForGetOperation = async (fileUri) => {
+        try {
+            const response = await Axios.put(FILE_PRE_SIGNED_URI_FOR_DISPLAY, {fileName: fileUri});
+            return response.data
+        } catch (e) {
+            console.log("IMAGE NOT FETCHED", e)
+            // throw e
+        }
+    }
+
     handleImageUpload = async croppedImageFile => {
         let adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
         let imagePathLogo = ''
@@ -325,7 +335,8 @@ class CHeader extends Component {
                 avatar: imagePathLogo
             });
             let adminData = LocalStorageSecurity.localStorageDecoder('adminInfo');
-            adminData.fileUri = await this.fetchUrlForGetOperation(imagePathLogo)
+            adminData.fileLocation = imagePathLogo
+            adminData.fileUri = await this.fetchPresignedUrlForGetOperation(imagePathLogo)
             await AdminInfoUtils.saveLoggedInAdminInfo(adminData);
             this.setImageLoading(false)
             this.showAlertMessage('success', "Admin Image updated successfully.")

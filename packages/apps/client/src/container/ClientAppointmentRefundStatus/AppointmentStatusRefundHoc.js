@@ -16,7 +16,7 @@ import {
   DateTimeFormatterUtils,
   EnterKeyPressUtils
 } from '@frontend-appointment/helpers'
-import './appointment-refund.scss'
+import './appointment-refund-status.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
 const {
@@ -656,6 +656,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
 
       return (
         <>
+        <div id="appointment-refund-status">
           <ComposedComponent
             {...this.props}
             {...props}
@@ -724,6 +725,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             }
             message={alertMessageInfo.message}
           />
+          </div>
         </>
       )
     }

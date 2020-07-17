@@ -16,11 +16,14 @@ import {
     LocalStorageSecurity
     //EnvironmentVariableGetter
 } from '@frontend-appointment/helpers'
+import * as Material from 'react-icons/md'
 import './appointment-log.scss'
+import {CAlert} from '@frontend-appointment/ui-elements'
 
 const {
     clearAppointmentRefundPending,
-    fetchAppointmentLogList
+    fetchAppointmentLogList,
+    appointmentExcelDownload
     //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
 const {fetchAllHospitalDepartmentForDropdown} = HospitalDepartmentSetupMiddleware
@@ -64,12 +67,41 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             showModal: false,
             previewData: {},
             filteredData: [],
-            activeStatus: 'All'
+            activeStatus: 'All',
+            alertMessageInfo: {
+                variant: '',
+                message: ''
+            },
+            showAlert: false
         }
+
+        alertTimer = '';
 
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
         }
+
+        clearAlertTimeout = () => {
+            this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
+        };
+
+        closeAlert = () => {
+            this.setState({
+                showAlert: false
+            })
+        };
+
+        showAlertMessage = (type, message) => {
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: type,
+                    message: message
+                }
+            });
+            this.clearAlertTimeout();
+        };
+
 
         searchAppointment = async page => {
             const {
@@ -98,7 +130,6 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
                 hospitalDepartmentId: hospitalDepartmentId.value || ''
             }
-
             let updatedPage =
                 this.state.queryParams.page === 0
                     ? 1
@@ -334,6 +365,49 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             await this.searchAppointment()
         }
 
+        downloadExcel = async () => {
+            const {
+                appointmentNumber,
+                fromDate,
+                toDate,
+                // hospitalId,
+                patientMetaInfoId,
+                patientType,
+                specializationId,
+                doctorId,
+                appointmentCategory,
+                status,
+                appointmentServiceTypeCode,
+                hospitalDepartmentId
+            } = this.state.searchParameters
+            let searchData = {
+                appointmentNumber,
+                fromDate,
+                toDate,
+                // hospitalId: hospitalId.value || '',
+                patientMetaInfoId: patientMetaInfoId.value || '',
+                patientType: patientType.value || '',
+                specializationId: specializationId.value || '',
+                doctorId: doctorId.value || '',
+                appointmentCategory: appointmentCategory.value || '',
+                status: status.value === 'All' ? '' : status.value || '',
+                appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
+                hospitalDepartmentId: hospitalDepartmentId.value || ''
+            }
+
+            try {
+                await appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.APPOINTMENT_LOG_EXCEL,
+                    this.state.queryParams, searchData,
+                    `appointmentLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)}`)
+                this.showAlertMessage('success',  `appointmentLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)} downloaded successfully!!`)
+               return false;
+            } catch (e) {
+                // console.log(e);
+                this.showAlertMessage('danger', e.errorMessage || 'Sorry,Internal Server Error occurred!')
+                return false;
+            }
+        }
+
         render() {
             const {
                 searchParameters,
@@ -343,7 +417,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 previewData,
                 filteredData,
                 activeStatus,
-                primaryAppointmentService
+                primaryAppointmentService,
+                showAlert,
+                alertMessageInfo
             } = this.state
 
             const {
@@ -415,11 +491,33 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                             showModal: showModal,
                             previewCall: this.previewCall,
                             previewData: previewData,
-                            appointmentServiceTypeCode: primaryAppointmentService
+                            appointmentServiceTypeCode: primaryAppointmentService,
+                            downloadExcel: this.downloadExcel
                         }}
                         activeStatus={activeStatus}
                         handleStatusChange={this.handleStatusChange}
                         appointmentStatistics={appointmentStatistics}
+                    />
+                    <CAlert
+                        id="profile-manage"
+                        variant={alertMessageInfo.variant}
+                        show={showAlert}
+                        onClose={this.closeAlert}
+                        alertType={
+                            alertMessageInfo.variant === 'success' ? (
+                                <>
+                                    <Material.MdDone/>
+                                </>
+                            ) : (
+                                <>
+                                    <i
+                                        className="fa fa-exclamation-triangle"
+                                        aria-hidden="true"
+                                    />
+                                </>
+                            )
+                        }
+                        message={alertMessageInfo.message}
                     />
                 </div>
             )

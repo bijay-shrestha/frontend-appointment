@@ -114,7 +114,7 @@ const AppointmentStatusDetails = ({
                     )}
             </div>
             <div className="manage-details">
-                <CScrollbar id="sidebar-scrollbar">
+                <CScrollbar id="appt-scrollbar">
                     <Container fluid>
 
                         {!isStatusListLoading &&
@@ -338,7 +338,7 @@ const AppointmentStatusDetails = ({
 
                                                             <CButton
                                                                 name=""
-                                                                variant="default"
+                                                                variant="success"
                                                                 className="app-details-link"
                                                                 onClickHandler={() =>
                                                                     handleViewAppointmentDetails(appointmentStatusDetail)
@@ -349,7 +349,7 @@ const AppointmentStatusDetails = ({
                                                                             appointmentStatusDetail.patientDetails
                                                                                 .appointmentNumber
                                                                         }
-                                                                          &nbsp;  <i className="fa fa-chevron-down"></i></span>                                                           
+                                                                          &nbsp;  <i className="fa fa-caret-down"></i></span>                                                           
                                                             </CButton>
 
 
@@ -440,7 +440,10 @@ const AppointmentStatusDetails = ({
                                                     ) : (
                                                         'Details'
                                                     )}
+                                                    
                                                 </CButton> */}
+
+                                               
 
                                                         <CButton
                                                             name=""

@@ -20,7 +20,8 @@ import * as Material from 'react-icons/md'
 
 const {
   searchRescheduleLog,
-  clearRescheduleLogMessage
+  clearRescheduleLogMessage,
+  appointmentExcelDownload
 } = AppointmentDetailsMiddleware
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
@@ -80,6 +81,26 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
       },
       totalRecords: 0
     }
+
+    clearAlertTimeout = () => {
+      this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
+    }
+
+    closeAlert = () => {
+      this.showOrCloseAlertMessage(false, '', '')
+    }
+
+    showOrCloseAlertMessage = (showAlert, type, message) => {
+      this.setState({
+        showAlert,
+        alertMessageInfo: {
+          variant: type,
+          message: message
+        }
+      })
+      this.clearAlertTimeout()
+    }
+
 
     fetchHospitalForDropDown = async () => {
       try {
@@ -390,6 +411,56 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
       clearTimeout(this.clearAlertTimeout)
     }
 
+    downloadExcel = async () => {
+      const {
+          fromDate,
+          toDate,
+          doctorId,
+          specializationId,
+          appointmentNumber,
+          esewaId,
+          patientMetaInfoId,
+          patientType,
+          appointmentServiceTypeCode,
+          hospitalDepartmentId
+        } = this.state.searchParameters;
+
+      let searchData = {
+         fromDate,
+        toDate,
+        specializationId: specializationId.value || '',
+        doctorId: doctorId.value || '',
+        appointmentNumber,
+        esewaId,
+        patientMetaInfoId:patientMetaInfoId.value || '',
+        patientType: patientType.value || '',
+        appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
+        hospitalDepartmentId:hospitalDepartmentId.value||''
+      };
+
+      try{
+        await  appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.RESCHEDULE_LOG_EXCEL,this.state.queryParams,searchData,`rescheduleLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)}`)
+        this.showOrCloseAlertMessage(
+          true,
+          'success',
+          `rescheduleLog ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            fromDate
+          )} - ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            toDate
+          )} downloaded successfully!!`
+        )
+
+      return false;
+     }catch(e){
+      this.showOrCloseAlertMessage(
+        true,
+        'success',
+        e.errorMessage || 'Sorry Internal Server Error'
+      )
+       return false;
+      }
+     }
+
     render () {
       const {
         searchParameters,
@@ -464,7 +535,8 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
                     : "Select Appointment Service type first.",
                 isRescheduleLogLoading,
                 searchAppointmentStatus: this.searchRescheduleLog,
-                appointmentServiceTypeCode: primaryAppointmentServiceType
+                appointmentServiceTypeCode: primaryAppointmentServiceType,
+                downloadExcel:this.downloadExcel
               }}
               paginationProps={{
                 queryParams: queryParams,

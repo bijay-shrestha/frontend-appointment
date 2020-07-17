@@ -1,4 +1,4 @@
 export const minioFileLocationConstants = {
-    CLIENT_FILE_LOCATION: 'private/client',
-    COMPANY_FILE_LOCATION: 'private/company'
+    CLIENT_FILE_LOCATION: 'public/client',
+    COMPANY_FILE_LOCATION: 'public/company'
 }

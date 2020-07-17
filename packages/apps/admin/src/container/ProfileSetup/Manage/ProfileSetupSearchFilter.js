@@ -94,7 +94,7 @@ class ProfileSetupSearchFilter extends PureComponent {
                                             onChange={(event) => onInputChange(event)}
                                             options={departmentList}
                                             value={searchParameters.department}
-                                            placeholder="Select department."
+                                            placeholder="Select Unit."
                                         />
                                     </Col>
 

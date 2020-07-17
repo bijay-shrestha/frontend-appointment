@@ -109,6 +109,17 @@ class TransactionLogSearchFilter extends PureComponent {
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridInput
+                                            id="appointmentNumber"
+                                            name="appointmentNumber"
+                                            placeholder="Appointment Number"
+                                            value={searchParameters.appointmentNumber}
+                                            onChange={handleSearchFormChange}
+                                            onKeyDown={handleEnter}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridInput
                                             id="transactionNumber"
                                             name="transactionNumber"
                                             placeholder="Transaction Number"
@@ -372,6 +383,22 @@ class TransactionLogSearchFilter extends PureComponent {
                                     >
                                         <Button id="light-search-filters" variant="secondary">
                                             {searchParameters.transactionNumber}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
+                            {searchParameters.appointmentNumber && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        delay={{show: 250, hide: 400}}
+                                        overlay={props => (
+                                            <Tooltip {...props}>Appointment Number</Tooltip>
+                                        )}
+                                    >
+                                        <Button id="light-search-filters" variant="secondary">
+                                            {searchParameters.appointmentNumber}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>

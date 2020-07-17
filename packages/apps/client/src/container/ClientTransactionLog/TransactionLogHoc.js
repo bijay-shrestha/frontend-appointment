@@ -2,24 +2,27 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
-    DoctorMiddleware,
-    PatientDetailsMiddleware,
-    SpecializationSetupMiddleware,
     AppointmentServiceTypeMiddleware,
-    HospitalDepartmentSetupMiddleware
+    DoctorMiddleware,
+    HospitalDepartmentSetupMiddleware,
+    PatientDetailsMiddleware,
+    SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
+    CommonUtils,
     DateTimeFormatterUtils,
     EnterKeyPressUtils,
-    CommonUtils,
     LocalStorageSecurity
 } from '@frontend-appointment/helpers'
 import './transaction-log.scss'
+import * as Material from 'react-icons/md'
+import {CAlert} from '@frontend-appointment/ui-elements'
 
 const {
     clearTransactionLogMessage,
-    fetchTransactionLogList
+    fetchTransactionLogList,
+    appointmentExcelDownload
 } = AppointmentDetailsMiddleware
 
 const {
@@ -45,6 +48,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
         state = {
             searchParameters: {
                 transactionNumber: '',
+                appointmentNumber: '',
                 appointmentServiceTypeCode: '',
                 fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
                 toDate: new Date(),
@@ -65,8 +69,36 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
             showModal: false,
             previewData: {},
             filteredData: [],
-            activeStatus: 'All'
+            activeStatus: 'All',
+            alertMessageInfo: {
+                variant: '',
+                message: ''
+            },
+            showAlert: false
         }
+
+        alertTimer = '';
+
+        clearAlertTimeout = () => {
+            this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
+        };
+
+        closeAlert = () => {
+            this.setState({
+                showAlert: false
+            })
+        };
+
+        showAlertMessage = (type, message) => {
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: type,
+                    message: message
+                }
+            });
+            this.clearAlertTimeout();
+        };
 
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
@@ -106,6 +138,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
         searchAppointment = async page => {
             const {
                 transactionNumber,
+                appointmentNumber,
                 fromDate,
                 toDate,
                 patientMetaInfoId,
@@ -119,8 +152,9 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
             } = this.state.searchParameters
             let searchData = {
                 transactionNumber,
-                fromDate,
-                toDate,
+                appointmentNumber,
+                fromDate: appointmentNumber ? '' : fromDate,
+                toDate: appointmentNumber ? '' : toDate,
                 patientMetaInfoId: patientMetaInfoId.value || '',
                 patientType: patientType.value || '',
                 specializationId: specializationId.value || '',
@@ -224,6 +258,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
             await this.setState({
                 searchParameters: {
                     appointmentNumber: '',
+                    transactionNumber: '',
                     fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
                     toDate: new Date(),
                     patientMetaInfoId: '',
@@ -336,6 +371,47 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                 })
         }
 
+        downloadExcel = async () => {
+            const {
+                transactionNumber,
+                fromDate,
+                toDate,
+                patientMetaInfoId,
+                patientType,
+                specializationId,
+                doctorId,
+                appointmentCategory,
+                status,
+                appointmentServiceTypeCode,
+                hospitalDepartmentId
+            } = this.state.searchParameters
+            let searchData = {
+                transactionNumber,
+                fromDate,
+                toDate,
+                patientMetaInfoId: patientMetaInfoId.value || '',
+                patientType: patientType.value || '',
+                specializationId: specializationId.value || '',
+                doctorId: doctorId.value || '',
+                appointmentCategory: appointmentCategory.value || '',
+                status: status.value === "All" ? "" : status.value,
+                appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
+                hospitalDepartmentId: hospitalDepartmentId.value || ''
+            }
+            try {
+                await appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.TRANSACTION_LOG_EXCEL,
+                    this.state.queryParams,
+                    searchData,
+                    `transactionLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)}`)
+                    this.showAlertMessage('success',  `transactionLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)}`)
+                return false;
+            } catch (e) {
+                // console.log(e);
+                this.showAlertMessage('danger', e.errorMessage || 'Sorry,Internal Server Error occurred!')
+                return false;
+            }
+        }
+
         async componentDidMount() {
             await this.getFromAndToDateFromUrl();
             this.searchAppointmentServiceType()
@@ -353,7 +429,9 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                 previewData,
                 filteredData,
                 activeStatus,
-                primaryAppointmentServiceType
+                primaryAppointmentServiceType,
+                alertMessageInfo,
+                showAlert
             } = this.state
 
             const {
@@ -428,11 +506,33 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                             showModal: showModal,
                             previewCall: this.previewCall,
                             previewData: previewData,
-                            appointmentServiceTypeCode: primaryAppointmentServiceType
+                            appointmentServiceTypeCode: primaryAppointmentServiceType,
+                            downloadExcel: this.downloadExcel
                         }}
                         handleStatusChange={this.handleStatusChange}
                         activeStatus={activeStatus}
                         appointmentStatistics={appointmentStatistics}
+                    />
+                    <CAlert
+                        id="profile-manage"
+                        variant={alertMessageInfo.variant}
+                        show={showAlert}
+                        onClose={this.closeAlert}
+                        alertType={
+                            alertMessageInfo.variant === 'success' ? (
+                                <>
+                                    <Material.MdDone/>
+                                </>
+                            ) : (
+                                <>
+                                    <i
+                                        className="fa fa-exclamation-triangle"
+                                        aria-hidden="true"
+                                    />
+                                </>
+                            )
+                        }
+                        message={alertMessageInfo.message}
                     />
                 </div>
             )
@@ -456,7 +556,8 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
             fetchSpecializationForDropdown,
             fetchPatientMetaDropdownForClient,
             fetchActiveAppointmentServiceTypeWithCode,
-            fetchAllHospitalDepartmentForDropdown
+            fetchAllHospitalDepartmentForDropdown,
+            appointmentExcelDownload
         }
     )
 }

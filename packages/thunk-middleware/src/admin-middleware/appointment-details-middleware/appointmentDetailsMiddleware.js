@@ -1,6 +1,6 @@
 import {AppointmentDetailActions} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
-import {APIUtils, CommonUtils,FileExportUtils} from '@frontend-appointment/helpers'
+import {APIUtils, CommonUtils, FileExportUtils} from '@frontend-appointment/helpers'
 import {constructAppointmentCheckInData} from './prepareAppointmentCheckInData';
 import {GenericThirdPartyApiMiddleware, MinioMiddleware} from '../../../index'
 import {constructAppointmentRefundData} from './prepareAppointmentRefundData'
@@ -72,7 +72,7 @@ export const thirdPartyApiCallCheckIn = async (data, featureTypeCode, integratio
             clientId,
             constructedData);
     } catch (e) {
-        console.log("==========",e)
+        console.log("==========", e)
         throw e
     }
 }
@@ -364,7 +364,7 @@ export const fetchAppointmentRefundDetailByAppointmentId = (
     } catch (e) {
         dispatch(AppointmentDetailActions.appointmentRefundDetailFetchingError(
             e.errorMessage ? e.errorMessage : 'Sorry,Internal Server problem!'))
-            throw e;
+        throw e;
     }
 }
 
@@ -417,11 +417,10 @@ export const fetchDepartmentAppointmentStatusCount = (path, data) => async dispa
     }
 }
 
-export const appointmentExcelDownload = async (path,pagination,data,fileName) =>{
-
+export const appointmentExcelDownload = async (path, pagination, data, fileName) => {
     try {
-        const response = await Axios.putWithPaginationForFile(path, pagination, data)
-        await FileExportUtils.exportEXCEL(response.data,fileName)
+        const response = await Axios.putForFile(path, data)
+        await FileExportUtils.exportEXCEL(response.data, fileName)
         return true
     } catch (e) {
         console.log(e)

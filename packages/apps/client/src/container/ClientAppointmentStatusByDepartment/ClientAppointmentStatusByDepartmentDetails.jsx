@@ -110,7 +110,7 @@ const AppointmentStatusDetails = ({
                     )}
             </div>
             <div className="manage-details">
-                <CScrollbar id="sidebar-scrollbar">
+                <CScrollbar id="appt-scrollbar">
                     <Container fluid>
                         {!isStatusListLoading &&
                             !searchErrorMessage &&
@@ -161,7 +161,7 @@ const AppointmentStatusDetails = ({
                                             <Col sm={12} md={7} className="time-container">
 
                                                 <h5 className="title">Appointment Slots</h5>
-                                                <div className="room-tabs">
+                                                <div className="room-tabs"> 
                                                     <CNavTabs
                                                         roles={appointmentStatusDetail.hospitalDepartmentRoomInfoId ? appointmentStatusDetail.roomList : []}
                                                         currentActiveTab={
@@ -176,6 +176,7 @@ const AppointmentStatusDetails = ({
                                                         uniqueIdentifier={appointmentStatusDetail.uniqueIdentifier}
                                                         date={appointmentStatusDetail.date}
                                                     />
+                                                       
                                                 </div>
 
 
@@ -360,7 +361,7 @@ const AppointmentStatusDetails = ({
                                             {appointmentStatusDetail.patientDetails ? (
                                                 <Col sm={12} md={3}>
                                                     <div className="patient-container">
-                                                        <h5 className="title">Patients Details </h5>
+                                                        <h5 className="title">Appointment Information </h5>
                                                         <br></br>
                                                         <div className="patient-details">
                                                             <div className="label">Appointment Details</div>
@@ -368,7 +369,7 @@ const AppointmentStatusDetails = ({
 
                                                                 <CButton
                                                                     name=""
-                                                                    variant="default"
+                                                                    variant="success"
                                                                     className="app-details-link"
                                                                     onClickHandler={() =>
                                                                         handleViewAppointmentDetails(appointmentStatusDetail)
@@ -379,7 +380,7 @@ const AppointmentStatusDetails = ({
                                                                         appointmentStatusDetail.patientDetails
                                                                             .appointmentNumber
                                                                     }
-                                                                          &nbsp;  <i className="fa fa-chevron-down"></i></span>
+                                                                          &nbsp;  <i className="fa fa-chevron-right"></i></span>
                                                                 </CButton>
                                                                 <br />
                                                             Rs. {

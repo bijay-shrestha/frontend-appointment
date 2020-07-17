@@ -11,7 +11,7 @@ import {
     PatientNameWithAgeGenderPhone,
     TransactionDateWithTime,
     DoctorWithSpecImage,
-    DepartmentNameWithRoomNumberAndBillingMode
+    DepartmentNameWithRoomNumberAndBillingMode, CExcelDownload
 } from '@frontend-appointment/ui-components'
 import {CommonUtils} from '@frontend-appointment/helpers'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
@@ -36,7 +36,8 @@ const TransactionLogDataTable = ({
         previewData,
         showModal,
         setShowModal,
-        appointmentServiceTypeCode
+        appointmentServiceTypeCode,
+        downloadExcel
     } = tableHandler
     const headerNameForDoctorOrDepartment = filterAppointmentServiceType(
         appointmentServiceTypeCode,
@@ -58,19 +59,15 @@ const TransactionLogDataTable = ({
                     <Col>
                         <h5 className="title">Transaction Log Details</h5>
                     </Col>
-
-                    {/* <Col>
-              <CButton
-                id="downloadExcel"
-                name="DownloadExcel"
-                // onClickHandler={props.exportExcel}
-                className="float-right"
-                variant="outline-secondary"
-              >
-                {' '}
-                <i className="fa fa-download" />
-              </CButton>
-            </Col>  */}
+                    {
+                        !isSearchLoading &&
+                        !searchErrorMessage &&
+                        appointmentLogList.length ?
+                            <Col>
+                                <CExcelDownload onClickHandler={downloadExcel}/>
+                            </Col>
+                            : ''
+                    }
                 </Row>
 
                 <AppointmentStatusBadges
