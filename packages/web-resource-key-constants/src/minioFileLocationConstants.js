@@ -1,4 +1,4 @@
 export const minioFileLocationConstants = {
-    CLIENT_FILE_LOCATION: 'public/client',
-    COMPANY_FILE_LOCATION: 'public/company'
+    CLIENT_FILE_LOCATION: process.env.REACT_APP_CLIENT_PUBLIC_FILE_UPLOAD_LOCATION,
+    COMPANY_FILE_LOCATION: process.env.REACT_APP_COMPANY_PUBLIC_FILE_UPLOAD_LOCATION
 }
