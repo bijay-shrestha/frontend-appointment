@@ -195,7 +195,6 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
           refundAmount: spec.refundAmount || 'N/A',
           esewaId: spec.esewaId || 'N/A',
           // remarks: spec.remarks || 'N/A',
-          hospitalDepartmentName: spec.departmentName || 'N/A',
           appointmentMode: spec.appointmentMode,
           mobileNumber: spec.mobileNumber
           // sN: index + 1
