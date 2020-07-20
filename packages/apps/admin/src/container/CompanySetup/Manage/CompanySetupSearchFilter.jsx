@@ -149,7 +149,7 @@ class CompanySetupSearchFilter extends PureComponent {
                                         )}
                                     >
                                         <Button id="light-search-filters" variant="secondary">
-                                            {searchParameters.name}
+                                            {searchParameters.name.label}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>

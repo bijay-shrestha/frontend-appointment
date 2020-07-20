@@ -492,6 +492,14 @@
 }
 
 
+.d-flex{
+    .react-datepicker-wrapper{
+        width:50%;
+    }
+}
+
+
+
 @include media-breakpoint-down(md) {
     .add-info {
         margin-bottom: 30px;

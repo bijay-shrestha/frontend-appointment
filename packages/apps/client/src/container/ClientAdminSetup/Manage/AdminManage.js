@@ -179,7 +179,7 @@ class AdminManage extends PureComponent {
             showEditModal: false,
             updatedMacIdList: [],
             updatedModulesAndProfiles: [],
-            errorMessage:''
+            errorMessage: ''
         })
     }
 
@@ -626,13 +626,24 @@ class AdminManage extends PureComponent {
     }
 
     onDeleteHandler = async id => {
-        this.props.clearAdminSuccessErrorMessagesFromStore()
-        let deleteRequestDTO = {...this.state.deleteRequestDTO}
-        deleteRequestDTO['id'] = id
-        await this.setState({
-            deleteRequestDTO: deleteRequestDTO,
-            deleteModalShow: true
-        })
+        let loggedInAdmin = LocalStorageSecurity.localStorageDecoder("adminInfo")
+        if (id !== loggedInAdmin.adminId) {
+            this.props.clearAdminSuccessErrorMessagesFromStore()
+            let deleteRequestDTO = {...this.state.deleteRequestDTO}
+            deleteRequestDTO['id'] = id
+            await this.setState({
+                deleteRequestDTO: deleteRequestDTO,
+                deleteModalShow: true
+            })
+        } else {
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: 'danger',
+                    message: 'You are not allowed to delete yourself.'
+                }
+            })
+        }
     }
 
     onPreviewHandler = async adId => {
@@ -899,8 +910,8 @@ class AdminManage extends PureComponent {
             await this.searchAdmins()
         } catch (e) {
             this.setState({
-                errorMessage:e.errorMessage? e.errorMessage: "Error updating admin.",
-                isImageUploading:false
+                errorMessage: e.errorMessage ? e.errorMessage : "Error updating admin.",
+                isImageUploading: false
             })
         }
     }
