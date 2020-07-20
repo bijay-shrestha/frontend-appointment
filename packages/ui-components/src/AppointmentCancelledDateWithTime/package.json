@@ -1,0 +1,9 @@
+{
+    "name": "@frontend-appointement/c-appointment-cancelled-date-with-time",
+    "version": "1.0.0",
+    "main": "AppointmentCancelDateWithTime.js",
+    "author": "Kaushal Regmi",
+    "license": "MIT",
+    "private": true
+  }
+  

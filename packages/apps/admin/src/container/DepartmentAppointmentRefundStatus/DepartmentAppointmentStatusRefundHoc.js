@@ -165,7 +165,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           ? page
           : this.state.queryParams.page
       await this.props.fetchAppointmentRefundList(
-        appointmentSetupApiConstant.SEARCH_APPOINTMENT_REFUND_STATUS,
+        appointmentSetupApiConstant.SEARCH_APPOINTMENT_REFUND_STATUS_DEPARTMENT,
         {
           page: updatedPage,
           size: this.state.queryParams.size
@@ -248,7 +248,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
 
     previewApiCall = async appointmentId => {
       await this.props.fetchAppointmentRefundDetailByAppointmentId(
-        appointmentSetupApiConstant.DETAIL_APPOINTMENT_REFUND_STATUS,
+        appointmentSetupApiConstant.DETAIL_APPOINTMENT_REFUND_STATUS_DEPARTMENT,
         appointmentId
       )
     }
