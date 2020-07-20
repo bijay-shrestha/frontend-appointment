@@ -7,7 +7,7 @@ const DepartmentNameWithRoomNumber = props => {
           {props.node.data.hospitalDepartmentName||''}
         </li>
         <li>
-          {props.node.data.roomNumber||''}
+          Room Number-{props.node.data.roomNumber||''}
         </li>
        
       </ul>
