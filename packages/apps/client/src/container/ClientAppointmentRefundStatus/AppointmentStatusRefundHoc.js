@@ -282,6 +282,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       this.props.fetchPatientMetaDropdownForClient(
         patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS
       )
+      await this.props.fetchActiveAppointmentModeForDropdown(
+        AdminModuleAPIConstants.appointmentModeApiConstants.FETCH_APPOINTMENT_MODE_FOR_DROPDOWN);
+
     }
 
     handleSearchFormChange = async (event, field) => {

@@ -284,13 +284,16 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
       //     specializationSetupAPIConstants.ACTIVE_DROPDOWN_SPECIALIZATION
       // );
 
+      await this.props.fetchActiveAppointmentModeForDropdown(
+        AdminModuleAPIConstants.appointmentModeApiConstants
+          .FETCH_APPOINTMENT_MODE_FOR_DROPDOWN
+      )
+
       this.props.fetchAllHospitalDepartmentForDropdown(
         AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants
           .FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN
       )
-      this.props.fetchPatientMetaDropdownForClient(
-        patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS
-      )
+    
       this.searchAppointmentModeForDropdown()
     }
 
