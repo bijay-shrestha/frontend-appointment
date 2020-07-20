@@ -46,7 +46,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
   return (
     <>
       <div className="manage-details">
-        <h5 className="title">Appointment Cancellation Details</h5>
+        <h5 className="title">Appointment Refund Status Details</h5>
         {!isSearchLoading &&
         !searchErrorMessage &&
         appointmentRefundList.length ? (
@@ -126,7 +126,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Department - Room Number',
+                  headerName: 'Department/Room Number',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
