@@ -5,10 +5,11 @@ import {
   CPagination
 } from '@frontend-appointment/ui-elements'
 import {
-  DoctorWithSpecImage,
+  // DoctorWithSpecImage,
   PatientNameWithAgeGenderPhone,
   TableRefundStatusAmbigous,
-  AppointmentCancelDateWithTime
+  AppointmentCancelDateWithTime,
+  DepartmentNameWithRoomNumber
 } from '@frontend-appointment/ui-components'
 import PreviewDetails from './DepartmentAppointmentRefundStatusPreview'
 //import RejectModal from "./RejectStatusModal";
@@ -134,7 +135,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  cellRenderer: 'doctorWithSpecializationRenderer',
+                  cellRenderer: 'departmentWithRoomNumber',
                   width: 350
                 },
                 {
@@ -195,8 +196,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   null,
                   previewCall
                 ),
-                doctorWithSpecializationRenderer: PreviewHandlerHoc(
-                  DoctorWithSpecImage,
+                departmentWithRoomNumber: PreviewHandlerHoc(
+                  DepartmentNameWithRoomNumber,
                   null,
                   null,
                   null,
