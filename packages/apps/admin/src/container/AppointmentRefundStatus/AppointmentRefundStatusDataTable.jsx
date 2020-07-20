@@ -101,6 +101,13 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true
                                 },
                                 {
+                                    headerName: 'Cancel Time',
+                                    field: 'cancelledTime',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true
+                                },
+                                {
                                     headerName: 'Reg. No',
                                     field: 'registrationNumber',
                                     resizable: true,
@@ -134,6 +141,13 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 {
                                     headerName: 'Esewa Id',
                                     field: 'esewaId',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true
+                                },
+                                {
+                                    headerName: 'Remarks',
+                                    field: 'remarks',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true
