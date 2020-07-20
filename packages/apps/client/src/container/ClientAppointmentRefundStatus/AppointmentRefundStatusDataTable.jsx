@@ -86,7 +86,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 },
                 {
                   headerName: 'Cancelled DateTime',
-                  field: 'appointmentCancelDateWithTime',
+                  cellRenderer: 'appointmentCancelDateWithTime',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
