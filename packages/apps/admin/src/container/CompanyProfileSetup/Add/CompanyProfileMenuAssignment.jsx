@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import {Accordion, Card, Col, Row} from "react-bootstrap";
 import {CButton, CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-elements";
 import 'font-awesome/css/font-awesome.min.css';
-import 'material-icons/css/material-icons.min.css';
+
 import {menuRoles, TryCatchHandler} from '@frontend-appointment/helpers';
 import {CompanyProfilePreviewRoles} from "@frontend-appointment/ui-components";
 

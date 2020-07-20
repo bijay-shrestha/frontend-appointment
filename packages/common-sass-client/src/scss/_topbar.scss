@@ -367,6 +367,11 @@
             // border: 1px solid $gray-200;
             // background-color: $gray-100;
             @include border-radius(50%);
+
+            svg{
+                width:20px;
+                height:20px;
+            }
          
             
 

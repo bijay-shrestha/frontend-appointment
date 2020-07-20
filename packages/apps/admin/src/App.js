@@ -6,7 +6,7 @@ import '@frontend-appointment/common-sass';
 // import 'react-selectize/themes/index.css'
 // import 'react-selectize/dist/index.min.css'
 import 'font-awesome/css/font-awesome.min.css';
-import 'material-icons/iconfont/material-icons.scss';
+
 
 const App = props => {
     return (
