@@ -97,13 +97,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   width: 160
                 },
                 {
-                  headerName: 'Cancel Date',
-                  field: 'cancelledDate',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
                   headerName: 'Patient Details',
                   cellRenderer: 'patientWithAgeRenderer',
                   resizable: true,
@@ -133,7 +126,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Department Detail',
+                  headerName: 'Department - Room Number',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,

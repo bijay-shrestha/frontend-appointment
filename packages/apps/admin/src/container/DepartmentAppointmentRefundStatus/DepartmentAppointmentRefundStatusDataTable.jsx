@@ -131,7 +131,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   width: 300
                 },
                 {
-                  headerName: 'Doctor Detail',
+                  headerName: 'Department/Room Number',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
