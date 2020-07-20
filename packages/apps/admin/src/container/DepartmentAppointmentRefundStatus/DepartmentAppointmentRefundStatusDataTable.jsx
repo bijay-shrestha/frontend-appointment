@@ -1,9 +1,14 @@
 import React, {memo} from 'react'
-import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
+import {
+  CDataTable,
+  CLoading,
+  CPagination
+} from '@frontend-appointment/ui-elements'
 import {
   DoctorWithSpecImage,
   PatientNameWithAgeGenderPhone,
   TableRefundStatusAmbigous,
+  AppointmentCancelDateWithTime
 } from '@frontend-appointment/ui-components'
 import PreviewDetails from './DepartmentAppointmentRefundStatusPreview'
 //import RejectModal from "./RejectStatusModal";
@@ -29,7 +34,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     //refundRejectError,
     // refundConfirmationModal,
     // rejectRemarks,
-    totalRefundAmount,
+    totalRefundAmount
     // isRefundLoading,
     // remarks,
     // handleInputChange
@@ -65,7 +70,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   width: 140,
                   cellClass: 'first-class'
                 },
-                  {
+                {
                   headerName: 'Hospital Name',
                   field: 'hospitalName',
                   headerClass: 'resizable-header header-first-class',
@@ -94,11 +99,12 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   width: 160
                 },
                 {
-                  headerName: 'Cancel Date',
-                  field: 'cancelledDate',
+                  headerName: 'Cancelled DateTime',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true
+                  sizeColumnsToFit: true,
+                  cellRenderer: 'appointmentCancelledDateWithTime',
+                  width: 160
                 },
                 {
                   headerName: 'Reg. No',
@@ -134,6 +140,13 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 {
                   headerName: 'Esewa Id',
                   field: 'esewaId',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true
+                },
+                {
+                  headerName: 'Remarks',
+                  field: 'remarks',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
@@ -191,6 +204,13 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 ),
                 appointmentStatusBadges: PreviewHandlerHoc(
                   AppointmentRefundStatus,
+                  null,
+                  null,
+                  null,
+                  previewCall
+                ),
+                appointmentCancelledDateWithTime: PreviewHandlerHoc(
+                  AppointmentCancelDateWithTime,
                   null,
                   null,
                   null,

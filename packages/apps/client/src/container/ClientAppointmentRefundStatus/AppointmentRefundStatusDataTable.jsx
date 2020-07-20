@@ -4,7 +4,8 @@ import {
   CRemarksModal,
   DoctorWithSpecImage,
   PatientNameWithAgeGenderPhone,
-  TableRefundStatusAmbigous
+  TableRefundStatusAmbigous,
+  AppointmentCancelDateWithTime
 } from '@frontend-appointment/ui-components'
 import PreviewDetails from './AppointmentRefundStatusPreview'
 //import RejectModal from "./RejectStatusModal";
@@ -84,11 +85,12 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   width: 160
                 },
                 {
-                  headerName: 'Cancel Date',
-                  field: 'cancelledDate',
+                  headerName: 'Cancelled DateTime',
+                  field: 'appointmentCancelDateWithTime',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true
+                  sizeColumnsToFit: true,
+                  width: 160
                 },
                 {
                   headerName: 'Reg. No',
@@ -124,6 +126,13 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 {
                   headerName: 'Esewa Id',
                   field: 'esewaId',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true
+                },
+                {
+                  headerName: 'Remarks',
+                  field: 'remarks',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
@@ -185,7 +194,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   null,
                   null,
                   previewCall
-                )
+                ),
+                appointmentCancelDateWithTime: PreviewHandlerHoc(
+                  AppointmentCancelDateWithTime,
+                  null,
+                  null,
+                  null,
+                  previewCall
+                ),
               }}
               defaultColDef={{resizable: true}}
               getSelectedRows={previewCall}

@@ -3,7 +3,8 @@ import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elemen
 import {
     DoctorWithSpecImage,
     PatientNameWithAgeGenderPhone,
-    TableRefundStatusAmbigous
+    TableRefundStatusAmbigous,
+    AppointmentCancelDateWithTime
 } from '@frontend-appointment/ui-components'
 import PreviewDetails from './AppointmentRefundStatusPreview'
 //import RejectModal from "./RejectStatusModal";
@@ -94,15 +95,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     width: 160
                                 },
                                 {
-                                    headerName: 'Cancel Date',
-                                    field: 'cancelledDate',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Cancel Time',
-                                    field: 'cancelledTime',
+                                    headerName: 'Cancel Date Time',
+                                    cellRenderer: 'appointmentCancelledDateWithTiime',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true
@@ -205,6 +199,13 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 ),
                                 appointmentStatusBadges: PreviewHandlerHoc(
                                     AppointmentRefundStatus,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
+                                appointmentCancelledDateWithTiime: PreviewHandlerHoc(
+                                    AppointmentCancelDateWithTime,
                                     null,
                                     null,
                                     null,
