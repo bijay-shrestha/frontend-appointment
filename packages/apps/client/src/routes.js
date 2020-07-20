@@ -1,3 +1,4 @@
+import Loadable from 'react-loadable'
 import React from 'react'
 import {CLoading, CUnauthorized} from '@frontend-appointment/ui-elements'
 import loadable from '@loadable/component'
@@ -5,50 +6,50 @@ import loadable from '@loadable/component'
 const getLoader = () => <CLoading />
 /* ****** A ***** */
 
-const AddProfileComponent = loadable({
+const AddProfileComponent = Loadable({
   loader: () => import('./container/ClientProfileSetup/Add/ProfileAdd'),
   loading: () => getLoader()
 })
 
-const AddUnitComponent = loadable({
+const AddUnitComponent = Loadable({
   loader: () => import('./container/ClientUnitSetup/Add/UnitAdd'),
   loading: () => getLoader()
 })
 
-const AddAdminComponent = loadable({
+const AddAdminComponent = Loadable({
   loader: () => import('./container/ClientAdminSetup/Add/AdminAdd'),
   loading: () => getLoader()
 })
 
-const AddDoctorDutyRosterComponent = loadable({
+const AddDoctorDutyRosterComponent = Loadable({
   loader: () =>
     import('./container/ClientDoctorDutyRoster/Add/DoctorDutyRosterAdd'),
   loading: () => getLoader()
 })
 
-const AddQualificationComponent = loadable({
+const AddQualificationComponent = Loadable({
   loader: () =>
     import('./container/ClientQualificationSetup/Add/QualificationAdd'),
   loading: () => getLoader()
 })
 
-const AddSpecializationComponent = loadable({
+const AddSpecializationComponent = Loadable({
   loader: () =>
     import('./container/ClientSpecializationSetup/Add/SpecializationAdd'),
   loading: () => getLoader()
 })
 
-const AddDoctorComponent = loadable({
+const AddDoctorComponent = Loadable({
   loader: () => import('./container/ClientDoctorSetup/Add/DoctorAdd'),
   loading: () => getLoader()
 })
 
-const AppointmentRefundListComponent = loadable({
+const AppointmentRefundListComponent = Loadable({
   loader: () => import('./container/ClientAppointmentRefund/AppointmentRefund'),
   loading: () => getLoader()
 })
 
-const AppointmentDepartmentRefundListComponent = loadable({
+const AppointmentDepartmentRefundListComponent = Loadable({
   loader: () =>
     import(
       './container/ClientAppointmentDepartmentRefund/AppointmentDepartmentRefund'
@@ -56,29 +57,29 @@ const AppointmentDepartmentRefundListComponent = loadable({
   loading: () => getLoader()
 })
 
-const AppointmentApprovalListComponent = loadable({
+const AppointmentApprovalListComponent = Loadable({
   loader: () =>
     import('./container/ClientAppointmentApproval/AppointmentApproval'),
   loading: () => getLoader()
 })
 
-const AppointmentStatusComponent = loadable({
+const AppointmentStatusComponent = Loadable({
   loader: () => import('./container/ClientAppointmentStatus/AppointmentStatus'),
   loading: () => getLoader()
 })
 
-const AppointmentLogListComponent = loadable({
+const AppointmentLogListComponent = Loadable({
   loader: () => import('./container/ClientAppointmentLog/AppointmentLog'),
   loading: () => getLoader()
 })
 
-const AppointmentRefundStatusListComponent = loadable({
+const AppointmentRefundStatusListComponent = Loadable({
   loader: () =>
     import('./container/ClientAppointmentRefundStatus/AppointmentRefundStatus'),
   loading: () => getLoader()
 })
 
-const AppointmentDepartmentRefundStatusListComponent = loadable({
+const AppointmentDepartmentRefundStatusListComponent = Loadable({
   loader: () =>
     import(
       './container/ClientAppointmentDepartmentRefundStatus/ClientAppointmentDepartmentRefundStatus'
@@ -107,7 +108,7 @@ const DepartmentStatusComponent = loadable(
   {fallback: () => getLoader()}
 )
 
-const AddDepartmentDutyRosterComponent = loadable({
+const AddDepartmentDutyRosterComponent = Loadable({
   loader: () =>
     import(
       './container/ClientDepartmentDutyRoster/Add/DepartmentDutyRosterAdd'
@@ -121,7 +122,7 @@ const AddDepartmentDutyRosterComponent = loadable({
 
 /* ****** D ***** */
 
-const DashboardComponent = loadable({
+const DashboardComponent = Loadable({
   loader: () => import('./container/ClientDashboard/ClientDashboard'),
   loading: () => getLoader()
 })
@@ -141,7 +142,7 @@ const DepartmentCheckInComponent = loadable(
     ),
   {fallback: () => getLoader()}
 )
-// const AppointmentLogComponent = loadable({
+// const AppointmentLogComponent = Loadable({
 //   loader: () => import('./container/AppointmentVisitApproval/ClientAppointmentLog'),
 //   loading: () => getLoader()
 // })
@@ -164,45 +165,45 @@ const DepartmentCheckInComponent = loadable(
 
 /* ****** M ***** */
 
-const ManageProfileComponent = loadable({
+const ManageProfileComponent = Loadable({
   loader: () => import('./container/ClientProfileSetup/Manage/ProfileManage'),
   loading: () => getLoader()
 })
 
-const ManageUnitComponent = loadable({
+const ManageUnitComponent = Loadable({
   loader: () => import('./container/ClientUnitSetup/Manage/UnitManage'),
   loading: () => getLoader()
 })
 
-const ManageSpecializationComponent = loadable({
+const ManageSpecializationComponent = Loadable({
   loader: () =>
     import('./container/ClientSpecializationSetup/Manage/SpecializationManage'),
   loading: () => getLoader()
 })
 
-const ManageAdminComponent = loadable({
+const ManageAdminComponent = Loadable({
   loader: () => import('./container/ClientAdminSetup/Manage/AdminManage'),
   loading: () => getLoader()
 })
 
-const ManageDoctorDutyRosterComponent = loadable({
+const ManageDoctorDutyRosterComponent = Loadable({
   loader: () =>
     import('./container/ClientDoctorDutyRoster/Manage/DoctorDutyRosterManage'),
   loading: () => getLoader()
 })
 
-const ManageQualificationComponent = loadable({
+const ManageQualificationComponent = Loadable({
   loader: () =>
     import('./container/ClientQualificationSetup/Manage/QualificationManage'),
   loading: () => getLoader()
 })
 
-const ManageDoctorComponent = loadable({
+const ManageDoctorComponent = Loadable({
   loader: () => import('./container/ClientDoctorSetup/Manage/DoctorManage'),
   loading: () => getLoader()
 })
 
-const ManageDepartmentComponent = loadable({
+const ManageDepartmentComponent = Loadable({
   loader: () =>
     import(
       './container/ClientHospitalDepartmentSetup/Manage/HospitalDepartmentManage'
@@ -210,7 +211,7 @@ const ManageDepartmentComponent = loadable({
   loading: () => getLoader()
 })
 
-const ManageDepartmentDutyRosterComponent = loadable({
+const ManageDepartmentDutyRosterComponent = Loadable({
   loader: () =>
     import(
       './container/ClientDepartmentDutyRoster/Manage/DepartmentDutyRosterManage'
@@ -223,12 +224,12 @@ const ManageDepartmentDutyRosterComponent = loadable({
 
 /* ****** P ***** */
 
-const ProfileComponent = loadable({
+const ProfileComponent = Loadable({
   loader: () => import('./container/ClientProfileSetup/ProfileSetup'),
   loading: () => getLoader()
 })
 
-const PatientComponent = loadable({
+const PatientComponent = Loadable({
   loader: () => import('./container/ClientPatientDetails/ClientPatientDetails'),
   loading: () => getLoader()
 })
@@ -249,7 +250,7 @@ const QuickCheckInComponent = loadable(
 
 /* ****** R ***** */
 
-const RescheduleLog = loadable({
+const RescheduleLog = Loadable({
   loader: () => import('./container/ClientRescheduleLog/RescheduleLog'),
   loading: () => getLoader()
 })
