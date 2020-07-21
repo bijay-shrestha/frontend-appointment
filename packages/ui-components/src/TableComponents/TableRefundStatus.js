@@ -1,4 +1,4 @@
-import React  from 'react'
+import React from 'react'
 import {Dropdown} from 'react-bootstrap'
 import {MdBlock} from 'react-icons/md'
 import {MdVerifiedUser} from 'react-icons/md'

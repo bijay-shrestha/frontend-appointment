@@ -4,7 +4,6 @@ import {MdVerifiedUser} from 'react-icons/md'
 import {FiMoreHorizontal} from 'react-icons/fi'
 //import {ActionFilterUtils} from '@frontend-appointment/helpers'
 
-//const {checkIfRoleExists} = ActionFilterUtils
 const RefundTableAmbigousAction = props => {
   const saveActionInSession = (e, actionId, actionName) => {
   props.onClick(e, props.node.data.id || props.node.data, actionName)
