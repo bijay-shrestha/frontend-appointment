@@ -1,5 +1,5 @@
 import React from 'react'
-import * as Material from 'react-icons/md'
+import {MdDone} from 'react-icons/md'
 import HospitalForm from './HospitalForm'
 import HospitalConfirmationModal from './HospitalConfirmModal'
 import {Container, Row, Col} from 'react-bootstrap'
@@ -128,7 +128,7 @@ function HospitalAdd(props) {
                         alertType={
                             alertMessageInfo.variant === 'success' ? (
                                 <>
-                                    <Material.MdDone/>
+                                    <MdDone/>
                                 </>
                             ) : (
                                 <>

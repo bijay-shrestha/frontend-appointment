@@ -1,5 +1,5 @@
 import React from 'react'
-import * as Material from 'react-icons/md'
+import{MdDone} from 'react-icons/md'
 import QualificationForm from './QualificationForm'
 import QualificationConfirmationModal from './QualificationConfirmModal'
 import {Container, Row, Col} from 'react-bootstrap'
@@ -78,7 +78,7 @@ function QualificationAdd(props) {
                         alertType={
                             alertMessageInfo.variant === 'success' ? (
                                 <>
-                                    <Material.MdDone/>
+                                    <MdDone/>
                                 </>
                             ) : (
                                 <>

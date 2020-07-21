@@ -1,7 +1,8 @@
 import React  from 'react'
 import {Dropdown} from 'react-bootstrap'
-import * as Material from 'react-icons/md'
-import * as Feather from 'react-icons/fi'
+import {MdBlock} from 'react-icons/md'
+import {MdVerifiedUser} from 'react-icons/md'
+import {FiMoreHorizontal} from 'react-icons/fi'
 
 const RefundTableAction = props => {
   const saveActionInSession = (e, actionId, actionName) => {
@@ -12,20 +13,20 @@ const RefundTableAction = props => {
     <>
       <Dropdown className="table-action">
         <Dropdown.Toggle variant="default" id="dropdown-basic">
-          <Feather.FiMoreHorizontal />
+          <FiMoreHorizontal />
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
           {
             // checkIfRoleExists(this.props.filteredAction, 3) &&
             <Dropdown.Item onClick={e => saveActionInSession(e, 16, 'E')}>
-              <Material.MdVerifiedUser /> Refund{' '}
+              <MdVerifiedUser /> Refund{' '}
             </Dropdown.Item>
           }
           {
             // checkIfRoleExists(this.props.filteredAction, 5) &&
             <Dropdown.Item onClick={e => saveActionInSession(e, 15, 'D')}>
-              <Material.MdBlock /> Reject
+              <MdBlock /> Reject
             </Dropdown.Item>
           }
         </Dropdown.Menu>

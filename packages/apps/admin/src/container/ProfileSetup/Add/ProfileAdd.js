@@ -11,7 +11,7 @@ import {
     HospitalSetupMiddleware
 } from "@frontend-appointment/thunk-middleware";
 import ConfirmationModal from "./ConfirmationModal";
-import * as Material from 'react-icons/md';
+import{MdDone} from 'react-icons/md';
 import {
     clientUserMenusJson,
     EnterKeyPressUtils,
@@ -424,7 +424,7 @@ class ProfileAdd extends PureComponent {
                                 variant={alertMessageInfo.variant}
                                 show={showAlert}
                                 onClose={this.closeAlert}
-                                alertType={alertMessageInfo.variant === "success" ? <><Material.MdDone/>
+                                alertType={alertMessageInfo.variant === "success" ? <><MdDone/>
                                 </> : <i className="fa fa-exclamation-triangle" aria-hidden="true"/>}
                                 message={alertMessageInfo.message}
                         />
