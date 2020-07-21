@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react'
 import {Dropdown} from 'react-bootstrap'
 
-import * as Material from 'react-icons/md'
-import * as Feather from 'react-icons/fi'
+import {MdEdit, MdDeleteForever, MdContentCopy, MdRefresh} from 'react-icons/md'
+import {FiMoreHorizontal} from 'react-icons/fi'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 
 const {checkIfRoleExists} = ActionFilterUtils
@@ -44,27 +44,27 @@ class TableAction extends PureComponent {
             <>
                 <Dropdown className="table-action">
                     <Dropdown.Toggle variant="default" id="dropdown-basic">
-                        <Feather.FiMoreHorizontal/>
+                        <FiMoreHorizontal/>
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
                         {this.checkRoleExistAndSaveAction(3) ? (
                             <Dropdown.Item onClick={e => this.saveActionInSession(e, 3)}>
-                                <Material.MdEdit/> Edit{' '}
+                                <MdEdit/> Edit{' '}
                             </Dropdown.Item>
                         ) : (
                             ''
                         )}
                         {this.checkRoleExistAndSaveAction(5) ? (
                             <Dropdown.Item onClick={e => this.saveActionInSession(e, 5)}>
-                                <Material.MdDeleteForever/> Delete
+                                <MdDeleteForever/> Delete
                             </Dropdown.Item>
                         ) : (
                             ''
                         )}
                         {this.checkRoleExistAndSaveAction(8) ? (
                             <Dropdown.Item onClick={e => this.saveActionInSession(e, 8)}>
-                                <Material.MdContentCopy/>
+                                <MdContentCopy/>
                                 &nbsp; Clone and Add New
                             </Dropdown.Item>
                         ) : (
@@ -72,7 +72,7 @@ class TableAction extends PureComponent {
                         )}
                         {this.checkRoleExistAndSaveAction(7) && (
                             <Dropdown.Item onClick={e => this.saveActionInSession(e, 7)}>
-                                <Material.MdRefresh/> Reset Password
+                                <MdRefresh/> Reset Password
                             </Dropdown.Item>
                         )}
                     </Dropdown.Menu>
