@@ -2,8 +2,7 @@ import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elemen
 import React from 'react';
 import {ActionFilterUtils} from '@frontend-appointment/helpers';
 import PreviewHandlerHoc from "../../CommonComponents/table-components/hoc/PreviewHandlerHoc";
-import TableAction from "../../CommonComponents/table-components/TableAction";
-import {RoomEnableBadge, RoomNumberForTable, StatusLabel} from "@frontend-appointment/ui-components";
+import {RoomEnableBadge, RoomNumberForTable, StatusLabel, TableAction} from "@frontend-appointment/ui-components";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 

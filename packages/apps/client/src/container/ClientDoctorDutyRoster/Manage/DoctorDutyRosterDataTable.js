@@ -1,9 +1,7 @@
-import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
 import React from 'react';
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
 import {ActionFilterUtils} from '@frontend-appointment/helpers';
-import TableAction from "../../CommonComponents/table-components/TableAction";
-import StatusLabel from "../../CommonComponents/table-components/StatusLabel";
-import {DoctorWithImage} from "@frontend-appointment/ui-components";
+import {DoctorWithImage, StatusLabel, TableAction} from "@frontend-appointment/ui-components";
 import PreviewHandlerHoc from "../../CommonComponents/table-components/hoc/PreviewHandlerHoc";
 
 const {checkIfRoleExists} = ActionFilterUtils;
@@ -52,8 +50,8 @@ const DoctorDutyRosterDataTable = ({
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true,
-                                        cellRenderer:"doctorNameRenderer",
-                                        width:300
+                                        cellRenderer: "doctorNameRenderer",
+                                        width: 300
                                     },
                                     {
                                         headerName: 'Specialization Name',

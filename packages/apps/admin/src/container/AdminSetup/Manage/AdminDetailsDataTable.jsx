@@ -2,8 +2,7 @@ import React, {memo} from 'react';
 import {ConfirmDelete} from '@frontend-appointment/ui-components';
 import {CDataTable, CPagination, CLoading} from '@frontend-appointment/ui-elements';
 import {ActionFilterUtils} from "@frontend-appointment/helpers";
-import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
-import TableAction from '../../CommonComponents/table-components/TableAction'
+import {TableAction, StatusLabel} from '@frontend-appointment/ui-components'
 import PreviewAdminDetails from "./PreviewAdminDetails";
 import AdminPicture from "./tableComponents/AdminPicture";
 import PreviewHandlerHoc from "../../CommonComponents/table-components/hoc/PreviewHandlerHoc";
@@ -53,7 +52,7 @@ const AdminDetailsDataTable = ({
                             editable: true,
                             sizeColumnsToFit: true,
                             cellClass: 'first-class',
-                            width:'140'
+                            width: '140'
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
@@ -70,7 +69,7 @@ const AdminDetailsDataTable = ({
                             sortable: true,
                             sizeColumnsToFit: true,
                             cellRenderer: 'imageRenderer',
-                            width:"140"
+                            width: "140"
                         },
                         {
                             headerName: 'Name',
@@ -94,7 +93,7 @@ const AdminDetailsDataTable = ({
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
-                            width:"140"
+                            width: "140"
                         },
                         {
                             headerName: 'Profile',
@@ -110,7 +109,7 @@ const AdminDetailsDataTable = ({
                             sortable: true,
                             sizeColumnsToFit: true,
                             cellRenderer: 'childLabelRenderer',
-                            width:'120'
+                            width: '120'
                         },
                         {
                             headerName: '',
@@ -120,7 +119,7 @@ const AdminDetailsDataTable = ({
                             sizeColumnsToFit: true,
                             cellRenderer: 'childActionRenderer',
                             cellClass: 'actions-button-cell',
-                            width:'120',
+                            width: '120',
                             cellRendererParams: {
                                 onClick: function (e, id, type, data) {
                                     type === 'D'
@@ -138,9 +137,9 @@ const AdminDetailsDataTable = ({
                     ]}
                     frameworkComponents={{
                         childActionRenderer: TableAction,
-                        childLabelRenderer: PreviewHandlerHoc(StatusLabel, checkIfRoleExists,filteredActions,4,
-                        onPreviewHandler),
-                        imageRenderer: PreviewHandlerHoc(AdminPicture, checkIfRoleExists,filteredActions,4,
+                        childLabelRenderer: PreviewHandlerHoc(StatusLabel, checkIfRoleExists, filteredActions, 4,
+                            onPreviewHandler),
+                        imageRenderer: PreviewHandlerHoc(AdminPicture, checkIfRoleExists, filteredActions, 4,
                             onPreviewHandler)
                     }}
                     defaultColDef={{resizable: true}}

@@ -1,9 +1,7 @@
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
 import React, {memo} from 'react';
-import {ConfirmDelete} from '@frontend-appointment/ui-components';
+import {ConfirmDelete, StatusLabel, TableAction} from '@frontend-appointment/ui-components';
 import {ActionFilterUtils} from "@frontend-appointment/helpers";
-import TableAction from "../../CommonComponents/table-components/TableAction";
-import StatusLabel from "../../CommonComponents/table-components/StatusLabel";
 import PreviewDetails from "../commons/PreviewDetails";
 
 const {checkIfRoleExists} = ActionFilterUtils;
@@ -125,7 +123,11 @@ const UnitDetailsDataTable = props => (
             <PreviewDetails
                 showModal={props.showDepartmentModal}
                 setShowModal={props.setShowModal}
-                departmentData={{...props.departmentPreviewData, code: props.departmentPreviewData.departmentCode,type:"MANAGE"}}
+                departmentData={{
+                    ...props.departmentPreviewData,
+                    code: props.departmentPreviewData.departmentCode,
+                    type: "MANAGE"
+                }}
                 profilePreviewErrorMessage={props.profilePreviewErrorMessage}
             />
         ) : (

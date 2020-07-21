@@ -11,7 +11,9 @@ import {
     TableAction,
     CancelDateWithTime,
     RoomNumberForTable,
-    ClientNameWithLogo
+    ClientNameWithLogo,
+    TableApproveAction,
+    TableRefundStatus
 } from './src/TableComponents';
 
 export {
@@ -27,7 +29,9 @@ export {
     StatusLabel,
     CancelDateWithTime,
     RoomNumberForTable,
-    ClientNameWithLogo
+    ClientNameWithLogo,
+    TableApproveAction,
+    TableRefundStatus
 }
 export {default as Login} from './src/Login';
 export {default as ClientLogin} from './src/ClientLogin';

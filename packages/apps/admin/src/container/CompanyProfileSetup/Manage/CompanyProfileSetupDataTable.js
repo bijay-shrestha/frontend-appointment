@@ -1,9 +1,7 @@
 import React, {memo} from 'react'
 import {ActionFilterUtils, menuRoles as rolesFromJson} from '@frontend-appointment/helpers'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import Statuslabel from '../../CommonComponents/table-components/StatusLabel'
-import TableAction from '../../CommonComponents/table-components/TableAction'
-import {CompanyProfilePreviewRoles, ConfirmDelete} from "@frontend-appointment/ui-components";
+import {CompanyProfilePreviewRoles, ConfirmDelete,TableAction,StatusLabel} from "@frontend-appointment/ui-components";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
@@ -99,7 +97,7 @@ const CompanyProfileSetupDatTable = ({tableData}) => {
                         ]}
                         frameworkComponents={{
                             childActionRenderer: TableAction,
-                            childLabelRenderer: Statuslabel
+                            childLabelRenderer: StatusLabel
                         }}
                         defaultColDef={{resizable: true}}
                         getSelectedRows={
