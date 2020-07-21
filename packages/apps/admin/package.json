@@ -6,8 +6,6 @@
   "private": true,
   "dependencies": {
     "cross-env": "5.0.5",
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.12.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "@react-workspaces/react-scripts": "3.0.1-alpha-07",
@@ -26,7 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "predeploy": "yarn run build",
-    "lint": "eslint ./src/**/*.js --max-warnings=0 --format=codeframe"
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "browserslist": {
     "production": [

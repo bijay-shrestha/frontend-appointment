@@ -634,13 +634,24 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         }
 
         onDeleteHandler = async id => {
-            this.props.clearAdminSuccessErrorMessagesFromStore()
-            let deleteRequestDTO = {...this.state.deleteRequestDTO}
-            deleteRequestDTO['id'] = id
-            await this.setState({
-                deleteRequestDTO: deleteRequestDTO,
-                deleteModalShow: true
-            })
+            let loggedInAdmin = LocalStorageSecurity.localStorageDecoder("adminInfo")
+            if (id !== loggedInAdmin.adminId) {
+                this.props.clearAdminSuccessErrorMessagesFromStore()
+                let deleteRequestDTO = {...this.state.deleteRequestDTO}
+                deleteRequestDTO['id'] = id
+                await this.setState({
+                    deleteRequestDTO: deleteRequestDTO,
+                    deleteModalShow: true
+                })
+            } else {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: 'You are not allowed to delete yourself.'
+                    }
+                })
+            }
         }
 
         onPreviewHandler = async adId => {

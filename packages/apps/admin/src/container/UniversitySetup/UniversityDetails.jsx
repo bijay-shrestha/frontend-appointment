@@ -32,7 +32,7 @@ const UniversityDetails = ({closeModal, universityData, showPreviewModal}) => {
                                 disabled={true}
                             />
                         </Col>
-                        {AuditableEntityHoc(universityData)}
+
                         <Col sm="12" md="6">
                             <CFLabel labelName="Status" id="status"/>
                             <CRadioButton
@@ -53,6 +53,8 @@ const UniversityDetails = ({closeModal, universityData, showPreviewModal}) => {
                                 type="radio"
                             />
                         </Col>
+                        {AuditableEntityHoc(universityData)}
+                        
                         {
                             universityData.remarks ?
                                 <Col sm={12} md={6} lg={6}>

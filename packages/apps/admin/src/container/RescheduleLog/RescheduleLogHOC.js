@@ -1,623 +1,624 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
-  AppointmentDetailsMiddleware,
-  AppointmentServiceTypeMiddleware,
-  DoctorMiddleware,
-  HospitalDepartmentSetupMiddleware,
-  HospitalSetupMiddleware,
-  PatientDetailsMiddleware,
-  SpecializationSetupMiddleware
+    AppointmentDetailsMiddleware,
+    AppointmentServiceTypeMiddleware,
+    DoctorMiddleware,
+    HospitalDepartmentSetupMiddleware,
+    HospitalSetupMiddleware,
+    PatientDetailsMiddleware,
+    SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
-  DateTimeFormatterUtils,
-  EnterKeyPressUtils
+    DateTimeFormatterUtils,
+    EnterKeyPressUtils
 } from '@frontend-appointment/helpers'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import * as Material from 'react-icons/md'
 
 const {
-  searchRescheduleLog,
-  clearRescheduleLogMessage,
-  appointmentExcelDownload
+    searchRescheduleLog,
+    clearRescheduleLogMessage,
+    appointmentExcelDownload
 } = AppointmentDetailsMiddleware
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
 const {
-  fetchSpecializationHospitalWiseForDropdown
+    fetchSpecializationHospitalWiseForDropdown
 } = SpecializationSetupMiddleware
 const {fetchPatientMetaDropdown} = PatientDetailsMiddleware
 const {
-  fetchAllHospitalDepartmentForDropdownByHospitalId
+    fetchAllHospitalDepartmentForDropdownByHospitalId
 } = HospitalDepartmentSetupMiddleware
 const {
-  fetchActiveAppointmentServiceTypeByHopitalId
+    fetchActiveAppointmentServiceTypeByHopitalId
 } = AppointmentServiceTypeMiddleware
 
 const {
-  appointmentSetupApiConstant,
-  hospitalSetupApiConstants,
-  doctorSetupApiConstants,
-  specializationSetupAPIConstants,
-  patientSetupApiConstant
+    appointmentSetupApiConstant,
+    hospitalSetupApiConstants,
+    doctorSetupApiConstants,
+    specializationSetupAPIConstants,
+    patientSetupApiConstant
 } = AdminModuleAPIConstants
 
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = hospitalSetupApiConstants
 const {
-  FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN
+    FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN
 } = doctorSetupApiConstants
 const {
-  SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL
+    SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL
 } = specializationSetupAPIConstants
 const {SEARCH_APPOINTMENT_RESCHEDULE} = appointmentSetupApiConstant
 const {ALL_PATIENT_META_INFO_HOSPITAL_ID} = patientSetupApiConstant
 
 const {
-  isFirstDateGreaterThanSecondDate,
-  getDateWithTimeSetToGivenTime
+    isFirstDateGreaterThanSecondDate,
+    getDateWithTimeSetToGivenTime
 } = DateTimeFormatterUtils
 
 const RescheduleLogHOC = (ComposedComponent, props, type) => {
-  class RescheduleLogHOC extends React.PureComponent {
-    state = {
-      searchParameters: {
-        fromDate: new Date(),
-        toDate: new Date(),
-        hospitalId: '',
-        doctorId: '',
-        specializationId: '',
-        patientMetaInfoId: '',
-        appointmentNumber: '',
-        esewaId: '',
-        patientType: '',
-        appointmentServiceTypeCode: '',
-        hospitalDepartmentId: ''
-      },
-      primaryAppointmentService: '',
-      showModal: false,
-      rescheduleLogList: [],
-      showAlert: false,
-      alertMessageInfo: {
-        variant: '',
-        message: ''
-      },
-      queryParams: {
-        page: 0,
-        size: 10
-      },
-      totalRecords: 0
-    }
-
-    alertTimer = ''
-
-    clearAlertTimeout = () => {
-      this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
-    }
-
-    closeAlert = () => {
-      this.showOrCloseAlertMessage(false, '', '')
-    }
-
-    showOrCloseAlertMessage = (showAlert, type, message) => {
-      this.setState({
-        showAlert,
-        alertMessageInfo: {
-          variant: type,
-          message: message
-        }
-      })
-      this.clearAlertTimeout()
-    }
-
-    fetchHospitalForDropDown = async () => {
-      try {
-        await this.props.fetchActiveHospitalsForDropdown(
-          FETCH_HOSPITALS_FOR_DROPDOWN
-        )
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
-    fetchDoctorsByHospital = async hospitalId => {
-      await this.props.fetchActiveDoctorsHospitalWiseForDropdown(
-        FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
-        hospitalId
-      )
-    }
-
-    fetchSpecializationByHospital = async hospitalId => {
-      await this.props.fetchSpecializationHospitalWiseForDropdown(
-        SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL,
-        hospitalId
-      )
-    }
-
-    fetchPatientMetaInfo = async hospitalId => {
-      await this.props.fetchPatientMetaDropdown(
-        ALL_PATIENT_META_INFO_HOSPITAL_ID,
-        hospitalId
-      )
-    }
-
-    handleEnterPress = event => {
-      EnterKeyPressUtils.handleEnter(event)
-    }
-
-    handlePageChange = async newPage => {
-      await this.setState({
-        queryParams: {
-          ...this.state.queryParams,
-          page: newPage
-        }
-      })
-      this.searchRescheduleLog()
-    }
-
-    handleSearchFormReset = async () => {
-      await this.setState({
-        searchParameters: {
-          fromDate: new Date(),
-          toDate: new Date(),
-          hospitalId: '',
-          doctorId: '',
-          specializationId: '',
-          patientMetaInfoId: '',
-          appointmentNumber: '',
-          esewaId: '',
-          patientType: '',
-          appointmentServiceTypeCode: '',
-          hospitalDepartmentId: ''
-        },
-        rescheduleLogList: []
-      })
-      this.props.clearRescheduleLogMessage()
-      this.searchRescheduleLog()
-    }
-
-    handleSearchFormChange = async (event, field) => {
-      if (event) {
-        let fieldName, value, label, fileUri
-        if (field) {
-          fieldName = field
-          value = event
-        } else {
-          fieldName = event.target.name
-          value = event.target.value
-          label = event.target.label
-          fileUri = event.target.fileUri
-        }
-        let searchParams = {...this.state.searchParameters}
-        searchParams[fieldName] = label
-          ? value
-            ? fileUri
-              ? {value, label, fileUri}
-              : {
-                  value,
-                  label
-                }
-            : ''
-          : value
-        await this.setStateValuesForSearch(searchParams)
-
-        if (fieldName === 'hospitalId') {
-          if (value) {
-            this.callApiForHospitalChange(value)
-          }
-          await this.setState({
+    class RescheduleLogHOC extends React.PureComponent {
+        state = {
             searchParameters: {
-              ...this.state.searchParameters,
-              doctorId: '',
-              specializationId: '',
-              patientMetaInfoId: ''
-            }
-          })
+                fromDate: new Date(),
+                toDate: new Date(),
+                hospitalId: '',
+                doctorId: '',
+                specializationId: '',
+                patientMetaInfoId: '',
+                appointmentNumber: '',
+                esewaId: '',
+                patientType: '',
+                appointmentServiceTypeCode: '',
+                hospitalDepartmentId: ''
+            },
+            primaryAppointmentService: '',
+            showModal: false,
+            rescheduleLogList: [],
+            showAlert: false,
+            alertMessageInfo: {
+                variant: '',
+                message: ''
+            },
+            queryParams: {
+                page: 0,
+                size: 10
+            },
+            totalRecords: 0
         }
 
-        let errorMsg = ''
-        if (['fromDate', 'toDate'].indexOf(fieldName) >= 0) {
-          if (
-            isFirstDateGreaterThanSecondDate(
-              getDateWithTimeSetToGivenTime(searchParams.fromDate, 0, 0, 0),
-              getDateWithTimeSetToGivenTime(searchParams.toDate, 0, 0, 0)
-            )
-          ) {
-            errorMsg = 'From date cannot be greater than To date!'
-            this.showWarningAlert(errorMsg)
+        alertTimer = ''
+
+        clearAlertTimeout = () => {
+            this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
+        }
+
+        closeAlert = () => {
+            this.showOrCloseAlertMessage(false, '', '')
+        }
+
+        showOrCloseAlertMessage = (showAlert, type, message) => {
+            this.setState({
+                showAlert,
+                alertMessageInfo: {
+                    variant: type,
+                    message: message
+                }
+            })
             this.clearAlertTimeout()
-          }
         }
-      }
-    }
 
-    setStateValuesForSearch = searchParams => {
-      this.setState({
-        searchParameters: searchParams
-      })
-    }
-
-    setShowModal = () => {
-      this.setState(prevState => ({
-        showModal: !prevState.showModal
-      }))
-    }
-
-    showWarningAlert = message => {
-      this.setState({
-        showAlert: true,
-        alertMessageInfo: {
-          variant: 'warning',
-          message: message
+        fetchHospitalForDropDown = async () => {
+            try {
+                await this.props.fetchActiveHospitalsForDropdown(
+                    FETCH_HOSPITALS_FOR_DROPDOWN
+                )
+            } catch (e) {
+                console.log(e)
+            }
         }
-      })
-    }
 
-    searchAppointmentServiceType = async hospitalId => {
-      await this.props.fetchActiveAppointmentServiceTypeByHopitalId(
-        AdminModuleAPIConstants.hospitalSetupApiConstants
-          .HOSPITAL_API_SERVICE_TYPE,
-        hospitalId
-      )
-    }
-
-    setPrimaryAppointmentService = async () => {
-      const {
-        activeAppointmentServiceTypeWithCodeForDropdown
-      } = this.props.AppointmentServiceTypeDropdownReducer
-      if (activeAppointmentServiceTypeWithCodeForDropdown) {
-        const allAppointmentServices = activeAppointmentServiceTypeWithCodeForDropdown
-        const primaryAppointmentService = allAppointmentServices
-          ? allAppointmentServices.length
-            ? allAppointmentServices.filter(
-                service => service.isPrimary === 'Y'
-              )
-            : []
-          : []
-        if (primaryAppointmentService.length) {
-          let searchParams = {...this.state.searchParameters}
-          searchParams['appointmentServiceTypeCode'] = {
-            value: primaryAppointmentService[0].code,
-            label: primaryAppointmentService[0].name
-          }
-          await this.setState({
-            searchParameters: searchParams
-          })
-          this.searchRescheduleLog()
+        fetchDoctorsByHospital = async hospitalId => {
+            await this.props.fetchActiveDoctorsHospitalWiseForDropdown(
+                FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
+                hospitalId
+            )
         }
-      }
-    }
 
-    clearAlertTimeout = () => {
-      setTimeout(() => this.closeAlert(), 5000)
-    }
+        fetchSpecializationByHospital = async hospitalId => {
+            await this.props.fetchSpecializationHospitalWiseForDropdown(
+                SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL,
+                hospitalId
+            )
+        }
 
-    closeAlert = () => {
-      this.setState({
-        showAlert: false
-      })
-    }
+        fetchPatientMetaInfo = async hospitalId => {
+            await this.props.fetchPatientMetaDropdown(
+                ALL_PATIENT_META_INFO_HOSPITAL_ID,
+                hospitalId
+            )
+        }
 
-    callApiForHospitalChange = async hospitalId => {
-      this.fetchDoctorsByHospital(hospitalId)
-      this.fetchSpecializationByHospital(hospitalId)
-      this.fetchPatientMetaInfo(hospitalId)
-      this.props.fetchAllHospitalDepartmentForDropdownByHospitalId(
-        AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants
-          .FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN,
-        hospitalId
-      )
-      await this.searchAppointmentServiceType(hospitalId)
-      await this.setPrimaryAppointmentService()
-    }
+        handleEnterPress = event => {
+            EnterKeyPressUtils.handleEnter(event)
+        }
 
-    initialApiCalls = async () => {
-      await this.fetchHospitalForDropDown()
-      await this.searchRescheduleLog(1)
-    }
+        handlePageChange = async newPage => {
+            await this.setState({
+                queryParams: {
+                    ...this.state.queryParams,
+                    page: newPage
+                }
+            })
+            this.searchRescheduleLog()
+        }
 
-    searchRescheduleLog = async page => {
-      const {
-        fromDate,
-        toDate,
-        hospitalId,
-        doctorId,
-        specializationId,
-        appointmentNumber,
-        esewaId,
-        patientMetaInfoId,
-        patientType,
-        appointmentServiceTypeCode,
-        hospitalDepartmentId
-      } = this.state.searchParameters
+        handleSearchFormReset = async () => {
+            await this.setState({
+                searchParameters: {
+                    fromDate: new Date(),
+                    toDate: new Date(),
+                    hospitalId: '',
+                    doctorId: '',
+                    specializationId: '',
+                    patientMetaInfoId: '',
+                    appointmentNumber: '',
+                    esewaId: '',
+                    patientType: '',
+                    appointmentServiceTypeCode: '',
+                    hospitalDepartmentId: ''
+                },
+                rescheduleLogList: []
+            })
+            this.props.clearRescheduleLogMessage()
+            this.searchRescheduleLog()
+        }
 
-      let updatedPage =
-        this.state.queryParams.page === 0
-          ? 1
-          : page
-          ? page
-          : this.state.queryParams.page
+        handleSearchFormChange = async (event, field) => {
+            if (event) {
+                let fieldName, value, label, fileUri
+                if (field) {
+                    fieldName = field
+                    value = event
+                } else {
+                    fieldName = event.target.name
+                    value = event.target.value
+                    label = event.target.label
+                    fileUri = event.target.fileUri
+                }
+                let searchParams = {...this.state.searchParameters}
+                searchParams[fieldName] = label
+                    ? value
+                        ? fileUri
+                            ? {value, label, fileUri}
+                            : {
+                                value,
+                                label
+                            }
+                        : ''
+                    : value
+                await this.setStateValuesForSearch(searchParams)
 
-      let searchData = {
-        fromDate,
-        toDate,
-        hospitalId: hospitalId.value || '',
-        specializationId: specializationId.value || '',
-        doctorId: doctorId.value || '',
-        appointmentNumber,
-        esewaId,
-        patientMetaInfoId: patientMetaInfoId.value || '',
-        patientType: patientType.value || '',
-        appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
-        hospitalDepartmentId: hospitalDepartmentId.value || ''
-      }
+                if (fieldName === 'hospitalId') {
+                    if (value) {
+                        this.callApiForHospitalChange(value)
+                    }
+                    await this.setState({
+                        searchParameters: {
+                            ...this.state.searchParameters,
+                            doctorId: '',
+                            specializationId: '',
+                            patientMetaInfoId: ''
+                        }
+                    })
+                }
 
-      try {
-        await this.props.searchRescheduleLog(
-          SEARCH_APPOINTMENT_RESCHEDULE,
-          {
-            page: updatedPage,
-            size: this.state.queryParams.size
-          },
-          searchData
-        )
-        let rescheduleLogs = this.appendSNToTable([
-          ...this.props.RescheduleLogReducer.rescheduleLogList
-        ])
-        await this.setState({
-          rescheduleLogList: [...rescheduleLogs],
-          totalRecords: this.props.RescheduleLogReducer.rescheduleLogList.length
-            ? this.props.RescheduleLogReducer.totalItems
-            : 0,
-          queryParams: {
-            ...this.state.queryParams,
-            page: updatedPage
-          }
-        })
-      } catch (e) {}
-    }
+                let errorMsg = ''
+                if (['fromDate', 'toDate'].indexOf(fieldName) >= 0) {
+                    if (
+                        isFirstDateGreaterThanSecondDate(
+                            getDateWithTimeSetToGivenTime(searchParams.fromDate, 0, 0, 0),
+                            getDateWithTimeSetToGivenTime(searchParams.toDate, 0, 0, 0)
+                        )
+                    ) {
+                        errorMsg = 'From date cannot be greater than To date!'
+                        this.showWarningAlert(errorMsg)
+                        this.clearAlertTimeout()
+                    }
+                }
+            }
+        }
 
-    appendSNToTable = logList => {
-      let newLogList = []
-      newLogList =
-        logList.length &&
-        logList.map((rescheduleData, index) => ({
-          ...rescheduleData,
-          // sN: index + 1,
-          appointmentAmount: rescheduleData.appointmentAmount || 'N/A',
-          appointmentNumber: rescheduleData.appointmentNumber || 'N/A',
-          doctorName: rescheduleData.doctorName || 'N/A',
-          esewaId: rescheduleData.esewaId || 'N/A',
-          hospitalName: rescheduleData.hospitalName || 'N/A',
-          mobileNumber: rescheduleData.mobileNumber || 'N/A',
-          patientAge: rescheduleData.patientAge || 'N/A',
-          age:
-            rescheduleData.patientAge && rescheduleData.patientAge.slice(0, 4),
-          patientGender: rescheduleData.patientGender || 'N/A',
-          gender:
-            rescheduleData.patientGender &&
-            rescheduleData.patientGender.split('')[0],
-          patientName: rescheduleData.patientName || 'N/A',
-          appointmentDate: rescheduleData.previousAppointmentDate || 'N/A',
-          appointmentTime: rescheduleData.previousAppointmentTime || 'N/A',
-          registrationNumber: rescheduleData.registrationNumber || 'N/A',
-          remarks: rescheduleData.remarks || 'N/A',
-          rescheduleAppointmentDate:
-            rescheduleData.rescheduleAppointmentDate || 'N/A',
-          rescheduleAppointmentTime:
-            rescheduleData.rescheduleAppointmentTime || 'N/A',
-          specializationName: rescheduleData.specializationName || 'N/A',
-          transactionNumber: rescheduleData.transactionNumber || 'N/A',
-          patientAddress: rescheduleData.patientAddress || 'N/A'
-        }))
-      return newLogList
-    }
+        setStateValuesForSearch = searchParams => {
+            this.setState({
+                searchParameters: searchParams
+            })
+        }
 
-    downloadExcel = async () => {
-      const {
-        fromDate,
-        toDate,
-        hospitalId,
-        doctorId,
-        specializationId,
-        appointmentNumber,
-        esewaId,
-        patientMetaInfoId,
-        patientType,
-        appointmentServiceTypeCode,
-        hospitalDepartmentId
-      } = this.state.searchParameters
-      let searchData = {
-        fromDate,
-        toDate,
-        hospitalId: hospitalId.value || '',
-        specializationId: specializationId.value || '',
-        doctorId: doctorId.value || '',
-        appointmentNumber,
-        esewaId,
-        patientMetaInfoId: patientMetaInfoId.value || '',
-        patientType: patientType.value || '',
-        appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
-        hospitalDepartmentId: hospitalDepartmentId.value || ''
-      }
+        setShowModal = () => {
+            this.setState(prevState => ({
+                showModal: !prevState.showModal
+            }))
+        }
 
-      try {
-        await appointmentExcelDownload(
-          AdminModuleAPIConstants.excelApiConstants.RESCHEDULE_LOG_EXCEL,
-          this.state.queryParams,
-          searchData,
-          `rescheduleLog ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
-            fromDate
-          )} - ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
-            toDate
-          )} downloaded successfully!!`
-        )
-        this.showOrCloseAlertMessage(
-          true,
-          'success',
-          `rescheduleLog ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
-            fromDate
-          )} - ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
-            toDate
-          )} downloaded successfully!!`
-        )
+        showWarningAlert = message => {
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: 'warning',
+                    message: message
+                }
+            })
+        }
 
-        return false
-      } catch (e) {
-        this.showOrCloseAlertMessage(
-          true,
-          'success',
-          e.errorMessage || 'Sorry Internal Server Error'
-        )
-      }
-    }
+        searchAppointmentServiceType = async hospitalId => {
+            await this.props.fetchActiveAppointmentServiceTypeByHopitalId(
+                AdminModuleAPIConstants.hospitalSetupApiConstants
+                    .HOSPITAL_API_SERVICE_TYPE,
+                hospitalId
+            )
+        }
 
-    componentDidMount () {
-      this.initialApiCalls()
-    }
+        setPrimaryAppointmentService = async () => {
+            const {
+                activeAppointmentServiceTypeWithCodeForDropdown
+            } = this.props.AppointmentServiceTypeDropdownReducer
+            if (activeAppointmentServiceTypeWithCodeForDropdown) {
+                const allAppointmentServices = activeAppointmentServiceTypeWithCodeForDropdown
+                const primaryAppointmentService = allAppointmentServices
+                    ? allAppointmentServices.length
+                        ? allAppointmentServices.filter(
+                            service => service.isPrimary === 'Y'
+                        )
+                        : []
+                    : []
+                if (primaryAppointmentService.length) {
+                    let searchParams = {...this.state.searchParameters}
+                    searchParams['appointmentServiceTypeCode'] = {
+                        value: primaryAppointmentService[0].code,
+                        label: primaryAppointmentService[0].name
+                    }
+                    await this.setState({
+                        searchParameters: searchParams
+                    })
+                    this.searchRescheduleLog()
+                }
+            }
+        }
 
-    componentWillUnmount () {
-      clearTimeout(this.clearAlertTimeout)
-    }
+        clearAlertTimeout = () => {
+            setTimeout(() => this.closeAlert(), 5000)
+        }
 
-    render () {
-      const {
-        searchParameters,
-        rescheduleLogList,
-        showAlert,
-        alertMessageInfo,
-        queryParams,
-        totalRecords,
-        primaryAppointmentService
-      } = this.state
+        closeAlert = () => {
+            this.setState({
+                showAlert: false
+            })
+        }
 
-      const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
+        callApiForHospitalChange = async hospitalId => {
+            this.fetchDoctorsByHospital(hospitalId)
+            this.fetchSpecializationByHospital(hospitalId)
+            this.fetchPatientMetaInfo(hospitalId)
+            this.props.fetchAllHospitalDepartmentForDropdownByHospitalId(
+                AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants
+                    .FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN,
+                hospitalId
+            )
+            await this.searchAppointmentServiceType(hospitalId)
+            await this.setPrimaryAppointmentService()
+        }
 
-      const {
-        activeDoctorsByHospitalForDropdown,
-        doctorDropdownErrorMessage
-      } = this.props.DoctorDropdownReducer
+        initialApiCalls = async () => {
+            await this.fetchHospitalForDropDown()
+            await this.searchRescheduleLog(1)
+        }
 
-      const {
-        activeSpecializationListByHospital,
-        dropdownErrorMessage
-      } = this.props.SpecializationDropdownReducer
+        searchRescheduleLog = async page => {
+            const {
+                fromDate,
+                toDate,
+                hospitalId,
+                doctorId,
+                specializationId,
+                appointmentNumber,
+                esewaId,
+                patientMetaInfoId,
+                patientType,
+                appointmentServiceTypeCode,
+                hospitalDepartmentId
+            } = this.state.searchParameters
 
-      const {
-        isRescheduleLogLoading,
-        rescheduleLogErrorMessage
-      } = this.props.RescheduleLogReducer
+            let updatedPage =
+                this.state.queryParams.page === 0
+                    ? 1
+                    : page
+                    ? page
+                    : this.state.queryParams.page
 
-      const {
-        patientList,
-        patientDropdownErrorMessage
-      } = this.props.PatientDropdownListReducer
+            let searchData = {
+                fromDate,
+                toDate,
+                hospitalId: hospitalId.value || '',
+                specializationId: specializationId.value || '',
+                doctorId: doctorId.value || '',
+                appointmentNumber,
+                esewaId,
+                patientMetaInfoId: patientMetaInfoId.value || '',
+                patientType: patientType.value || '',
+                appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
+                hospitalDepartmentId: hospitalDepartmentId.value || ''
+            }
 
-      const {
-        isFetchAppointmentServiceTypeWithCodeLoading,
-        activeAppointmentServiceTypeWithCodeForDropdown,
-        dropdownWithCodeErrorMessage
-      } = this.props.AppointmentServiceTypeDropdownReducer
+            try {
+                await this.props.searchRescheduleLog(
+                    SEARCH_APPOINTMENT_RESCHEDULE,
+                    {
+                        page: updatedPage,
+                        size: this.state.queryParams.size
+                    },
+                    searchData
+                )
+                let rescheduleLogs = this.appendSNToTable([
+                    ...this.props.RescheduleLogReducer.rescheduleLogList
+                ])
+                await this.setState({
+                    rescheduleLogList: [...rescheduleLogs],
+                    totalRecords: this.props.RescheduleLogReducer.rescheduleLogList.length
+                        ? this.props.RescheduleLogReducer.totalItems
+                        : 0,
+                    queryParams: {
+                        ...this.state.queryParams,
+                        page: updatedPage
+                    }
+                })
+            } catch (e) {
+            }
+        }
 
-      const {
-        isFetchAllHospitalDepartmentLoading,
-        allHospitalDepartmentForDropdown,
-        allDepartmentDropdownErrorMessage
-      } = this.props.HospitalDepartmentDropdownReducer
+        appendSNToTable = logList => {
+            let newLogList = []
+            newLogList =
+                logList.length &&
+                logList.map((rescheduleData, index) => ({
+                    ...rescheduleData,
+                    // sN: index + 1,
+                    appointmentAmount: rescheduleData.appointmentAmount || 'N/A',
+                    appointmentNumber: rescheduleData.appointmentNumber || 'N/A',
+                    doctorName: rescheduleData.doctorName || 'N/A',
+                    esewaId: rescheduleData.esewaId || 'N/A',
+                    hospitalName: rescheduleData.hospitalName || 'N/A',
+                    mobileNumber: rescheduleData.mobileNumber || 'N/A',
+                    patientAge: rescheduleData.age || 'N/A',
+                    age:
+                        rescheduleData.age && rescheduleData.age.slice(0, 4),
+                    patientGender: rescheduleData.patientGender || 'N/A',
+                    gender:
+                        rescheduleData.patientGender &&
+                        rescheduleData.patientGender.split('')[0],
+                    patientName: rescheduleData.patientName || 'N/A',
+                    appointmentDate: rescheduleData.previousAppointmentDate || 'N/A',
+                    appointmentTime: rescheduleData.previousAppointmentTime || 'N/A',
+                    registrationNumber: rescheduleData.registrationNumber || 'N/A',
+                    remarks: rescheduleData.remarks || 'N/A',
+                    rescheduleAppointmentDate:
+                        rescheduleData.rescheduleAppointmentDate || 'N/A',
+                    rescheduleAppointmentTime:
+                        rescheduleData.rescheduleAppointmentTime || 'N/A',
+                    specializationName: rescheduleData.specializationName || 'N/A',
+                    transactionNumber: rescheduleData.transactionNumber || 'N/A',
+                    patientAddress: rescheduleData.patientAddress || 'N/A'
+                }))
+            return newLogList
+        }
 
-      return (
-        <>
-          <div id="reschedule-log">
-            <ComposedComponent
-              {...this.props}
-              {...props}
-              searchHandler={{
-                handleSearchFormChange: this.handleSearchFormChange,
-                handleEnter: this.handleEnterPress,
-                resetSearch: this.handleSearchFormReset,
-                searchRescheduleLog: this.searchRescheduleLog,
-                hospitalList: hospitalsForDropdown,
-                doctorList: activeDoctorsByHospitalForDropdown,
-                doctorDropdownErrorMessage: doctorDropdownErrorMessage,
-                specializationList: activeSpecializationListByHospital,
-                specializationDropdownErrorMessage: dropdownErrorMessage,
-                searchParameters: searchParameters,
-                patientListDropdown: patientList,
-                patientDropdownErrorMessage: patientDropdownErrorMessage,
+        downloadExcel = async () => {
+            const {
+                fromDate,
+                toDate,
+                hospitalId,
+                doctorId,
+                specializationId,
+                appointmentNumber,
+                esewaId,
+                patientMetaInfoId,
+                patientType,
+                appointmentServiceTypeCode,
+                hospitalDepartmentId
+            } = this.state.searchParameters
+            let searchData = {
+                fromDate,
+                toDate,
+                hospitalId: hospitalId.value || '',
+                specializationId: specializationId.value || '',
+                doctorId: doctorId.value || '',
+                appointmentNumber,
+                esewaId,
+                patientMetaInfoId: patientMetaInfoId.value || '',
+                patientType: patientType.value || '',
+                appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
+                hospitalDepartmentId: hospitalDepartmentId.value || ''
+            }
+
+            try {
+                await appointmentExcelDownload(
+                    AdminModuleAPIConstants.excelApiConstants.RESCHEDULE_LOG_EXCEL,
+                    this.state.queryParams,
+                    searchData,
+                    `rescheduleLog ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                        fromDate
+                    )} - ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                        toDate
+                    )} downloaded successfully!!`
+                )
+                this.showOrCloseAlertMessage(
+                    true,
+                    'success',
+                    `rescheduleLog ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                        fromDate
+                    )} - ${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                        toDate
+                    )} downloaded successfully!!`
+                )
+
+                return false
+            } catch (e) {
+                this.showOrCloseAlertMessage(
+                    true,
+                    'success',
+                    e.errorMessage || 'Sorry Internal Server Error'
+                )
+            }
+        }
+
+        componentDidMount() {
+            this.initialApiCalls()
+        }
+
+        componentWillUnmount() {
+            clearTimeout(this.clearAlertTimeout)
+        }
+
+        render() {
+            const {
+                searchParameters,
+                rescheduleLogList,
+                showAlert,
+                alertMessageInfo,
+                queryParams,
+                totalRecords,
+                primaryAppointmentService
+            } = this.state
+
+            const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
+
+            const {
+                activeDoctorsByHospitalForDropdown,
+                doctorDropdownErrorMessage
+            } = this.props.DoctorDropdownReducer
+
+            const {
+                activeSpecializationListByHospital,
+                dropdownErrorMessage
+            } = this.props.SpecializationDropdownReducer
+
+            const {
+                isRescheduleLogLoading,
+                rescheduleLogErrorMessage
+            } = this.props.RescheduleLogReducer
+
+            const {
+                patientList,
+                patientDropdownErrorMessage
+            } = this.props.PatientDropdownListReducer
+
+            const {
                 isFetchAppointmentServiceTypeWithCodeLoading,
                 activeAppointmentServiceTypeWithCodeForDropdown,
-                dropdownWithCodeErrorMessage,
+                dropdownWithCodeErrorMessage
+            } = this.props.AppointmentServiceTypeDropdownReducer
+
+            const {
                 isFetchAllHospitalDepartmentLoading,
                 allHospitalDepartmentForDropdown,
                 allDepartmentDropdownErrorMessage
-              }}
-              rescheduleLogData={{
-                rescheduleLogList,
-                searchErrorMessage:
-                  searchParameters.hospitalId &&
-                  searchParameters.appointmentServiceTypeCode
-                    ? rescheduleLogErrorMessage
-                    : 'Select Client and Appointment Service type first.',
-                isRescheduleLogLoading,
-                searchAppointmentStatus: this.searchRescheduleLog,
-                appointmentServiceTypeCode: primaryAppointmentService,
-                downloadExcel: this.downloadExcel
-              }}
-              paginationProps={{
-                queryParams: queryParams,
-                totalRecords: totalRecords,
-                handlePageChange: this.handlePageChange
-              }}
-            />
-            <CAlert
-              id="profile-manage"
-              variant={alertMessageInfo.variant}
-              show={showAlert}
-              onClose={this.closeAlert}
-              alertType={
-                alertMessageInfo.variant === 'success' ? (
-                  <>
-                    <Material.MdDone />
-                  </>
-                ) : (
-                  <>
-                    <i
-                      className="fa fa-exclamation-triangle"
-                      aria-hidden="true"
-                    />
-                  </>
-                )
-              }
-              message={alertMessageInfo.message}
-            />
-          </div>
-        </>
-      )
-    }
-  }
+            } = this.props.HospitalDepartmentDropdownReducer
 
-  return ConnectHoc(
-    RescheduleLogHOC,
-    [
-      'RescheduleLogReducer',
-      'SpecializationDropdownReducer',
-      'DoctorDropdownReducer',
-      'HospitalDropdownReducer',
-      'PatientDropdownListReducer',
-      'AppointmentServiceTypeDropdownReducer',
-      'HospitalDepartmentDropdownReducer'
-    ],
-    {
-      fetchActiveHospitalsForDropdown,
-      fetchActiveDoctorsHospitalWiseForDropdown,
-      fetchSpecializationHospitalWiseForDropdown,
-      searchRescheduleLog,
-      clearRescheduleLogMessage,
-      fetchPatientMetaDropdown,
-      fetchActiveAppointmentServiceTypeByHopitalId,
-      fetchAllHospitalDepartmentForDropdownByHospitalId
+            return (
+                <>
+                    <div id="reschedule-log">
+                        <ComposedComponent
+                            {...this.props}
+                            {...props}
+                            searchHandler={{
+                                handleSearchFormChange: this.handleSearchFormChange,
+                                handleEnter: this.handleEnterPress,
+                                resetSearch: this.handleSearchFormReset,
+                                searchRescheduleLog: this.searchRescheduleLog,
+                                hospitalList: hospitalsForDropdown,
+                                doctorList: activeDoctorsByHospitalForDropdown,
+                                doctorDropdownErrorMessage: doctorDropdownErrorMessage,
+                                specializationList: activeSpecializationListByHospital,
+                                specializationDropdownErrorMessage: dropdownErrorMessage,
+                                searchParameters: searchParameters,
+                                patientListDropdown: patientList,
+                                patientDropdownErrorMessage: patientDropdownErrorMessage,
+                                isFetchAppointmentServiceTypeWithCodeLoading,
+                                activeAppointmentServiceTypeWithCodeForDropdown,
+                                dropdownWithCodeErrorMessage,
+                                isFetchAllHospitalDepartmentLoading,
+                                allHospitalDepartmentForDropdown,
+                                allDepartmentDropdownErrorMessage
+                            }}
+                            rescheduleLogData={{
+                                rescheduleLogList,
+                                searchErrorMessage:
+                                    searchParameters.hospitalId &&
+                                    searchParameters.appointmentServiceTypeCode
+                                        ? rescheduleLogErrorMessage
+                                        : 'Select Client and Appointment Service type first.',
+                                isRescheduleLogLoading,
+                                searchAppointmentStatus: this.searchRescheduleLog,
+                                appointmentServiceTypeCode: primaryAppointmentService,
+                                downloadExcel: this.downloadExcel
+                            }}
+                            paginationProps={{
+                                queryParams: queryParams,
+                                totalRecords: totalRecords,
+                                handlePageChange: this.handlePageChange
+                            }}
+                        />
+                        <CAlert
+                            id="profile-manage"
+                            variant={alertMessageInfo.variant}
+                            show={showAlert}
+                            onClose={this.closeAlert}
+                            alertType={
+                                alertMessageInfo.variant === 'success' ? (
+                                    <>
+                                        <Material.MdDone/>
+                                    </>
+                                ) : (
+                                    <>
+                                        <i
+                                            className="fa fa-exclamation-triangle"
+                                            aria-hidden="true"
+                                        />
+                                    </>
+                                )
+                            }
+                            message={alertMessageInfo.message}
+                        />
+                    </div>
+                </>
+            )
+        }
     }
-  )
+
+    return ConnectHoc(
+        RescheduleLogHOC,
+        [
+            'RescheduleLogReducer',
+            'SpecializationDropdownReducer',
+            'DoctorDropdownReducer',
+            'HospitalDropdownReducer',
+            'PatientDropdownListReducer',
+            'AppointmentServiceTypeDropdownReducer',
+            'HospitalDepartmentDropdownReducer'
+        ],
+        {
+            fetchActiveHospitalsForDropdown,
+            fetchActiveDoctorsHospitalWiseForDropdown,
+            fetchSpecializationHospitalWiseForDropdown,
+            searchRescheduleLog,
+            clearRescheduleLogMessage,
+            fetchPatientMetaDropdown,
+            fetchActiveAppointmentServiceTypeByHopitalId,
+            fetchAllHospitalDepartmentForDropdownByHospitalId
+        }
+    )
 }
 
 export default RescheduleLogHOC
