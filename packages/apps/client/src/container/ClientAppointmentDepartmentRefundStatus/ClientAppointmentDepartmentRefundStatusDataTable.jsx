@@ -38,10 +38,12 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     //refundRejectError,
     //refundConfirmationModal,
     //rejectRemarks,
-    totalRefundAmount
+    totalRefundAmount,
     //isRefundLoading,
     //remarks,
-    //handleInputChange,
+    //handleInputChange
+    activeStatus,
+    handleStatusChange
   } = tableHandler
   const {queryParams, totalRecords, handlePageChange} = paginationProps
 
@@ -49,10 +51,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     <>
       <div className="manage-details">
         <AppointmentRefundStatusBadges
-          activeStatus={'All'}
-          handleStatusChange={e => {
-            console.log(e)
-          }}
+          activeStatus={activeStatus}
+          handleStatusChange={handleStatusChange}
         />
         <h5 className="title">Appointment Cancellation Status Details</h5>
         {!isSearchLoading &&
