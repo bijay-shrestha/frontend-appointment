@@ -1,38 +1,37 @@
 import React, {memo} from 'react';
-import {ConfirmDelete} from '@frontend-appointment/ui-components';
-import {CDataTable, CPagination, CLoading} from '@frontend-appointment/ui-elements';
+import {ConfirmDelete, StatusLabel, TableAction} from '@frontend-appointment/ui-components';
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
 import {ActionFilterUtils} from "@frontend-appointment/helpers";
-import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
-import TableAction from '../../CommonComponents/table-components/TableAction'
 import PreviewAdminDetails from "./PreviewAdminDetails";
 import AdminPicture from "./tableComponents/AdminPicture";
 import PreviewHandlerHoc from '../../CommonComponents/table-components/hoc/PreviewHandlerHoc';
+
 const {checkIfRoleExists} = ActionFilterUtils;
 
 const CompanyAdminDetailsDataTable = ({
-                                   isSearchLoading,
-                                   searchErrorMessage,
-                                   searchData,
-                                   setShowModal,
-                                   filteredAction,
-                                   onPreviewHandler,
-                                   onDeleteHandler,
-                                   totalItems,
-                                   maxSize,
-                                   currentPage,
-                                   handlePageChange,
-                                   showAdminModal,
-                                   adminPreviewData,
-                                   deleteModalShow,
-                                   remarksHandler,
-                                   remarks,
-                                   onSubmitDelete,
-                                   deleteErrorMsg,
-                                   onPasswordReset,
-                                   onEditHandler
-                               }) => (
+                                          isSearchLoading,
+                                          searchErrorMessage,
+                                          searchData,
+                                          setShowModal,
+                                          filteredAction,
+                                          onPreviewHandler,
+                                          onDeleteHandler,
+                                          totalItems,
+                                          maxSize,
+                                          currentPage,
+                                          handlePageChange,
+                                          showAdminModal,
+                                          adminPreviewData,
+                                          deleteModalShow,
+                                          remarksHandler,
+                                          remarks,
+                                          onSubmitDelete,
+                                          deleteErrorMsg,
+                                          onPasswordReset,
+                                          onEditHandler
+                                      }) => (
     <div className="manage-details">
-        {console.log("=========",filteredAction)}
+        {console.log("=========", filteredAction)}
         <h5 className="title">Company Admin Details</h5>
         {!isSearchLoading && !searchErrorMessage && searchData.length ? (
             <>
@@ -53,7 +52,7 @@ const CompanyAdminDetailsDataTable = ({
                             editable: true,
                             sizeColumnsToFit: true,
                             cellClass: 'first-class',
-                            width:'140'
+                            width: '140'
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
@@ -70,7 +69,7 @@ const CompanyAdminDetailsDataTable = ({
                             sortable: true,
                             sizeColumnsToFit: true,
                             cellRenderer: 'imageRenderer',
-                            width:"140"
+                            width: "140"
                         },
                         {
                             headerName: 'Name',
@@ -95,7 +94,7 @@ const CompanyAdminDetailsDataTable = ({
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
-                            width:"140"
+                            width: "140"
                         },
                         {
                             headerName: 'Profile',
@@ -111,7 +110,7 @@ const CompanyAdminDetailsDataTable = ({
                             sortable: true,
                             sizeColumnsToFit: true,
                             cellRenderer: 'childLabelRenderer',
-                            width:'120'
+                            width: '120'
                         },
                         {
                             headerName: '',
@@ -121,7 +120,7 @@ const CompanyAdminDetailsDataTable = ({
                             sizeColumnsToFit: true,
                             cellRenderer: 'childActionRenderer',
                             cellClass: 'actions-button-cell',
-                            width:'120',
+                            width: '120',
                             cellRendererParams: {
                                 onClick: function (e, id, type, username) {
                                     type === 'D'
@@ -139,8 +138,8 @@ const CompanyAdminDetailsDataTable = ({
                     ]}
                     frameworkComponents={{
                         childActionRenderer: TableAction,
-                        childLabelRenderer: PreviewHandlerHoc(StatusLabel,checkIfRoleExists,filteredAction,4,onPreviewHandler),
-                        imageRenderer: PreviewHandlerHoc(AdminPicture,checkIfRoleExists,filteredAction,4,onPreviewHandler)
+                        childLabelRenderer: PreviewHandlerHoc(StatusLabel, checkIfRoleExists, filteredAction, 4, onPreviewHandler),
+                        imageRenderer: PreviewHandlerHoc(AdminPicture, checkIfRoleExists, filteredAction, 4, onPreviewHandler)
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={

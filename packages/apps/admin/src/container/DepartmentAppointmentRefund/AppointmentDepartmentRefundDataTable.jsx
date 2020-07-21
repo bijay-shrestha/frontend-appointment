@@ -10,7 +10,7 @@ import {
     DepartmentNameWithRoomNumber,
     PatientNameWithAgeGenderPhone
 } from '@frontend-appointment/ui-components'
-import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
+import TableRefundStatus from '@frontend-appointment/ui-components/src/TableComponents/TableRefundStatus'
 import PreviewDetails from './AppointmentDepartmentRefundPreview'
 import RejectModal from './AppointmentDepartmentRejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'

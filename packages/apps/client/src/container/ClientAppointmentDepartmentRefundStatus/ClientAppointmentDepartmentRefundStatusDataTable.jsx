@@ -7,9 +7,9 @@ import {
 import {
     //CRemarksModal,
     DepartmentNameWithRoomNumber,
-    PatientNameWithAgeGenderPhone
+    PatientNameWithAgeGenderPhone,
+    TableRefundStatus
 } from '@frontend-appointment/ui-components'
-import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
 import PreviewDetails from './ClientAppointmentDepartmentRefundStatusPreview'
 //import RejectModal from './AppointmentDepartmentRejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'

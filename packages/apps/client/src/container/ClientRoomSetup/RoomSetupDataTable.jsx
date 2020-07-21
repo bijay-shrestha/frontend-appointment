@@ -1,6 +1,6 @@
 import React from 'react';
 import {CFControl, CPagination, CSelect, CTable} from "@frontend-appointment/ui-elements";
-import StatusRenderer from "../CommonComponents/table-components/StatusRenderer";
+import {StatusLabel} from "@frontend-appointment/ui-components";
 import {ActionFilterUtils} from "@frontend-appointment/helpers";
 
 const {checkIfRoleExists} = ActionFilterUtils;
@@ -59,7 +59,7 @@ const RoomSetupDataTable = ({tableData, filteredAction}) => {
                             ]}
                             defaultValue={roomData.status}
                         />,
-                        displayComponent: prop => <StatusRenderer {...prop}/>
+                        displayComponent: prop => <StatusLabel {...prop}/>
                     }
                 ]}
                 rowValid={formValid}

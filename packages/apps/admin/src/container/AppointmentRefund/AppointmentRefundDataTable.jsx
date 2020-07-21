@@ -4,9 +4,9 @@ import {
     CancelDateWithTime,
     CRemarksModal,
     DoctorWithSpecImage,
-    PatientNameWithAgeGenderPhone
+    PatientNameWithAgeGenderPhone,
+    TableRefundStatus
 } from '@frontend-appointment/ui-components'
-import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
 import PreviewDetails from './AppointmentRefundPreview'
 import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'

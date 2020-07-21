@@ -1,12 +1,11 @@
 import React, {memo} from 'react';
-import {ConfirmDelete} from '@frontend-appointment/ui-components';
-import {CDataTable, CPagination, CLoading} from '@frontend-appointment/ui-elements';
+import {ConfirmDelete, StatusLabel, TableAction} from '@frontend-appointment/ui-components';
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
 import {ActionFilterUtils} from "@frontend-appointment/helpers";
-import TableAction from "../../CommonComponents/table-components/TableAction";
-import StatusLabel from "../../CommonComponents/table-components/StatusLabel";
 import PreviewAdminDetails from "./PreviewAdminDetails";
 import AdminPicture from "./tableComponents/AdminPicture";
 import PreviewHandlerHoc from "../../CommonComponents/table-components/hoc/PreviewHandlerHoc"
+
 const {checkIfRoleExists} = ActionFilterUtils;
 
 const AdminDetailsDataTable = ({
@@ -133,8 +132,8 @@ const AdminDetailsDataTable = ({
                     ]}
                     frameworkComponents={{
                         childActionRenderer: TableAction,
-                        childLabelRenderer: PreviewHandlerHoc(StatusLabel,checkIfRoleExists,filteredActions,4,onPreviewHandler),
-                        imageRenderer: PreviewHandlerHoc(AdminPicture,checkIfRoleExists,filteredActions,4,onPreviewHandler)
+                        childLabelRenderer: PreviewHandlerHoc(StatusLabel, checkIfRoleExists, filteredActions, 4, onPreviewHandler),
+                        imageRenderer: PreviewHandlerHoc(AdminPicture, checkIfRoleExists, filteredActions, 4, onPreviewHandler)
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={

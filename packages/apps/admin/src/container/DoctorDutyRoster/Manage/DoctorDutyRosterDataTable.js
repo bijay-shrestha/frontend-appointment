@@ -2,10 +2,8 @@ import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elemen
 import React from 'react';
 import {ActionFilterUtils} from '@frontend-appointment/helpers';
 //import EditDoctorDutyRoster from "./EditDoctorDutyRoster";
-import TableAction from "../../CommonComponents/table-components/TableAction";
-import StatusLabel from "../../CommonComponents/table-components/StatusLabel";
 import PreviewHandlerHoc from "../../CommonComponents/table-components/hoc/PreviewHandlerHoc";
-import {DoctorWithImage} from "@frontend-appointment/ui-components";
+import {DoctorWithImage, TableAction, StatusLabel} from "@frontend-appointment/ui-components";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
@@ -54,7 +52,7 @@ const DoctorDutyRosterDataTable = ({
                                         sortable: true,
                                         sizeColumnsToFit: true,
                                         cellRenderer: "doctorNameRenderer",
-                                        width:300
+                                        width: 300
 
                                     },
                                     {

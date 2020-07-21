@@ -1,13 +1,7 @@
 import React, {memo} from 'react'
-import {
-    CDataTable,
-    CPagination,
-    CLoading
-} from '@frontend-appointment/ui-elements'
-import {ClientNameWithLogo, ConfirmDelete} from '@frontend-appointment/ui-components'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
+import {ClientNameWithLogo, ConfirmDelete, StatusLabel, TableAction} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
-import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
-import TableAction from '../../CommonComponents/table-components/TableAction'
 import PreviewDetails from '../commons/PreviewDetails'
 import CompanyPicture from '../commons/CompanyPicture'
 import PreviewHandlerHoc from '../../CommonComponents/table-components/hoc/PreviewHandlerHoc'
