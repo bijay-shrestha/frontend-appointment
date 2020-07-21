@@ -6,7 +6,7 @@ import {FavouritesUtils, LocalStorageSecurity, StringUtils} from '@frontend-appo
 import {Axios} from '@frontend-appointment/core'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {CAlert} from '@frontend-appointment/ui-elements'
-import * as Material from 'react-icons/md'
+import {MdDone} from 'react-icons/md'
 
 const {FETCH_FAVOURITES_FOR_DROPDOWN, SAVE_FAVOURITES, UPDATE_FAVOURITES} = AdminModuleAPIConstants.favouritesApiConstants
 
@@ -260,7 +260,7 @@ class CFavourites extends React.PureComponent {
                 alertType={
                     alertMessageInfo.variant === 'success' ? (
                         <>
-                            <Material.MdDone/>
+                            <MdDone/>
                         </>
                     ) : (
                         <>

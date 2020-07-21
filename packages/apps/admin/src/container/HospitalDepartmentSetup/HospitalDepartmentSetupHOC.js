@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {ConnectHoc} from "@frontend-appointment/commons";
 import {CAlert} from "@frontend-appointment/ui-elements";
-import * as Material from 'react-icons/md';
+import {MdDone} from 'react-icons/md';
 import {
     BillingModeMiddleware,
     DoctorMiddleware,
@@ -837,7 +837,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                     variant={alertMessageInfo.variant}
                     show={showAlert}
                     onClose={this.closeAlert}
-                    alertType={alertMessageInfo.variant === "success" ? <><Material.MdDone/>
+                    alertType={alertMessageInfo.variant === "success" ? <><MdDone/>
                     </> : <><i className="fa fa-exclamation-triangle" aria-hidden="true"/>
                     </>}
                     message={alertMessageInfo.message}

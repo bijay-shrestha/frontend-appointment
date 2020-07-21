@@ -1,7 +1,7 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {EnterKeyPressUtils, ObjectUtils} from '@frontend-appointment/helpers'
-import * as Material from 'react-icons/md'
+import {MdDone} from 'react-icons/md'
 import {
   RequestBodyApiIntegrationMiddleware,
   HospitalApiIntegrationMiddleware
@@ -557,7 +557,7 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
             alertType={
               alertMessageInfo.variant === 'success' ? (
                 <>
-                  <Material.MdDone />
+                  <MdDone />
                 </>
               ) : (
                 <>

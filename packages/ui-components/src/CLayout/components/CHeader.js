@@ -14,7 +14,7 @@ import {
     menuRoles,
     ProfileSetupUtils
 } from '@frontend-appointment/helpers'
-import * as Material from 'react-icons/md'
+import {MdDone} from 'react-icons/md'
 import CompanyProfilePreviewRoles from '../../CompanyProfilePreviewRoles'
 import PreviewClientProfileRoles from '../../PreviewClientProfileRoles'
 
@@ -567,7 +567,7 @@ class CHeader extends Component {
                     alertType={
                         this.state.alertMessageInfo.variant === 'success' ? (
                             <>
-                                <Material.MdDone/>
+                                <MdDone/>
                             </>
                         ) : (
                             <>

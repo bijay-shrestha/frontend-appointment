@@ -1,7 +1,9 @@
 import React, {PureComponent} from 'react'
 import {Dropdown} from 'react-bootstrap'
-
-import {MdEdit, MdDeleteForever, MdContentCopy, MdRefresh} from 'react-icons/md'
+import {MdDeleteForever} from 'react-icons/md'
+import {MdContentCopy} from 'react-icons/md'
+import {MdRefresh} from 'react-icons/md'
+import {MdEdit} from 'react-icons/md'
 import {FiMoreHorizontal} from 'react-icons/fi'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 

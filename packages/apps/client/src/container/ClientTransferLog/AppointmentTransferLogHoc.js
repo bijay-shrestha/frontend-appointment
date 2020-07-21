@@ -7,7 +7,7 @@ import {
   AppointmentTransferMiddleware,
   AppointmentDetailsMiddleware
 } from '@frontend-appointment/thunk-middleware'
-import * as Material from 'react-icons/md'
+import {MdDone} from 'react-icons/md'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import './transfer-log.scss'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
@@ -376,7 +376,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
                         alertType={
                             alertMessageInfo.variant === 'success' ? (
                                 <>
-                                    <Material.MdDone/>
+                                    <MdDone/>
                                 </>
                             ) : (
                                 <>

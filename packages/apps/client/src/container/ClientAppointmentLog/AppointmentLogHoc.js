@@ -16,7 +16,7 @@ import {
     LocalStorageSecurity
     //EnvironmentVariableGetter
 } from '@frontend-appointment/helpers'
-import * as Material from 'react-icons/md'
+import {MdDone} from 'react-icons/md'
 import './appointment-log.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
@@ -506,7 +506,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                         alertType={
                             alertMessageInfo.variant === 'success' ? (
                                 <>
-                                    <Material.MdDone/>
+                                    <MdDone/>
                                 </>
                             ) : (
                                 <>

@@ -5,7 +5,7 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {ForgotPasswordMiddleware} from '@frontend-appointment/thunk-middleware'
 import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {LocalStorageSecurity} from '@frontend-appointment/helpers'
-import * as Material from 'react-icons/md';
+import{MdDone} from 'react-icons/md';
 
 const {codeVerification} = ForgotPasswordMiddleware
 const {ForgotPasswordAndVerification} = CommonAPIConstants
@@ -89,7 +89,7 @@ class CodeVerification extends PureComponent {
                     alertType={
                         alertMessageInfo.variant === 'success' ? (
                             <>
-                                <Material.MdDone/>
+                                <MdDone/>
                             </>
                         ) : (
                             <>
