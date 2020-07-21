@@ -379,7 +379,7 @@ const AppointmentStatusDetails = ({
 
                                                                 <CButton
                                                                     name=""
-                                                                    variant="default"
+                                                                    variant="success"
                                                                     className="app-details-link"
                                                                     onClickHandler={() =>
                                                                         handleViewAppointmentDetails(appointmentStatusDetail)

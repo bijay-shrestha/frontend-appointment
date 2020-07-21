@@ -51,6 +51,7 @@ export const searchCompany = (path, queryParams, searchData) => async dispatch =
     } catch (e) {
         const error = e.errorMessage || 'Sorry Some Error Occured In Server!'
         dispatch(CompanySetupActions.searchCompanyError(error))
+        throw e;
     }
 }
 

@@ -407,7 +407,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
         searchCompany = async page => {
             const {companyCode, name, status} = this.state.searchParameters
             let searchData = {
-                name: name.value||'',
+                companyId: name ? name.value : '',
                 companyCode: companyCode,
                 status: status.value === 'A' ? '' : status.value
             }
@@ -418,24 +418,27 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                     : page
                     ? page
                     : this.state.queryParams.page
-            await this.props.searchCompany(
-                SEARCH_COMPANY,
-                {
-                    page: updatedPage,
-                    size: this.state.queryParams.size
-                },
-                searchData
-            )
+            try {
+                await this.props.searchCompany(
+                    SEARCH_COMPANY,
+                    {
+                        page: updatedPage,
+                        size: this.state.queryParams.size
+                    },
+                    searchData
+                )
+                await this.setState({
+                    totalRecords: this.props.companySearchReducer.companySearchData.length
+                        ? this.props.companySearchReducer.companySearchData[0].totalItems
+                        : 0,
+                    queryParams: {
+                        ...this.state.queryParams,
+                        page: updatedPage
+                    }
+                })
+            } catch (e) {
 
-            await this.setState({
-                totalRecords: this.props.companySearchReducer.companySearchData.length
-                    ? this.props.companySearchReducer.companySearchData[0].totalItems
-                    : 0,
-                queryParams: {
-                    ...this.state.queryParams,
-                    page: updatedPage
-                }
-            })
+            }
         }
 
         appendSNToTable = companyList => {

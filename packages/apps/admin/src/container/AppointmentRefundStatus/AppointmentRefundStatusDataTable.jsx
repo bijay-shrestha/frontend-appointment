@@ -57,25 +57,22 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             columnDefs={[
                                 {
                                     headerName: 'SN',
-                                    field: 'sN',
-                                    headerClass: 'resizable-header header-first-class',
+                                    field: 'sN',                                  
                                     resizable: true,
                                     sortable: true,
                                     editable: true,
                                     sizeColumnsToFit: true,
-                                    width: 140,
-                                    cellClass: 'first-class'
+                                    width: 100,
+                                 
                                 },
                                 {
                                     headerName: 'Hospital Name',
                                     field: 'hospitalName',
-                                    headerClass: 'resizable-header header-first-class',
                                     resizable: true,
                                     sortable: true,
                                     editable: true,
                                     sizeColumnsToFit: true,
                                     width: 140,
-                                    cellClass: 'first-class'
                                 },
                                 {
                                     headerName: 'Status',

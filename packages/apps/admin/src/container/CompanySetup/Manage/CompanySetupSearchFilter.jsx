@@ -26,7 +26,7 @@ class CompanySetupSearchFilter extends PureComponent {
             searchParameters,
             resetSearchForm,
             handleEnter,
-           // isCompanyDropdownLoading,
+            // isCompanyDropdownLoading,
             companyDropdownData,
             companyDropdownErrorMessage
             // hospitalDropdown
@@ -46,7 +46,7 @@ class CompanySetupSearchFilter extends PureComponent {
                                     name=""
                                     onClickHandler={resetSearchForm}
                                 >
-                                     <i className="fa fa-refresh"/>&nbsp;Reset
+                                    <i className="fa fa-refresh"/>&nbsp;Reset
                                 </CButton>
                             </div>
                         </div>
@@ -149,7 +149,7 @@ class CompanySetupSearchFilter extends PureComponent {
                                         )}
                                     >
                                         <Button id="light-search-filters" variant="secondary">
-                                            {searchParameters.name.value}
+                                            {searchParameters.name.label}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>

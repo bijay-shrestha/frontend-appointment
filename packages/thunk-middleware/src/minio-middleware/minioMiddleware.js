@@ -3,32 +3,38 @@ import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constan
 
 const {FILE_UPLOAD_PATH, FILE_PRE_SIGNED_URI_FOR_DISPLAY, FILE_URI_FOR_DISPLAY} = CommonAPIConstants.FileResourceConstants
 
-export const fetchPresignedUrlForPutOperation = async (path, data) => {
-    try {
-        const response = await Axios.put(path, data);
-        return response.data
-    } catch (e) {
-        console.log("IMAGE NOT FETCHED",e)
-        // throw e
-    }
-}
-
 export const fetchPresignedUrlForGetOperation = async (fileUri) => {
     try {
-        const response = await Axios.put(FILE_PRE_SIGNED_URI_FOR_DISPLAY, {fileName: fileUri});
-        return response.data
+        if (fileUri.split("/")[0] === "private") {
+            const response = await Axios.put(FILE_PRE_SIGNED_URI_FOR_DISPLAY, {fileName: fileUri});
+            return response.data
+        } else
+            return fileUri
     } catch (e) {
-        console.log("IMAGE NOT FETCHED",e)
+        console.log("IMAGE NOT FETCHED", e)
         // throw e
     }
 }
 
 export const fetchUrlForGetOperation = async (fileUri) => {
     try {
-        const response = await Axios.getWithRequestParams(FILE_URI_FOR_DISPLAY, {fileUri: fileUri});
+        if (fileUri.split("/")[0] === "private") {
+            const response = await Axios.getWithRequestParams(FILE_URI_FOR_DISPLAY, {fileUri: fileUri});
+            return response.data
+        } else
+            return fileUri
+    } catch (e) {
+        console.log("IMAGE NOT FETCHED", e)
+        // throw e
+    }
+}
+
+export const fetchPresignedUrlForPutOperation = async (path, data) => {
+    try {
+        const response = await Axios.put(path, data);
         return response.data
     } catch (e) {
-        console.log("IMAGE NOT FETCHED",e)
+        console.log("IMAGE NOT FETCHED", e)
         // throw e
     }
 }
