@@ -21,7 +21,7 @@ const RefundTableAmbigousAction = props => {
           {
             // checkIfRoleExists(this.props.filteredAction, 3) &&
             <Dropdown.Item onClick={e => saveActionInSession(e, 37, 'E')}>
-              <Material.MdVerifiedUser /> Check{' '}
+              <Material.MdVerifiedUser /> Re-initiate{' '}
             </Dropdown.Item>
           }
         

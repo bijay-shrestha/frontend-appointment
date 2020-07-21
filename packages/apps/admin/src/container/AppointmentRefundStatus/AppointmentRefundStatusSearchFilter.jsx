@@ -57,7 +57,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
         {this.state.isSearchFormExpanded ? (
           <div id="advanced-search" className="advanced-search">
             <div className="search-header d-flex justify-content-between">
-              <h5 className="title">Search Appointment Cancellation</h5>
+              <h5 className="title">Search Appointment Cancellation Status</h5>
               <div>
                 <CButton
                   id="reset-form"

@@ -333,7 +333,7 @@
         {
           "id": "30",
           "parentId": "10",
-          "name": "Appointment Refund Status",
+          "name": "Appointment Cancellation Status",
           "path": "/appointment/refundStatus",
           "roles": [
             19,
