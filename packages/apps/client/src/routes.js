@@ -561,7 +561,7 @@ export const routes = [
     hasTab: true,
     isLink: true,
     isTab: false,
-    name: 'Appointment Refund Status',
+    name: 'Appointment Cancellation Status',
     isSingleTab: false
   },
   {

@@ -70,13 +70,13 @@ const AppointmentRefundListComponent = loadable(
     {fallback: () => getLoader()}
 )
 
-const AppointmentDepartmentRefundListComponent = Loadable({
-    loader: () =>
+const AppointmentDepartmentRefundListComponent = loadable(
+    ()=>
         import(
             './container/DepartmentAppointmentRefund/AppointmentDepartmentRefund'
             ),
-    loading: () => getLoader()
-})
+    {fallback: () => getLoader()}
+)
 
 const AppointmentApprovalListComponent = loadable(
     () => import('./container/AppointmentApproval/AppointmentApproval'),
@@ -1174,7 +1174,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: false,
-        name: 'Appointment Status',
+        name: 'Appointment Cancellation Status',
         isSingleTab: false
     },
     {

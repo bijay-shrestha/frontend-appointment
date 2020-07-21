@@ -1,11 +1,16 @@
 import React, {memo} from 'react'
-import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
+import {
+  CDataTable,
+  CLoading,
+  CPagination
+} from '@frontend-appointment/ui-elements'
 import {
   CRemarksModal,
   DoctorWithSpecImage,
   PatientNameWithAgeGenderPhone,
   TableRefundStatusAmbigous,
-  AppointmentCancelDateWithTime
+  AppointmentCancelDateWithTime,
+  AppointmentRefundStatusBadges
 } from '@frontend-appointment/ui-components'
 import PreviewDetails from './AppointmentRefundStatusPreview'
 //import RejectModal from "./RejectStatusModal";
@@ -43,6 +48,12 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     <>
       <div className="manage-details">
         <h5 className="title">Appointment Cancellation Status Details</h5>
+        <AppointmentRefundStatusBadges
+          activeStatus={'All'}
+          handleStatusChange={e => {
+            console.log(e)
+          }}
+        />
         {!isSearchLoading &&
         !searchErrorMessage &&
         appointmentRefundList.length ? (
@@ -58,11 +69,11 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
               columnDefs={[
                 {
                   headerName: 'SN',
-                  field: 'sN',               
+                  field: 'sN',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  width: 140                 
+                  width: 140
                 },
                 {
                   headerName: 'Status',
@@ -198,7 +209,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   null,
                   null,
                   previewCall
-                ),
+                )
               }}
               defaultColDef={{resizable: true}}
               getSelectedRows={previewCall}

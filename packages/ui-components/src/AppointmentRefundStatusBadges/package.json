@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-appointment-refund-status-badges",
+  "version": "1.0.0",
+  "main": "AppointmentRefundStatusBadges.jsx",
+  "author": "Kaushal Regmi",
+  "license": "MIT",
+  "private": true
+}
