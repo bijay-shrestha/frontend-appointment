@@ -2,7 +2,7 @@ import React from 'react'
 import {CCopyToClipboard, CForm, CModal} from '@frontend-appointment/ui-elements'
 import {Row} from 'react-bootstrap'
 
-const QuickDepartmentCheckInConfirmModal = ({
+const DepartmentCheckInConfirmModal = ({
                                                 showModal,
                                                 // modalHeader,
                                                 setShowModal,
@@ -62,4 +62,4 @@ const QuickDepartmentCheckInConfirmModal = ({
     )
 }
 
-export default QuickDepartmentCheckInConfirmModal
+export default DepartmentCheckInConfirmModal

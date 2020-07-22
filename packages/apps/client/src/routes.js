@@ -130,7 +130,7 @@ const DashboardComponent = Loadable({
 const DepartmentWiseQuickCheckInComponent = loadable(
   () =>
     import(
-      './container/ClientAppointmentDepartmentCheckinQuickMenu/AppointmentDepartmentCheckinFast'
+      './container/ClientQuickDepartmentCheckIn/QuickDepartmentCheckIn'
     ),
   {fallback: () => getLoader()}
 )
@@ -138,7 +138,7 @@ const DepartmentWiseQuickCheckInComponent = loadable(
 const DepartmentCheckInComponent = loadable(
   () =>
     import(
-      './container/ClientQuickDepartmentCheckIn/QuickDepartmentCheckIn'
+      './container/ClientDepartmentCheckIn/DepartmentCheckIn'
     ),
   {fallback: () => getLoader()}
 )
