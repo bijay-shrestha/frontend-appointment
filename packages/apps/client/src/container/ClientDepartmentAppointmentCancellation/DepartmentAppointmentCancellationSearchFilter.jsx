@@ -4,7 +4,7 @@ import {CButton, CForm, CHybridInput, CHybridSelect} from '@frontend-appointment
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
-class AppointmentDepartmentRefundSearchFilter extends PureComponent {
+class DepartmentAppointmentCancellationSearchFilter extends PureComponent {
   state = {
     isSearchFormExpanded: false
   }
@@ -371,4 +371,4 @@ class AppointmentDepartmentRefundSearchFilter extends PureComponent {
   }
 }
 
-export default AppointmentDepartmentRefundSearchFilter
+export default DepartmentAppointmentCancellationSearchFilter

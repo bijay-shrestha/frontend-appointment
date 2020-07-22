@@ -6,7 +6,7 @@ import {
   TableRefundStatusAmbigous,
 } from '@frontend-appointment/ui-components'
 import PreviewDetails from './DepartmentAppointmentRefundStatusPreview'
-//import RejectModal from "./RejectStatusModal";
+//import DepartmentAppointmentCancellationRejectModal from "./RejectStatusModal";
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import AppointmentRefundStatus from '../CommonComponents/table-components/AppointmentRefundStatus'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
@@ -65,12 +65,12 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   },
                   {
                   headerName: 'Hospital Name',
-                  field: 'hospitalName',              
+                  field: 'hospitalName',
                   resizable: true,
                   sortable: true,
                   editable: true,
                   sizeColumnsToFit: true,
-                  width: 240,                
+                  width: 240,
                 },
                 {
                   headerName: 'Status',
@@ -230,7 +230,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         ''
       )}
       {/* {rejectModalShow ? (
-                <RejectModal
+                <DepartmentAppointmentCancellationRejectModal
                     confirmationMessage="Are you sure you want to reject the Refund?If yes please provide remarks."
                     modalHeader="Reject Refund"
                     showModal={rejectModalShow}

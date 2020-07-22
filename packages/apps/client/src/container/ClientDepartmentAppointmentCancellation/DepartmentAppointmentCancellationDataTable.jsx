@@ -11,8 +11,8 @@ import {
     PatientNameWithAgeGenderPhone,
     TableRefundStatus
 } from '@frontend-appointment/ui-components'
-import PreviewDetails from './AppointmentDepartmentRefundPreview'
-import RejectModal from './AppointmentDepartmentRejectModal'
+import DepartmentAppointmentCancellationPreviewModal from './DepartmentAppointmentCancellationPreviewModal'
+import DepartmentAppointmentCancellationRejectModal from './DepartmentAppointmentCancellationRejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
@@ -223,7 +223,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 )}
             </div>
             {showModal ? (
-                <PreviewDetails
+                <DepartmentAppointmentCancellationPreviewModal
                     showModal={showModal}
                     setShowModal={setShowModal}
                     refundData={previewData}
@@ -232,7 +232,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 ''
             )}
             {rejectModalShow ? (
-                <RejectModal
+                <DepartmentAppointmentCancellationRejectModal
                     confirmationMessage="Are you sure you want to reject the Refund?If yes please provide remarks."
                     modalHeader="Reject Refund"
                     showModal={rejectModalShow}

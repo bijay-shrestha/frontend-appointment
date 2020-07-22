@@ -52,7 +52,7 @@ const AppointmentRefundListComponent = Loadable({
 const AppointmentDepartmentRefundListComponent = Loadable({
   loader: () =>
     import(
-      './container/ClientAppointmentDepartmentRefund/AppointmentDepartmentRefund'
+      './container/ClientDepartmentAppointmentCancellation/DepartmentAppointmentCancellation'
     ),
   loading: () => getLoader()
 })

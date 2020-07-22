@@ -14,7 +14,7 @@ import {
     DateTimeFormatterUtils,
     EnterKeyPressUtils
 } from '@frontend-appointment/helpers'
-import './appointment-refund.scss'
+import './appointment-cancellation.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
 const {
@@ -40,7 +40,8 @@ const {
     fetchSpecializationForDropdown
 } = SpecializationSetupMiddleware
 const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware
-const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
+
+const DepartmentAppointmentCancellationHoc = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
         hospitalSetupApiConstants,
@@ -611,4 +612,4 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
         }
     )
 };
-export default AppointmentDepartmentRefundHOC
+export default DepartmentAppointmentCancellationHoc
