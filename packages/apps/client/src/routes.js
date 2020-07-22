@@ -88,7 +88,7 @@ const AppointmentDepartmentRefundStatusListComponent = Loadable({
 })
 
 const ActivityLog = loadable(
-  () => import('./container/ClientActivitiesLog/ClientActivityLog'),
+  () => import('./container/ClientActivityLog/ClientActivityLog'),
   {fallback: () => getLoader()}
 )
 

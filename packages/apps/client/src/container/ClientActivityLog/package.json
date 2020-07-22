@@ -1,0 +1,7 @@
+{
+  "name": "@frontend-appointment/activity-log",
+  "version": "1.0.0",
+  "main": "ClientActivityLog.js",
+  "license": "MIT",
+  "private": true
+}
