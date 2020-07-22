@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/admin-container",
+  "version": "1.0.0",
+  "main": "AdminContainer.js",
+  "main:src": "AdminContainer.js",
+  "license": "MIT",
+  "private": true
+}

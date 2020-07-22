@@ -1,6 +1,6 @@
 import React from 'react';
 //import './App.css';
-import AdminContainer from "./container/AdminContainer";
+import AdminContainer from "./container";
 import '@frontend-appointment/common-sass';
 // import 'react-selectize/themes/index.css'
 // import 'react-selectize/dist/index.min.css'
