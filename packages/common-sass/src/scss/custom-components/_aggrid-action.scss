@@ -39,15 +39,15 @@
         border-bottom:1px solid $cogent-border;
         line-height: 0.9rem;
         text-transform: capitalize;
+        display:flex;
         &:hover {
             background-color: $cogent;
             color           : $white;
         }
 
-        svg{
-            width:15px;
-            height: auto;
-            margin-top:-2px;
+        .material-icons{
+            font-size:14px;
+            margin-right:6px;
           
         }
     }

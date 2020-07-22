@@ -1,6 +1,6 @@
 import React from 'react'
 import {Dropdown} from 'react-bootstrap'
-import {FiMoreHorizontal} from 'react-icons/fi'
+// import {FiMoreHorizontal} from 'react-icons/fi'
 
 const ApproveTableAction = props => {
     const saveActionInSession = (e, actionId, actionName) => {
@@ -11,7 +11,9 @@ const ApproveTableAction = props => {
         <>
             <Dropdown className="table-action">
                 <Dropdown.Toggle variant="default" id="dropdown-basic">
-                    <FiMoreHorizontal/>
+                   <span className="material-icons">
+                    more_horiz
+                    </span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
