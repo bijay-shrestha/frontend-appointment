@@ -2,7 +2,7 @@ import React from 'react'
 import {Dropdown} from 'react-bootstrap'
 // import {CButton} from '@frontend-appointment/ui-elements'
 // import * as Material from 'react-icons/md'
-import {FiMoreHorizontal}  from 'react-icons/fi'
+import { MdMoreHoriz}  from 'react-icons/md'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 
 const {checkIfRoleExists} = ActionFilterUtils
@@ -16,7 +16,7 @@ const DepartmentApproveTableAction = props => {
  
       <Dropdown className="table-action">
         <Dropdown.Toggle variant="default" id="dropdown-basic">
-          <FiMoreHorizontal />
+          < MdMoreHoriz />
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
