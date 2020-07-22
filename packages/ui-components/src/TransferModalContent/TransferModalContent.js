@@ -9,7 +9,7 @@ import {
 import {DoctorWithSpecImage} from '@frontend-appointment/ui-components'
 import {Col, Row} from 'react-bootstrap'
 import {EnvironmentVariableGetter} from '@frontend-appointment/helpers'
-// import './appointment-approval.scss'
+// import './doctor-quick-checkin.scss'
 
 const TransferContent = ({
                              transferData,

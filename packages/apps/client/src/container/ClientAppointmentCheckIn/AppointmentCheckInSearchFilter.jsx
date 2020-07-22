@@ -17,7 +17,7 @@ import {
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
-class AppointmentApprovalListSearchFilter extends PureComponent {
+class AppointmentCheckInSearchFilter extends PureComponent {
     state = {
         isSearchFormExpanded: false
     }
@@ -395,4 +395,4 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
     }
 }
 
-export default AppointmentApprovalListSearchFilter
+export default AppointmentCheckInSearchFilter

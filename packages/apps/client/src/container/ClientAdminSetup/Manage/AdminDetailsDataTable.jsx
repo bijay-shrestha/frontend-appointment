@@ -1,9 +1,8 @@
 import React, {memo} from 'react';
-import {ConfirmDelete, StatusLabel, TableAction} from '@frontend-appointment/ui-components';
+import {AdminPicture, ConfirmDelete, StatusLabel, TableAction} from '@frontend-appointment/ui-components';
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
 import {ActionFilterUtils} from "@frontend-appointment/helpers";
 import PreviewAdminDetails from "./PreviewAdminDetails";
-import AdminPicture from "./tableComponents/AdminPicture";
 import PreviewHandlerHoc from "../../CommonComponents/table-components/hoc/PreviewHandlerHoc"
 
 const {checkIfRoleExists} = ActionFilterUtils;

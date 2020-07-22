@@ -11,4 +11,5 @@ export {default as RoomNumberForTable} from './RoomNumberForTable';
 export {default as ClientNameWithLogo} from './ClientNameWithLogo';
 export {default as TableApproveAction} from './TableApproveAction';
 export {default as TableRefundStatus} from './TableRefundStatus';
+export {default as AdminPicture} from './AdminPicture';
 

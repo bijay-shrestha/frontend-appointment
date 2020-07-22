@@ -9,7 +9,7 @@ import {
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants, IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
 import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
-import './appointment-approval.scss'
+import './appointment-checkin.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import {CConfirmationModal, TransferModalContent} from '@frontend-appointment/ui-components'
 

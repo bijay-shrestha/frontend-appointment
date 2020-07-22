@@ -1,5 +1,6 @@
 import * as HospitalDepartmentSetupComponents from './src/HospitalDepartmentSetupComponents';
 import * as DepartmentDutyRosterComponents from './src/DepartmentDutyRosterComponents';
+import * as DefaultProfileImage from './src/img/amin-default-picture.png';
 import {
     EndTimeDisplayForTable,
     StartTimeDisplayForTable,
@@ -13,7 +14,8 @@ import {
     RoomNumberForTable,
     ClientNameWithLogo,
     TableApproveAction,
-    TableRefundStatus
+    TableRefundStatus,
+    AdminPicture
 } from './src/TableComponents';
 
 export {
@@ -31,7 +33,9 @@ export {
     RoomNumberForTable,
     ClientNameWithLogo,
     TableApproveAction,
-    TableRefundStatus
+    TableRefundStatus,
+    DefaultProfileImage,
+    AdminPicture
 }
 export {default as Login} from './src/Login';
 export {default as ClientLogin} from './src/ClientLogin';

@@ -59,7 +59,7 @@ const AppointmentDepartmentRefundListComponent = Loadable({
 
 const AppointmentApprovalListComponent = Loadable({
   loader: () =>
-    import('./container/ClientAppointmentApproval/AppointmentApproval'),
+    import('./container/ClientAppointmentCheckIn/AppointmentCheckIn'),
   loading: () => getLoader()
 })
 
@@ -243,7 +243,7 @@ const QualificationAlias = loadable(
 const QuickCheckInComponent = loadable(
   () =>
     import(
-      './container/ClientAppointmentCheckinQuickMenu/AppointmentCheckinFast'
+      './container/ClientQuickDoctorCheckIn/QuickDoctorCheckIn'
     ),
   {fallback: () => getLoader()}
 )

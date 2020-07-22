@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import {CModal} from "@frontend-appointment/ui-elements";
 import {TransferModalContent} from "@frontend-appointment/ui-components";
 
-const AppointmentTransfer = props => {
+const AppointmentTransferModal = props => {
     const {showModal, setShowModal, transferModalHandler} = props;
     return (
         <>
@@ -19,4 +19,4 @@ const AppointmentTransfer = props => {
     );
 };
 
-export default memo(AppointmentTransfer);
+export default memo(AppointmentTransferModal);

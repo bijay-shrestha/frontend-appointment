@@ -2,7 +2,7 @@ import React from 'react'
 import { CCopyToClipboard, CForm, CModal } from '@frontend-appointment/ui-elements'
 import { Row } from 'react-bootstrap'
 
-const AppointmentFastCheckInConfirm = ({
+const QuickDoctorCheckInConfirmModal = ({
     showModal,
     modalHeader,
     setShowModal,
@@ -19,7 +19,7 @@ const AppointmentFastCheckInConfirm = ({
 
                 <Row className="clip">
                 <i className="fa fa-check-circle"></i>
-                    <h2>Appointment Checked-In Successfully</h2>  
+                    <h2>Appointment Checked-In Successfully</h2>
                     <div className="btn-container">
                     {Print ? <Print /> : ''}
                     &nbsp;&nbsp;
@@ -36,7 +36,7 @@ const AppointmentFastCheckInConfirm = ({
                     copiedMessage={copySuccessMessage}
                     />
                     </div>
-             
+
                 </Row>
 
             </CForm>
@@ -60,4 +60,4 @@ const AppointmentFastCheckInConfirm = ({
     )
 }
 
-export default AppointmentFastCheckInConfirm
+export default QuickDoctorCheckInConfirmModal

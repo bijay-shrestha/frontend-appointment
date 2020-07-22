@@ -9,8 +9,7 @@ import {
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants, IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
-import './appointment-approval.scss'
-//import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
+import './doctor-quick-checkin.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
 const {
@@ -39,7 +38,7 @@ const {
 } = DoctorMiddleware
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
 const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware
-const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
+const QuickDoctorCheckInHOC = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
         doctorSetupApiConstants,
@@ -936,4 +935,4 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
         }
     )
 }
-export default AppointCheckInFastHOC
+export default QuickDoctorCheckInHOC

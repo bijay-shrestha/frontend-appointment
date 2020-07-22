@@ -1,5 +1,5 @@
 import React from 'react';
-import DefaultPic from '../../Add/picture.png';
+import DefaultPic from '../img/amin-default-picture.png';
 
 const AdminPicture = props => {
     return (

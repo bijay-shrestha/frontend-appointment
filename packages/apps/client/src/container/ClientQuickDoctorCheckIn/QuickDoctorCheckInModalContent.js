@@ -2,8 +2,8 @@ import React from 'react'
 import {CForm, CHybridInput, CHybridSelectWithImage} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
-const ApprovalContent = ({approvalData}) => {
-    console.log("Check-in modal",approvalData);
+const QuickDoctorCheckInModalContent = ({approvalData}) => {
+    // console.log("Check-in modal",approvalData);
     return (
         <>
             <Container-fluid>
@@ -138,4 +138,4 @@ const ApprovalContent = ({approvalData}) => {
     )
 }
 
-export default ApprovalContent
+export default QuickDoctorCheckInModalContent

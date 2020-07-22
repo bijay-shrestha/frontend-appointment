@@ -1,11 +1,11 @@
 import React from 'react'
-import AppointmentCheckInFastDataTable from './AppointmentCheckInFastDataTable'
-import AppointmentCheckInFastHoc from './AppointmentCheckinFastHoc'
+import QuickDoctorCheckInDataTable from './QuickDoctorCheckInDataTable'
+import QuickDoctorCheckInHoc from './QuickDoctorCheckInHoc'
 import {CButton, CHybridInput} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
-const AppointmentCheckInFastLog = props => {
-    const AppoinmentCheckInFast = AppointmentCheckInFastHoc(
+const QuickDoctorCheckIn = props => {
+    const AppoinmentCheckInFast = QuickDoctorCheckInHoc(
         ({searchHandler, paginationProps, tableHandler}) => (
             <>
                 <Row className="quick-search">
@@ -37,14 +37,14 @@ const AppointmentCheckInFastLog = props => {
                             variant="outline-secondary"
                             name=""
                             onClickHandler={searchHandler.resetAppointmentNumber}
-                        >                        
+                        >
                             <i className="fa fa-refresh"/> &nbsp;Reset
                         </CButton>
                     </Col>
                 </Row>
 
                 <div className="">
-                    <AppointmentCheckInFastDataTable
+                    <QuickDoctorCheckInDataTable
                         tableHandler={tableHandler}
                         paginationProps={paginationProps}
                         filteredActions={props.filteredAction}
@@ -59,4 +59,4 @@ const AppointmentCheckInFastLog = props => {
     return <AppoinmentCheckInFast/>
 }
 
-export default AppointmentCheckInFastLog
+export default QuickDoctorCheckIn

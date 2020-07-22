@@ -1,14 +1,15 @@
 import React from 'react';
 import {CModal} from "@frontend-appointment/ui-elements";
-import ApprovalContent from "./ApprovalContent";
-const PreviewRefund = props => {
+import QuickDoctorCheckInModalContent from "./QuickDoctorCheckInModalContent";
+
+const QuickDoctorCheckInPreviewModal = props => {
     const {showModal, setShowModal, approvalData} = props;
     return (
         <>
             <CModal show={showModal}
                     modalHeading="Appointment Checkin Details"
                     size="xl"
-                    bodyChildren={<ApprovalContent approvalData={approvalData} />}
+                    bodyChildren={<QuickDoctorCheckInModalContent approvalData={approvalData}/>}
                     onHide={setShowModal}
                     centered={false}
                     dialogClassName="preview-modal"
@@ -18,4 +19,4 @@ const PreviewRefund = props => {
     );
 };
 
-export default PreviewRefund;
+export default QuickDoctorCheckInPreviewModal;

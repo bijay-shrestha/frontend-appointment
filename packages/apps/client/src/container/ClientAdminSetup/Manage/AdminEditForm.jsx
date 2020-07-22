@@ -13,8 +13,7 @@ import {
     CRadioButton
 } from '@frontend-appointment/ui-elements'
 import {Row} from 'reactstrap'
-import * as DefaultProfileImage from '../Add/picture.png'
-import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
+import {CImageUploadAndCropModal, DefaultProfileImage} from '@frontend-appointment/ui-components'
 
 const AdminEditForm = ({
                            adminInfoObj,
@@ -73,7 +72,7 @@ const AdminEditForm = ({
                                 className="upload-button my-1"
                                 onClickHandler={setImageShowModal}
                             >
-                            <i className="fa fa-upload"></i>&nbsp;Upload
+                                <i className="fa fa-upload"></i>&nbsp;Upload
 
                             </CButton>
                             <CImageUploadAndCropModal
