@@ -7,7 +7,8 @@ import {
   HospitalDepartmentSetupMiddleware,
   HospitalSetupMiddleware,
   PatientDetailsMiddleware,
-  SpecializationSetupMiddleware
+  SpecializationSetupMiddleware,
+  RoomSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
@@ -37,6 +38,7 @@ const {
 const {
   fetchActiveAppointmentServiceTypeByHopitalId
 } = AppointmentServiceTypeMiddleware
+const {fetchActiveRoomNumberForDropdownByDepartmentId} = RoomSetupMiddleware
 
 const AppointmentLogHOC = (ComposedComponent, props, type) => {
   const {
@@ -61,7 +63,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         appointmentCategory: '',
         status: {value: 'All', label: 'All'},
         appointmentServiceTypeCode: '',
-        hospitalDepartmentId: ''
+        hospitalDepartmentId: '',
+        roomId: ''
       },
       primaryAppointmentService: '',
       queryParams: {
@@ -94,6 +97,14 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       this.setState({
         showAlert: false
       })
+    }
+
+    fetchRoomByDepartmentId = async departmentId => {
+      await this.props.fetchActiveRoomNumberForDropdownByDepartmentId(
+        AdminModuleAPIConstants.roomSetupApiConstants
+          .FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN,
+        departmentId
+      )
     }
 
     showAlertMessage = (type, message) => {
@@ -130,7 +141,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         appointmentCategory,
         status,
         appointmentServiceTypeCode,
-        hospitalDepartmentId
+        hospitalDepartmentId,
+        roomId
       } = this.state.searchParameters
       let searchData = {
         appointmentNumber,
@@ -144,7 +156,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         appointmentCategory: appointmentCategory.value || '',
         status: status.value === 'All' ? '' : status.value || '',
         appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
-        hospitalDepartmentId: hospitalDepartmentId.value || ''
+        hospitalDepartmentId: hospitalDepartmentId.value || '',
+        roomId: roomId.value || ''
       }
 
       let updatedPage =
@@ -233,7 +246,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           appointmentCategory: '',
           status: {value: 'All', label: 'All'},
           appointmentServiceTypeCode: '',
-          hospitalDepartmentId: ''
+          hospitalDepartmentId: '',
+          roomId: ''
         },
         primaryAppointmentService: '',
         activeStatus: 'All',
@@ -327,7 +341,14 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           await this.handleHospitalChangeReset(searchParams)
 
         let newSearchParams = {...this.state.searchParameters}
-
+        if (fieldName === 'appointmentServiceTypeCode')
+          if (value === 'DOC') {
+            newSearchParams['hospitalDepartmentId'] = ''
+            newSearchParams['roomId'] = ''
+          } else {
+            newSearchParams['doctorId'] = ''
+            newSearchParams['specializationId'] = ''
+          }
         newSearchParams[fieldName] = label
           ? value
             ? fileUri
@@ -397,7 +418,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         appointmentCategory,
         status,
         appointmentServiceTypeCode,
-        hospitalDepartmentId
+        hospitalDepartmentId,
+        roomId
       } = this.state.searchParameters
       let searchData = {
         appointmentNumber,
@@ -411,7 +433,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         appointmentCategory: appointmentCategory.value || '',
         status: status.value === 'All' ? '' : status.value || '',
         appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
-        hospitalDepartmentId: hospitalDepartmentId.value || ''
+        hospitalDepartmentId: hospitalDepartmentId.value || '',
+        roomId: roomId.value || ''
       }
 
       try {
@@ -502,6 +525,12 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         allDepartmentDropdownErrorMessage
       } = this.props.HospitalDepartmentDropdownReducer
 
+      const {
+        isFetchActiveRoomNumberByDepartmentLoading,
+        activeRoomNumberForDropdownByDepartment,
+        activeRoomsByDepartmentDropdownErrorMessage
+      } = this.props.RoomNumberDropdownReducer
+
       return (
         <div id="appointment-log">
           <ComposedComponent
@@ -525,7 +554,10 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
               dropdownWithCodeErrorMessage,
               isFetchAllHospitalDepartmentLoading,
               allHospitalDepartmentForDropdown,
-              allDepartmentDropdownErrorMessage
+              allDepartmentDropdownErrorMessage,
+              isFetchActiveRoomNumberByDepartmentLoading,
+              activeRoomNumberForDropdownByDepartment,
+              activeRoomsByDepartmentDropdownErrorMessage
             }}
             paginationProps={{
               queryParams: queryParams,
@@ -586,7 +618,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       'HospitalDropdownReducer',
       'PatientDropdownListReducer',
       'AppointmentServiceTypeDropdownReducer',
-      'HospitalDepartmentDropdownReducer'
+      'HospitalDepartmentDropdownReducer',
+      'RoomNumberDropdownReducer'
     ],
     {
       clearAppointmentRefundPending,
@@ -596,7 +629,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       fetchSpecializationHospitalWiseForDropdown,
       fetchPatientMetaDropdown,
       fetchActiveAppointmentServiceTypeByHopitalId,
-      fetchAllHospitalDepartmentForDropdownByHospitalId
+      fetchAllHospitalDepartmentForDropdownByHospitalId,
+      fetchActiveRoomNumberForDropdownByDepartmentId
     }
   )
 }

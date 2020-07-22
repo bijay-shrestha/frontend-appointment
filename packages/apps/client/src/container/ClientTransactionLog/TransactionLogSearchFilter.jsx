@@ -205,7 +205,6 @@ class TransactionLogSearchFilter extends PureComponent {
                               : true)
                           }
                           onChange={handleSearchFormChange}
-                          onEnter={handleEnter}
                           placeholder={
                             allHospitalDepartmentForDropdown.length
                               ? 'Select Department.'
