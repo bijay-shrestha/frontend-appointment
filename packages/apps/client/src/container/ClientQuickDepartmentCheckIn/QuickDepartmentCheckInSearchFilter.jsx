@@ -2,9 +2,8 @@ import React, {PureComponent} from 'react'
 import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
 import {CButton, CForm, CHybridInput, CHybridSelect} from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
-
-import './appointment-approval.scss'
 import {appointmentStatusList, DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import './quick-department-checkin.scss'
 
 class DepartmentAppointmentSearchFilter extends PureComponent {
     state = {

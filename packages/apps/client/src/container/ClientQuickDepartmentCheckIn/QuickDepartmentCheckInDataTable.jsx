@@ -1,8 +1,8 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import PreviewDetails from './AppointmentDepartmentCheckInPreview'
+import QuickDepartmentCheckInPreviewModal from './QuickDepartmentCheckInPreviewModal'
 //import DepartmentAppointmentFastCheckInConfirm from './AppointmentDepartmentCheckInConfirm'
-import CheckInModalContent from './DepartmentApprovalContent';
+import QuickDepartmentCheckInModalContent from './QuickDepartmentCheckInModalContent';
 import {
     AppointmentCheckInSuccessModal, AppointmentNumberWithFollowUpFlag,
     CConfirmationModal,
@@ -221,7 +221,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                 )}
             </div>
             {showModal ? (
-                <PreviewDetails
+                <QuickDepartmentCheckInPreviewModal
                     showModal={showModal}
                     setShowModal={setShowModal}
                     approvalData={previewData}
@@ -247,7 +247,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                 <CConfirmationModal
                     modalHeader="Confirm Check-In?"
                     modalBody={
-                        <CheckInModalContent appointmentDetails={appointmentDetails}/>
+                        <QuickDepartmentCheckInModalContent appointmentDetails={appointmentDetails}/>
                     }
                     showModal={approveConfirmationModal}
                     setShowModal={setShowModal}

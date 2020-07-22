@@ -11,7 +11,7 @@ import {
     IntegrationConstants
 } from '@frontend-appointment/web-resource-key-constants'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
-import './appointment-approval.scss'
+import './quick-department-checkin.scss'
 //import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 import {CAlert} from '@frontend-appointment/ui-elements'
 

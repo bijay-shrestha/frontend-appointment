@@ -1,17 +1,17 @@
 import React from 'react'
-import DepartmentAppointmentCheckInDataTable from './AppointmentDepartmentCheckInDataTable'
-import DepartmentAppointmentCheckInHoc from './AppointmentDepartmentCheckinHoc'
-import DepartmentAppointmentSearchFilter from './AppointmentDepartmentSearchFilter'
+import QuickDepartmentCheckInDataTable from './QuickDepartmentCheckInDataTable'
+import QuickDepartmentCheckInHoc from './QuickDepartmentCheckInHoc'
+import QuickDepartmentCheckInSearchFilter from './QuickDepartmentCheckInSearchFilter'
 
 const DepartmentAppointmentCheckInLog = props => {
-    const DepartmentAppoinmentCheckIn= DepartmentAppointmentCheckInHoc(
+    const DepartmentAppoinmentCheckIn = QuickDepartmentCheckInHoc(
         ({searchHandler, paginationProps, tableHandler}) => (
             <>
-                  <DepartmentAppointmentSearchFilter searchHandler={searchHandler}/>
-                
+                <QuickDepartmentCheckInSearchFilter searchHandler={searchHandler}/>
+
 
                 <div className="">
-                    <DepartmentAppointmentCheckInDataTable
+                    <QuickDepartmentCheckInDataTable
                         tableHandler={tableHandler}
                         paginationProps={paginationProps}
                         filteredActions={props.filteredAction}
