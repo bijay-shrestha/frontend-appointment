@@ -7,7 +7,8 @@ import {
   PatientDetailsMiddleware,
   SpecializationSetupMiddleware,
   AppointmentServiceTypeMiddleware,
-  HospitalDepartmentSetupMiddleware
+  HospitalDepartmentSetupMiddleware,
+  RoomSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
@@ -28,8 +29,8 @@ const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
 const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware
 const {
-    fetchActiveAppointmentServiceTypeWithCode
-  } = AppointmentServiceTypeMiddleware
+  fetchActiveAppointmentServiceTypeWithCode
+} = AppointmentServiceTypeMiddleware
 const {
   appointmentSetupApiConstant,
   hospitalSetupApiConstants,
@@ -38,9 +39,10 @@ const {
   patientSetupApiConstant
 } = AdminModuleAPIConstants
 const {
-    // fetchActiveHospitalDepartmentForDropdownByHospitalId,
-    fetchAllHospitalDepartmentForDropdown
-  } = HospitalDepartmentSetupMiddleware
+  // fetchActiveHospitalDepartmentForDropdownByHospitalId,
+  fetchAllHospitalDepartmentForDropdown
+} = HospitalDepartmentSetupMiddleware
+const {fetchActiveRoomNumberForDropdownByDepartmentId} = RoomSetupMiddleware
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = hospitalSetupApiConstants
 const {FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN} = doctorSetupApiConstants
 const {ACTIVE_DROPDOWN_SPECIALIZATION} = specializationSetupAPIConstants
@@ -65,7 +67,8 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
         esewaId: '',
         patientType: '',
         appointmentServiceTypeCode: '',
-        hospitalDepartmentId:''
+        hospitalDepartmentId: '',
+        roomId: ''
       },
       primaryAppointmentServiceType: '',
       showModal: false,
@@ -100,7 +103,6 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
       })
       this.clearAlertTimeout()
     }
-
 
     fetchHospitalForDropDown = async () => {
       try {
@@ -151,6 +153,14 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
       )
     }
 
+    fetchRoomByDepartmentId = async departmentId => {
+      await this.props.fetchActiveRoomNumberForDropdownByDepartmentId(
+        AdminModuleAPIConstants.roomSetupApiConstants
+          .FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN,
+        departmentId
+      )
+    }
+
     setPrimaryAppointmentService = async () => {
       const adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
       if (adminInfo) {
@@ -187,7 +197,8 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
           appointmentNumber: '',
           esewaId: '',
           patientType: '',
-          hospitalDepartmentId:''
+          hospitalDepartmentId: '',
+          roomId: ''
         },
         primaryAppointmentServiceType: '',
         rescheduleLogList: []
@@ -220,13 +231,16 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
                 }
             : ''
           : value
-          if (fieldName === 'appointmentServiceTypeCode')
+        if (fieldName === 'appointmentServiceTypeCode')
           if (value === 'DOC') {
             searchParams['hospitalDepartmentId'] = ''
+            searchParams['roomId'] = ''
           } else {
             searchParams['doctorId'] = ''
             searchParams['specializationId'] = ''
           }
+        if (fieldName === 'hospitalDepartmentId')
+          await this.fetchRoomByDepartmentId(value)
         await this.setStateValuesForSearch(searchParams)
 
         // if (fieldName === 'hospitalId') {
@@ -319,7 +333,8 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
         patientMetaInfoId,
         patientType,
         appointmentServiceTypeCode,
-        hospitalDepartmentId
+        hospitalDepartmentId,
+        roomId
       } = this.state.searchParameters
 
       let updatedPage =
@@ -339,7 +354,8 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
         patientMetaInfoId: patientMetaInfoId.value || '',
         patientType: patientType.value || '',
         appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
-        hospitalDepartmentId:hospitalDepartmentId.value||''
+        hospitalDepartmentId: hospitalDepartmentId.value || '',
+        roomId: roomId.value || ''
       }
 
       try {
@@ -381,8 +397,7 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
           esewaId: rescheduleData.esewaId || 'N/A',
           mobileNumber: rescheduleData.mobileNumber || 'N/A',
           patientAge: rescheduleData.age || 'N/A',
-          age:
-            rescheduleData.age && rescheduleData.age.slice(0, 4),
+          age: rescheduleData.age && rescheduleData.age.slice(0, 4),
           patientGender: rescheduleData.patientGender || 'N/A',
           gender:
             rescheduleData.patientGender &&
@@ -413,33 +428,44 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
 
     downloadExcel = async () => {
       const {
-          fromDate,
-          toDate,
-          doctorId,
-          specializationId,
-          appointmentNumber,
-          esewaId,
-          patientMetaInfoId,
-          patientType,
-          appointmentServiceTypeCode,
-          hospitalDepartmentId
-        } = this.state.searchParameters;
+        fromDate,
+        toDate,
+        doctorId,
+        specializationId,
+        appointmentNumber,
+        esewaId,
+        patientMetaInfoId,
+        patientType,
+        appointmentServiceTypeCode,
+        hospitalDepartmentId,
+        roomId
+      } = this.state.searchParameters
 
       let searchData = {
-         fromDate,
+        fromDate,
         toDate,
         specializationId: specializationId.value || '',
         doctorId: doctorId.value || '',
         appointmentNumber,
         esewaId,
-        patientMetaInfoId:patientMetaInfoId.value || '',
+        patientMetaInfoId: patientMetaInfoId.value || '',
         patientType: patientType.value || '',
         appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
-        hospitalDepartmentId:hospitalDepartmentId.value||''
-      };
+        hospitalDepartmentId: hospitalDepartmentId.value || '',
+        roomId: roomId.value
+      }
 
-      try{
-        await  appointmentExcelDownload(AdminModuleAPIConstants.excelApiConstants.RESCHEDULE_LOG_EXCEL,this.state.queryParams,searchData,`rescheduleLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate)}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate)}`)
+      try {
+        await appointmentExcelDownload(
+          AdminModuleAPIConstants.excelApiConstants.RESCHEDULE_LOG_EXCEL,
+          this.state.queryParams,
+          searchData,
+          `rescheduleLog-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            fromDate
+          )}-${DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+            toDate
+          )}`
+        )
         this.showOrCloseAlertMessage(
           true,
           'success',
@@ -450,16 +476,16 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
           )} downloaded successfully!!`
         )
 
-      return false;
-     }catch(e){
-      this.showOrCloseAlertMessage(
-        true,
-        'success',
-        e.errorMessage || 'Sorry Internal Server Error'
-      )
-       return false;
+        return false
+      } catch (e) {
+        this.showOrCloseAlertMessage(
+          true,
+          'success',
+          e.errorMessage || 'Sorry Internal Server Error'
+        )
+        return false
       }
-     }
+    }
 
     render () {
       const {
@@ -504,6 +530,12 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
         allDepartmentDropdownErrorMessage
       } = this.props.HospitalDepartmentDropdownReducer
 
+      const {
+        isFetchActiveRoomNumberByDepartmentLoading,
+        activeRoomNumberForDropdownByDepartment,
+        activeRoomsByDepartmentDropdownErrorMessage
+      } = this.props.RoomNumberDropdownReducer
+
       return (
         <>
           <div id="reschedule-log">
@@ -527,16 +559,20 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
                 dropdownWithCodeErrorMessage,
                 isFetchAllHospitalDepartmentLoading,
                 allHospitalDepartmentForDropdown,
-                allDepartmentDropdownErrorMessage
+                allDepartmentDropdownErrorMessage,
+                isFetchActiveRoomNumberByDepartmentLoading,
+                activeRoomNumberForDropdownByDepartment,
+                activeRoomsByDepartmentDropdownErrorMessage
               }}
               rescheduleLogData={{
                 rescheduleLogList,
-                searchErrorMessage: (searchParameters.appointmentServiceTypeCode) ? rescheduleLogErrorMessage
-                    : "Select Appointment Service type first.",
+                searchErrorMessage: searchParameters.appointmentServiceTypeCode
+                  ? rescheduleLogErrorMessage
+                  : 'Select Appointment Service type first.',
                 isRescheduleLogLoading,
                 searchAppointmentStatus: this.searchRescheduleLog,
                 appointmentServiceTypeCode: primaryAppointmentServiceType,
-                downloadExcel:this.downloadExcel
+                downloadExcel: this.downloadExcel
               }}
               paginationProps={{
                 queryParams: queryParams,
@@ -580,7 +616,8 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
       'HospitalDropdownReducer',
       'PatientDropdownListReducer',
       'AppointmentServiceTypeDropdownReducer',
-      'HospitalDepartmentDropdownReducer'
+      'HospitalDepartmentDropdownReducer',
+      'RoomNumberDropdownReducer'
     ],
     {
       fetchActiveHospitalsForDropdown,
@@ -590,7 +627,8 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
       clearRescheduleLogMessage,
       fetchPatientMetaDropdownForClient,
       fetchActiveAppointmentServiceTypeWithCode,
-      fetchAllHospitalDepartmentForDropdown
+      fetchAllHospitalDepartmentForDropdown,
+      fetchActiveRoomNumberForDropdownByDepartmentId
     }
   )
 }
