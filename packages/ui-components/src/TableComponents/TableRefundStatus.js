@@ -1,5 +1,8 @@
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
+import {MdMoreHoriz} from 'react-icons/md'
+import {MdVerifiedUser} from 'react-icons/md'
+import {MdBlock} from 'react-icons/md'
 
 const RefundTableAction = props => {
   const saveActionInSession = (e, actionId, actionName) => {
@@ -10,26 +13,20 @@ const RefundTableAction = props => {
     <>
       <Dropdown className="table-action">
         <Dropdown.Toggle variant="default" id="dropdown-basic">
-          <span className="material-icons">
-            more_horiz
-                    </span>
+          <MdMoreHoriz/>
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
           {
             // checkIfRoleExists(this.props.filteredAction, 3) &&
             <Dropdown.Item onClick={e => saveActionInSession(e, 16, 'E')}>
-              <span class="material-icons">
-                verified_user
-</span> Refund{' '}
+              <MdVerifiedUser/> Refund{' '}
             </Dropdown.Item>
           }
           {
             // checkIfRoleExists(this.props.filteredAction, 5) &&
             <Dropdown.Item onClick={e => saveActionInSession(e, 15, 'D')}>
-              <span class="material-icons">
-                block
-            </span> Reject
+              <MdBlock/> Reject
             </Dropdown.Item>
           }
         </Dropdown.Menu>
