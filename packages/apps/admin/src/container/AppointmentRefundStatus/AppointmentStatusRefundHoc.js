@@ -85,7 +85,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             refundConfirmationModal: false,
             refundAppointmentId: '',
             isConfirming: false,
-            thirdPartyApiErrorMessage: ''
+            thirdPartyApiErrorMessage: '',
+            filteredData: [],
+            activeStatus: 'All'
         }
 
         setShowAlert = () => {
@@ -97,7 +99,25 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
         }
-
+        
+        handleStatusChange = (event, status) => {
+            let filteredData = []
+            if (this.props.AppointmentRefundListReducer.refundList) {
+              if (status === 'All') {
+                filteredData = [...this.props.AppointmentRefundListReducer.refundList]
+              } else
+                filteredData = CommonUtils.filterTableDataWithGivenStatus(
+                  status,
+                  this.props.AppointmentRefundListReducer.refundList
+                )
+            }
+            this.setState({
+              activeStatus: status,
+              filteredData: [...filteredData]
+            })
+            return false
+          }
+      
         searchHospitalForDropDown = async () => {
             try {
                 await this.props.fetchActiveHospitalsForDropdown(
@@ -161,7 +181,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 queryParams: {
                     ...this.state.queryParams,
                     page: updatedPage
-                }
+                },
+                filteredData: this.props.AppointmentRefundListReducer.refundList
             })
         }
 
@@ -216,7 +237,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     specializationId: '',
                     doctorId: '',
                     appointmentModeId: '',
-                    esewaId: ''
+                    esewaId: '',
+                    filteredData: [],
+                    activeStatus: 'All'
                 }
             })
             this.searchAppointment()
@@ -632,7 +655,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 refundRejectRequestDTO,
                 refundConfirmationModal,
                 isConfirming,
-                remarks
+                remarks,
+                activeStatus
             } = this.state
 
             const {
@@ -716,7 +740,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                                 rejectRemarks: refundRejectRequestDTO.remarks,
                                 remarks: remarks,
                                 handleInputChange: this.handleInputChange,
-                                totalRefundAmount
+                                totalRefundAmount,
+                                activeStatus,
+                                handleStatusChange: this.handleStatusChange
                             }}
                         />
                         <CAlert
