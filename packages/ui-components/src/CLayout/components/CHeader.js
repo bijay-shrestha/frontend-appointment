@@ -306,8 +306,11 @@ class CHeader extends Component {
 
     fetchUrlForGetOperation = async (fileUri) => {
         try {
-            const response = await Axios.getWithRequestParams(FILE_URI_FOR_DISPLAY, {fileUri: fileUri});
-            return response.data
+            if (fileUri.split("/")[0] === "private") {
+                const response = await Axios.getWithRequestParams(FILE_URI_FOR_DISPLAY, {fileUri: fileUri});
+                return response.data
+            } else
+                return fileUri
         } catch (e) {
             console.log("IMAGE NOT FETCHED", e)
             // throw e
@@ -316,8 +319,11 @@ class CHeader extends Component {
 
     fetchPresignedUrlForGetOperation = async (fileUri) => {
         try {
-            const response = await Axios.put(FILE_PRE_SIGNED_URI_FOR_DISPLAY, {fileName: fileUri});
-            return response.data
+            if (fileUri.split("/")[0] === "private") {
+                const response = await Axios.put(FILE_PRE_SIGNED_URI_FOR_DISPLAY, {fileName: fileUri});
+                return response.data
+            } else
+                return fileUri
         } catch (e) {
             console.log("IMAGE NOT FETCHED", e)
             // throw e
@@ -330,13 +336,15 @@ class CHeader extends Component {
         try {
             this.setImageLoading(true)
             imagePathLogo = await this.uploadImageToServer(new File([croppedImageFile], 'adminAvatar.jpeg'), adminInfo);
-            await Axios.put(CommonAPIConstants.UPLOAD_ADMIN_IMAGE, {
+            let response = await Axios.put(CommonAPIConstants.UPLOAD_ADMIN_IMAGE, {
                 adminId: adminInfo.adminId || '',
                 avatar: imagePathLogo
             });
             let adminData = LocalStorageSecurity.localStorageDecoder('adminInfo');
             adminData.fileLocation = imagePathLogo
-            adminData.fileUri = await this.fetchPresignedUrlForGetOperation(imagePathLogo)
+            if (response.data.avatar.split("/")[0] === "private")
+                adminData.fileUri = await this.fetchPresignedUrlForGetOperation(response.data.avatar)
+            else adminData.fileUri = response.data.avatar
             await AdminInfoUtils.saveLoggedInAdminInfo(adminData);
             this.setImageLoading(false)
             this.showAlertMessage('success', "Admin Image updated successfully.")
@@ -357,7 +365,9 @@ class CHeader extends Component {
 
     showImageUploadModal = () => {
         this.setState({
-            showImageUploadModal: !this.state.showImageUploadModal
+            showImageUploadModal: !this.state.showImageUploadModal,
+            adminImage: '',
+            adminImageCroppedUrl: ''
         })
     }
     uploadImageToServer = async (adminAvatar, adminInfo) => {

@@ -168,8 +168,8 @@ const HospitalForm = ({
                                             value={hospitalInfoObj.esewaMerchantCode}
                                             required={true}
                                             errorMessagePassed={errorMessageForHospitalCode}
-                                            max={10}
-                                            min={2}
+                                            // max={10}
+                                            // min={2}
                                         />
                                     </Col>
 

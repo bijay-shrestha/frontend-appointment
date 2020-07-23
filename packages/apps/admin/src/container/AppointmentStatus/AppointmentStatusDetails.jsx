@@ -480,7 +480,8 @@ const AppointmentStatusDetails = ({
                                                     ) : (
                                                         ''
                                                     )}
-                                                    <CButton
+                                                     {appointmentStatusDetail.patientDetails
+                                                        .showCheckInButton? <CButton
                                                         name=""
                                                         variant="outline-secondary"
                                                         size="lg"
@@ -499,7 +500,7 @@ const AppointmentStatusDetails = ({
                                                         ) : (
                                                             'Transfer'
                                                         )}
-                                                    </CButton>
+                                                    </CButton>:''}
                                                     </div>
                                                 </div>
                                             </Col>

@@ -2,19 +2,16 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
+    AppointmentModeMiddleware,
     DoctorMiddleware,
-    PatientDetailsMiddleware,
-    SpecializationSetupMiddleware,
     HmacMiddleware,
     HospitalDepartmentSetupMiddleware,
+    PatientDetailsMiddleware,
     RoomSetupMiddleware,
-    AppointmentModeMiddleware
+    SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants, IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-    DateTimeFormatterUtils,
-    EnterKeyPressUtils
-} from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './appointment-cancellation-status.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
@@ -28,23 +25,24 @@ const {
     fetchAppointmentRefundDetailByAppointmentId,
     clearAppointmentRefundDetailMessage,
     thirdPartyApiCallRefund
-} = AppointmentDetailsMiddleware;
+} = AppointmentDetailsMiddleware
 
-const {fetchAllHospitalDepartmentForDropdown} = HospitalDepartmentSetupMiddleware
+const {
+    fetchAllHospitalDepartmentForDropdown
+} = HospitalDepartmentSetupMiddleware
 
-const {fetchActiveRoomNumberForDropdownByDepartmentId}=RoomSetupMiddleware
+const {fetchActiveRoomNumberForDropdownByDepartmentId} = RoomSetupMiddleware
 
-const {fetchHmacTokenByAppointmentId} = HmacMiddleware;
+const {fetchHmacTokenByAppointmentId} = HmacMiddleware
 
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
 
 const {fetchActiveAppointmentModeForDropdown} = AppointmentModeMiddleware
 
-const {
-    fetchSpecializationForDropdown
-} = SpecializationSetupMiddleware
+const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
 
 const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware
+
 const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
@@ -66,8 +64,8 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                 hospitalDepartmentId: '',
                 patientType: '',
                 roomId: '',
-                appointmentModeId:'',
-                esewaId:'',
+                appointmentModeId: '',
+                esewaId: '',
                 isConfirming: false,
                 thirdPartyApiErrorMessage: ''
             },
@@ -97,11 +95,11 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
             this.setState(prevState => ({
                 showAlert: !prevState.showAlert
             }))
-        };
+        }
 
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
-        };
+        }
 
         searchHospitalForDropDown = async () => {
             try {
@@ -111,7 +109,7 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
             } catch (e) {
                 console.log(e)
             }
-        };
+        }
 
         searchAppointment = async page => {
             const {
@@ -124,8 +122,7 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                 hospitalDepartmentId,
                 appointmentModeId,
                 esewaId
-
-            } = this.state.searchParameters;
+            } = this.state.searchParameters
             let searchData = {
                 appointmentNumber,
                 fromDate: appointmentNumber ? '' : fromDate,
@@ -134,9 +131,9 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                 patientType: patientType.value || '',
                 roomId: roomId.value || '',
                 hospitalDepartmentId: hospitalDepartmentId.value || '',
-                appointmentModeId:appointmentModeId.value||'',
+                appointmentModeId: appointmentModeId.value || '',
                 esewaId
-            };
+            }
 
             let updatedPage =
                 this.state.queryParams.page === 0
@@ -145,13 +142,13 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                     ? page
                     : this.state.queryParams.page
             await this.props.fetchAppointmentRefundList(
-                appointmentSetupApiConstant.APPOINTMENT_DEPARTMENT_REFUND_LIST,
+                appointmentSetupApiConstant.SEARCH_APPOINTMENT_REFUND_STATUS_DEPARTMENT,
                 {
                     page: updatedPage,
                     size: this.state.queryParams.size
                 },
                 searchData
-            );
+            )
             await this.setState({
                 totalRecords: this.props.AppointmentRefundListReducer.refundList.length
                     ? this.props.AppointmentRefundListReducer.totalItems
@@ -161,16 +158,17 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                     page: updatedPage
                 }
             })
-        };
+        }
 
         searchAppointmentModeForDropdown = async () => {
             this.props.fetchActiveAppointmentModeForDropdown(
-              AdminModuleAPIConstants.appointmentModeApiConstants.FETCH_APPOINTMENT_MODE_FOR_DROPDOWN
+                AdminModuleAPIConstants.appointmentModeApiConstants
+                    .FETCH_APPOINTMENT_MODE_FOR_DROPDOWN
             )
         }
 
         appendSNToTable = refundList => {
-            let newRefundList = [];
+            let newRefundList = []
 
             newRefundList =
                 refundList.length &&
@@ -192,13 +190,12 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                     refundAmount: spec.refundAmount || 'N/A',
                     esewaId: spec.esewaId || 'N/A',
                     // remarks: spec.remarks || 'N/A',
-                    hospitalDepartmentName:spec.departmentName||'N/A',
                     appointmentMode: spec.appointmentMode,
-                    mobileNumber: spec.mobileNumber,
+                    mobileNumber: spec.mobileNumber
                     // sN: index + 1
-                }));
+                }))
             return newRefundList
-        };
+        }
 
         handlePageChange = async newPage => {
             await this.setState({
@@ -206,9 +203,9 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                     ...this.state.queryParams,
                     page: newPage
                 }
-            });
+            })
             this.searchAppointment()
-        };
+        }
 
         handleSearchFormReset = async () => {
             await this.setState({
@@ -220,28 +217,30 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                     patientMetaInfoId: '',
                     patientType: '',
                     hospitalDepartmentId: '',
-                    appointmentModeId:'',
-                    esewaId:'',
+                    appointmentModeId: '',
+                    esewaId: '',
                     roomId: ''
                 }
             })
             this.searchAppointment()
-        };
+        }
 
         setStateValuesForSearch = searchParams => {
             this.setState({
                 searchParameters: searchParams
             })
-        };
+        }
 
         previewApiCall = async appointmentId => {
             await this.props.fetchAppointmentRefundDetailByAppointmentId(
-                appointmentSetupApiConstant.APPOINTMENT_DEPARTMENT_REFUND_DETAIL, appointmentId)
-        };
+                appointmentSetupApiConstant.DETAIL_APPOINTMENT_REFUND_STATUS_DEPARTMENT,
+                appointmentId
+            )
+        }
 
         previewCall = async data => {
             try {
-                await this.previewApiCall(data.appointmentId);
+                await this.previewApiCall(data.appointmentId)
                 this.setState({
                     showModal: true
                 })
@@ -249,12 +248,13 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
-                        variant: "danger",
-                        message: this.props.AppointmentRefundDetailReducer.refundDetailErrorMessage
-                    },
+                        variant: 'danger',
+                        message: this.props.AppointmentRefundDetailReducer
+                            .refundDetailErrorMessage
+                    }
                 })
             }
-        };
+        }
 
         handleHospitalChangeReset = async () => {
             await this.setState({
@@ -278,53 +278,62 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
             //     specializationSetupAPIConstants.ACTIVE_DROPDOWN_SPECIALIZATION
             // );
 
-            this.props.fetchAllHospitalDepartmentForDropdown(
-                AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants.FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN
+            await this.props.fetchActiveAppointmentModeForDropdown(
+                AdminModuleAPIConstants.appointmentModeApiConstants
+                    .FETCH_APPOINTMENT_MODE_FOR_DROPDOWN
             )
-            this.props.fetchPatientMetaDropdownForClient(
-                patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS)
-            this.searchAppointmentModeForDropdown();
-        };
+
+            this.props.fetchAllHospitalDepartmentForDropdown(
+                AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants
+                    .FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN
+            )
+
+            this.searchAppointmentModeForDropdown()
+        }
 
         handleSearchFormChange = async (event, field) => {
             if (event) {
-                let fieldName, value, label;
+                let fieldName, value, label
                 if (field) {
-                    fieldName = field;
+                    fieldName = field
                     value = event
                 } else {
-                    fieldName = event.target.name;
-                    value = event.target.value;
-                    label = event.target.label;
-                   // fileUri = event.target.fileUri;
+                    fieldName = event.target.name
+                    value = event.target.value
+                    label = event.target.label
+                    // fileUri = event.target.fileUri;
                 }
 
-                let newSearchParams = {...this.state.searchParameters};
+                let newSearchParams = {...this.state.searchParameters}
 
                 newSearchParams[fieldName] = label
                     ? value
-                        ?{value, label}
+                        ? {value, label}
                         : ''
-                    : value;
-                if(fieldName==='hospitalDepartmentId'){
+                    : value
+                if (fieldName === 'hospitalDepartmentId') {
                     this.callApiForRoomAfterDepartmentChange(value)
                 }
                 await this.setStateValuesForSearch(newSearchParams)
             }
-        };
+        }
 
         handleInputChange = async (event, field) => {
             if (event) {
-                let value = event.target.value;
-                let key = event.target.name;
+                let value = event.target.value
+                let key = event.target.name
                 this.setState({
                     [key]: value
                 })
             }
         }
 
-        callApiForRoomAfterDepartmentChange = async (id) =>{
-            await this.props.fetchActiveRoomNumberForDropdownByDepartmentId(AdminModuleAPIConstants.roomSetupApiConstants.FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN,id);
+        callApiForRoomAfterDepartmentChange = async id => {
+            await this.props.fetchActiveRoomNumberForDropdownByDepartmentId(
+                AdminModuleAPIConstants.roomSetupApiConstants
+                    .FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN,
+                id
+            )
         }
 
         setShowModal = () => {
@@ -333,35 +342,38 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                 rejectModalShow: false,
                 refundConfirmationModal: false
             }))
-        };
+        }
 
         refundHandler = data => {
-            this.previewApiCall(data.appointmentId);
+            this.previewApiCall(data.appointmentId)
             this.setState({
                 refundConfirmationModal: true,
                 refundAppointmentId: data.appointmentId
             })
-        };
+        }
 
         refundHandleApi = async () => {
-            const {refundDetail} = this.props.AppointmentRefundDetailReducer;
-            const {remarks} = this.state;
+            const {refundDetail} = this.props.AppointmentRefundDetailReducer
+            const {remarks} = this.state
             this.setState({
                 isConfirming: true
             })
-            const {appointmentId, appointmentModeId} = refundDetail;
-            let requestDTO;
+            const {appointmentId, appointmentModeId} = refundDetail
+            let requestDTO
             try {
                 let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
                     hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
-                    appointmentId);
+                    appointmentId
+                )
                 const {successResponse, apiRequestBody} = await thirdPartyApiCallRefund(
                     {...refundDetail, remarks},
-                    IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_REFUND_APPROVAL_CODE,
-                    IntegrationConstants.apiIntegrationKey.APPOINTMENT_MODE_FEATURE_INTEGRATION,
+                    IntegrationConstants.apiIntegrationFeatureTypeCodes
+                        .APPOINTMENT_REFUND_APPROVAL_CODE,
+                    IntegrationConstants.apiIntegrationKey
+                        .APPOINTMENT_MODE_FEATURE_INTEGRATION,
                     true,
                     hmacCode
-                );
+                )
                 requestDTO = {
                     appointmentId: appointmentId,
                     appointmentModeId: appointmentModeId,
@@ -371,7 +383,11 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                 }
                 if (!successResponse) {
                     this.refundAppointment(requestDTO)
-                } else if (successResponse.status && !successResponse.message && !successResponse.code) {
+                } else if (
+                    successResponse.status &&
+                    !successResponse.message &&
+                    !successResponse.code
+                ) {
                     requestDTO.status = successResponse.status
                     this.refundAppointment(requestDTO)
                 } else {
@@ -382,8 +398,8 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                         showAlert: true,
                         alertMessageInfo: {
                             variant: 'danger',
-                            message: successResponse.message
-                                || "Could not access third party api."
+                            message:
+                                successResponse.message || 'Could not access third party api.'
                         }
                     })
                 }
@@ -396,11 +412,13 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                         variant: 'danger',
                         message:
                             this.props.AppointmentRefundReducer.refundError ||
-                            e.message || e.errorMessage || "Could not access third party api."
+                            e.message ||
+                            e.errorMessage ||
+                            'Could not access third party api.'
                     }
                 })
             }
-        };
+        }
 
         refundAppointment = async data => {
             try {
@@ -434,8 +452,8 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                 await this.props.appointmentRejectRefund(
                     appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND,
                     this.state.refundRejectRequestDTO
-                );
-                this.setShowModal();
+                )
+                this.setShowModal()
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
@@ -443,35 +461,35 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                         message: this.props.AppointmentRefundRejectReducer
                             .refundRejectSuccess
                     }
-                });
+                })
                 this.searchAppointment()
             } catch (e) {
                 console.log(e)
             }
-        };
+        }
 
         refundRejectRemarksHandler = event => {
-            const {name, value} = event.target;
-            let refundReject = {...this.state.refundRejectRequestDTO};
-            refundReject[name] = value;
+            const {name, value} = event.target
+            let refundReject = {...this.state.refundRejectRequestDTO}
+            refundReject[name] = value
             this.setState({
                 refundRejectRequestDTO: refundReject
             })
-        };
+        }
 
         onRejectHandler = async data => {
-            this.props.clearAppointmentRefundRejectMessage();
-            let refundReject = {...this.state.refundRejectRequestDTO};
-            refundReject['appointmentId'] = data.appointmentId;
+            this.props.clearAppointmentRefundRejectMessage()
+            let refundReject = {...this.state.refundRejectRequestDTO}
+            refundReject['appointmentId'] = data.appointmentId
             await this.setState({
                 refundRejectRequestDTO: refundReject,
                 rejectModalShow: true
             })
-        };
+        }
 
         async componentDidMount() {
-            this.callApiForHospitalChange();
-            await this.searchAppointment();
+            this.callApiForHospitalChange()
+            await this.searchAppointment()
             //await this.searchHospitalForDropDown()
         }
 
@@ -488,19 +506,19 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                 refundConfirmationModal,
                 isConfirming,
                 remarks
-            } = this.state;
+            } = this.state
 
             const {
                 isRefundListLoading,
                 refundList,
                 refundErrorMessage,
                 totalRefundAmount
-            } = this.props.AppointmentRefundListReducer;
+            } = this.props.AppointmentRefundListReducer
 
             const {
-                refundRejectError,
+                refundRejectError
                 // isRefundLoading
-            } = this.props.AppointmentRefundRejectReducer;
+            } = this.props.AppointmentRefundRejectReducer
             // const {
             //     activeDoctorsForDropdown,
             //     doctorDropdownErrorMessage
@@ -514,21 +532,21 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
             const {
                 patientList,
                 patientDropdownErrorMessage
-            } = this.props.PatientDropdownListReducer;
+            } = this.props.PatientDropdownListReducer
 
             const {
                 allHospitalDepartmentForDropdown
-            }=this.props.HospitalDepartmentDropdownReducer
+            } = this.props.HospitalDepartmentDropdownReducer
 
             const {
                 activeRoomNumberForDropdownByDepartment
-            }=this.props.RoomNumberDropdownReducer
+            } = this.props.RoomNumberDropdownReducer
 
-            const {refundDetail} = this.props.AppointmentRefundDetailReducer;
+            const {refundDetail} = this.props.AppointmentRefundDetailReducer
 
             const {
                 activeAppointmentModeForDropdown
-             } = this.props.AppointmentModeDropdownReducer
+            } = this.props.AppointmentModeDropdownReducer
 
             return (
                 <>
@@ -543,10 +561,9 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                             searchParameters: searchParameters,
                             patientListDropdown: patientList,
                             patientDropdownErrorMessage: patientDropdownErrorMessage,
-                            activeHospitalDepartmentForDropdown:allHospitalDepartmentForDropdown,
+                            activeHospitalDepartmentForDropdown: allHospitalDepartmentForDropdown,
                             activeRoomNumberForDropdownByDepartment,
                             activeAppointmentModeForDropdown
-
                         }}
                         paginationProps={{
                             queryParams: queryParams,
@@ -636,5 +653,5 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
             fetchActiveAppointmentModeForDropdown
         }
     )
-};
+}
 export default DepartmentAppointmentCancellationStatusHoc

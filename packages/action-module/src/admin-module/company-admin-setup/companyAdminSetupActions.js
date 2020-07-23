@@ -63,7 +63,7 @@ export const companyAdminListError = message => {
   return {
     type: COMPANY_ADMIN_LIST_ERROR,
     payload: {
-      data: message
+      message: message
     }
   }
 }

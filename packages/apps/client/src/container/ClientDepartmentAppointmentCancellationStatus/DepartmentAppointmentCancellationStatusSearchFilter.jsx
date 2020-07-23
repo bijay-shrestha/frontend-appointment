@@ -184,7 +184,7 @@ class DepartmentAppointmentCancellationStatusSearchFilter extends PureComponent 
                       placeholder={
                         activeAppointmentModeForDropdown.length
                           ? 'Select Appointment Mode'
-                          : 'No patient(s) available.'
+                          : 'No Appointment Mode(s) available.'
                       }
                       options={activeAppointmentModeForDropdown}
                       value={searchParameters.appointmentModeId}

@@ -277,6 +277,15 @@ export const appointmentSetupApiConstant = {
     ),
     CHECK_APPOINTMENT_REFUND_STATUS: BASE.concat(
         APPOINTMENT_BASE.concat(REFUND_STATUS + '/check')
+    ),
+    SEARCH_APPOINTMENT_REFUND_STATUS_DEPARTMENT: BASE.concat(
+        APPOINTMENT_BASE.concat(REFUND_STATUS + '/hospitalDepartmentWise/search')
+    ),
+    DETAIL_APPOINTMENT_REFUND_STATUS_DEPARTMENT: BASE.concat(
+        APPOINTMENT_BASE.concat(REFUND_STATUS + '/hospitalDepartmentWise/detail')
+    ),
+    CHECK_APPOINTMENT_REFUND_STATUS_DEPARTMENT: BASE.concat(
+        APPOINTMENT_BASE.concat(REFUND_STATUS + '/hospitalDepartmentWise/check')
     )
 }
 

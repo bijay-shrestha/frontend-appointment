@@ -1,10 +1,7 @@
 import React, {memo} from 'react'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {
-    CDataTable,
-    CLoading,
-    CPagination
-} from '@frontend-appointment/ui-elements'
-import {
+    AppointmentCancelDateWithTime,
     DepartmentNameWithRoomNumber,
     PatientNameWithAgeGenderPhone,
     TableRefundStatus
@@ -33,7 +30,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         //refundRejectError,
         //refundConfirmationModal,
         //rejectRemarks,
-        totalRefundAmount,
+        totalRefundAmount
         //isRefundLoading,
         //remarks,
         //handleInputChange
@@ -43,7 +40,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     return (
         <>
             <div className="manage-details">
-                <h5 className="title">Appointment Cancellation Details</h5>
+                <h5 className="title">Appointment Refund Status Details</h5>
                 {!isSearchLoading &&
                 !searchErrorMessage &&
                 appointmentRefundList.length ? (
@@ -86,11 +83,12 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     width: 160
                                 },
                                 {
-                                    headerName: 'Cancel Date',
-                                    field: 'cancelledDate',
+                                    headerName: 'Cancelled DateTime',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
+                                    cellRenderer: 'appointmentCancelDateWithTime',
+                                    sizeColumnsToFit: true,
+                                    width: 160
                                 },
                                 {
                                     headerName: 'Patient Details',
@@ -115,7 +113,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true
                                 },
                                 {
-                                    headerName: 'Department Detail',
+                                    headerName: 'Remarks',
+                                    field: 'remarks',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true
+                                },
+                                {
+                                    headerName: 'Department/Room Number',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
@@ -180,6 +185,13 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     null,
                                     null,
                                     previewCall
+                                ),
+                                appointmentCancelDateWithTime: PreviewHandlerHoc(
+                                    AppointmentCancelDateWithTime,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
                                 )
                             }}
                             defaultColDef={{resizable: true}}
@@ -219,7 +231,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 ''
             )}
             {/* {rejectModalShow ? (
-                <DepartmentAppointmentCancellationRejectModal
+                <RejectModal
                     confirmationMessage="Are you sure you want to reject the Refund?If yes please provide remarks."
                     modalHeader="Reject Refund"
                     showModal={rejectModalShow}

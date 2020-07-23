@@ -456,7 +456,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
                 let fieldName = event.target.name
                 let value = event.target.value
                 let label = event.target.label
-                if ((fieldName = 'company')) {
+                if ((fieldName === 'company')) {
                     this.props.clearAdminSuccessErrorMessagesFromStore()
                     this.props.clearSuccessErrorMessageFromStore()
                     this.fetchProfilesByCompanyId(value)
