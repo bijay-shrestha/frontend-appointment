@@ -5,15 +5,12 @@ import {
     CPagination
 } from '@frontend-appointment/ui-elements'
 import {
-    //CRemarksModal,
     DepartmentNameWithRoomNumber,
     PatientNameWithAgeGenderPhone,
     TableRefundStatus
 } from '@frontend-appointment/ui-components'
-import PreviewDetails from './ClientAppointmentDepartmentRefundStatusPreview'
-//import DepartmentAppointmentCancellationRejectModal from './AppointmentDepartmentRejectModal'
+import DepartmentAppointmentCancellationStatusPreview from './DepartmentAppointmentCancellationStatusPreview'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
-//import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import AppointmentAmountWithTransactionNumber
     from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
@@ -213,7 +210,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 )}
             </div>
             {showModal ? (
-                <PreviewDetails
+                <DepartmentAppointmentCancellationStatusPreview
                     showModal={showModal}
                     setShowModal={setShowModal}
                     refundData={previewData}

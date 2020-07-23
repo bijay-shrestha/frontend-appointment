@@ -82,7 +82,7 @@ const AppointmentRefundStatusListComponent = Loadable({
 const AppointmentDepartmentRefundStatusListComponent = Loadable({
   loader: () =>
     import(
-      './container/ClientAppointmentDepartmentRefundStatus/ClientAppointmentDepartmentRefundStatus'
+      './container/ClientDepartmentAppointmentCancellationStatus/DepartmentAppointmentCancellationStatus'
     ),
   loading: () => getLoader()
 })

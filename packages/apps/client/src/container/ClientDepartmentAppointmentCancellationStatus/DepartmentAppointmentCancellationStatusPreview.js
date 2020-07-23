@@ -1,15 +1,15 @@
 import React from 'react';
 import {CModal} from "@frontend-appointment/ui-elements";
-import RefundContent from "./ClientAppointmentDepartmentRefundStatusContent";
+import DepartmentAppointmentCancellationStatusContent from "./DepartmentAppointmentCancellationStatusContent";
 
-const PreviewRefund = props => {
+const DepartmentAppointmentCancellationStatusPreview = props => {
     const {showModal, setShowModal, refundData} = props;
     return (
         <>
             <CModal show={showModal}
                     modalHeading="Appointment Cancellation Details"
                     size="xl"
-                    bodyChildren={<RefundContent refundData={refundData} />}
+                    bodyChildren={<DepartmentAppointmentCancellationStatusContent refundData={refundData} />}
                     onHide={setShowModal}
                     centered={false}
                     dialogClassName="preview-modal"
@@ -19,4 +19,4 @@ const PreviewRefund = props => {
     );
 };
 
-export default PreviewRefund;
+export default DepartmentAppointmentCancellationStatusPreview;

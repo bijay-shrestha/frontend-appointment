@@ -9,7 +9,7 @@ import {
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
-class AppointmentDepartmentRefundSearchFilter extends PureComponent {
+class DepartmentAppointmentCancellationStatusSearchFilter extends PureComponent {
   state = {
     isSearchFormExpanded: false
   }
@@ -439,4 +439,4 @@ class AppointmentDepartmentRefundSearchFilter extends PureComponent {
   }
 }
 
-export default AppointmentDepartmentRefundSearchFilter
+export default DepartmentAppointmentCancellationStatusSearchFilter

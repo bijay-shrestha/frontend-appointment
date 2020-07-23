@@ -15,7 +15,7 @@ import {
     DateTimeFormatterUtils,
     EnterKeyPressUtils
 } from '@frontend-appointment/helpers'
-import './appointment-refund.scss'
+import './appointment-cancellation-status.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
 const {
@@ -45,7 +45,7 @@ const {
 } = SpecializationSetupMiddleware
 
 const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware
-const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
+const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
         hospitalSetupApiConstants,
@@ -162,7 +162,7 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
                 }
             })
         };
-        
+
         searchAppointmentModeForDropdown = async () => {
             this.props.fetchActiveAppointmentModeForDropdown(
               AdminModuleAPIConstants.appointmentModeApiConstants.FETCH_APPOINTMENT_MODE_FOR_DROPDOWN
@@ -283,7 +283,7 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
             )
             this.props.fetchPatientMetaDropdownForClient(
                 patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS)
-            this.searchAppointmentModeForDropdown();       
+            this.searchAppointmentModeForDropdown();
         };
 
         handleSearchFormChange = async (event, field) => {
@@ -637,4 +637,4 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
         }
     )
 };
-export default AppointmentDepartmentRefundHOC
+export default DepartmentAppointmentCancellationStatusHoc
