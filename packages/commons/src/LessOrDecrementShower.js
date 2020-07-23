@@ -1,10 +1,10 @@
 import React from 'react';
-import{IoIosTrendingUp} from 'react-icons/io';
-import{IoIosTrendingDown} from 'react-icons/io';
+import{MdTrendingUp} from 'react-icons/md';
+import{MdTrendingDown} from 'react-icons/md';
 export const checkPositveAndNegativeIcons = value => {
   return value > 0 ? (
-    <IoIosTrendingUp />
+    <MdTrendingUp />
   ) : (
-    <IoIosTrendingDown />
+    <MdTrendingDown />
   )
 }

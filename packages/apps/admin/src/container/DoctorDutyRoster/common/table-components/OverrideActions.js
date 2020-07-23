@@ -3,7 +3,7 @@ import {Dropdown} from 'react-bootstrap';
 
 import {MdEdit}  from 'react-icons/md';
 import {MdDeleteForever}  from 'react-icons/md';
-import {FiMoreHorizontal} from 'react-icons/fi';
+import {MdMoreHoriz} from 'react-icons/md';
 
 
 const OverrideActions = props => {
@@ -11,7 +11,7 @@ const OverrideActions = props => {
         <>
             <Dropdown className="table-action">
                 <Dropdown.Toggle variant="default" id="dropdown-basic">
-                    <FiMoreHorizontal/>
+                    <MdMoreHoriz/>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
