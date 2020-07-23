@@ -2,21 +2,15 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
+    AppointmentModeMiddleware,
     DoctorMiddleware,
-    PatientDetailsMiddleware,
-    SpecializationSetupMiddleware,
     HmacMiddleware,
-    AppointmentModeMiddleware
+    PatientDetailsMiddleware,
+    SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
-import {
-    AdminModuleAPIConstants,
-    IntegrationConstants
-} from '@frontend-appointment/web-resource-key-constants'
-import {
-    DateTimeFormatterUtils,
-    EnterKeyPressUtils
-} from '@frontend-appointment/helpers'
-import './appointment-refund-status.scss'
+import {AdminModuleAPIConstants, IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
+import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import './doctor-appointment-cancellation-status.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
 const {
@@ -36,7 +30,8 @@ const {fetchActiveAppointmentModeForDropdown} = AppointmentModeMiddleware
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
 const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware
-const AppointRefundHOC = (ComposedComponent, props, type) => {
+
+const DoctorAppointmentCancellationStatusHoc = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
         hospitalSetupApiConstants,
@@ -763,4 +758,4 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         }
     )
 }
-export default AppointRefundHOC
+export default DoctorAppointmentCancellationStatusHoc

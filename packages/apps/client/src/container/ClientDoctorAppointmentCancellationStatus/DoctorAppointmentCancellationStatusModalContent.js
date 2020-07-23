@@ -2,7 +2,7 @@ import React from 'react'
 import {CForm, CHybridInput, CHybridSelectWithImage} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
-const DetailsModal = ({refundData}) => {
+const DoctorAppointmentCancellationStatusModalContent = ({refundData}) => {
     return (
         <>
             <Container-fluid>
@@ -119,4 +119,4 @@ const DetailsModal = ({refundData}) => {
     )
 }
 
-export default DetailsModal
+export default DoctorAppointmentCancellationStatusModalContent

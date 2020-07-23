@@ -75,7 +75,7 @@ const AppointmentLogListComponent = Loadable({
 
 const AppointmentRefundStatusListComponent = Loadable({
   loader: () =>
-    import('./container/ClientAppointmentRefundStatus/AppointmentRefundStatus'),
+    import('./container/ClientDoctorAppointmentCancellationStatus/DoctorAppointmentCancellationStatus'),
   loading: () => getLoader()
 })
 
