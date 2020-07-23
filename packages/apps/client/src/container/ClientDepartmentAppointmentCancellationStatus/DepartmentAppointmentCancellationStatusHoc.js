@@ -49,7 +49,7 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
         hospitalSetupApiConstants,
         // doctorSetupApiConstants,
         // specializationSetupAPIConstants,
-        patientSetupApiConstant,
+        // patientSetupApiConstant,
         hmacApiConstants
     } = AdminModuleAPIConstants
 
