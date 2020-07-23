@@ -1,7 +1,7 @@
 import React from 'react'
 import {CButton, CHybridTextArea, CModal} from '@frontend-appointment/ui-elements'
 
-const RejectModal = props => {
+const AppointmentCancellationRejectModal = props => {
     // let footerChildren = <CButton id="testModule-button" name="Footer Test button"/>;
     let body = (
         <>
@@ -56,4 +56,4 @@ const RejectModal = props => {
     )
 };
 
-export default RejectModal;
+export default AppointmentCancellationRejectModal;

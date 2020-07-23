@@ -1,21 +1,21 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {
+    AppointmentCancellationRejectModal,
     CancelDateWithTime,
     CRemarksModal,
     DoctorWithSpecImage,
     PatientNameWithAgeGenderPhone,
     TableRefundStatus
 } from '@frontend-appointment/ui-components'
-import PreviewDetails from './AppointmentRefundPreview'
-import RejectModal from "./RejectModal";
+import DoctorAppointmentCancellationPreview from './DoctorAppointmentCancellationPreview'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime';
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 import AppointmentAmountWithTransactionNumber
     from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
 
-const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
+const DoctorAppointmentCancellationDataTable = ({tableHandler, paginationProps}) => {
     const {
         isSearchLoading,
         appointmentRefundList,
@@ -204,7 +204,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 )}
             </div>
             {showModal ? (
-                <PreviewDetails
+                <DoctorAppointmentCancellationPreview
                     showModal={showModal}
                     setShowModal={setShowModal}
                     refundData={previewData}
@@ -213,7 +213,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 ''
             )}
             {rejectModalShow ? (
-                <RejectModal
+                <AppointmentCancellationRejectModal
                     confirmationMessage="Are you sure you want to reject the Refund?If yes please provide remarks."
                     modalHeader="Reject Refund"
                     showModal={rejectModalShow}
@@ -248,4 +248,4 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     )
 }
 
-export default memo(AppointmentRefundDataTable)
+export default memo(DoctorAppointmentCancellationDataTable)

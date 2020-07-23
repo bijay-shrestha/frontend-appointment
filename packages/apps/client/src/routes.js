@@ -45,7 +45,7 @@ const AddDoctorComponent = Loadable({
 })
 
 const AppointmentRefundListComponent = Loadable({
-  loader: () => import('./container/ClientAppointmentRefund/AppointmentRefund'),
+  loader: () => import('./container/ClientDoctorAppointmentCancellation/DoctorAppointmentCancellation'),
   loading: () => getLoader()
 })
 
