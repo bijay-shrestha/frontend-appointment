@@ -21,7 +21,7 @@ import {
 const TIME_SLOT_EMPTY_ERROR_MESSAGE = 'APPOINTMENTS NOT AVAILABLE'
 const DAY_OFF_MESSAGE = 'DAY OFF'
 
-const AppointmentStatusDetails = ({
+const AppointmentStatusByDepartmentDetails = ({
     statusDetailsData,
     showAppointmentDetailModal
 }) => {
@@ -161,7 +161,7 @@ const AppointmentStatusDetails = ({
                                             <Col sm={12} md={7} className="time-container">
 
                                                 <h5 className="title">Appointment Slots</h5>
-                                                <div className="room-tabs"> 
+                                                <div className="room-tabs">
                                                     <CNavTabs
                                                         roles={appointmentStatusDetail.hospitalDepartmentRoomInfoId ? appointmentStatusDetail.roomList : []}
                                                         currentActiveTab={
@@ -176,7 +176,7 @@ const AppointmentStatusDetails = ({
                                                         uniqueIdentifier={appointmentStatusDetail.uniqueIdentifier}
                                                         date={appointmentStatusDetail.date}
                                                     />
-                                                       
+
                                                 </div>
 
 
@@ -558,4 +558,4 @@ const AppointmentStatusDetails = ({
         </>
     )
 }
-export default AppointmentStatusDetails
+export default AppointmentStatusByDepartmentDetails

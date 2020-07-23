@@ -1,9 +1,9 @@
 import React from 'react';
-import ClientAppointmentStatusByDepartmentHOC from "./ClientAppointmentStatusByDepartmentHOC";
-import ClientAppointmentStatusByDepartmentSearchFilter from "./ClientAppointmentStatusByDepartmentSearchFilter";
+import AppointmentStatusByDepartmentHOC from "./AppointmentStatusByDepartmentHOC";
+import AppointmentStatusByDepartmentSearchFilter from "./AppointmentStatusByDepartmentSearchFilter";
 
 import "./appointment-status.scss";
-import ClientAppointmentStatusByDepartmentDetails from "./ClientAppointmentStatusByDepartmentDetails";
+import AppointmentStatusByDepartmentDetails from "./AppointmentStatusByDepartmentDetails";
 import {
     AppointmentCheckInSuccessModal,
     CConfirmationModal,
@@ -13,8 +13,8 @@ import CheckInModalContent from "../CommonComponents/CheckInModalContent";
 import {CModal} from "@frontend-appointment/ui-elements";
 import {AppointmentCheckInPrint, PrintableComponent} from '@frontend-appointment/commons'
 
-const ClientAppointmentStatusByDepartment = props => {
-    const ClientAppointmentStatusByDepartmentComponent = ClientAppointmentStatusByDepartmentHOC(
+const AppointmentStatusByDepartment = props => {
+    const ClientAppointmentStatusByDepartmentComponent = AppointmentStatusByDepartmentHOC(
         ({
              searchHandler,
              statusDetailsData,
@@ -31,11 +31,11 @@ const ClientAppointmentStatusByDepartment = props => {
             } = checkInModalData
             return <>
                 <div>
-                    <ClientAppointmentStatusByDepartmentSearchFilter
+                    <AppointmentStatusByDepartmentSearchFilter
                         searchHandler={searchHandler}/>
                 </div>
                 <div className="">
-                    <ClientAppointmentStatusByDepartmentDetails
+                    <AppointmentStatusByDepartmentDetails
                         statusDetailsData={statusDetailsData}
                         showAppointmentDetailModal={checkInModalData.showAppointmentDetailModal}/>
                 </div>
@@ -87,7 +87,7 @@ const ClientAppointmentStatusByDepartment = props => {
         props, '');
     return <ClientAppointmentStatusByDepartmentComponent/>
 };
-export default ClientAppointmentStatusByDepartment
+export default AppointmentStatusByDepartment
 
 
 

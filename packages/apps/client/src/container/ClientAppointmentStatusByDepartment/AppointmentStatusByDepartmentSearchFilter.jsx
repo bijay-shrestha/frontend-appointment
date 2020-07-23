@@ -16,7 +16,7 @@ import {
   EnterKeyPressUtils
 } from '@frontend-appointment/helpers'
 
-class ClientSearchAppointmentStatus extends PureComponent {
+class AppointmentStatusByDepartmentSearchFilter extends PureComponent {
   state = {
     isSearchFormExpanded: false
   }
@@ -262,7 +262,7 @@ class ClientSearchAppointmentStatus extends PureComponent {
                   </>
                 </CButton>
               </li>
-              
+
               {searchParameters.appointmentNumber && (
                 <li>
                   <OverlayTrigger
@@ -376,4 +376,4 @@ class ClientSearchAppointmentStatus extends PureComponent {
   }
 }
 
-export default ClientSearchAppointmentStatus
+export default AppointmentStatusByDepartmentSearchFilter

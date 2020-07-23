@@ -103,7 +103,7 @@ const AddDepartmentSetup = loadable(
 const DepartmentStatusComponent = loadable(
   () =>
     import(
-      './container/ClientAppointmentStatusByDepartment/ClientStatusByDepartment'
+      './container/ClientAppointmentStatusByDepartment/AppointmentStatusByDepartment'
     ),
   {fallback: () => getLoader()}
 )
