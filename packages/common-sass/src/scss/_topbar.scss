@@ -358,32 +358,8 @@
     }
 
     .fav-links {
-        // margin-top:-8px;
+        margin-top:-3px;
         margin-right: 10px;
-       
-        .btn {
-            width: 40px;
-            // height: 40px;
-            // color: #f4cd0c;
-            color:$gray-700;
-            // border: 1px solid $gray-100;
-            // background-color: $gray-100;
-            @include border-radius(50%);
-            // box-shadow: 
-            // -4px -4px 9px 0 rgba(0, 0, 0, 0.05),
-            // 4px 4px 12px rgba(0, 0, 0, 0.05);
-            
-
-            &:hover {
-                color: $gray-700;
-                background-color: #fff;
-                @include border-radius(50%);
-            }
-
-           
-        }
-
-     
     }
 
     .quick-links {
@@ -393,7 +369,8 @@
 
         .dropdown-toggle{
             i{
-                @include centerer;
+                // @include centerer;
+                margin-right:8px;
                 
             }
 
@@ -405,12 +382,43 @@
             }
         }
 
+        .btn {
+            width: auto;
+            height: auto;
+            padding:6px 6px;
+            // color: #f4cd0c;
+            color:$gray-700;
+            border: 1px solid $gray-400;
+            // background-color: $gray-100;
+            @include border-radius(4px);
+            // box-shadow: 
+            // -4px -4px 9px 0 rgba(0, 0, 0, 0.05),
+            // 4px 4px 12px rgba(0, 0, 0, 0.05);
+            
+
+            &:hover,&:active,&:focus {
+                color: $gray-700;
+                background-color: #fff;
+                border:1px solid transparent;
+                @include border-radius(4px);
+            }
+
+           
+        }
+
         &.show {
             background-color: $white !important;
+            @include border-radius(4px);
+            border:none;
 
             .fa-star{
                 color:$primary;
             }
+
+            .btn {
+                border:1px solid transparent;
+            }
+           
         }
 
         .add-bar {     
@@ -443,6 +451,13 @@
                 i{
                     width:46px;
                     padding-left:12px;
+                    color:$gray-600;
+                }
+
+                svg{
+                    width:46px;
+                    font-size: 14px;
+                    padding-right:12px;
                     color:$gray-600;
                 }
             }
