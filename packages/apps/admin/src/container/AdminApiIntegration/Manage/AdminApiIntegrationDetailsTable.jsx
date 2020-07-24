@@ -1,8 +1,7 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import {ConfirmDelete, RequestMethodStatus, StatusLabel} from '@frontend-appointment/ui-components'
+import {ConfirmDelete, RequestMethodStatus, StatusLabel, TableAction} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
-import TableAction from '../../CommonComponents/table-components/TableAction'
 // import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
 import PreviewDetails from './AdminApiDetailsModal'
 

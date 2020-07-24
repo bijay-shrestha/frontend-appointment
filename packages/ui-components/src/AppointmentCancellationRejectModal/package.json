@@ -1,0 +1,8 @@
+{
+    "name": "@frontend-appointement/appointment-cancellation-reject-modal",
+    "version": "1.0.0",
+    "main": "AppointmentCancellationRejectModal.js",
+    "author": "Sabu Shakya",
+    "license": "MIT",
+    "private": true
+  }

@@ -1,6 +1,6 @@
 import React from 'react';
 //import './App.css';
-import ClientContainer from "./container/ClientContainer";
+import ClientContainer from "./container";
 import '@frontend-appointment/common-sass-client';
 import 'font-awesome/css/font-awesome.min.css';
 import 'material-icons/iconfont/material-icons.scss';

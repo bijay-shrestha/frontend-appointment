@@ -1,5 +1,5 @@
 import React from 'react'
-import * as Material from 'react-icons/md'
+import {MdDone} from 'react-icons/md'
 import SubDepartMentForm from './SpecializationForm'
 import SpecializationConfirmationModal from './SpecializationConfirmModal'
 import {Container, Row, Col} from 'react-bootstrap'
@@ -73,7 +73,7 @@ function SpecializationAdd(props) {
                         alertType={
                             alertMessageInfo.variant === 'success' ? (
                                 <>
-                                    <Material.MdDone/>
+                                    <MdDone/>
                                 </>
                             ) : (
                                 <>

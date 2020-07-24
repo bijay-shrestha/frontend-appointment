@@ -1,5 +1,5 @@
 import React from 'react'
-import * as Material from 'react-icons/md'
+import {MdDone} from 'react-icons/md'
 import DoctorForm from './DoctorForm'
 import DoctorConfirmationModal from '././DoctorConfirmationModal';
 import {Container, Row, Col} from 'react-bootstrap'
@@ -109,7 +109,7 @@ function DoctorAdd(props) {
                         alertType={
                             alertMessageInfo.variant === 'success' ? (
                                 <>
-                                    <Material.MdDone/>
+                                    <MdDone/>
                                 </>
                             ) : (
                                 <>

@@ -115,7 +115,7 @@ class AdminSetupSearchFilter extends PureComponent {
                                             onChange={(event) => onInputChange(event)}
                                             options={profileList}
                                             value={searchParameters.profile}
-                                            placeholder="Select admin category."
+                                            placeholder="Select Profile."
                                         />
                                     </Col>
 

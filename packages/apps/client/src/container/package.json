@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/client-container",
+  "version": "1.0.0",
+  "main": "ClientContainer.js",
+  "main:src": "ClientContainer.js",
+  "license": "MIT",
+  "private": true
+}

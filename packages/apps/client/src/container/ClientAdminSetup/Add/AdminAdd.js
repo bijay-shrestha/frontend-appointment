@@ -21,7 +21,7 @@ import {
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {Col, Container, Row} from 'react-bootstrap'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
-import * as Material from 'react-icons/md'
+import {MdDone} from 'react-icons/md'
 import AdminConfirmationModal from './AdminConfirmationModal'
 import './../admin-setup.scss'
 import {PreviewClientProfileRoles} from "@frontend-appointment/ui-components";
@@ -645,7 +645,7 @@ class AdminAdd extends PureComponent {
                             alertType={
                                 this.state.alertMessageInfo.variant === 'success' ? (
                                     <>
-                                        <Material.MdDone/>
+                                        <MdDone/>
                                     </>
                                 ) : (
                                     <>

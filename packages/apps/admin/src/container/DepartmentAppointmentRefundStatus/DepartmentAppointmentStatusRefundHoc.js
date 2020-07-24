@@ -13,9 +13,11 @@ import {
   AdminModuleAPIConstants,
   IntegrationConstants
 } from '@frontend-appointment/web-resource-key-constants'
+
 import {
   DateTimeFormatterUtils,
-  EnterKeyPressUtils
+  EnterKeyPressUtils,
+  CommonUtils
 } from '@frontend-appointment/helpers'
 import './appointment-refund-status.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
@@ -86,7 +88,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       refundConfirmationModal: false,
       refundAppointmentId: '',
       isConfirming: false,
-      thirdPartyApiErrorMessage: ''
+      thirdPartyApiErrorMessage: '',
+      filteredData: [],
+      activeStatus: 'All'
     }
 
     setShowAlert = () => {
@@ -165,7 +169,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           ? page
           : this.state.queryParams.page
       await this.props.fetchAppointmentRefundList(
-        appointmentSetupApiConstant.SEARCH_APPOINTMENT_REFUND_STATUS,
+        appointmentSetupApiConstant.SEARCH_APPOINTMENT_REFUND_STATUS_DEPARTMENT,
         {
           page: updatedPage,
           size: this.state.queryParams.size
@@ -179,7 +183,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         queryParams: {
           ...this.state.queryParams,
           page: updatedPage
-        }
+        },
+        filteredData: this.props.AppointmentRefundListReducer.refundList
       })
     }
 
@@ -234,7 +239,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           roomId: '',
           hospitalDepartmentId: '',
           appointmentModeId: '',
-          esewaId: ''
+          esewaId: '',
+          activeStatus:'All',
+          filteredData:[]
         }
       })
       this.searchAppointment()
@@ -248,7 +255,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
 
     previewApiCall = async appointmentId => {
       await this.props.fetchAppointmentRefundDetailByAppointmentId(
-        appointmentSetupApiConstant.DETAIL_APPOINTMENT_REFUND_STATUS,
+        appointmentSetupApiConstant.DETAIL_APPOINTMENT_REFUND_STATUS_DEPARTMENT,
         appointmentId
       )
     }
@@ -269,6 +276,24 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           }
         })
       }
+    }
+
+    handleStatusChange = (event, status) => {
+      let filteredData = []
+      if (this.props.AppointmentRefundListReducer.refundList) {
+        if (status === 'All') {
+          filteredData = [...this.props.AppointmentRefundListReducer.refundList]
+        } else
+          filteredData = CommonUtils.filterTableDataWithGivenStatus(
+            status,
+            this.props.AppointmentRefundListReducer.refundList
+          )
+      }
+      this.setState({
+        activeStatus: status,
+        filteredData: [...filteredData]
+      })
+      return false
     }
 
     handleHospitalChangeReset = async () => {
@@ -653,7 +678,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         refundRejectRequestDTO,
         refundConfirmationModal,
         isConfirming,
-        remarks
+        remarks,
+        activeStatus
       } = this.state
 
       const {
@@ -755,7 +781,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
               rejectRemarks: refundRejectRequestDTO.remarks,
               remarks: remarks,
               handleInputChange: this.handleInputChange,
-              totalRefundAmount
+              totalRefundAmount,
+              activeStatus,
+             handleStatusChange: this.handleStatusChange
             }}
           />
           <CAlert

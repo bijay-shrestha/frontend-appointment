@@ -1,14 +1,14 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {
+    AppointmentCancellationRejectModal,
     CancelDateWithTime,
     CRemarksModal,
     DoctorWithSpecImage,
-    PatientNameWithAgeGenderPhone
+    PatientNameWithAgeGenderPhone,
+    TableRefundStatus
 } from '@frontend-appointment/ui-components'
-import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
 import PreviewDetails from './AppointmentRefundPreview'
-import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import AppointmentAmountWithTransactionNumber
@@ -229,7 +229,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 ''
             )}
             {rejectModalShow ? (
-                <RejectModal
+                <AppointmentCancellationRejectModal
                     confirmationMessage="Are you sure you want to reject the Refund?If yes please provide remarks."
                     modalHeader="Reject Refund"
                     showModal={rejectModalShow}

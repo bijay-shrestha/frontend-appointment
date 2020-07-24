@@ -115,7 +115,7 @@
     width: 100px;
     height: 100px;
     background-color: $gray-500;
-    @include border-radius(50%);
+    @include border-radius(0.5rem);
   }
 }
 

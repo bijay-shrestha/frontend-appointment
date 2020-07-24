@@ -13,10 +13,16 @@
     float: right;
     margin:10px 0;
 
+   
+
     &>span{
       margin-right:20px;
       height: auto;
       line-height: 40px;
+
+      &:first-child{
+        display:none;
+      }
 
       &:last-child{
         margin-right: 0;
@@ -37,6 +43,26 @@
     line-height: 0.8rem;
     padding:6px;
     // @include border-radius(50%);
+    
+  }
+
+  #status-link-button {
+    color: $gray-600;
+    font-weight: 500;
+    margin-left: 0px;
+    padding: 8px 6px;
+
+    // &.active {
+    //   color: $gray-900;
+    //   background-color: lighten($cogent, 45%);
+    //   @include border-radius(4px);
+     
+    // }
+
+    &:hover,&:focus{
+      text-decoration: none;
+      cursor:inherit;
+    }
   }
 
   .total-amount {

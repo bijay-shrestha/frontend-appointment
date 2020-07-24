@@ -1,5 +1,5 @@
 import React from 'react'
-import * as Material from 'react-icons/md'
+import {MdDone} from 'react-icons/md'
 import CompanyForm from './CompanyForm'
 import CompanyConfirmationModal from './CompanyConfirmModal'
 import {Container, Row, Col} from 'react-bootstrap'
@@ -102,7 +102,7 @@ function CompanyAdd(props) {
                         alertType={
                             alertMessageInfo.variant === 'success' ? (
                                 <>
-                                    <Material.MdDone/>
+                                    <MdDone/>
                                 </>
                             ) : (
                                 <>

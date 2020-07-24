@@ -317,7 +317,9 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
             this.setState(prevState => ({
                 showModal: false,
                 rejectModalShow: false,
-                refundConfirmationModal: false
+                refundConfirmationModal: false,
+                remarks: '',
+                isConfirming: false,
             }))
         };
 
@@ -338,15 +340,15 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
             const {appointmentId, appointmentModeId, hospitalId} = refundDetail;
             let requestDTO;
             try {
-                let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
-                    hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
-                    appointmentId);
+                // let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
+                //     hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
+                //     appointmentId);
                 const {successResponse, apiRequestBody} = await thirdPartyApiCallRefund(
                     {...refundDetail, remarks},
                     IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_REFUND_APPROVAL_CODE,
-                    IntegrationConstants.apiIntegrationKey.APPOINTMENT_MODE_FEATURE_INTEGRATION,
+                    IntegrationConstants.apiIntegrationKey.ALL_APPOINTMENT_MODE_FEATURE_INTEGRATION,
                     true,
-                    hmacCode
+                    hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID
                 );
                 requestDTO = {
                     appointmentId: appointmentId,
@@ -367,6 +369,7 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
                         isConfirming: false,
                         refundConfirmationModal: false,
                         showAlert: true,
+                        remarks: '',
                         alertMessageInfo: {
                             variant: 'danger',
                             message: successResponse.message
@@ -378,6 +381,7 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
                 this.setState({
                     isConfirming: false,
                     refundConfirmationModal: false,
+                    remarks: '',
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'danger',

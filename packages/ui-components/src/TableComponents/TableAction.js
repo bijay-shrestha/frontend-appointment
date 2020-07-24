@@ -1,8 +1,10 @@
 import React, {PureComponent} from 'react'
 import {Dropdown} from 'react-bootstrap'
-
-import * as Material from 'react-icons/md'
-import * as Feather from 'react-icons/fi'
+import {MdDeleteForever} from 'react-icons/md'
+import {MdContentCopy} from 'react-icons/md'
+import {MdRefresh} from 'react-icons/md'
+import {MdEdit} from 'react-icons/md'
+import {MdMoreHoriz} from 'react-icons/md'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 
 const {checkIfRoleExists} = ActionFilterUtils
@@ -44,35 +46,35 @@ class TableAction extends PureComponent {
             <>
                 <Dropdown className="table-action">
                     <Dropdown.Toggle variant="default" id="dropdown-basic">
-                        <Feather.FiMoreHorizontal/>
+                    <MdMoreHoriz/>
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
                         {this.checkRoleExistAndSaveAction(3) ? (
                             <Dropdown.Item onClick={e => this.saveActionInSession(e, 3)}>
-                                <Material.MdEdit/> Edit{' '}
+                              <MdEdit/> Edit{' '}
                             </Dropdown.Item>
                         ) : (
                             ''
                         )}
                         {this.checkRoleExistAndSaveAction(5) ? (
                             <Dropdown.Item onClick={e => this.saveActionInSession(e, 5)}>
-                                <Material.MdDeleteForever/> Delete
+                                <MdDeleteForever/>Delete
                             </Dropdown.Item>
                         ) : (
                             ''
                         )}
                         {this.checkRoleExistAndSaveAction(8) ? (
                             <Dropdown.Item onClick={e => this.saveActionInSession(e, 8)}>
-                                <Material.MdContentCopy/>
-                                &nbsp; Clone and Add New
+                                        <MdContentCopy/>
+                                 Clone and Add New
                             </Dropdown.Item>
                         ) : (
                             ''
                         )}
                         {this.checkRoleExistAndSaveAction(7) && (
                             <Dropdown.Item onClick={e => this.saveActionInSession(e, 7)}>
-                                <Material.MdRefresh/> Reset Password
+                              <MdRefresh/> Reset Password
                             </Dropdown.Item>
                         )}
                     </Dropdown.Menu>

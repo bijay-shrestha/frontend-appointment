@@ -4,7 +4,7 @@ import {CountryMiddleware, UniversitySetupMiddleware} from "@frontend-appointmen
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
 import {CAlert} from "@frontend-appointment/ui-elements";
-import * as Material from 'react-icons/md';
+import {MdDone} from 'react-icons/md';
 import {ConfirmDelete, CRemarksModal} from "@frontend-appointment/ui-components";
 import UniversityDetails from "./UniversityDetails";
 import "./university-setup.scss"
@@ -493,7 +493,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                         variant={alertMessageInfo.variant}
                         show={showAlert}
                         onClose={this.closeAlert}
-                        alertType={alertMessageInfo.variant === "success" ? <><Material.MdDone/>
+                        alertType={alertMessageInfo.variant === "success" ? <><MdDone/>
                         </> : <><i className="fa fa-exclamation-triangle" aria-hidden="true"/>
                         </>}
                         message={alertMessageInfo.message}

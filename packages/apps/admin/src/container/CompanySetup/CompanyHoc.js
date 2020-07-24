@@ -734,8 +734,6 @@ const CompanyHOC = (ComposedComponent, props, type) => {
 
             const {isCompanySaveLoading} = this.props.companySaveReducer;
 
-            console.log("SEARCH ERROR", companySearchErrorMessage);
-
             //   const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
             return (

@@ -3,7 +3,7 @@ import {CForgotPassword} from '@frontend-appointment/ui-components'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {ForgotPasswordMiddleware} from '@frontend-appointment/thunk-middleware'
-import * as Material from 'react-icons/md';
+import {MdDone} from 'react-icons/md';
 import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {LocalStorageSecurity} from '@frontend-appointment/helpers'
 
@@ -90,7 +90,7 @@ class ForgotPassword extends PureComponent {
                     alertType={
                         alertMessageInfo.variant === 'success' ? (
                             <>
-                                <Material.MdDone/>
+                                <MdDone/>
                             </>
                         ) : (
                             <>

@@ -5,37 +5,35 @@ import {
     //CButton,
     CLoading
 } from '@frontend-appointment/ui-elements'
-import {ConfirmDelete} from '@frontend-appointment/ui-components'
+import {ConfirmDelete, StatusLabel, TableAction} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
-import TableAction from '../../CommonComponents/table-components/TableAction';
-import StatusLabel from '../../CommonComponents/table-components/StatusLabel';
 import PreviewDetails from '../commons/PreviewDetails'
 
 const {checkIfRoleExists} = ActionFilterUtils
 
 const RequestBodyDetailsTable = ({
-    showRequestBodyModal,
-    filteredActions,
-    totalRecords,
-    deleteModalShow,
-    deleteRequestDTO,
-    pageChangeHandler,
-    isSearchRequestBodyLoading,
-    searchRequestBodyData,
-    searchRequestBodyMessageError,
-    isPreviewRequestBodyIntegrationLoading,
-    previewRequestBodyIntegrationData,
-    previewRequestIntegrationErorrMessage,
-    isDeleteRequestBodyIntegrationLoading,
-    deleteRequestBodyIntegrationErrorMessage,
-    onEditHandler,
-    onPreviewHandler,
-    onDeleteHandler,
-    queryParams,
-    setShowModal,
-    submitDelete,
-    remarksHandler
-}) => (
+                                     showRequestBodyModal,
+                                     filteredActions,
+                                     totalRecords,
+                                     deleteModalShow,
+                                     deleteRequestDTO,
+                                     pageChangeHandler,
+                                     isSearchRequestBodyLoading,
+                                     searchRequestBodyData,
+                                     searchRequestBodyMessageError,
+                                     isPreviewRequestBodyIntegrationLoading,
+                                     previewRequestBodyIntegrationData,
+                                     previewRequestIntegrationErorrMessage,
+                                     isDeleteRequestBodyIntegrationLoading,
+                                     deleteRequestBodyIntegrationErrorMessage,
+                                     onEditHandler,
+                                     onPreviewHandler,
+                                     onDeleteHandler,
+                                     queryParams,
+                                     setShowModal,
+                                     submitDelete,
+                                     remarksHandler
+                                 }) => (
     <div className="manage-details">
         <h5 className="title">Request Body Details</h5>
         {/* <CButton
@@ -53,7 +51,7 @@ const RequestBodyDetailsTable = ({
       variant="info"
     /> */}
         {!isSearchRequestBodyLoading &&
-        !searchRequestBodyMessageError&&
+        !searchRequestBodyMessageError &&
         searchRequestBodyData.length ? (
             <>
                 <CDataTable
@@ -73,7 +71,7 @@ const RequestBodyDetailsTable = ({
                             editable: true,
                             sizeColumnsToFit: true,
                             cellClass: 'first-class',
-                            width:90
+                            width: 90
 
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
@@ -84,7 +82,7 @@ const RequestBodyDetailsTable = ({
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
-                           
+
                         },
                         {
                             headerName: 'Request Body',
@@ -93,7 +91,7 @@ const RequestBodyDetailsTable = ({
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
-                            width:420,
+                            width: 420,
                         },
                         {
                             headerName: 'Status',
@@ -111,7 +109,7 @@ const RequestBodyDetailsTable = ({
                             sizeColumnsToFit: true,
                             cellRenderer: 'childActionRenderer',
                             cellClass: 'actions-button-cell',
-                            width:120,
+                            width: 120,
                             cellRendererParams: {
                                 onClick: function (e, id, type) {
                                     type === 'D'

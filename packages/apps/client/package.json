@@ -1,16 +1,14 @@
 {
   "name": "@frontend-appointment/client",
   "version": "1.0.0",
-  "main": "index.js",
-  "main:src": "index.js",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
+  },
   "dependencies": {
-    "cross-env": "5.0.5",
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.12.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "@react-workspaces/react-scripts": "3.0.1-alpha-07",
     "@frontend-appointment/ui-components": "1.0.0",
     "@frontend-appointment/authentication-module": "1.0.0",
     "@frontend-appointment/ui-elements": "1.0.0",
@@ -19,13 +17,15 @@
     "@frontend-appointment/commons": "1.0.0",
     "@frontend-appointment/thunk-middleware": "1.0.0",
     "@frontend-appointment/web-resource-key-constants":"1.0.0",
-    "@frontend-appointment/helpers": "1.0.0"
+    "@frontend-appointment/helpers": "1.0.0",
+    "@react-workspaces/react-scripts": "3.0.1-alpha-07",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+  "devDependencies": {
+    "cross-env": "6.0.3",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2"
   },
   "browserslist": {
     "production": [

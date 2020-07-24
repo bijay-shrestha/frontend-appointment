@@ -45,21 +45,21 @@ const AddDoctorComponent = Loadable({
 })
 
 const AppointmentRefundListComponent = Loadable({
-  loader: () => import('./container/ClientAppointmentRefund/AppointmentRefund'),
+  loader: () => import('./container/ClientDoctorAppointmentCancellation/DoctorAppointmentCancellation'),
   loading: () => getLoader()
 })
 
 const AppointmentDepartmentRefundListComponent = Loadable({
   loader: () =>
     import(
-      './container/ClientAppointmentDepartmentRefund/AppointmentDepartmentRefund'
+      './container/ClientDepartmentAppointmentCancellation/DepartmentAppointmentCancellation'
     ),
   loading: () => getLoader()
 })
 
 const AppointmentApprovalListComponent = Loadable({
   loader: () =>
-    import('./container/ClientAppointmentApproval/AppointmentApproval'),
+    import('./container/ClientAppointmentCheckIn/AppointmentCheckIn'),
   loading: () => getLoader()
 })
 
@@ -75,20 +75,20 @@ const AppointmentLogListComponent = Loadable({
 
 const AppointmentRefundStatusListComponent = Loadable({
   loader: () =>
-    import('./container/ClientAppointmentRefundStatus/AppointmentRefundStatus'),
+    import('./container/ClientDoctorAppointmentCancellationStatus/DoctorAppointmentCancellationStatus'),
   loading: () => getLoader()
 })
 
 const AppointmentDepartmentRefundStatusListComponent = Loadable({
   loader: () =>
     import(
-      './container/ClientAppointmentDepartmentRefundStatus/ClientAppointmentDepartmentRefundStatus'
+      './container/ClientDepartmentAppointmentCancellationStatus/DepartmentAppointmentCancellationStatus'
     ),
   loading: () => getLoader()
 })
 
 const ActivityLog = loadable(
-  () => import('./container/ClientActivitiesLog/ClientActivityLog'),
+  () => import('./container/ClientActivityLog/ClientActivityLog'),
   {fallback: () => getLoader()}
 )
 
@@ -103,7 +103,7 @@ const AddDepartmentSetup = loadable(
 const DepartmentStatusComponent = loadable(
   () =>
     import(
-      './container/ClientAppointmentStatusByDepartment/ClientStatusByDepartment'
+      './container/ClientAppointmentStatusByDepartment/AppointmentStatusByDepartment'
     ),
   {fallback: () => getLoader()}
 )
@@ -130,7 +130,7 @@ const DashboardComponent = Loadable({
 const DepartmentWiseQuickCheckInComponent = loadable(
   () =>
     import(
-      './container/ClientAppointmentDepartmentCheckinQuickMenu/AppointmentDepartmentCheckinFast'
+      './container/ClientQuickDepartmentCheckIn/QuickDepartmentCheckIn'
     ),
   {fallback: () => getLoader()}
 )
@@ -138,7 +138,7 @@ const DepartmentWiseQuickCheckInComponent = loadable(
 const DepartmentCheckInComponent = loadable(
   () =>
     import(
-      './container/ClientAppointmentDepartmentCheckIn/AppointmentDepartmentCheckin'
+      './container/ClientDepartmentCheckIn/DepartmentCheckIn'
     ),
   {fallback: () => getLoader()}
 )
@@ -243,7 +243,7 @@ const QualificationAlias = loadable(
 const QuickCheckInComponent = loadable(
   () =>
     import(
-      './container/ClientAppointmentCheckinQuickMenu/AppointmentCheckinFast'
+      './container/ClientQuickDoctorCheckIn/QuickDoctorCheckIn'
     ),
   {fallback: () => getLoader()}
 )
@@ -561,7 +561,7 @@ export const routes = [
     hasTab: true,
     isLink: true,
     isTab: false,
-    name: 'Appointment Refund Status',
+    name: 'Appointment Cancellation Status',
     isSingleTab: false
   },
   {

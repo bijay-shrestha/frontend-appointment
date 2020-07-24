@@ -3,7 +3,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import UnitInfoForm from "./UnitInfoForm";
 import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
 import {CAlert, CButton} from "@frontend-appointment/ui-elements";
-import * as Material from 'react-icons/md';
+import {MdDone} from 'react-icons/md';
 import {ConnectHoc} from "@frontend-appointment/commons";
 import {UnitSetupMiddleware, HospitalSetupMiddleware} from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
@@ -208,7 +208,7 @@ class UnitAdd extends PureComponent {
                         variant={alertMessageInfo.variant}
                         show={showAlert}
                         onClose={this.closeAlert}
-                        alertType={alertMessageInfo.variant === "success" ? <><Material.MdDone/>
+                        alertType={alertMessageInfo.variant === "success" ? <><MdDone/>
                         </> : <><i class="fa fa-exclamation-triangle" aria-hidden="true"/>
                         </>}
                         message={alertMessageInfo.message}

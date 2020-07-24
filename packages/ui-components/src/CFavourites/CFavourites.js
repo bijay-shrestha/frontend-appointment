@@ -1,12 +1,12 @@
 import React from 'react'
-import {Dropdown, OverlayTrigger, Tooltip} from 'react-bootstrap'
+import {Dropdown} from 'react-bootstrap'
 import AddFavouritesModal from "./AddFavouritesModal";
 import {Link} from 'react-router-dom'
 import {FavouritesUtils, LocalStorageSecurity, StringUtils} from '@frontend-appointment/helpers'
 import {Axios} from '@frontend-appointment/core'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {CAlert} from '@frontend-appointment/ui-elements'
-import * as Material from 'react-icons/md'
+import {MdDone, MdEdit} from 'react-icons/md'
 
 const {FETCH_FAVOURITES_FOR_DROPDOWN, SAVE_FAVOURITES, UPDATE_FAVOURITES} = AdminModuleAPIConstants.favouritesApiConstants
 
@@ -193,15 +193,15 @@ class CFavourites extends React.PureComponent {
         } = this.state
 
         return <>
-            <OverlayTrigger
+            {/* <OverlayTrigger
                 trigger={'hover'}
                 placement="top"
-                overlay={<Tooltip id="tooltip-disabled">Favourite Links</Tooltip>}>
+                overlay={<Tooltip id="tooltip-disabled">Favourite Links</Tooltip>}> */}
                     <span className="d-inline-block">
 
                          <Dropdown alignRight className="user-profile quick-links">
                              <Dropdown.Toggle variant="default" id="dropdown-basic"><i
-                                 className="fa fa-star"/></Dropdown.Toggle>
+                                 className="fa fa-star"/>Favourites</Dropdown.Toggle>
                              <Dropdown.Menu>
                                  {
                                      loggedInAdminFavourites && loggedInAdminFavourites.length ?
@@ -231,12 +231,13 @@ class CFavourites extends React.PureComponent {
                                     {/* <p className="add-title">Favourite links</p> */}
                                      <a className="btn btn-outline-secondary add-new-fav" href={'/'}
                                         onClick={this.openManageFavouritesModal}>
-                                          <i className="fa fa-plus"/>Manage Favourites </a>
+                                           <MdEdit/>Manage Favourites </a>
+                                             {/* <i className="fa fa-edit"/>Manage Favourites </a>  */}
                                   </div>
                              </Dropdown.Menu>
                          </Dropdown>
                     </span>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
 
             {/* end fav link */}
 
@@ -260,7 +261,7 @@ class CFavourites extends React.PureComponent {
                 alertType={
                     alertMessageInfo.variant === 'success' ? (
                         <>
-                            <Material.MdDone/>
+                            <MdDone/>
                         </>
                     ) : (
                         <>

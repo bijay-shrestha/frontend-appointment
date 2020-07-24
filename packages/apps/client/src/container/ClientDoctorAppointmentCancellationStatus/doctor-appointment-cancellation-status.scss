@@ -1,0 +1,103 @@
+
+@import '~bootstrap/scss/functions';
+
+//custom colors
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
+@import '~bootstrap/scss/mixins';
+
+#appointment-refund-status{
+  .appointment-badge{
+    float: right;
+    margin:10px 0;
+
+    &>span{
+      margin-right:20px;
+      height: auto;
+      line-height: 40px;
+
+      &:first-child{
+        display:none;
+      }
+
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+
+  }
+
+  .badge{
+    width:32px;
+    height: auto;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.65rem;
+    line-height: 0.8rem;
+    padding:6px;
+    text-transform: uppercase;    
+  }
+
+  #status-link-button {
+    color: $gray-600;
+    font-weight: 500;
+    margin-left: 0px;
+    padding: 8px 6px;
+
+    // &.active {
+    //   color: $gray-900;
+    //   background-color: lighten($cogent, 45%);
+    //   @include border-radius(4px);
+     
+    // }
+
+    &:hover,&:focus{
+      text-decoration: none;
+    }
+  }
+
+  .total-amount {
+    display: block;
+    text-align: right;
+    padding: 16px 0px 4px;
+
+    span {
+      background-color: $gray-200;
+      padding: 2px 8px 2px 2px;
+      margin: 10px 0 10px;
+      font-weight: 500;
+      color: $gray-800;
+
+      border: 1px solid $gray-200;
+      @include border-radius(4px);
+
+      &:first-child {
+        background-color: #fff;
+        border: #fff;
+      }
+
+      &:nth-child(2) {
+        font-size: 0.9rem;
+      }
+    }
+
+
+  }
+
+  .react-datepicker-wrapper{
+    width:50%;
+    // padding-left: 4px;
+  }
+
+  @media (max-width: 1199px) {
+    .hide-on-md{
+      display:none;
+    }
+  }
+
+
+}
+
+

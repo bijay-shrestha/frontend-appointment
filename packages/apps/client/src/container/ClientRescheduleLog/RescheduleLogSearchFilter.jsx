@@ -45,7 +45,9 @@ class RescheduleLogSearchFilter extends PureComponent {
             activeAppointmentServiceTypeWithCodeForDropdown,
             dropdownWithCodeErrorMessage,
             allHospitalDepartmentForDropdown,
-            allDepartmentDropdownErrorMessage
+            allDepartmentDropdownErrorMessage,
+            activeRoomsByDepartmentDropdownErrorMessage,
+            activeRoomNumberForDropdownByDepartment
         } = searchHandler
 
         return (
@@ -190,6 +192,7 @@ class RescheduleLogSearchFilter extends PureComponent {
                                         searchParameters.appointmentServiceTypeCode,
                                         'DEP'
                                     ) ? (
+                                        <>
                                         <Col sm={12} md={6} xl={4}>
                                             <CHybridSelect
                                                 id="hospitalDepartmentId"
@@ -215,6 +218,32 @@ class RescheduleLogSearchFilter extends PureComponent {
                                                 }
                                             />
                                         </Col>
+                                         <Col sm={12} md={4} xl={4}>
+                                         <CHybridSelect
+                                           id="roomIdRescheduleLog"
+                                           label="Room"
+                                           name="roomId"
+                                           options={activeRoomNumberForDropdownByDepartment}
+                                           placeholder={
+                                             !searchParameters.hospitalDepartmentId
+                                               ? 'Select Department first.'
+                                               : activeRoomNumberForDropdownByDepartment.length
+                                               ? 'Select Room.'
+                                               : 'No Room(s) available.'
+                                           }
+                                           noOptionsMessage={() =>
+                                             activeRoomsByDepartmentDropdownErrorMessage
+                                           }
+                                           onKeyDown={this.handleEnter}
+                                           onChange={event => handleSearchFormChange(event)}
+                                           value={searchParameters.roomId}
+                                           isDisabled={
+                                             !searchParameters.hospitalDepartmentId ||
+                                             !activeRoomNumberForDropdownByDepartment.length
+                                           }
+                                         />
+                                       </Col>
+                                       </>
                                     ) : (
                                         <>
                                             <Col sm={12} md={6} xl={4}>
