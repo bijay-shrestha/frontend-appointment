@@ -8,15 +8,19 @@
 @import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
 @import '~bootstrap/scss/mixins';
 
-#appointment-refund{
+#appointment-refund-status{
   .appointment-badge{
     float: right;
-    margin:10px 0;
+    margin:10px 0;   
 
     &>span{
       margin-right:20px;
       height: auto;
       line-height: 40px;
+
+      &:first-child{
+        display:none;
+      }
 
       &:last-child{
         margin-right: 0;
@@ -26,17 +30,37 @@
   }
 
   .badge{
-    width:35px;
-    height: 35px;
+    width:32px;
+    height: auto;
     // top:50%;
     // left:50%;
     // transform:translate(-50%,-50%);
     text-align: center;
     vertical-align: middle;
-    font-size: 16px;
-    line-height: 22px;
+    font-size: 0.65rem;
+    line-height: 0.8rem;
     padding:6px;
-    @include border-radius(50%);
+    // @include border-radius(50%);
+    
+  }
+
+  #status-link-button {
+    color: $gray-600;
+    font-weight: 500;
+    margin-left: 0px;
+    padding: 8px 6px;
+
+    // &.active {
+    //   color: $gray-900;
+    //   background-color: lighten($cogent, 45%);
+    //   @include border-radius(4px);
+     
+    // }
+
+    &:hover,&:focus{
+      text-decoration: none;
+      cursor:inherit;
+    }
   }
 
   .total-amount {
@@ -77,7 +101,6 @@
       display:none;
     }
   }
-
 
 }
 

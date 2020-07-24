@@ -7,11 +7,10 @@
 // // Customized Bootstrap variables
 @import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
 @import '~bootstrap/scss/mixins';
-
 #appointment-refund-status{
   .appointment-badge{
     float: right;
-    margin:10px 0;
+    margin:10px 0;   
 
     &>span{
       margin-right:20px;
@@ -32,12 +31,16 @@
   .badge{
     width:32px;
     height: auto;
+    // top:50%;
+    // left:50%;
+    // transform:translate(-50%,-50%);
     text-align: center;
     vertical-align: middle;
     font-size: 0.65rem;
     line-height: 0.8rem;
     padding:6px;
-    text-transform: uppercase;    
+    // @include border-radius(50%);
+    
   }
 
   #status-link-button {
@@ -55,6 +58,7 @@
 
     &:hover,&:focus{
       text-decoration: none;
+      cursor:inherit;
     }
   }
 
@@ -97,7 +101,5 @@
     }
   }
 
-
 }
-
 
