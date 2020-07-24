@@ -4,9 +4,9 @@ import {
     AppointmentNumberWithFollowUpFlag,
     CConfirmationModal,
     DoctorWithSpecImage,
-    PatientNameWithAgeGenderPhone
+    PatientNameWithAgeGenderPhone,
+    TableApproveAction
 } from '@frontend-appointment/ui-components';
-import TableApproveAction from '../CommonComponents/table-components/TableApproveAction';
 import PreviewDetails from './AppointmentApprovalPreview';
 import RejectModal from "./RejectModal";
 import CheckInModalContent from "../CommonComponents/CheckInModalContent";

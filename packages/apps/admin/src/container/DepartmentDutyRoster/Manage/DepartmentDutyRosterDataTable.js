@@ -1,11 +1,9 @@
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
 import React from 'react';
 import {ActionFilterUtils} from '@frontend-appointment/helpers';
-import TableAction from "@frontend-appointment/admin/src/container/CommonComponents/table-components/TableAction";
-import StatusLabel from "@frontend-appointment/admin/src/container/CommonComponents/table-components/StatusLabel";
 import PreviewHandlerHoc
     from "@frontend-appointment/admin/src/container/CommonComponents/table-components/hoc/PreviewHandlerHoc";
-import {RoomEnableBadge, RoomNumberForTable} from "@frontend-appointment/ui-components";
+import {RoomEnableBadge, RoomNumberForTable, StatusLabel, TableAction} from "@frontend-appointment/ui-components";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
@@ -107,7 +105,7 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         sortable: true,
                                         sizeColumnsToFit: true,
                                         cellRenderer: 'roomEnabledRenderer',
-                                        width:120
+                                        width: 120
                                     },
                                     {
                                         headerName: 'Status',
@@ -116,7 +114,7 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         sortable: true,
                                         sizeColumnsToFit: true,
                                         cellRenderer: 'childLabelRenderer',
-                                        width:90
+                                        width: 90
                                     },
                                     {
                                         headerName: '',
@@ -126,7 +124,7 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         sizeColumnsToFit: true,
                                         cellRenderer: 'childActionRenderer',
                                         cellClass: 'actions-button-cell',
-                                        width:60,
+                                        width: 60,
                                         cellRendererParams: {
                                             onClick: function (e, id, type, data) {
                                                 type === 'D'
@@ -144,7 +142,7 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                 frameworkComponents={{
                                     childActionRenderer: TableAction,
                                     roomNumber: PreviewHandlerHoc(RoomNumberForTable, checkIfRoleExists, filteredAction, 4, onPreviewHandler),
-                                    roomEnabledRenderer :PreviewHandlerHoc(RoomEnableBadge, checkIfRoleExists, filteredAction, 4, onPreviewHandler),
+                                    roomEnabledRenderer: PreviewHandlerHoc(RoomEnableBadge, checkIfRoleExists, filteredAction, 4, onPreviewHandler),
                                     childLabelRenderer: PreviewHandlerHoc(StatusLabel, checkIfRoleExists, filteredAction, 4, onPreviewHandler),
                                 }}
                                 defaultColDef={{resizable: true}}

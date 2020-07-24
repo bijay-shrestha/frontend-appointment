@@ -17,7 +17,7 @@ import {
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {CAlert, CButton, CModal} from '@frontend-appointment/ui-elements'
-import * as Material from 'react-icons/md'
+import {MdDone} from 'react-icons/md'
 import DepartmentDutyRosterPreviewModal from './common/DepartmentDutyRosterPreviewModal';
 
 const {fetchActiveHospitalsForDropdown, fetchAllHospitalsForDropdown} = HospitalSetupMiddleware;
@@ -1943,7 +1943,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                                 alertType={
                                     alertMessageInfo.variant === 'success' ? (
                                         <>
-                                            <Material.MdDone/>
+                                            <MdDone/>
                                         </>
                                     ) : (
                                         <>

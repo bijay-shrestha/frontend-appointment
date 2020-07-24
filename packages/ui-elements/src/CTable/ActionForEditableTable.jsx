@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button} from "react-bootstrap";
-import * as Material from 'react-icons/md';
+import {MdDeleteForever} from 'react-icons/md';
+import {MdEdit} from 'react-icons/md';
 
 const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, onUpdate, onDelete}) => {
 
@@ -46,7 +47,7 @@ const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, onUpdate, 
                                     variant="outline-primary"
                                     disabled={actionDisabled}
                                     onClick={(e) => onClick(e, node, 'EDIT')}>
-                                    <Material.MdEdit/>
+                                    <MdEdit/>
                                     {/* Edit */}
                                 </Button>
                             </div>
@@ -62,25 +63,14 @@ const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, onUpdate, 
                                     variant="outline-danger"
                                     disabled={actionDisabled}
                                     onClick={(e) => onClick(e, node, 'DELETE')}>
-                                    <Material.MdDeleteForever/>
+                                    <MdDeleteForever/>
                                     {/* Delete */}
                                 </Button>
                             </div>
 
                             : ''
                     }
-                    {/*&nbsp;*/}
-                    {/*{*/}
-                    {/*    onPreview ?*/}
-                    {/*        <Button*/}
-                    {/*            id="delete"*/}
-                    {/*            disabled={isEditing && rowNumber !== node.rowIndex}*/}
-                    {/*            onClick={(e) => onClick(e, node, 'PREVIEW')}>*/}
-                    {/*            <i className="fa fa-eye"/>*/}
-                    {/*            /!* Preview *!/*/}
-                    {/*        </Button>*/}
-                    {/*        : ''*/}
-                    {/*}*/}
+            
 
                 </>
 

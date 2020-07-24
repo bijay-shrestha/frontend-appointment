@@ -8,7 +8,7 @@ import {
     CTable,
     CToggle
 } from "@frontend-appointment/ui-elements";
-import StatusRenderer from "../CommonComponents/table-components/StatusRenderer";
+import {StatusLabel} from "@frontend-appointment/ui-components";
 
 const CTableTest = props => {
     return <>
@@ -48,7 +48,7 @@ const CTableTest = props => {
                                 label: 'Active', value: 'Y'
                             }}
                         />,
-                        displayComponent: prop => <StatusRenderer {...prop}/>
+                        displayComponent: prop => <StatusLabel {...prop}/>
                     },
                     {
                         headerName: 'Checkbox',

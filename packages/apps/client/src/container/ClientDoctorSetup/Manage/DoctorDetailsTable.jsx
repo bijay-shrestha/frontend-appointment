@@ -1,8 +1,6 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import {DoctorWithSpecImage, ConfirmDelete} from '@frontend-appointment/ui-components'
-import TableAction from '../../CommonComponents/table-components/TableAction';
-import StatusLabel from "../../CommonComponents/table-components/StatusLabel";
+import {ConfirmDelete, DoctorWithSpecImage, StatusLabel, TableAction} from '@frontend-appointment/ui-components'
 import PreviewDetails from '../commons/PreviewDetails'
 import HospitalPicture from '../commons/HospitalPicture'
 import PreviewHandlerHoc from '../../CommonComponents/table-components/hoc/PreviewHandlerHoc'

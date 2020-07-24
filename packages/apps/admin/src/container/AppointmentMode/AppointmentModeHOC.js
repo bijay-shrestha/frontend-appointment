@@ -4,7 +4,7 @@ import {AppointmentModeMiddleware} from "@frontend-appointment/thunk-middleware"
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
 import {CAlert, CModal} from "@frontend-appointment/ui-elements";
-import * as Material from 'react-icons/md';
+import {MdDone} from 'react-icons/md';
 import {ConfirmDelete} from "@frontend-appointment/ui-components";
 import AppointmentModeDetails from "./AppointmentModeDetails";
 import "./appointment-mode.scss"
@@ -558,7 +558,7 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                         variant={alertMessageInfo.variant}
                         show={showAlert}
                         onClose={this.closeAlert}
-                        alertType={alertMessageInfo.variant === "success" ? <><Material.MdDone/>
+                        alertType={alertMessageInfo.variant === "success" ? <><MdDone/>
                         </> : <><i className="fa fa-exclamation-triangle" aria-hidden="true"/>
                         </>}
                         message={alertMessageInfo.message}

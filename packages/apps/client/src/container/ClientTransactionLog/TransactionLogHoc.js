@@ -17,7 +17,7 @@ import {
     LocalStorageSecurity
 } from '@frontend-appointment/helpers'
 import './transaction-log.scss'
-import * as Material from 'react-icons/md'
+import {MdDone} from 'react-icons/md'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
 const {
@@ -550,7 +550,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                         alertType={
                             alertMessageInfo.variant === 'success' ? (
                                 <>
-                                    <Material.MdDone/>
+                                    <MdDone/>
                                 </>
                             ) : (
                                 <>

@@ -39,9 +39,16 @@
         border-bottom:1px solid $cogent-border;
         line-height: 0.9rem;
         text-transform: capitalize;
+        display:flex;
         &:hover {
             background-color: $cogent;
             color           : $white;
+        }
+
+        .material-icons{
+            font-size:14px;
+            margin-right:6px;
+          
         }
 
         svg{

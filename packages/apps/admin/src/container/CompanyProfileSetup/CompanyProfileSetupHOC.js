@@ -18,7 +18,7 @@ import {
   ProfileSetupUtils
 } from '@frontend-appointment/helpers'
 import {CAlert} from '@frontend-appointment/ui-elements'
-import * as Material from 'react-icons/md'
+import {MdDone} from 'react-icons/md'
 
 const {
   clearSuccessErrorMessageFromStore,
@@ -1156,7 +1156,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             alertType={
               alertMessageInfo.variant === 'success' ? (
                 <>
-                  <Material.MdDone />
+                  <MdDone />
                 </>
               ) : (
                 <i className="fa fa-exclamation-triangle" aria-hidden="true" />

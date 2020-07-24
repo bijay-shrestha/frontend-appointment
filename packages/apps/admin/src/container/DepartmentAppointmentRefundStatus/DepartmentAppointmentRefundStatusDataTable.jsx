@@ -13,7 +13,7 @@ import {
   AppointmentRefundStatusBadges
 } from '@frontend-appointment/ui-components'
 import PreviewDetails from './DepartmentAppointmentRefundStatusPreview'
-//import RejectModal from "./RejectStatusModal";
+//import DepartmentAppointmentCancellationRejectModal from "./RejectStatusModal";
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import AppointmentRefundStatus from '../CommonComponents/table-components/AppointmentRefundStatus'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'

@@ -12,7 +12,7 @@ import {
   AppointmentRefundStatusBadges
 } from '@frontend-appointment/ui-components'
 import PreviewDetails from './AppointmentRefundStatusPreview'
-//import RejectModal from "./RejectStatusModal";
+//import DepartmentAppointmentCancellationRejectModal from "./RejectStatusModal";
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import AppointmentRefundStatus from '../CommonComponents/table-components/AppointmentRefundStatus'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
@@ -271,7 +271,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 ''
             )} */}
 
-      {/* {refundConfirmationModal ? (
+            {/* {refundConfirmationModal ? (
         <CRemarksModal
           confirmationMessage="Provide remarks for Refund Check."
           modalHeader="Are you sure you want to Check Refund?"

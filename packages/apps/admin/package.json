@@ -1,14 +1,15 @@
 {
   "name": "@frontend-appointment/admin",
   "version": "1.0.0",
-  "main": "index.js",
-  "main:src": "index.js",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "predeploy": "yarn run build",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
+  },
   "dependencies": {
-    "cross-env": "5.0.5",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "@react-workspaces/react-scripts": "3.0.1-alpha-07",
     "@frontend-appointment/ui-components": "1.0.0",
     "@frontend-appointment/authentication-module": "1.0.0",
     "@frontend-appointment/ui-elements": "1.0.0",
@@ -17,14 +18,13 @@
     "@frontend-appointment/commons": "1.0.0",
     "@frontend-appointment/thunk-middleware": "1.0.0",
     "@frontend-appointment/web-resource-key-constants":"1.0.0",
-    "@frontend-appointment/helpers": "1.0.0"
+    "@frontend-appointment/helpers": "1.0.0",
+    "@react-workspaces/react-scripts": "3.0.1-alpha-07",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "predeploy": "yarn run build",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+  "devDependencies": {
+    "cross-env": "6.0.3"
   },
   "browserslist": {
     "production": [

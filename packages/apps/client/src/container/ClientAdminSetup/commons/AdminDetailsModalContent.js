@@ -8,8 +8,9 @@ import {
     CRadioButton
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
-import * as DefaultProfileImage from '../Add/picture.png'
+import {DefaultProfileImage} from '@frontend-appointment/ui-components'
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
+
 const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
     const images = [
         {
@@ -246,7 +247,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
 
                                 <Row className="mt-4">
 
-                                     {AuditableEntityHoc(adminInfoObj)}
+                                    {AuditableEntityHoc(adminInfoObj)}
                                 </Row>
                             </Col>
                         </Row>

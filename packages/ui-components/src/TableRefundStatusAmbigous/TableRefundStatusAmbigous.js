@@ -1,10 +1,9 @@
 import React from 'react'
 import {Dropdown} from 'react-bootstrap'
-import * as Material from 'react-icons/md'
-import * as Feather from 'react-icons/fi'
+import {MdVerifiedUser} from 'react-icons/md'
+import {MdMoreHoriz} from 'react-icons/md'
 //import {ActionFilterUtils} from '@frontend-appointment/helpers'
 
-//const {checkIfRoleExists} = ActionFilterUtils
 const RefundTableAmbigousAction = props => {
   const saveActionInSession = (e, actionId, actionName) => {
   props.onClick(e, props.node.data.id || props.node.data, actionName)
@@ -14,14 +13,14 @@ const RefundTableAmbigousAction = props => {
     <>
       <Dropdown className="table-action">
         <Dropdown.Toggle variant="default" id="dropdown-basic">
-          <Feather.FiMoreHorizontal />
+          <MdMoreHoriz/>
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
           {
             // checkIfRoleExists(this.props.filteredAction, 3) &&
             <Dropdown.Item onClick={e => saveActionInSession(e, 37, 'E')}>
-              <Material.MdVerifiedUser /> Re-initiate{' '}
+              <MdVerifiedUser /> Re-initiate{' '}
             </Dropdown.Item>
           }
         
