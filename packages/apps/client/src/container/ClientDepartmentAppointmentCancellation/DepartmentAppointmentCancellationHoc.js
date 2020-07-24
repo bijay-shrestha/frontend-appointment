@@ -312,7 +312,8 @@ const DepartmentAppointmentCancellationHoc = (ComposedComponent, props, type) =>
                 showModal: false,
                 rejectModalShow: false,
                 refundConfirmationModal: false,
-                remarks: ''
+                remarks: '',
+                isConfirming: false,
             }))
         };
 

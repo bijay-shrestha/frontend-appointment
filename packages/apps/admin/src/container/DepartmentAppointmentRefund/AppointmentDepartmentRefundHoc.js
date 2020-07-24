@@ -319,6 +319,7 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
                 rejectModalShow: false,
                 refundConfirmationModal: false,
                 remarks: '',
+                isConfirming: false,
             }))
         };
 
