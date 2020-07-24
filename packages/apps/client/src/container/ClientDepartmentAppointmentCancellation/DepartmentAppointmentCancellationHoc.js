@@ -500,8 +500,6 @@ const DepartmentAppointmentCancellationHoc = (ComposedComponent, props, type) =>
                 allHospitalDepartmentForDropdown
             }=this.props.HospitalDepartmentDropdownReducer
 
-            console.log("=========",this.props.HospitalDepartmentDropdownReducer)
-
             const {
                 activeRoomNumberForDropdownByDepartment
             }=this.props.RoomNumberDropdownReducer
