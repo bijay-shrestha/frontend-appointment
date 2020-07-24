@@ -571,6 +571,7 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
 
             return (
                 <>
+                  <div id ="appointment-refund-status">
                     <ComposedComponent
                         {...this.props}
                         {...props}
@@ -638,6 +639,7 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                         }
                         message={alertMessageInfo.message}
                     />
+                    </div>
                 </>
             )
         }
