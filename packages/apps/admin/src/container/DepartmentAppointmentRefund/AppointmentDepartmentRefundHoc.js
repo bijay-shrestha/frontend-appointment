@@ -317,7 +317,8 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
             this.setState(prevState => ({
                 showModal: false,
                 rejectModalShow: false,
-                refundConfirmationModal: false
+                refundConfirmationModal: false,
+                remarks: '',
             }))
         };
 
@@ -367,6 +368,7 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
                         isConfirming: false,
                         refundConfirmationModal: false,
                         showAlert: true,
+                        remarks: '',
                         alertMessageInfo: {
                             variant: 'danger',
                             message: successResponse.message
@@ -378,6 +380,7 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
                 this.setState({
                     isConfirming: false,
                     refundConfirmationModal: false,
+                    remarks: '',
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'danger',

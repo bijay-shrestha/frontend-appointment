@@ -31,7 +31,7 @@ const {
 
 const {fetchAllHospitalDepartmentForDropdown} = HospitalDepartmentSetupMiddleware
 
-const {fetchActiveRoomNumberForDropdownByDepartmentId}=RoomSetupMiddleware
+const {fetchActiveRoomNumberForDropdownByDepartmentId} = RoomSetupMiddleware
 
 const {fetchHmacTokenByAppointmentId} = HmacMiddleware;
 
@@ -175,7 +175,7 @@ const DepartmentAppointmentCancellationHoc = (ComposedComponent, props, type) =>
                     refundAmount: spec.refundAmount || 'N/A',
                     esewaId: spec.esewaId || 'N/A',
                     // remarks: spec.remarks || 'N/A',
-                    hospitalDepartmentName:spec.departmentName||'N/A',
+                    hospitalDepartmentName: spec.departmentName || 'N/A',
                     appointmentMode: spec.appointmentMode,
                     mobileNumber: spec.mobileNumber,
                     // sN: index + 1
@@ -276,17 +276,17 @@ const DepartmentAppointmentCancellationHoc = (ComposedComponent, props, type) =>
                     fieldName = event.target.name;
                     value = event.target.value;
                     label = event.target.label;
-                   // fileUri = event.target.fileUri;
+                    // fileUri = event.target.fileUri;
                 }
 
                 let newSearchParams = {...this.state.searchParameters};
 
                 newSearchParams[fieldName] = label
                     ? value
-                        ?{value, label}
+                        ? {value, label}
                         : ''
                     : value;
-                if(fieldName==='hospitalDepartmentId'){
+                if (fieldName === 'hospitalDepartmentId') {
                     this.callApiForRoomAfterDepartmentChange(value)
                 }
                 await this.setStateValuesForSearch(newSearchParams)
@@ -303,15 +303,16 @@ const DepartmentAppointmentCancellationHoc = (ComposedComponent, props, type) =>
             }
         }
 
-        callApiForRoomAfterDepartmentChange = async (id) =>{
-            await this.props.fetchActiveRoomNumberForDropdownByDepartmentId(AdminModuleAPIConstants.roomSetupApiConstants.FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN,id);
+        callApiForRoomAfterDepartmentChange = async (id) => {
+            await this.props.fetchActiveRoomNumberForDropdownByDepartmentId(AdminModuleAPIConstants.roomSetupApiConstants.FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN, id);
         }
 
         setShowModal = () => {
             this.setState(prevState => ({
                 showModal: false,
                 rejectModalShow: false,
-                refundConfirmationModal: false
+                refundConfirmationModal: false,
+                remarks: ''
             }))
         };
 
@@ -359,6 +360,7 @@ const DepartmentAppointmentCancellationHoc = (ComposedComponent, props, type) =>
                         thirdPartyApiErrorMessage: successResponse.message,
                         isConfirming: false,
                         refundConfirmationModal: false,
+                        remarks: '',
                         showAlert: true,
                         alertMessageInfo: {
                             variant: 'danger',
@@ -371,6 +373,7 @@ const DepartmentAppointmentCancellationHoc = (ComposedComponent, props, type) =>
                 this.setState({
                     isConfirming: false,
                     refundConfirmationModal: false,
+                    remarks: '',
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'danger',
@@ -498,11 +501,11 @@ const DepartmentAppointmentCancellationHoc = (ComposedComponent, props, type) =>
 
             const {
                 allHospitalDepartmentForDropdown
-            }=this.props.HospitalDepartmentDropdownReducer
+            } = this.props.HospitalDepartmentDropdownReducer
 
             const {
                 activeRoomNumberForDropdownByDepartment
-            }=this.props.RoomNumberDropdownReducer
+            } = this.props.RoomNumberDropdownReducer
 
             const {refundDetail} = this.props.AppointmentRefundDetailReducer;
 
@@ -519,7 +522,7 @@ const DepartmentAppointmentCancellationHoc = (ComposedComponent, props, type) =>
                             searchParameters: searchParameters,
                             patientListDropdown: patientList,
                             patientDropdownErrorMessage: patientDropdownErrorMessage,
-                            activeHospitalDepartmentForDropdown:allHospitalDepartmentForDropdown,
+                            activeHospitalDepartmentForDropdown: allHospitalDepartmentForDropdown,
                             activeRoomNumberForDropdownByDepartment
 
                         }}
