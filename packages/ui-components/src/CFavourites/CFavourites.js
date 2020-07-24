@@ -1,13 +1,12 @@
 import React from 'react'
-import {Dropdown, OverlayTrigger, Tooltip} from 'react-bootstrap'
+import {Dropdown} from 'react-bootstrap'
 import AddFavouritesModal from "./AddFavouritesModal";
 import {Link} from 'react-router-dom'
 import {FavouritesUtils, LocalStorageSecurity, StringUtils} from '@frontend-appointment/helpers'
 import {Axios} from '@frontend-appointment/core'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {CAlert} from '@frontend-appointment/ui-elements'
-import {MdEdit} from 'react-icons/md'
-import {MdDone} from 'react-icons/md'
+import {MdDone, MdEdit} from 'react-icons/md'
 
 const {FETCH_FAVOURITES_FOR_DROPDOWN, SAVE_FAVOURITES, UPDATE_FAVOURITES} = AdminModuleAPIConstants.favouritesApiConstants
 

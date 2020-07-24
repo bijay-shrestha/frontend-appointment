@@ -5,7 +5,8 @@ import {
     DoctorWithSpecImage,
     PatientNameWithAgeGenderPhone,
     TableRefundStatusAmbigous,
-    AppointmentCancelDateWithTime
+    AppointmentCancelDateWithTime,
+    AppointmentRefundStatusBadges,
 } from '@frontend-appointment/ui-components'
 import DoctorAppointmentCancellationStatusPreview from './DoctorAppointmentCancellationStatusPreview'
 //import DepartmentAppointmentCancellationRejectModal from "./RejectStatusModal";
@@ -34,7 +35,9 @@ const DoctorAppointmentCancellationStatusDataTable = ({tableHandler, paginationP
         totalRefundAmount,
         isRefundLoading,
         remarks,
-        handleInputChange
+        handleInputChange,
+        handleStatusChange,
+        activeStatus
         //isRejectLoading
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
@@ -42,7 +45,11 @@ const DoctorAppointmentCancellationStatusDataTable = ({tableHandler, paginationP
     return (
         <>
             <div className="manage-details">
-                <h5 className="title">Appointment Refund Status Details</h5>
+                <h5 className="title">Appointment Cancellation Status Details</h5>
+                <AppointmentRefundStatusBadges
+                    activeStatus={activeStatus}
+                    handleStatusChange={handleStatusChange}
+                />
                 {!isSearchLoading &&
                 !searchErrorMessage &&
                 appointmentRefundList.length ? (

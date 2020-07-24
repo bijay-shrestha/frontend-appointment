@@ -332,15 +332,15 @@ const DepartmentAppointmentCancellationHoc = (ComposedComponent, props, type) =>
             const {appointmentId, appointmentModeId} = refundDetail;
             let requestDTO;
             try {
-                let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
-                    hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
-                    appointmentId);
+                // let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
+                //     hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
+                //     appointmentId);
                 const {successResponse, apiRequestBody} = await thirdPartyApiCallRefund(
                     {...refundDetail, remarks},
                     IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_REFUND_APPROVAL_CODE,
                     IntegrationConstants.apiIntegrationKey.APPOINTMENT_MODE_FEATURE_INTEGRATION,
                     true,
-                    hmacCode
+                    hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID
                 );
                 requestDTO = {
                     appointmentId: appointmentId,

@@ -4,13 +4,15 @@ import {
     AppointmentCancelDateWithTime,
     DepartmentNameWithRoomNumber,
     PatientNameWithAgeGenderPhone,
-    TableRefundStatus
+    TableRefundStatus,
+    AppointmentRefundStatusBadges
 } from '@frontend-appointment/ui-components'
 import DepartmentAppointmentCancellationStatusPreview from './DepartmentAppointmentCancellationStatusPreview'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import AppointmentAmountWithTransactionNumber
     from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
+import AppointmentRefundStatus from '../CommonComponents/table-components/AppointmentRefundStatus'
 
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     const {
@@ -30,17 +32,23 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         //refundRejectError,
         //refundConfirmationModal,
         //rejectRemarks,
-        totalRefundAmount
+        totalRefundAmount,
         //isRefundLoading,
         //remarks,
-        //handleInputChange
+        //handleInputChange,
+        activeStatus,
+        handleStatusChange
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
 
     return (
         <>
             <div className="manage-details">
-                <h5 className="title">Appointment Refund Status Details</h5>
+                <h5 className="title">Appointment Cancellation Status Details</h5>
+                <AppointmentRefundStatusBadges
+                    activeStatus={activeStatus}
+                    handleStatusChange={handleStatusChange}
+                />
                 {!isSearchLoading &&
                 !searchErrorMessage &&
                 appointmentRefundList.length ? (
@@ -64,6 +72,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true,
                                     width: 140,
                                     cellClass: 'first-class'
+                                },
+                                {
+                                    headerName: 'Status',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'appointmentStatusBadges',
+                                    width: 100
                                 },
                                 {
                                     headerName: 'App. No',
@@ -192,7 +208,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     null,
                                     null,
                                     previewCall
-                                )
+                                ),
+                                appointmentStatusBadges: PreviewHandlerHoc(
+                                    AppointmentRefundStatus,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={previewCall}
