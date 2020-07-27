@@ -1,22 +1,12 @@
 import React from 'react'
-import { CScrollbar } from '@frontend-appointment/ui-elements'
+import {CButton, CLoading, CNavTabs, CScrollbar} from '@frontend-appointment/ui-elements'
 
-import {
-    Badge,
-    Button,
-    Col,
-    Container,
-    OverlayTrigger,
-    Row,
-    Tooltip
-} from 'react-bootstrap'
-import { CButton, CLoading, CNavTabs } from '@frontend-appointment/ui-elements'
+import {Badge, Button, Col, Container, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
 
 import './appointment-status.scss'
-import {
-    appointmentStatusList,
-    DateTimeFormatterUtils
-} from '@frontend-appointment/helpers'
+import {appointmentStatusList, DateTimeFormatterUtils} from '@frontend-appointment/helpers'
+
+import {DefaultProfileImage} from '@frontend-appointment/ui-components'
 
 const TIME_SLOT_EMPTY_ERROR_MESSAGE = 'APPOINTMENTS NOT AVAILABLE'
 const DAY_OFF_MESSAGE = 'DAY OFF'
@@ -162,10 +152,18 @@ const AppointmentStatusDetails = ({
                                                                 doctorInfo => {
                                                                     return (
                                                                         <li>
-                                                                            <img
-                                                                                src={doctorInfo.fileUri}
-                                                                                alt={doctorInfo.label[0].toUpperCase()}
-                                                                            ></img>
+                                                                            {
+                                                                                doctorInfo.fileUri ?
+                                                                                    <img
+                                                                                        src={doctorInfo.fileUri}
+                                                                                        alt={doctorInfo.label[0].toUpperCase()}
+                                                                                    />:
+                                                                                    <img
+                                                                                        src={DefaultProfileImage}
+                                                                                        alt={'IMG'}
+                                                                                    />
+                                                                            }
+
                                                                             {doctorInfo.label}
                                                                         </li>
                                                                     )
@@ -402,7 +400,7 @@ const AppointmentStatusDetails = ({
                                                                         .appointmentMode
                                                                 }
                                                                 <br />
-                                                               
+
                                                                 {appointmentStatusDetail.patientDetails
                                                                     .isFollowUp === 'Y' ? (
                                                                         <>
