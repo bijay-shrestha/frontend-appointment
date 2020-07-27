@@ -2,10 +2,10 @@ import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {
     AppointmentCancelDateWithTime,
+    AppointmentRefundStatusBadges,
     DepartmentNameWithRoomNumber,
     PatientNameWithAgeGenderPhone,
-    TableRefundStatus,
-    AppointmentRefundStatusBadges
+    TableRefundStatusAmbigous
 } from '@frontend-appointment/ui-components'
 import DepartmentAppointmentCancellationStatusPreview from './DepartmentAppointmentCancellationStatusPreview'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
@@ -173,7 +173,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 }
                             ]}
                             frameworkComponents={{
-                                childActionRenderer: TableRefundStatus,
+                                childActionRenderer: TableRefundStatusAmbigous,
                                 appointmentDateAndTimeRenderer: PreviewHandlerHoc(
                                     AppointmentDateWithTime,
                                     null,
