@@ -172,6 +172,7 @@
     .user-profile {
         margin-top: -7px;
         // padding:0 4px;
+       
 
         &.show {
             background-color: #e6efff;
@@ -216,12 +217,12 @@
 
             .image-status{
                 position: absolute;
-                width: 8px;
-                height:8px;
-               
+                width: 10px;
+                height:10px;               
                 top:2px;
-                right:2px;
+                right:1px;
                 z-index: 9999;
+                border:2px solid $white;
                 @include border-radius(50%);
 
                 &.active{
@@ -414,14 +415,15 @@
     }
 
     .quick-links {
+    
         i {
             margin-top: 0;
         }
 
         .dropdown-toggle{
             i{
-                // @include centerer;
-                margin-right:8px;
+                 @include centerer;
+                // margin-right:8px;
                 
             }
 
@@ -434,14 +436,15 @@
         }
 
         .btn {
-            width: auto;
-            height: auto;
-            padding:6px 6px;
+            // width: 34px;
+            // height: 34px;
+            // padding:6px 6px;
             // color: #f4cd0c;
+            // margin-top:4px;
             color:$gray-700;
             // border: 1px solid $gray-400;
-            background-color:white;
-            @include border-radius(4px);
+            // background-color:white;
+            @include border-radius(50%);
             // box-shadow:
             // -4px -4px 9px 0 rgba(0, 0, 0, 0.05),
             // 4px 4px 12px rgba(0, 0, 0, 0.05);
@@ -451,7 +454,7 @@
                 color: $gray-700;
                 background-color: #fff;
                 border:1px solid transparent;
-                @include border-radius(4px);
+                @include border-radius(50%);
             }
 
 
@@ -459,7 +462,7 @@
 
         &.show {
             background-color: $white !important;
-            @include border-radius(4px);
+            @include border-radius(50%);
             border:none;
 
             .fa-star{

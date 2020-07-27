@@ -201,7 +201,7 @@ class CFavourites extends React.PureComponent {
 
                          <Dropdown alignRight className="user-profile quick-links">
                              <Dropdown.Toggle variant="default" id="dropdown-basic"><i
-                                 className="fa fa-star"/>Favourites</Dropdown.Toggle>
+                                 className="fa fa-star"/></Dropdown.Toggle>
                              <Dropdown.Menu>
                                  {
                                      loggedInAdminFavourites && loggedInAdminFavourites.length ?
