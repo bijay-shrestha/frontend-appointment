@@ -479,7 +479,7 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
             }
             try {
                 await this.props.appointmentRefund(
-                    appointmentSetupApiConstant.APPOINTMENT_REFUND_BY_ID,
+                    appointmentSetupApiConstant.CHECK_APPOINTMENT_REFUND_STATUS,
                     requestData
                 )
                 this.setState({
