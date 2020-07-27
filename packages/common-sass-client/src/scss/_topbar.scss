@@ -212,6 +212,26 @@
                 display: inline-block;
                 @include border-radius(50%);
             }
+
+
+            .image-status{
+                position: absolute;
+                width: 8px;
+                height:8px;
+               
+                top:2px;
+                right:2px;
+                z-index: 9999;
+                @include border-radius(50%);
+
+                &.active{
+                    background-color: $success;
+                }
+
+                &.inactive{
+                    background-color: $danger;
+                }
+            }
         }
 
         .dropdown-menu {
@@ -368,10 +388,10 @@
             // background-color: $gray-100;
             @include border-radius(50%);
 
-            svg{
-                width:20px;
-                height:20px;
-            }
+            // svg{
+            //     width:20px;
+            //     height:20px;
+            // }
 
 
 
@@ -419,8 +439,8 @@
             padding:6px 6px;
             // color: #f4cd0c;
             color:$gray-700;
-            border: 1px solid $gray-400;
-            // background-color: $gray-100;
+            // border: 1px solid $gray-400;
+            background-color:white;
             @include border-radius(4px);
             // box-shadow:
             // -4px -4px 9px 0 rgba(0, 0, 0, 0.05),
@@ -487,7 +507,7 @@
 
                 svg{
                     width:46px;
-                    font-size: 14px;
+                    font-size: 15px;
                     padding-right:12px;
                     color:$gray-600;
                 }
@@ -783,4 +803,5 @@
 #favourites{
     z-index: 99999999;
 }
+
 

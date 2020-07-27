@@ -431,6 +431,7 @@ class CHeader extends Component {
                             {/* start user profile */}
                             <Dropdown alignRight className="user-profile">
                                 <Dropdown.Toggle variant="default" id="dropdown-basic">
+                               
                                     <Image
                                         src={
                                             this.state.userInfo.fileUri
@@ -439,6 +440,9 @@ class CHeader extends Component {
                                         }
                                         className="avatar"
                                     />
+
+                                    <span className="image-status inactive"></span>
+                                 
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     <div className="user-details">
