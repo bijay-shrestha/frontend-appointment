@@ -9,7 +9,7 @@ const DepartmentCheckInPreviewModal = props => {
             <CModal show={showModal}
                     modalHeading="Department Wise Checkin Details"
                     size="xl"
-                    bodyChildren={<DepartmentCheckInModalContent approvalData={approvalData} />}
+                    bodyChildren={<DepartmentCheckInModalContent appointmentDetails={approvalData} />}
                     onHide={setShowModal}
                     centered={false}
                     dialogClassName="preview-modal"

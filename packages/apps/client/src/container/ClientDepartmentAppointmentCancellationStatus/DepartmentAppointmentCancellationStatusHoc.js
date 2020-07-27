@@ -364,42 +364,51 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
             }))
         }
 
-        refundHandler = data => {
-            this.previewApiCall(data.appointmentId)
-            this.setState({
-                refundConfirmationModal: true,
-                refundAppointmentId: data.appointmentId
-            })
+        refundHandler = async data => {
+            try {
+                await this.previewApiCall(data.appointmentId)
+                await this.setState({
+                    refundConfirmationModal: true,
+                    refundAppointmentId: data.appointmentId
+                })
+                this.refundHandleApi()
+            } catch (e) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: this.props.AppointmentRefundDetailReducer
+                            .refundDetailErrorMessage
+                    }
+                })
+            }
         }
 
         refundHandleApi = async () => {
             const {refundDetail} = this.props.AppointmentRefundDetailReducer
-            const {remarks} = this.state
+            // const {remarks} = this.state
             this.setState({
                 isConfirming: true
             })
-            const {appointmentId, appointmentModeId} = refundDetail
+            // const {appointmentId, appointmentModeId} = refundDetail
             let requestDTO
             try {
-                let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
-                    hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
-                    appointmentId
-                )
+                // let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
+                //     hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
+                //     appointmentId
+                // )
                 const {successResponse, apiRequestBody} = await thirdPartyApiCallRefund(
-                    {...refundDetail, remarks},
+                    {...refundDetail},
                     IntegrationConstants.apiIntegrationFeatureTypeCodes
-                        .APPOINTMENT_REFUND_APPROVAL_CODE,
+                        .APPOINTMENT_REFUND_STATUS_CODE,
                     IntegrationConstants.apiIntegrationKey
                         .APPOINTMENT_MODE_FEATURE_INTEGRATION,
                     true,
-                    hmacCode
+                    hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID
                 )
                 requestDTO = {
-                    appointmentId: appointmentId,
-                    appointmentModeId: appointmentModeId,
-                    status: null,
-                    remarks: remarks,
-                    ...apiRequestBody
+                    ...apiRequestBody,
+                    ...refundDetail
                 }
                 if (!successResponse) {
                     this.refundAppointment(requestDTO)
@@ -441,12 +450,40 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
         }
 
         refundAppointment = async data => {
+            const {
+                appointmentId,
+                appointmentMode,
+                remarks,
+                integrationChannelCode,
+                featureCode,
+                appointmentModeId,
+                esewaMerchantCode,
+                esewaId,
+                transactionNumber,
+                status,
+                hospitalId
+            } = data
+
+            const requestData = {
+                appointmentId,
+                appointmentMode,
+                esewaId,
+                esewaMerchantCode,
+                transactionNumber,
+                appointmentModeId,
+                status,
+                remarks,
+                hospitalId,
+                integrationChannelCode,
+                featureCode
+            }
             try {
                 await this.props.appointmentRefund(
                     appointmentSetupApiConstant.APPOINTMENT_REFUND_BY_ID,
-                    data
+                    requestData
                 )
                 this.setState({
+                    isConfirming: false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'success',
@@ -456,6 +493,7 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
                 this.searchAppointment()
             } catch (e) {
                 this.setState({
+                    isConfirming: false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'danger',
@@ -571,74 +609,74 @@ const DepartmentAppointmentCancellationStatusHoc = (ComposedComponent, props, ty
 
             return (
                 <>
-                  <div id ="appointment-refund-status">
-                    <ComposedComponent
-                        {...this.props}
-                        {...props}
-                        searchHandler={{
-                            handleEnter: this.handleEnterPress,
-                            handleSearchFormChange: this.handleSearchFormChange,
-                            resetSearch: this.handleSearchFormReset,
-                            searchAppointment: this.searchAppointment,
-                            searchParameters: searchParameters,
-                            patientListDropdown: patientList,
-                            patientDropdownErrorMessage: patientDropdownErrorMessage,
-                            activeHospitalDepartmentForDropdown: allHospitalDepartmentForDropdown,
-                            activeRoomNumberForDropdownByDepartment,
-                            activeAppointmentModeForDropdown
-                        }}
-                        paginationProps={{
-                            queryParams: queryParams,
-                            totalRecords: totalRecords,
-                            handlePageChange: this.handlePageChange
-                        }}
-                        tableHandler={{
-                            isSearchLoading: isRefundListLoading,
-                            appointmentRefundList: this.appendSNToTable(refundList),
-                            searchErrorMessage: refundErrorMessage,
-                            setShowModal: this.setShowModal,
-                            showModal: showModal,
-                            previewCall: this.previewCall,
-                            previewData: refundDetail,
-                            rejectSubmitHandler: this.rejectSubmitHandler,
-                            refundRejectRemarksHandler: this.refundRejectRemarksHandler,
-                            onRejectHandler: this.onRejectHandler,
-                            refundHandler: this.refundHandler,
-                            refundHandleApi: this.refundHandleApi,
-                            refundRejectError: refundRejectError,
-                            isRefundLoading: isConfirming,
-                            refundConfirmationModal: refundConfirmationModal,
-                            rejectModalShow: rejectModalShow,
-                            rejectRemarks: refundRejectRequestDTO.remarks,
-                            remarks: remarks,
-                            handleInputChange: this.handleInputChange,
-                            totalRefundAmount,
-                            activeStatus,
-                            handleStatusChange: this.handleStatusChange
-                        }}
-                    />
-                    <CAlert
-                        id="profile-add"
-                        variant={alertMessageInfo.variant}
-                        show={showAlert}
-                        onClose={this.setShowAlert}
-                        alertType={
-                            alertMessageInfo.variant === 'success' ? (
-                                <>
-                                    <i className="fa fa-check-circle" aria-hidden="true">
-                                        {' '}
-                                    </i>
-                                </>
-                            ) : (
-                                <>
-                                    <i className="fa fa-exclamation-triangle" aria-hidden="true">
-                                        {' '}
-                                    </i>
-                                </>
-                            )
-                        }
-                        message={alertMessageInfo.message}
-                    />
+                    <div id="appointment-refund-status">
+                        <ComposedComponent
+                            {...this.props}
+                            {...props}
+                            searchHandler={{
+                                handleEnter: this.handleEnterPress,
+                                handleSearchFormChange: this.handleSearchFormChange,
+                                resetSearch: this.handleSearchFormReset,
+                                searchAppointment: this.searchAppointment,
+                                searchParameters: searchParameters,
+                                patientListDropdown: patientList,
+                                patientDropdownErrorMessage: patientDropdownErrorMessage,
+                                activeHospitalDepartmentForDropdown: allHospitalDepartmentForDropdown,
+                                activeRoomNumberForDropdownByDepartment,
+                                activeAppointmentModeForDropdown
+                            }}
+                            paginationProps={{
+                                queryParams: queryParams,
+                                totalRecords: totalRecords,
+                                handlePageChange: this.handlePageChange
+                            }}
+                            tableHandler={{
+                                isSearchLoading: isRefundListLoading,
+                                appointmentRefundList: this.appendSNToTable(refundList),
+                                searchErrorMessage: refundErrorMessage,
+                                setShowModal: this.setShowModal,
+                                showModal: showModal,
+                                previewCall: this.previewCall,
+                                previewData: refundDetail,
+                                rejectSubmitHandler: this.rejectSubmitHandler,
+                                refundRejectRemarksHandler: this.refundRejectRemarksHandler,
+                                onRejectHandler: this.onRejectHandler,
+                                refundHandler: this.refundHandler,
+                                refundHandleApi: this.refundHandleApi,
+                                refundRejectError: refundRejectError,
+                                isRefundLoading: isConfirming,
+                                refundConfirmationModal: refundConfirmationModal,
+                                rejectModalShow: rejectModalShow,
+                                rejectRemarks: refundRejectRequestDTO.remarks,
+                                remarks: remarks,
+                                handleInputChange: this.handleInputChange,
+                                totalRefundAmount,
+                                activeStatus,
+                                handleStatusChange: this.handleStatusChange
+                            }}
+                        />
+                        <CAlert
+                            id="profile-add"
+                            variant={alertMessageInfo.variant}
+                            show={showAlert}
+                            onClose={this.setShowAlert}
+                            alertType={
+                                alertMessageInfo.variant === 'success' ? (
+                                    <>
+                                        <i className="fa fa-check-circle" aria-hidden="true">
+                                            {' '}
+                                        </i>
+                                    </>
+                                ) : (
+                                    <>
+                                        <i className="fa fa-exclamation-triangle" aria-hidden="true">
+                                            {' '}
+                                        </i>
+                                    </>
+                                )
+                            }
+                            message={alertMessageInfo.message}
+                        />
                     </div>
                 </>
             )
