@@ -2,13 +2,13 @@ import React, {memo} from 'react'
 import {ActionFilterUtils, EnvironmentVariableGetter} from '@frontend-appointment/helpers'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {ConfirmDelete} from "@frontend-appointment/ui-components";
-import HospitalDepartmentPreviewModal from "./HospitalDepartmentPreviewModal";
+import DepartmentPreviewModal from "./DepartmentPreviewModal";
 import TableAction from "../TableComponents/TableAction";
 import StatusLabel from "../TableComponents/StatusLabel";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
-const HospitalDepartmentSetupDataTable = ({tableData}) => {
+const DepartmentSetupDataTable = ({tableData}) => {
     const {
         filteredActions,
         isSearchHospitalDepartmentLoading,
@@ -157,7 +157,7 @@ const HospitalDepartmentSetupDataTable = ({tableData}) => {
                 ''
             )}
             {departmentPreviewData.showPreviewModal ? (
-                <HospitalDepartmentPreviewModal
+                <DepartmentPreviewModal
                     departmentPreviewData={{
                         ...departmentPreviewData,
                         type: "MANAGE"
@@ -169,4 +169,4 @@ const HospitalDepartmentSetupDataTable = ({tableData}) => {
         </div>
     )
 };
-export default memo(HospitalDepartmentSetupDataTable)
+export default memo(DepartmentSetupDataTable)

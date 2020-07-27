@@ -95,7 +95,7 @@ const ActivityLog = loadable(
 const AddDepartmentSetup = loadable(
   () =>
     import(
-      './container/ClientHospitalDepartmentSetup/Add/HospitalDepartmentAdd'
+      './container/ClientDepartmentSetup/Add/DepartmentAdd'
     ),
   {fallback: () => getLoader()}
 )
@@ -206,7 +206,7 @@ const ManageDoctorComponent = Loadable({
 const ManageDepartmentComponent = Loadable({
   loader: () =>
     import(
-      './container/ClientHospitalDepartmentSetup/Manage/HospitalDepartmentManage'
+      './container/ClientDepartmentSetup/Manage/DepartmentManage'
     ),
   loading: () => getLoader()
 })

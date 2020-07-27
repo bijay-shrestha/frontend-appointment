@@ -60,7 +60,7 @@ const {FETCH_ACTIVE_BILLING_MODE_FOR_DROPDOWN, FETCH_ALL_BILLING_MODE_FOR_DROPDO
 
 const NO_BILLING_MODE_MESSAGE = "Billing Mode not assigned! Contact the system administrator for assigning Billing Mode.";
 
-const HospitalDepartmentSetupHOC = (Component, props, type) => {
+const DepartmentSetupHOC = (Component, props, type) => {
 
     class HospitalDepartmentSetupHOC extends PureComponent {
 
@@ -834,4 +834,4 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
 };
 
-export default HospitalDepartmentSetupHOC;
+export default DepartmentSetupHOC;

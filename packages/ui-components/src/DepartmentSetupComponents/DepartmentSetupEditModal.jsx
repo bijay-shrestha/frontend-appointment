@@ -12,7 +12,7 @@ import {
 } from "@frontend-appointment/ui-elements";
 import {EnvironmentVariableGetter} from "@frontend-appointment/helpers";
 
-const HospitalDepartmentSetupEditModal = ({
+const DepartmentSetupEditModal = ({
                                               updateData,
                                               departmentChargeProps
                                           }) => {
@@ -357,4 +357,4 @@ const HospitalDepartmentSetupEditModal = ({
     );
 };
 
-export default HospitalDepartmentSetupEditModal;
+export default DepartmentSetupEditModal;
