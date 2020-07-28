@@ -147,6 +147,7 @@ const AppointmentStatusDetails = ({
                                                         ''
                                                     )
                                                 )}
+                                                <span  className="image-status active"></span>
                                             </div>
                                             <p className="doctor-details">
                                                 <span>{appointmentStatusDetail.doctorSalutation || ''} {appointmentStatusDetail.doctorName}</span>

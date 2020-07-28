@@ -162,10 +162,14 @@ const AppointmentStatusDetails = ({
                                                                 doctorInfo => {
                                                                     return (
                                                                         <li>
+                                                                            <span className="img-container">
                                                                             <img
                                                                                 src={doctorInfo.fileUri}
                                                                                 alt={doctorInfo.label[0].toUpperCase()}
                                                                             ></img>
+                                                                            <span className="image-status active"></span>
+                                                                            </span>
+
                                                                             {doctorInfo.label}
                                                                         </li>
                                                                     )

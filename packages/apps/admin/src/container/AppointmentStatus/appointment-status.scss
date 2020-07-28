@@ -11,7 +11,7 @@
  
  
 
-#appointment-status {
+ #appointment-status {
   .filter-message {
     .message {
       width: 200px;
@@ -113,14 +113,36 @@
   margin-top: 10px;
   background-color: $gray-500;
   @include border-radius(0.5rem);
+  position: relative;
   // display: inline-block;
 
   img {
     width: 100px;
     height: 100px;
     background-color: $gray-500;
-    @include border-radius(50%);
+    @include border-radius(0.5rem);
   }
+
+  
+
+    .image-status{
+        position: absolute;
+        width: 12px;
+        height:12px;               
+        top:2px;
+        right:1px;
+        z-index: 9999;
+        border:2px solid $white;
+        @include border-radius(50%);
+
+        &.active{
+            background-color: $success;
+        }
+
+        &.inactive{
+            background-color: $danger;
+        }
+    }
 }
 
 .doctor-details {
@@ -175,15 +197,26 @@
     line-height: 1rem;
   }
 
-  
-  .data {  
+  .data {
+    .badge{
+      padding:2px;
+    }
+
+    .badge-success {
+      color: $success !important;
+     
+      border: 1px solid $success;
+      background-color: white !important;
+      // text-transform: lowercase;
+    }
 
     .app-details-link{
       font-size: 12px;
-      padding:6px;
+      padding:6px ;
       font-weight: 400;
       margin-top:6px;
-      // background-color:$gray-300;    
+      // background-color:$success;
+    
       // border:1px solid $gray-400;
       @include border-radius(4px);
       margin-top:4px;
@@ -196,32 +229,24 @@
       }
     }
 
-
-    .badge-success {
-      color: $success !important;
-      padding:2px;
-      border: 1px solid $success;
-      background-color: white !important;
-      // text-transform: lowercase;
-    }
-
     .badge-primary {
       color: $primary !important;
-       border: 1px solid $primary;
+      border: 1px solid $primary;
        padding:2px;
        background-color: white !important;
     }
 
     .badge-info {
-      color: $success;
-      border: 1px solid $success !important;
-      padding:2px;
+      color: $info;
+      border: none;
+      
       background-color: transparent;
     }
   }
 
 
 }
+
 
 .action-wrapper{
   .btn{
@@ -245,9 +270,6 @@
 }
 
 
-
-
-
 .time-container {
 
   .time-details {
@@ -268,30 +290,34 @@
     margin-left: 30px;
   }
 
-  ul {   
+  ul {
+
     width: 100%;
     max-height: 250px;
-    overflow:auto;
-   
-    li {   
+
+    li {
+      // display: inline-block;
       margin-right: 10px;
       margin-bottom: 12px;
       float: left;
 
 
       .btn {
-        width: 120px;   
-        height: 46px;
+        width: 120px;      
+        //  margin-right:10px;
+        height: 40px;
 
 
       }
 
- 
+      // .btn-success{
+      //    &:hover{
+
+      //     }
+      // }
     }
   }
 }
-
-//appointment satus list
 
 .appointment-status-list {
   margin: 15px -30px 45px;
@@ -402,9 +428,6 @@
 
   }
 
- 
-  
-
 
   @media (max-width: 1199px) {
     .hide-on-md {
@@ -412,10 +435,6 @@
     }
   }
 }
-
-//end appointment status list
-
-
 
 //start transfer-modal
 .patient-box {
@@ -502,9 +521,9 @@
   }
 
   //end transfer-modal
+
+
   
-
-
   #scrollbar_appt-scrollbar{
     .track-vertical {
       top: 2px;
@@ -536,25 +555,25 @@
       background:transparent;
   }
   }
+
+
+    //for checkin print
+    .quick-confirm{
+      max-width: 600px;
   
-
-
-  //for checkin print
-  .quick-confirm{
-    max-width: 600px;
-
-    h2{
-        margin-bottom:24px;
-    }
-
-    .modal-header .close {
-        margin:0;
-        margin-left:auto;
-    }
-
-    .modal-body{
-        padding:40px;
-        padding-top:30px;
-        margin-top:-22px;
-    }
-}
+      h2{
+          margin-bottom:24px;
+      }
+  
+      .modal-header .close {
+          margin:0;
+          margin-left:auto;
+      }
+  
+      .modal-body{
+          padding:40px;
+          padding-top:30px;
+          margin-top:-22px;
+      }
+  }
+  

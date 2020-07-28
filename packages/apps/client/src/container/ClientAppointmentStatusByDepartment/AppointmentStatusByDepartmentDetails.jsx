@@ -143,11 +143,15 @@ const AppointmentStatusByDepartmentDetails = ({
                                                             {appointmentStatusDetail.doctorInfoList[0].doctorInfo.map(
                                                                 doctorInfo => {
                                                                     return (
-                                                                        <li>
+                                                                        <li >
+                                                                            <span className='img-container'>
                                                                             <img
                                                                                 src={doctorInfo.fileUri}
                                                                                 alt={doctorInfo.label[0].toUpperCase()}
                                                                             ></img>
+                                                                            <span className="image-status active"></span>
+                                                                           
+                                                                            </span>
                                                                             {doctorInfo.label}
                                                                         </li>
                                                                     )

@@ -215,24 +215,24 @@
             }
 
 
-            .image-status{
-                position: absolute;
-                width: 10px;
-                height:10px;               
-                top:2px;
-                right:1px;
-                z-index: 9999;
-                border:2px solid $white;
-                @include border-radius(50%);
+            // .image-status{
+            //     position: absolute;
+            //     width: 10px;
+            //     height:10px;               
+            //     top:2px;
+            //     right:1px;
+            //     z-index: 9999;
+            //     border:2px solid $white;
+            //     @include border-radius(50%);
 
-                &.active{
-                    background-color: $success;
-                }
+            //     &.active{
+            //         background-color: $success;
+            //     }
 
-                &.inactive{
-                    background-color: $danger;
-                }
-            }
+            //     &.inactive{
+            //         background-color: $danger;
+            //     }
+            // }
         }
 
         .dropdown-menu {
