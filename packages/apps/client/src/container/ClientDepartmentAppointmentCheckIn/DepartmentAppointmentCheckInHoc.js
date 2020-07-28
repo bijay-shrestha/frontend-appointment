@@ -32,7 +32,7 @@ const {
     fetchAllHospitalDepartmentForDropdown
 } = HospitalDepartmentSetupMiddleware
 const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware
-const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
+const DepartmentAppointmentCheckInHOC = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
         // doctorSetupApiConstants,
@@ -696,7 +696,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                     },
                     approveConfirmationModal: true
                 })
-            }catch (e) {
+            } catch (e) {
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
@@ -835,6 +835,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                     this.setState({
                         thirdPartyApiErrorMessage: thirdPartyErrorMessage,
                         isConfirming: false,
+                        approveConfirmationModal: false,
                         // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
                         showAlert: true,
                         alertMessageInfo: {
@@ -847,6 +848,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
             } catch (e) {
                 this.setState({
                     isConfirming: false,
+                    approveConfirmationModal: false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'danger',
@@ -1160,4 +1162,4 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
         }
     )
 }
-export default DepartmentAppointCheckInHOC
+export default DepartmentAppointmentCheckInHOC
