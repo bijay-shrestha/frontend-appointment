@@ -2,7 +2,7 @@ import React from 'react'
 import {CForm, CHybridInput, CHybridTextArea} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
-const DepartmentApprovalContent = ({approvalData}) => {
+const DepartmentAppointmentCheckInModalContent = ({approvalData}) => {
     return (
         <>
             <Container-fluid>
@@ -144,4 +144,4 @@ const DepartmentApprovalContent = ({approvalData}) => {
     )
 }
 
-export default DepartmentApprovalContent
+export default DepartmentAppointmentCheckInModalContent

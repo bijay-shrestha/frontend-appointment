@@ -3,10 +3,10 @@ import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
 import {CButton, CForm, CHybridInput, CHybridSelect} from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
-import './appointment-approval.scss'
+import './department-appointment-checkIn.scss'
 import {appointmentStatusList, DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
 
-class DepartmentAppointmentSearchFilter extends PureComponent {
+class DepartmentAppointmentCheckInSearchFilter extends PureComponent {
     state = {
         isSearchFormExpanded: false
     }
@@ -396,4 +396,4 @@ class DepartmentAppointmentSearchFilter extends PureComponent {
     }
 }
 
-export default DepartmentAppointmentSearchFilter
+export default DepartmentAppointmentCheckInSearchFilter

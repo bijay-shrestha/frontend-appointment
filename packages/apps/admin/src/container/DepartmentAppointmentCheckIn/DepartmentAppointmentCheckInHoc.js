@@ -7,7 +7,7 @@ import {
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants, IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
-import './appointment-approval.scss'
+import './department-appointment-checkIn.scss'
 
 import {CAlert} from '@frontend-appointment/ui-elements'
 
@@ -808,6 +808,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                     this.setState({
                         thirdPartyApiErrorMessage: thirdPartyErrorMessage,
                         isConfirming: false,
+                        approveConfirmationModal:false,
                         // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
                         showAlert: true,
                         alertMessageInfo: {
@@ -820,6 +821,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
             } catch (e) {
                 this.setState({
                     isConfirming: false,
+                    approveConfirmationModal:false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'danger',
