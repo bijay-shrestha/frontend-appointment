@@ -5,7 +5,7 @@ import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 import {appointmentStatusList, DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './department-checkin.scss'
 
-class DepartmentAppointmentSearchFilter extends PureComponent {
+class DepartmentAppointmentCheckInSearchFilter extends PureComponent {
     state = {
         isSearchFormExpanded: false
     }
@@ -323,4 +323,4 @@ class DepartmentAppointmentSearchFilter extends PureComponent {
     }
 }
 
-export default DepartmentAppointmentSearchFilter
+export default DepartmentAppointmentCheckInSearchFilter

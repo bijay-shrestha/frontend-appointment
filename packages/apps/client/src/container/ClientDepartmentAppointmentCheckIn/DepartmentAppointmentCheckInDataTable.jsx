@@ -1,10 +1,10 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import DepartmentCheckInPreviewModal from './DepartmentCheckInPreviewModal'
-//import DepartmentAppointmentFastCheckInConfirm from './AppointmentDepartmentCheckInConfirm'
-import DepartmentCheckInModalContent from './DepartmentCheckInModalContent';
+import DepartmentAppointmentCheckInPreviewModal from './DepartmentAppointmentCheckInPreviewModal'
+import DepartmentAppointmentCheckInModalContent from './DepartmentAppointmentCheckInModalContent';
 import {
-    AppointmentCheckInSuccessModal, AppointmentNumberWithFollowUpFlag,
+    AppointmentCheckInSuccessModal,
+    AppointmentNumberWithFollowUpFlag,
     CConfirmationModal,
     CPageOverlayLoader,
     DepartmentCheckInOptions,
@@ -20,7 +20,7 @@ import AppointmentAmountWithTransactionNumber
 import {AppointmentCheckInPrint, PrintableComponent} from '@frontend-appointment/commons'
 
 const {checkIfRoleExists} = ActionFilterUtils
-const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, filteredActions}) => {
+const DepartmentAppointmentCheckInDataTable = ({tableHandler, paginationProps, filteredActions}) => {
     const {
         isSearchLoading,
         appointmentApprovalList,
@@ -221,7 +221,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                 )}
             </div>
             {showModal ? (
-                <DepartmentCheckInPreviewModal
+                <DepartmentAppointmentCheckInPreviewModal
                     showModal={showModal}
                     setShowModal={setShowModal}
                     approvalData={previewData}
@@ -247,7 +247,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                 <CConfirmationModal
                     modalHeader="Confirm Check-In?"
                     modalBody={
-                        <DepartmentCheckInModalContent appointmentDetails={appointmentDetails}/>
+                        <DepartmentAppointmentCheckInModalContent appointmentDetails={appointmentDetails}/>
                     }
                     showModal={approveConfirmationModal}
                     setShowModal={setShowModal}
@@ -283,4 +283,4 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
     )
 }
 
-export default memo(AppointmentDepartmentApprovalDataTable)
+export default memo(DepartmentAppointmentCheckInDataTable)

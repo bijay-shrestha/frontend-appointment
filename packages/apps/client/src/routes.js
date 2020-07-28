@@ -138,7 +138,7 @@ const DepartmentWiseQuickCheckInComponent = loadable(
 const DepartmentCheckInComponent = loadable(
   () =>
     import(
-      './container/ClientDepartmentCheckIn/DepartmentCheckIn'
+      './container/ClientDepartmentAppointmentCheckIn/DepartmentAppointmentCheckIn'
     ),
   {fallback: () => getLoader()}
 )
