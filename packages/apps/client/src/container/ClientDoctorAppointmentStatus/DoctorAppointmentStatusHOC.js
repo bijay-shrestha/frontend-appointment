@@ -12,7 +12,7 @@ import {
     DateTimeFormatterUtils,
     EnterKeyPressUtils
 } from '@frontend-appointment/helpers'
-import './appointment-status.scss'
+import './doctor-appointment-status.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import {MdDone} from 'react-icons/md'
 import {CConfirmationModal, TransferModalContent} from '@frontend-appointment/ui-components'
@@ -69,7 +69,7 @@ const SELECT_DOCTOR_MESSAGE = 'Select Doctor.'
 const DATE_RANGE_ERROR_MESSAGE =
     'From date and to date must be within 7 days or less.'
 
-const AppointmentStatusHOC = (ComposedComponent, props, type) => {
+const DoctorAppointmentStatusHOC = (ComposedComponent, props, type) => {
     class AppointmentStatusHOC extends React.PureComponent {
         state = {
             searchParameters: {
@@ -1104,4 +1104,4 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
     )
 }
 
-export default AppointmentStatusHOC
+export default DoctorAppointmentStatusHOC

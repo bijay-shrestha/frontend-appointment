@@ -4,7 +4,7 @@ export const constructAppointmentCheckInData = (data, requestBody) => {
     // console.log("data",data);
     requestBody.name = data.patientName;
     requestBody.age = data.patientAge ? Number(data.patientAge.replace("years", "")) : data.age;
-    requestBody.wardNo = data.wardNumber
+    requestBody.wardNo = data.wardNumber || data.ward
     requestBody.roomNo = data.roomNumber && data.roomNumber.includes('-') ? (data.roomNumber.split('-')[1]).trim() : data.roomNumber
     requestBody.patientId = data.hospitalNumber || ''
     requestBody.sex = StringUtils.toTitleCase(data.gender || data.patientGender)

@@ -12,7 +12,7 @@ import {
 } from "@frontend-appointment/ui-elements";
 import {EnvironmentVariableGetter} from "@frontend-appointment/helpers";
 
-const HospitalDepartmentForm = ({
+const DepartmentForm = ({
                                     hospitalDepartmentAddData,
                                     departmentChargeProps
                                 }) => {
@@ -289,4 +289,4 @@ const HospitalDepartmentForm = ({
     );
 };
 
-export default HospitalDepartmentForm;
+export default DepartmentForm;

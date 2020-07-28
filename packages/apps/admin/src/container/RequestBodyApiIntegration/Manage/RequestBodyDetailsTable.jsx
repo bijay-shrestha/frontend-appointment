@@ -111,12 +111,12 @@ const RequestBodyDetailsTable = ({
                             cellClass: 'actions-button-cell',
                             width: 120,
                             cellRendererParams: {
-                                onClick: function (e, id, type) {
+                                onClick: function (e, id, type,data) {
                                     type === 'D'
                                         // ? props.filteredActions.find(action => action.id === 5) &&
                                         ? onDeleteHandler(id)
                                         : type === 'E'
-                                        ? onEditHandler(id)
+                                        ? onEditHandler(data)
                                         : onPreviewHandler(id)
                                 },
                                 filteredAction: filteredActions

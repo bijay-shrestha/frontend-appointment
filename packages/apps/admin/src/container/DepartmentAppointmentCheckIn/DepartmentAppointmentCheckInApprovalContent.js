@@ -2,7 +2,7 @@ import React from 'react'
 import {CForm, CHybridInput, CHybridTextArea} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
-const ApprovalContent = ({appointmentDetails}) => {
+const DepartmentAppointmentCheckInApprovalContent = ({appointmentDetails}) => {
     return (
         <>
             <Container-fluid>
@@ -145,4 +145,4 @@ const ApprovalContent = ({appointmentDetails}) => {
     )
 }
 
-export default ApprovalContent
+export default DepartmentAppointmentCheckInApprovalContent

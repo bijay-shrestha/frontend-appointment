@@ -1,15 +1,15 @@
 import React from 'react';
-import AppointmentStatusHOC from "./AppointmentStatusHOC";
-import AppointmentStatusSearchFilter from "./AppointmentStatusSearchFilter";
+import DoctorAppointmentStatusHOC from "./DoctorAppointmentStatusHOC";
+import AppointmentStatusSearchFilter from "./DoctorAppointmentStatusSearchFilter";
 
-import "./appointment-status.scss";
-import AppointmentStatusDetails from "./AppointmentStatusDetails";
+import "./doctor-appointment-status.scss";
+import DoctorAppointmentStatusDetails from "./DoctorAppointmentStatusDetails";
 import {CConfirmationModal} from "@frontend-appointment/ui-components";
 import CheckInModalContent from "../CommonComponents/CheckInModalContent";
 import {CModal} from "@frontend-appointment/ui-elements";
 
-const AppointmentStatus = props => {
-    const AppointmentStatus = AppointmentStatusHOC(
+const DoctorAppointmentStatus = props => {
+    const AppointmentStatus = DoctorAppointmentStatusHOC(
         ({
              searchHandler,
              statusDetailsData,
@@ -21,7 +21,7 @@ const AppointmentStatus = props => {
                         searchHandler={searchHandler}/>
                 </div>
                 <div className="">
-                    <AppointmentStatusDetails
+                    <DoctorAppointmentStatusDetails
                         statusDetailsData={statusDetailsData}
                         showAppointmentDetailModal={checkInModalData.showAppointmentDetailModal}/>
                 </div>
@@ -51,7 +51,7 @@ const AppointmentStatus = props => {
         props, '');
     return <AppointmentStatus/>
 };
-export default AppointmentStatus
+export default DoctorAppointmentStatus
 
 
 

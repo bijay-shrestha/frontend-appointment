@@ -12,7 +12,7 @@ import {Col, Row} from 'react-bootstrap'
 import {AuditableEntityHoc} from "@frontend-appointment/commons"
 import {EnvironmentVariableGetter} from "@frontend-appointment/helpers";
 
-const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
+const DepartmentPreviewModal = ({departmentPreviewData}) => {
     const {
         departmentData,
         type,
@@ -246,4 +246,4 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
     )
 };
 
-export default HospitalDepartmentPreviewModal
+export default DepartmentPreviewModal

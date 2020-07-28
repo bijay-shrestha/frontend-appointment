@@ -1,9 +1,9 @@
 import React from 'react';
-import HospitalDepartmentSetupHOC from "../HospitalDepartmentSetupHOC";
+import DepartmentSetupHOC from "../DepartmentSetupHOC";
 import {DepartmentSetupComponents} from "@frontend-appointment/ui-components";
 
-const HospitalDepartmentManage = props => {
-    const HospitalDepartmentManage = HospitalDepartmentSetupHOC(
+const DepartmentManage = props => {
+    const HospitalDepartmentManage = DepartmentSetupHOC(
         ({
              searchData,
              tableData,
@@ -22,7 +22,7 @@ const HospitalDepartmentManage = props => {
                         <DepartmentSetupComponents.DepartmentSetupEditModal
                             updateData={updateData}
                             departmentChargeProps={departmentChargeProps}/>
-                        :''
+                        : ''
                 }
 
             </>,
@@ -31,4 +31,4 @@ const HospitalDepartmentManage = props => {
     return <HospitalDepartmentManage/>
 };
 
-export default HospitalDepartmentManage;
+export default DepartmentManage;

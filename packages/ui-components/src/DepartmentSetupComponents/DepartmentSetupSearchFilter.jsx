@@ -3,7 +3,7 @@ import {CButton, CForm, CHybridInput, CHybridSelect, CHybridSelectWithImage} fro
 import {Button, Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {EnterKeyPressUtils, EnvironmentVariableGetter} from "@frontend-appointment/helpers";
 
-class HospitalDepartmentSetupSearchFilter extends PureComponent {
+class DepartmentSetupSearchFilter extends PureComponent {
 
     state = {
         isSearchFormExpanded: false
@@ -347,4 +347,4 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
     }
 }
 
-export default HospitalDepartmentSetupSearchFilter;
+export default DepartmentSetupSearchFilter;

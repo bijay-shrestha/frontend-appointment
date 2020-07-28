@@ -1,15 +1,15 @@
 import React from 'react';
 import {CModal} from "@frontend-appointment/ui-elements";
-import DepartmentApprovalFastCheckInContent from "./AppointmentDepartmentCheckInContent";
+import DepartmentAppointmentCheckInModalContent from "./DepartmentAppointmentCheckInModalContent";
 
-const PreviewDepartmentApproval = props => {
+const DepartmentAppointmentCheckInPreviewModal = props => {
     const {showModal, setShowModal, approvalData} = props;
     return (
         <>
             <CModal show={showModal}
                     modalHeading="Department Wise Checkin Details"
                     size="xl"
-                    bodyChildren={<DepartmentApprovalFastCheckInContent approvalData={approvalData} />}
+                    bodyChildren={<DepartmentAppointmentCheckInModalContent approvalData={approvalData} />}
                     onHide={setShowModal}
                     centered={false}
                     dialogClassName="preview-modal"
@@ -19,4 +19,4 @@ const PreviewDepartmentApproval = props => {
     );
 };
 
-export default PreviewDepartmentApproval;
+export default DepartmentAppointmentCheckInPreviewModal;
