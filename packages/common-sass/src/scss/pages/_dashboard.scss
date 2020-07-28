@@ -480,6 +480,11 @@
         @include border-radius(0.5rem);
         // box-shadow:   -10px -10px 10px $gray-200,
         // 10px 10px 10px $gray-400; 
+
+        .chartjs-render-monitor{
+            padding:0 10px;
+        }
+
         img{
             width:100%;
             height: auto;
@@ -546,7 +551,7 @@
 
         .app-log{
             background-color:$white;
-            padding:20px 40px;
+            padding:20px 30px;
             width:100%;
             height: calc(100% - 20px);
             // box-shadow:   -10px -10px 10px $gray-200,
@@ -628,7 +633,7 @@
         .app-log{
             
             background-color:$white;
-            padding:20px 40px;
+            padding:20px 30px;
             width:100%;
             min-height: 500px;
             // box-shadow:   -10px -10px 10px $gray-200,
@@ -696,11 +701,11 @@
 
         .date-group{
             text-align: left;
-            padding-left:15px;
+            padding-left:0px;
         }
 
         .date{
-            padding-right:15px;
+            padding-right:0px;
         }
 
         .doughnut-chart{

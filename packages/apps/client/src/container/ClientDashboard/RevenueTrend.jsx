@@ -54,7 +54,7 @@ const RevenueTrend = props => {
               </Col>
             </Row>
 
-            <Row>
+            <Row className="revenue-chart">
               <CLineChart
                 lineData={newLineData}
                 revenueFilter={props.revenueFilter}
