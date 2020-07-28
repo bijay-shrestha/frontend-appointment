@@ -1,11 +1,11 @@
 import React from 'react';
-import HospitalDepartmentSetupHOC from "../HospitalDepartmentSetupHOC";
+import DepartmentSetupHOC from "../DepartmentSetupHOC";
 import {DepartmentSetupComponents} from "@frontend-appointment/ui-components";
 import {Col, Container, Row} from "react-bootstrap";
 import {CButton} from "@frontend-appointment/ui-elements";
 
-const HospitalDepartmentAdd = props => {
-    const HospitalDepartmentAdd = HospitalDepartmentSetupHOC(
+const DepartmentAdd = props => {
+    const HospitalDepartmentAdd = DepartmentSetupHOC(
         ({
              hospitalDepartmentAddData,
              departmentPreviewData,
@@ -56,4 +56,4 @@ const HospitalDepartmentAdd = props => {
     return <HospitalDepartmentAdd/>
 };
 
-export default HospitalDepartmentAdd;
+export default DepartmentAdd;
