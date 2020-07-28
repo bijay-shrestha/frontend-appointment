@@ -9,14 +9,14 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
-import './appointment-status.scss'
+import './doctor-appointment-status.scss'
 import {
   appointmentStatusList,
   DateTimeFormatterUtils,
   EnterKeyPressUtils
 } from '@frontend-appointment/helpers'
 
-class AppointmentLog extends PureComponent {
+class DoctorAppointmentStatusSearchFilter extends PureComponent {
   state = {
     isSearchFormExpanded: false
   }
@@ -275,7 +275,7 @@ class AppointmentLog extends PureComponent {
                   </OverlayTrigger>
                 </li>
               )}
-              
+
               {searchParameters && searchParameters.appointmentNumber && (
                 <li>
                   <OverlayTrigger
@@ -341,4 +341,4 @@ class AppointmentLog extends PureComponent {
   }
 }
 
-export default AppointmentLog
+export default DoctorAppointmentStatusSearchFilter

@@ -1,27 +1,14 @@
 import React from 'react'
-import {CScrollbar} from '@frontend-appointment/ui-elements'
+import {Badge, Button, Col, Container, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
+import {CButton, CLoading, CScrollbar} from '@frontend-appointment/ui-elements'
+import {appointmentStatusList, DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
-import {
-    Badge,
-    Button,
-    Col,
-    Container,
-    OverlayTrigger,
-    Row,
-    Tooltip
-} from 'react-bootstrap'
-import {CButton, CLoading} from '@frontend-appointment/ui-elements'
-
-import './appointment-status.scss'
-import {
-    appointmentStatusList,
-    DateTimeFormatterUtils
-} from '@frontend-appointment/helpers'
+import './doctor-appointment-status.scss'
 
 const TIME_SLOT_EMPTY_ERROR_MESSAGE = 'APPOINTMENTS NOT AVAILABLE'
 const DAY_OFF_MESSAGE = 'DAY OFF'
 
-const AppointmentStatusDetails = ({
+const DoctorAppointmentStatusDetails = ({
                                       statusDetailsData,
                                       showAppointmentDetailModal
                                   }) => {
@@ -557,4 +544,4 @@ const AppointmentStatusDetails = ({
         </>
     )
 }
-export default AppointmentStatusDetails
+export default DoctorAppointmentStatusDetails
