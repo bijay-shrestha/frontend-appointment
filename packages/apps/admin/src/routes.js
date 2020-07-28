@@ -172,7 +172,7 @@ const DashboardComponent = loadable(
 const DepartmentCheckInComponent = loadable(
     () =>
         import(
-            './container/DepartmentAppointmentCheckIn/AppointmentDepartmentCheckin'
+            './container/DepartmentAppointmentCheckIn/DepartmentAppointmentCheckIn'
             ),
     {fallback: () => getLoader()}
 )

@@ -14,7 +14,9 @@
     "client": "yarn workspace @frontend-appointment/client start",
     "build": "yarn build:admin && yarn build:client",
     "analyze:admin": "yarn workspace @frontend-appointment/admin analyze",
-    "analyze:client": "yarn workspace @frontend-appointment/client analyze"
+    "analyze:client": "yarn workspace @frontend-appointment/client analyze",
+    "deploy:client": "yarn workspace @frontend-appointment/client deploy",
+    "deploy:admin": "yarn workspace @frontend-appointment/admin deploy"
   },
   "workspaces": {
     "packages": [

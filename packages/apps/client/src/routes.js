@@ -64,7 +64,7 @@ const AppointmentApprovalListComponent = Loadable({
 })
 
 const AppointmentStatusComponent = Loadable({
-  loader: () => import('./container/ClientAppointmentStatus/AppointmentStatus'),
+  loader: () => import('./container/ClientDoctorAppointmentStatus/DoctorAppointmentStatus'),
   loading: () => getLoader()
 })
 
@@ -95,7 +95,7 @@ const ActivityLog = loadable(
 const AddDepartmentSetup = loadable(
   () =>
     import(
-      './container/ClientHospitalDepartmentSetup/Add/HospitalDepartmentAdd'
+      './container/ClientDepartmentSetup/Add/DepartmentAdd'
     ),
   {fallback: () => getLoader()}
 )
@@ -138,7 +138,7 @@ const DepartmentWiseQuickCheckInComponent = loadable(
 const DepartmentCheckInComponent = loadable(
   () =>
     import(
-      './container/ClientDepartmentCheckIn/DepartmentCheckIn'
+      './container/ClientDepartmentAppointmentCheckIn/DepartmentAppointmentCheckIn'
     ),
   {fallback: () => getLoader()}
 )
@@ -206,7 +206,7 @@ const ManageDoctorComponent = Loadable({
 const ManageDepartmentComponent = Loadable({
   loader: () =>
     import(
-      './container/ClientHospitalDepartmentSetup/Manage/HospitalDepartmentManage'
+      './container/ClientDepartmentSetup/Manage/DepartmentManage'
     ),
   loading: () => getLoader()
 })

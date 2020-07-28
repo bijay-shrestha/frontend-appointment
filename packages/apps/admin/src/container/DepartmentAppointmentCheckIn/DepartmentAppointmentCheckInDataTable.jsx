@@ -1,60 +1,60 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
+import DepartmentAppointmentCheckInPreviewModal from './DepartmentAppointmentCheckInPreviewModal'
+import CheckInModalContent from './DepartmentAppointmentCheckInApprovalContent';
 import {
-    AppointmentCancelDateWithTime,
-    AppointmentRefundStatusBadges,
+    AppointmentCheckInSuccessModal,
+    AppointmentNumberWithFollowUpFlag,
+    CConfirmationModal,
+    CPageOverlayLoader,
+    DepartmentCheckInOptions,
     DepartmentNameWithRoomNumber,
-    PatientNameWithAgeGenderPhone,
-    TableRefundStatusAmbigous
+    DoctorWithSpecImage,
+    PatientNameWithAgeGenderPhoneAddress
 } from '@frontend-appointment/ui-components'
-import DepartmentAppointmentCancellationStatusPreview from './DepartmentAppointmentCancellationStatusPreview'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
+import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import AppointmentAmountWithTransactionNumber
     from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
-import AppointmentRefundStatus from '../CommonComponents/table-components/AppointmentRefundStatus'
+import {AppointmentCheckInPrint, PrintableComponent} from '@frontend-appointment/commons'
 
-const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
+const {checkIfRoleExists} = ActionFilterUtils
+
+const DepartmentAppointmentCheckInDataTable = ({tableHandler, paginationProps, filteredActions}) => {
     const {
         isSearchLoading,
-        appointmentRefundList,
+        appointmentApprovalList,
         searchErrorMessage,
         previewCall,
         previewData,
         showModal,
         setShowModal,
-        //rejectModalShow,
-        //rejectSubmitHandler,
-        //refundRejectRemarksHandler,
-        onRejectHandler,
-        refundHandler,
-        //refundHandleApi,
-        //refundRejectError,
-        //refundConfirmationModal,
-        //rejectRemarks,
-        totalRefundAmount,
-        //isRefundLoading,
-        //remarks,
-        //handleInputChange,
-        activeStatus,
-        handleStatusChange
+        approveHandler,
+        // approveHandleApi,
+        approveConfirmationModal,
+        appointmentDetails,
+        approveSuccessMessage,
+        isConfirming,
+        // onCopyAppointmentNumber,
+        // copySuccessMessage,
+        approveHandleApi,
+        showCheckInSuccessModal,
+        onCopyAppointmentNumber,
+        copySuccessMessage,
+        closeCheckInSuccessModal,
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
-
     return (
         <>
             <div className="manage-details">
-                <h5 className="title">Appointment Cancellation Status Details</h5>
-                <AppointmentRefundStatusBadges
-                    activeStatus={activeStatus}
-                    handleStatusChange={handleStatusChange}
-                />
+                <h5 className="title">Department Wise Appointment Details</h5>
                 {!isSearchLoading &&
                 !searchErrorMessage &&
-                appointmentRefundList.length ? (
+                appointmentApprovalList.length ? (
                     <>
                         <CDataTable
-                            classes="ag-theme-balham"
+                            classes="ag-theme-balham quick-checkin-table"
                             id="roles-table"
                             width="100%"
                             height="460px"
@@ -70,147 +70,133 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     editable: true,
                                     sizeColumnsToFit: true,
-                                    width: 140,
-                                    cellClass: 'first-class'
+                                    cellClass: 'first-class',
+                                    width: 80
                                 },
                                 {
-                                    headerName: 'Status',
+                                    headerName: 'Client',
+                                    field: 'hospitalName',
+                                    // headerClass: "fi",
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    cellRenderer: 'appointmentStatusBadges',
-                                    width: 100
+                                    width: 120,
                                 },
                                 {
                                     headerName: 'App. No',
                                     field: 'appointmentNumber',
+                                    // headerClass: "fi",
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: 140
+                                    width: 120,
+                                    cellRenderer: 'appointmentNumberWithFollowUpFlag'
                                 },
                                 {
-                                    headerName: 'App. DateTime',
-                                    field: 'appointmentDate',
-                                    resizable: true,
-                                    sortable: true,
-                                    cellRenderer: 'appointmentDateAndTimeRenderer',
-                                    sizeColumnsToFit: true,
-                                    width: 160
-                                },
-                                {
-                                    headerName: 'Cancelled DateTime',
-                                    resizable: true,
-                                    sortable: true,
-                                    cellRenderer: 'appointmentCancelDateWithTime',
-                                    sizeColumnsToFit: true,
-                                    width: 160
-                                },
-                                {
-                                    headerName: 'Patient Details',
-                                    cellRenderer: 'patientWithAgeRenderer',
+                                    headerName: 'Appt. Date & Time',
+                                    field: 'name',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: 300
+                                    cellRenderer: 'AppointmentDateWithTime',
+                                    width: "120"
                                 },
                                 {
-                                    headerName: 'Reg. No',
-                                    field: 'registrationNumber',
+                                    headerName: 'Patient Detail ',
+                                    field: 'patientDetails',
                                     resizable: true,
                                     sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: "260",
+                                    height: "600",
+                                    cellRenderer: 'PatientNameWithMobileNumber'
+                                },
+                                // {
+                                //     headerName: 'Address',
+                                //     field: 'address',
+                                //     // headerClass: "fi",
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true,
+                                //     width: 260,
+                                // },
+
+                                {
+                                    headerName: 'Department Detail',
+                                    resizable: true,
+                                    sortable: true,
+                                    cellRenderer: 'DepartmentNameWithRoomNumber',
+                                    width: 150,
                                     sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Esewa Id',
-                                    field: 'esewaId',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Remarks',
-                                    field: 'remarks',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Department/Room Number',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    cellRenderer: 'departmentNameWithRoomNumber',
-                                    width: 350
                                 },
                                 {
                                     headerName: 'Transaction Details(No/Amount)',
-                                    field: 'refundAmount',
+                                    field: 'appointmentAmount',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    cellRenderer: 'refundAmtWithTxnNumberRenderer'
+                                    cellRenderer: 'AppointmentAmountWithTxnNumber'
                                 },
+
                                 {
-                                    headerName: '',
+                                    headerName: 'Action',
                                     action: 'action',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'childActionRenderer',
                                     cellClass: 'actions-button-cell',
-                                    width: 140,
+                                    width: '120',
                                     cellRendererParams: {
                                         onClick: function (e, id, type) {
-                                            type === 'D'
-                                                ? // ? props.filteredActions.find(action => action.id === 5) &&
-                                                onRejectHandler(id)
-                                                : refundHandler(id)
-                                        }
-                                        // filteredAction: props.filteredActions
+                                            approveHandler(id)
+                                            //: props.onPreviewHandler(id)
+                                        },
+                                        filteredAction: filteredActions,
+                                        isConfirming
                                     },
                                     cellStyle: {overflow: 'visible', 'z-index': '99'}
                                 }
                             ]}
                             frameworkComponents={{
-                                childActionRenderer: TableRefundStatusAmbigous,
-                                appointmentDateAndTimeRenderer: PreviewHandlerHoc(
-                                    AppointmentDateWithTime,
+                                childActionRenderer: DepartmentCheckInOptions,
+                                doctorwithSpecializationRenderer: PreviewHandlerHoc(
+                                    DoctorWithSpecImage,
                                     null,
                                     null,
                                     null,
                                     previewCall
                                 ),
-                                patientWithAgeRenderer: PreviewHandlerHoc(
-                                    PatientNameWithAgeGenderPhone,
-                                    null,
-                                    null,
-                                    null,
-                                    previewCall
-                                ),
-                                departmentNameWithRoomNumber: PreviewHandlerHoc(
+                                DepartmentNameWithRoomNumber: PreviewHandlerHoc(
                                     DepartmentNameWithRoomNumber,
                                     null,
                                     null,
                                     null,
                                     previewCall
                                 ),
-                                refundAmtWithTxnNumberRenderer: PreviewHandlerHoc(
+                                AppointmentDateWithTime: PreviewHandlerHoc(
+                                    AppointmentDateWithTime,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
+                                PatientNameWithMobileNumber: PreviewHandlerHoc(
+                                    PatientNameWithAgeGenderPhoneAddress,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
+                                AppointmentAmountWithTxnNumber: PreviewHandlerHoc(
                                     AppointmentAmountWithTransactionNumber,
                                     null,
                                     null,
                                     null,
                                     previewCall
                                 ),
-                                appointmentCancelDateWithTime: PreviewHandlerHoc(
-                                    AppointmentCancelDateWithTime,
-                                    null,
-                                    null,
-                                    null,
-                                    previewCall
-                                ),
-                                appointmentStatusBadges: PreviewHandlerHoc(
-                                    AppointmentRefundStatus,
+                                appointmentNumberWithFollowUpFlag: PreviewHandlerHoc(
+                                    AppointmentNumberWithFollowUpFlag,
                                     null,
                                     null,
                                     null,
@@ -218,14 +204,13 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 ),
                             }}
                             defaultColDef={{resizable: true}}
-                            getSelectedRows={previewCall}
+                            getSelectedRows={
+                                checkIfRoleExists(filteredActions, 22) &&
+                                previewCall
+                            }
                             rowSelection={'single'}
-                            rowData={appointmentRefundList}
+                            rowData={appointmentApprovalList}
                         />
-                        <div className=" total-amount">
-                            <span>Total Amount :</span>
-                            <span>Rs {totalRefundAmount}</span>
-                        </div>
                         <CPagination
                             totalItems={totalRecords}
                             maxSize={queryParams.size}
@@ -245,47 +230,66 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 )}
             </div>
             {showModal ? (
-                <DepartmentAppointmentCancellationStatusPreview
+                <DepartmentAppointmentCheckInPreviewModal
                     showModal={showModal}
                     setShowModal={setShowModal}
-                    refundData={previewData}
+                    approvalData={previewData}
                 />
             ) : (
                 ''
             )}
             {/* {rejectModalShow ? (
                 <RejectModal
-                    confirmationMessage="Are you sure you want to reject the Refund?If yes please provide remarks."
-                    modalHeader="Reject Refund"
+                    confirmationMessage="Are you sure you want to reject the Appointment?If yes please provide remarks."
+                    modalHeader="Reject Appointment"
                     showModal={rejectModalShow}
                     setShowModal={setShowModal}
-                    onDeleteRemarksChangeHandler={refundRejectRemarksHandler}
-                    remarks={rejectRemarks}
-                    onSubmitDelete={rejectSubmitHandler}
-                    deleteErrorMessage={refundRejectError}
-                />
-            ) : (
-                ''
-            )} */}
-
-            {/* {refundConfirmationModal ? (
-                <CRemarksModal
-                    confirmationMessage="Provide remarks for refund."
-                    modalHeader="Are you sure you want to refund?"
-                    showModal={refundConfirmationModal}
-                    onCancel={setShowModal}
-                    onRemarksChangeHandler={handleInputChange}
+                    onDeleteRemarksChangeHandler={rejectRemarksHandler}
                     remarks={remarks}
-                    onPrimaryAction={refundHandleApi}
-                    primaryActionName={'Confirm'}
-                    actionDisabled={isRefundLoading}
-                    primaryActionLoading={isRefundLoading}
+                    onSubmitDelete={rejectSubmitHandler}
+                    deleteErrorMessage={rejectError}
                 />
             ) : (
                 ''
             )} */}
+            {approveConfirmationModal && appointmentDetails ? (
+                <CConfirmationModal
+                    modalHeader="Confirm Check-In?"
+                    modalBody={
+                        <CheckInModalContent appointmentDetails={appointmentDetails}/>
+                    }
+                    showModal={approveConfirmationModal}
+                    setShowModal={setShowModal}
+                    onConfirm={approveHandleApi}
+                    onCancel={setShowModal}
+                    isConfirming={isConfirming}
+                    // Print={PrintableComponent(AppointmentCheckInPrint,appointmentDetails)}
+                />
+            ) : (
+                ''
+            )}
+            {showCheckInSuccessModal ? (
+                <AppointmentCheckInSuccessModal
+                    modalHeader={approveSuccessMessage}
+                    showModal={showCheckInSuccessModal}
+                    setShowModal={closeCheckInSuccessModal}
+                    onCopyAppointmentNumber={onCopyAppointmentNumber}
+                    copySuccessMessage={copySuccessMessage}
+                    appointmentDetails={appointmentDetails}
+                    Print={PrintableComponent(AppointmentCheckInPrint, appointmentDetails)}
+                />
+            ) : (
+                ''
+            )}
+            {
+                isConfirming ?
+                    <CPageOverlayLoader
+                        showModal={isConfirming}
+                        modalHeader={"Appointment Check-In in process."}
+                    /> : ''
+            }
         </>
     )
 }
 
-export default memo(AppointmentRefundDataTable)
+export default memo(DepartmentAppointmentCheckInDataTable)

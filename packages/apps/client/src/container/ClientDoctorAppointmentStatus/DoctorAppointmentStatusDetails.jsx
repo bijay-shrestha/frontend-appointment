@@ -1,23 +1,20 @@
 import React from 'react'
-import {CButton, CLoading, CNavTabs, CScrollbar} from '@frontend-appointment/ui-elements'
-
 import {Badge, Button, Col, Container, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
-
-import './appointment-status.scss'
+import {CButton, CLoading, CScrollbar} from '@frontend-appointment/ui-elements'
 import {appointmentStatusList, DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
-import {DefaultProfileImage} from '@frontend-appointment/ui-components'
+import './doctor-appointment-status.scss'
 
 const TIME_SLOT_EMPTY_ERROR_MESSAGE = 'APPOINTMENTS NOT AVAILABLE'
 const DAY_OFF_MESSAGE = 'DAY OFF'
 
-const AppointmentStatusDetails = ({
+const DoctorAppointmentStatusDetails = ({
                                       statusDetailsData,
                                       showAppointmentDetailModal
                                   }) => {
     const {
         appointmentStatusDetails,
-        // doctorInfoList,
+        doctorInfoList,
         errorMessageForStatusDetails,
         searchErrorMessage,
         isStatusListLoading,
@@ -27,17 +24,17 @@ const AppointmentStatusDetails = ({
         handleCheckIn,
         showCheckInModal,
         handleViewAppointmentDetails,
-        onChangeRoom,
-        appointmentStatusCount
+        appointmentStatusCount,
+        transferHandler,
+        showTransferModal
     } = statusDetailsData
-    // console.log('appointmentStatusDetails', appointmentStatusDetails)
     return (
         <>
             <div className="manage-title">
                 {!isStatusListLoading &&
                 !searchErrorMessage &&
                 appointmentStatusDetails.length ? (
-                    <Row>
+                    <Row className="fixed-row">
                         <Col className="p-0" lg={4}>
                             <h5 className="title">Appointment Status Details</h5>
                         </Col>
@@ -45,70 +42,61 @@ const AppointmentStatusDetails = ({
                         <Col lg={8}>
                             <div className="appointment-badge float-right">
                                 {appointmentStatusList.map(appointmentStatus =>
-                                    appointmentStatus.value === 'F' ? (
-                                        <div>
-                                            <i className="fa fa-tag"/>
-                                            <div className="status-legend">
-                                                <a
-                                                    href="!#"
-                                                    className={
-                                                        activeStatus === appointmentStatus.value
-                                                            ? 'active'
-                                                            : ''
-                                                    }
-                                                    onClick={event =>
-                                                        filterAppointmentDetailsByStatus(
-                                                            appointmentStatus.value,
-                                                            event
-                                                        )
-                                                    }
-                                                >
-                                                    Follow Up
-                                                </a>
-                                                <span>{appointmentStatusCount ? appointmentStatusCount["F"] : ''}</span>
+                                        appointmentStatus.value === 'F' ? (
+                                            <div>
+                                                <i className="fa fa-tag"/>
+                                                <div className="status-legend">
+                                                    <a
+                                                        href="!#"
+                                                        className={
+                                                            activeStatus === appointmentStatus.value
+                                                                ? 'active'
+                                                                : ''
+                                                        }
+                                                        onClick={event =>
+                                                            filterAppointmentDetailsByStatus(
+                                                                appointmentStatus.value,
+                                                                event
+                                                            )
+                                                        }
+                                                    >
+                                                        Follow Up
+                                                    </a>
+                                                    <span>
+                          {appointmentStatusCount
+                              ? appointmentStatusCount['F']
+                              : ''}
+                        </span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <Badge variant={appointmentStatus.variant}>&nbsp;</Badge>
-                                            <div className="status-legend">
-                                                <a
-                                                    href="!#"
-                                                    className={
-                                                        activeStatus === appointmentStatus.value
-                                                            ? 'active'
-                                                            : ''
-                                                    }
-                                                    onClick={event =>
-                                                        filterAppointmentDetailsByStatus(
-                                                            appointmentStatus.value,
-                                                            event
-                                                        )
-                                                    }
-                                                >
-                                                    {appointmentStatus.label}
-                                                </a>
-                                                <span>{appointmentStatusCount ? appointmentStatusCount[appointmentStatus.value] : ''}</span>
+                                        ) : (
+                                            <div>
+                                                <Badge variant={appointmentStatus.variant}>&nbsp;</Badge>
+                                                <div className="status-legend">
+                                                    <a
+                                                        href="!#"
+                                                        className={
+                                                            activeStatus === appointmentStatus.value
+                                                                ? 'active'
+                                                                : ''
+                                                        }
+                                                        onClick={event =>
+                                                            filterAppointmentDetailsByStatus(
+                                                                appointmentStatus.value,
+                                                                event
+                                                            )
+                                                        }
+                                                    >
+                                                        {appointmentStatus.label}
+                                                    </a>
+                                                    <span>
+                          {appointmentStatusCount
+                              ? appointmentStatusCount[appointmentStatus.value]
+                              : ''}
+                        </span>
+                                                </div>
                                             </div>
-
-                                            {/* <Button
-                          variant="link"
-                          className={
-                            activeStatus === appointmentStatus.value
-                              ? 'active'
-                              : ''
-                          }
-                          onClick={event =>
-                            filterAppointmentDetailsByStatus(
-                              appointmentStatus.value,
-                              event
-                            )
-                          }
-                        >
-                          {appointmentStatus.label}
-                        </Button> */}
-                                        </div>
-                                    )
+                                        )
                                 )}
                             </div>
                         </Col>
@@ -133,71 +121,39 @@ const AppointmentStatusDetails = ({
                                             md={2}
                                             className="d-flex  flex-column justify-content-start"
                                         >
-                                            <h5 className="title">Department Details</h5>
-                                            {/* <div className="doctor-image">
-                        <div className="anchor-icon">
-                          {appointmentStatusDetail.hospitalDepartmentName[0].toUpperCase()}
-                        </div>
-                      </div> */}
-                                            <div className="doctor-details">
-                                                <p className="department-name">
-                                                    {' '}
-                                                    {appointmentStatusDetail.hospitalDepartmentName}
+                                            <h5 className="title">Doctor Details</h5>
+                                            <div className="doctor-image">
+                                                {doctorInfoList.map(doctorData =>
+                                                    doctorData.value ===
+                                                    appointmentStatusDetail.doctorId ? (
+                                                        doctorData.fileUri ? (
+                                                            <img src={doctorData.fileUri} alt={'DOCTOR'}/>
+                                                        ) : (
+                                                            <img
+                                                                src={require('./img/picture.png')}
+                                                                alt={'DOCTOR'}
+                                                            />
+                                                        )
+                                                    ) : (
+                                                        ''
+                                                    )
+                                                )}
 
-                                                </p>
-                                                <div>
-                                                    {/* <p>Available Doctors</p> */}
-                                                    <ul>
-                                                        {appointmentStatusDetail.doctorInfoList[0].doctorInfo.map(
-                                                            doctorInfo => {
-                                                                return (
-                                                                    <li>
-                                                                        <span className='img-container'>
-                                                                        {
-                                                                            doctorInfo.fileUri ?
-                                                                                <img
-                                                                                    src={doctorInfo.fileUri}
-                                                                                    alt={doctorInfo.label[0].toUpperCase()}
-                                                                                />
-                                                                                :
-                                                                                <img
-                                                                                    src={DefaultProfileImage}
-                                                                                    alt={'IMG'}
-                                                                                />
-                                                                        }
-                                                                            <span className="image-status active"/>
-                                                                        </span>
-
-                                                                        {doctorInfo.label}
-                                                                    </li>
-                                                                )
-                                                            }
-                                                        )}
-                                                    </ul>
-                                                </div>
+                                                <span className="image-status active"></span>
                                             </div>
+                                            <p className="doctor-details">
+                        <span>
+                          {appointmentStatusDetail.doctorSalutation || ''}{' '}
+                            {appointmentStatusDetail.doctorName}
+                        </span>
+                                                <br/>
+                                                {appointmentStatusDetail.specializationName}
+                                            </p>
                                         </Col>
 
                                         <Col sm={12} md={7} className="time-container">
-
                                             <h5 className="title">Appointment Slots</h5>
-                                            <div className="room-tabs">
-                                                <CNavTabs
-                                                    roles={appointmentStatusDetail.hospitalDepartmentRoomInfoId ? appointmentStatusDetail.roomList : []}
-                                                    currentActiveTab={
-                                                        appointmentStatusDetail.hospitalDepartmentRoomInfoId
-                                                    }
-                                                    onClick={onChangeRoom}
-                                                    departmentInfoId={{
-                                                        value: appointmentStatusDetail.hospitalDepartmentId,
-                                                        label:
-                                                        appointmentStatusDetail.hospitalDepartmentName
-                                                    }}
-                                                    uniqueIdentifier={appointmentStatusDetail.uniqueIdentifier}
-                                                    date={appointmentStatusDetail.date}
-                                                />
-                                            </div>
-
+                                            <br></br>
                                             <p className="time-details">
                                                 <i className="fa fa-calendar"></i> &nbsp;
                                                 {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
@@ -205,8 +161,8 @@ const AppointmentStatusDetails = ({
                                                 )}
                                                 &nbsp;,&nbsp;
                                                 {appointmentStatusDetail.weekDayName}
-                                                {appointmentStatusDetail.appointmentTimeSlots ? (
-                                                    appointmentStatusDetail.appointmentTimeSlots.length ? (
+                                                {appointmentStatusDetail.doctorTimeSlots ? (
+                                                    appointmentStatusDetail.doctorTimeSlots.length ? (
                                                         <span className="time">
                                                                 <i className="fa fa-clock-o"></i> &nbsp;
                                                             {DateTimeFormatterUtils.convertDateToHourMinuteFormat(
@@ -239,11 +195,10 @@ const AppointmentStatusDetails = ({
                                                     ''
                                                 )}
                                             </p>
-                                            <ul className="clearfix">
-                                                {appointmentStatusDetail.appointmentTimeSlots ? (
-                                                    appointmentStatusDetail.appointmentTimeSlots
-                                                        .length ? (
-                                                        appointmentStatusDetail.appointmentTimeSlots.map(
+                                            <ul>
+                                                {appointmentStatusDetail.doctorTimeSlots ? (
+                                                    appointmentStatusDetail.doctorTimeSlots.length ? (
+                                                        appointmentStatusDetail.doctorTimeSlots.map(
                                                             (timeSlot, index) => (
                                                                 <li key={'timeSlot-' + index}>
                                                                     {['PA', 'A', 'C'].indexOf(timeSlot.status) >=
@@ -254,12 +209,16 @@ const AppointmentStatusDetails = ({
                                                                                 <Tooltip
                                                                                     id={timeSlot.status + '-' + index}
                                                                                 >
-                                                                                    App no: {timeSlot.appointmentNumber}
-                                                                                    <br></br>
-                                                                                    {timeSlot.patientName} ({timeSlot.age}{' '}
-                                                                                    / {timeSlot.gender})<br></br>
-                                                                                    Mobile No:{' '}
-                                                                                    {timeSlot.mobileNumber || 'N/A'}
+                                                                                    <div
+                                                                                        style={{'text-align': 'center'}}>
+                                                                                        App
+                                                                                        no: {timeSlot.appointmentNumber}
+                                                                                        <br></br>
+                                                                                        {timeSlot.patientName} ({timeSlot.age}{' '}
+                                                                                        / {timeSlot.gender})<br></br>
+                                                                                        Mobile No:{' '}
+                                                                                        {timeSlot.mobileNumber || 'N/A'}
+                                                                                    </div>
                                                                                 </Tooltip>
                                                                             }
                                                                         >
@@ -290,8 +249,6 @@ const AppointmentStatusDetails = ({
                                                                                 size="lg block"
                                                                                 className="time-button"
                                                                             >
-                                                                                <i className="fa fa-check-circle"/>
-                                                                                &nbsp;
                                                                                 {timeSlot.isFollowUp === 'Y' ? (
                                                                                     <>
                                                                                         {' '}
@@ -301,12 +258,11 @@ const AppointmentStatusDetails = ({
                                                                                 ) : (
                                                                                     ''
                                                                                 )}
+                                                                                <i className="fa fa-check-circle"/>{' '}
                                                                                 {timeSlot.appointmentTime}
                                                                             </Button>
                                                                         </OverlayTrigger>
-                                                                    ) : timeSlot.status === 'V' &&
-                                                                    appointmentStatusDetail.dayOffStatus !==
-                                                                    'Y' ? (
+                                                                    ) : timeSlot.status === 'V' ? (
                                                                         <CButton
                                                                             id={
                                                                                 timeSlot.appointmentTime +
@@ -316,8 +272,8 @@ const AppointmentStatusDetails = ({
                                                                             }
                                                                             variant={'success'}
                                                                             size="lg"
-                                                                            // id="vacant"
                                                                             disabled={timeSlot.hasTimePassed}
+                                                                            // id="vacant"
                                                                             name=""
                                                                             onClickHandler={() =>
                                                                                 getPatientDetails(
@@ -370,131 +326,153 @@ const AppointmentStatusDetails = ({
                                             </ul>
                                         </Col>
                                         {appointmentStatusDetail.patientDetails ? (
-                                            <Col sm={12} md={3}>
-                                                <div className="patient-container">
-                                                    <h5 className="title">Appointment Information </h5>
-                                                    <br></br>
+                                            <Col sm={12} md={3} className="pb-4 pr-4">
+                                                <h5 className="title">Appointment Information </h5>
+                                                <br></br>
+                                                <div className="patient-details">
+                                                    <div className="label">Appointment Details</div>
+                                                    <div className="data">
 
-                                                    <div className="patient-details">
-                                                        <div className="label">Appointment Details</div>
-                                                        <div className="data">
+                                                        <CButton
+                                                            name=""
+                                                            variant="success"
+                                                            className="app-details-link"
+                                                            onClickHandler={() =>
+                                                                handleViewAppointmentDetails(appointmentStatusDetail)
+                                                            }
+                                                            disabled={showAppointmentDetailModal}
+                                                        >
+                                                                 <span> {
+                                                                     appointmentStatusDetail.patientDetails
+                                                                         .appointmentNumber
+                                                                 }
+                                                                     &nbsp;  <i className="fa fa-caret-down"></i></span>
+                                                        </CButton>
 
-                                                            <CButton
-                                                                name=""
-                                                                variant="success"
-                                                                className="app-details-link"
-                                                                onClickHandler={() =>
-                                                                    handleViewAppointmentDetails(appointmentStatusDetail)
-                                                                }
-                                                                disabled={showAppointmentDetailModal}
-                                                            >
-                                                                    <span> {
-                                                                        appointmentStatusDetail.patientDetails
-                                                                            .appointmentNumber
-                                                                    }
-                                                                        &nbsp;  <i
-                                                                            className="fa fa-chevron-down"></i></span>
-                                                            </CButton>
-                                                            <br/>
-                                                            Rs. {
+
+                                                        <br/>
+                                                        Rs.
+
+                                                        {
                                                             appointmentStatusDetail.patientDetails
                                                                 .appointmentAmount
                                                         }
-                                                            , &nbsp; {
+                                                        &nbsp;,  &nbsp;
+
+
+                                                        {
                                                             appointmentStatusDetail.patientDetails
                                                                 .appointmentMode
                                                         }
-                                                            <br/>
+                                                        <br/>
 
-                                                            {appointmentStatusDetail.patientDetails
-
-                                                                .isFollowUp === 'Y' ? (
-                                                                <>
-                                                                            <span>
-                                                                                <i className="fa fa-tag"/>
-                                                                                &nbsp; Follow Up
-                                                            </span>
-                                                                </>
-                                                            ) : (
-                                                                ''
-                                                            )}
-                                                        </div>
+                                                        {appointmentStatusDetail.patientDetails.isFollowUp ===
+                                                        'Y' ? (
+                                                            <>
+                                                                        <span className="pd-followup">
+                                                                            <i className="fa fa-tag"/>
+                                                                            &nbsp; Follow Up
+                                                                        </span>
+                                                            </>
+                                                        ) : (
+                                                            ''
+                                                        )}
                                                     </div>
+                                                </div>
 
-
-                                                    <div className="patient-details">
-                                                        <div className="label">Patient Details</div>
-                                                        <div className="data">
-                                                            {appointmentStatusDetail.patientDetails.name}
-                                                            <br/>
-                                                            {
-                                                                appointmentStatusDetail.patientDetails.age +
-                                                                ' / ' +
-                                                                appointmentStatusDetail.patientDetails.gender
-                                                            }
-                                                            <br/>
-                                                            <Badge
-                                                                variant={
-                                                                    appointmentStatusDetail.patientDetails
-                                                                        .patientType === 'N'
-                                                                        ? 'primary'
-                                                                        : 'success'
-                                                                }
-                                                            >
-                                                                {appointmentStatusDetail.patientDetails
+                                                <div className="patient-details">
+                                                    <div className="label">Patient Details</div>
+                                                    <div className="data">
+                                                        {appointmentStatusDetail.patientDetails.name}
+                                                        <br/>
+                                                        {' ' +
+                                                        appointmentStatusDetail.patientDetails.age +
+                                                        ' / ' +
+                                                        appointmentStatusDetail.patientDetails.gender +
+                                                        ' '}
+                                                        <br/>
+                                                        <Badge
+                                                            variant={
+                                                                appointmentStatusDetail.patientDetails
                                                                     .patientType === 'N'
-                                                                    ? 'NEW'
-                                                                    : 'REGISTERED'}
-                                                            </Badge>{' '} &nbsp;,
-                                                            <i class="fa fa-phone"></i> {
+                                                                    ? 'primary'
+                                                                    : 'success'
+                                                            }
+                                                        >
+                                                            {appointmentStatusDetail.patientDetails
+                                                                .patientType === 'N'
+                                                                ? 'NEW'
+                                                                : 'REGISTERED'}
+                                                        </Badge>{' '}
+                                                        ,&nbsp;
+                                                        <i class="fa fa-phone"></i> &nbsp;
+                                                        {
                                                             appointmentStatusDetail.patientDetails
                                                                 .mobileNumber
                                                         }
-                                                        </div>
                                                     </div>
+                                                </div>
 
-
-                                                    {/* <div className="patient-details">
-                                                            <div className="label">Address</div>
-                                                            <div className="data">
-                                                                {appointmentStatusDetail.patientDetails.address}
-                                                            </div>
-                                                        </div> */}
-
+                                                <div className="action-wrapper">
                                                     {/* <CButton
-                                                            name=""
-                                                            variant="outline-primary"
-                                                            size="lg"
+                                                    name=""
+                                                    variant="outline-primary"
+                                                    size="sm"
+                                                    onClickHandler={() =>
+                                                        handleViewAppointmentDetails(appointmentStatusDetail)
+                                                    }
+                                                    disabled={showAppointmentDetailModal}
+                                                    // className="btn-checkin"
+                                                >
+                                                    <i className="fa fa-eye"/> &nbsp;
+                                                    {showAppointmentDetailModal ? (
+                                                        <span className="saving">
+                                                             Details{' '}
+                                                            <img
+                                                                alt="three-dots"
+                                                                src={require('../../images/three-dots.svg')}
+                                                            />
+                                                            </span>
+                                                    ) : (
+                                                        'Details'
+                                                    )}
 
-                                                            onClickHandler={() =>
-                                                                handleViewAppointmentDetails(
-                                                                    appointmentStatusDetail
-                                                                )
-                                                            }
-                                                            disabled={showAppointmentDetailModal}
-                                                        // className="btn-checkin"
-                                                        >
-                                                            <i className="fa fa-eye" /> &nbsp;
-                                                        {showAppointmentDetailModal ? (
-                                                                <span className="saving">
-                                                                    Viewing Details{' '}
-                                                                    <img
-                                                                        alt="three-dots"
-                                                                        src={require('../../images/three-dots.svg')}
-                                                                    />
-                                                                </span>
-                                                            ) : (
-                                                                    'View Details'
-                                                                )}
-                                                        </CButton> */}
+                                                </CButton> */}
 
                                                     {appointmentStatusDetail.patientDetails
                                                         .showCheckInButton ? (
                                                         <CButton
                                                             name=""
-                                                            // className={showCheckInModal ? 'btn-checkin':'btn-checkin'}
+                                                            variant="outline-secondary"
+                                                            size="sm"
+                                                            className="btn-transfer"
+                                                            onClickHandler={() =>
+                                                                transferHandler(appointmentStatusDetail)
+                                                            }
+                                                        >
+                                                            <i className="fa fa-exchange"/> &nbsp;
+                                                            {showTransferModal ? (
+                                                                <span className="saving">
+                                  Transfering{' '}
+                                                                    <img
+                                                                        alt="three-dots"
+                                                                        src={require('../../images/three-dots.svg')}
+                                                                    />
+                                </span>
+                                                            ) : (
+                                                                'Transfer'
+                                                            )}
+                                                        </CButton>
+                                                    ) : (
+                                                        ''
+                                                    )}
+
+                                                    {appointmentStatusDetail.patientDetails
+                                                        .showCheckInButton ? (
+                                                        <CButton
+                                                            name=""
                                                             vairant="primary "
-                                                            size="lg"
+                                                            size="sm"
                                                             className="btn-checkin"
                                                             onClickHandler={() =>
                                                                 handleCheckIn(appointmentStatusDetail)
@@ -508,12 +486,12 @@ const AppointmentStatusDetails = ({
                                                             <i className="fa fa-sign-in"/> &nbsp;
                                                             {showCheckInModal ? (
                                                                 <span className="saving">
-                                                                            Checking-In{' '}
+                                  Checking-In{' '}
                                                                     <img
                                                                         alt="three-dots"
                                                                         src={require('../../images/three-dots.svg')}
                                                                     />
-                                                                        </span>
+                                </span>
                                                             ) : (
                                                                 'Check-In'
                                                             )}
@@ -568,4 +546,4 @@ const AppointmentStatusDetails = ({
         </>
     )
 }
-export default AppointmentStatusDetails
+export default DoctorAppointmentStatusDetails

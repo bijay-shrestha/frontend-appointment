@@ -1,4 +1,4 @@
-import * as HospitalDepartmentSetupComponents from './src/HospitalDepartmentSetupComponents';
+import * as DepartmentSetupComponents from './src/DepartmentSetupComponents';
 import * as DepartmentDutyRosterComponents from './src/DepartmentDutyRosterComponents';
 import * as DefaultProfileImage from './src/img/amin-default-picture.png';
 import {
@@ -19,7 +19,7 @@ import {
 } from './src/TableComponents';
 
 export {
-    HospitalDepartmentSetupComponents,
+    DepartmentSetupComponents,
     DepartmentDutyRosterComponents,
     EndTimeDisplayForTable,
     StartTimeDisplayForTable,
