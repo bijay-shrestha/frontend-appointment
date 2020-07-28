@@ -319,6 +319,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             placeholder="Select Appointment Category."
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
+                                            value={searchParameters.appointmentCategory}
                                         />
                                     </Col>
 

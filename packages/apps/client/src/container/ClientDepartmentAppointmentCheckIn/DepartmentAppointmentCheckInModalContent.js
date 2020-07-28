@@ -70,7 +70,8 @@ const DepartmentAppointmentCheckInModalContent = ({appointmentDetails}) => {
                                 <CHybridTextArea
                                     id="patientAddress"
                                     placeholder="Patient Address"
-                                    value={`${appointmentDetails.address},${appointmentDetails.vdcOrMunicipality}, ${appointmentDetails.district}, ${appointmentDetails.province}` || 'N/A'}
+                                    // value={`${appointmentDetails.address},${appointmentDetails.vdcOrMunicipality}, ${appointmentDetails.district}, ${appointmentDetails.province}` || 'N/A'}
+                                    value={appointmentDetails.address || 'N/A'}
                                     disabled={true}
                                 />
                             </Col>
