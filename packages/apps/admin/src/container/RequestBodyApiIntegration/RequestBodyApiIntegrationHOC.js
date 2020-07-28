@@ -274,7 +274,7 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
           ...req,
           sN: index + 1
         }))
-      console.log(newRequestBodyList)
+      // console.log(newRequestBodyList)
       return newRequestBodyList
     }
 
