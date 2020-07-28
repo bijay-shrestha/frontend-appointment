@@ -68,7 +68,7 @@ const DepartmentAppointmentCancellationStatusContent = ({refundData}) => {
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id=""
-                                    placeholder="Specialization Name"
+                                    placeholder="Room No."
                                     value={refundData.roomNumber}
                                     disabled={true}
                                 />
