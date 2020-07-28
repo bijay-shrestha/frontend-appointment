@@ -220,7 +220,7 @@
     height:12px;               
     top:2px;
     right:3px;
-    z-index: 9999;
+    z-index: 99;
     border:2px solid $white;
     @include border-radius(50%);
 
@@ -286,7 +286,7 @@
     
 
       span{
-        color:$gray-900;
+        // color:$gray-900;
       }
     }
 

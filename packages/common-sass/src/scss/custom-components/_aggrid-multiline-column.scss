@@ -91,13 +91,32 @@
            flex-shrink: 0;
            line-height: 30px;
           @include border-radius(4px !important) ;
-           
+           position:relative;
 
            img{
                  width:100%;
                height: auto;
              @include border-radius(4px !important) ;
            }
+
+           .image-status {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            top: 2px;
+            right: 1px;
+            z-index: 99;
+            border: 2px solid $white;
+            @include border-radius(50%);
+      
+            &.active {
+              background-color: $success;
+            }
+      
+            &.inactive {
+              background-color: $danger;
+            }
+          }
         }
 
        .di-details{

@@ -22,6 +22,7 @@ const DoctorWithSpecializationAndImage = props => {
             ) : (
                 <div className="data-image">
                     <img alt="PIC" src={DefaultPic}/>
+                    <span className="image-status active"></span>
                 </div>
             )}
 
